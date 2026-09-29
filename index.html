@@ -509,7 +509,6 @@ function render(p){
     bindChartTips();
     bindSort();
     bindFilters();
-    bindSkuChips();
   });
 }
 
@@ -540,7 +539,7 @@ function skuDetailHTML(d){
   const imgCell = r => r.img
     ? `<div class="sku-ph"><img src="${r.img}" loading="lazy" referrerpolicy="no-referrer" alt="" onerror="skuImgErr(this)"></div>`
     : `<div class="sku-ph">无图</div>`;
-  const rowHTML = (r,i)=>`<tr>
+  const rowHTML = (r,i,cls)=>`<tr${cls?` class="${cls}"`:''}>
     <td class="pf"><div style="display:flex;align-items:center;gap:10px">
       <div style="position:relative;flex-shrink:0"><span class="sku-rank">${i}</span>${imgCell(r)}</div>
       <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.msku}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${r.name}</div>`:''}</div>
@@ -579,7 +578,7 @@ function skuDetailHTML(d){
       </tr></thead>
       <tbody>
         ${top10.map((r,i)=>rowHTML(r,i+1)).join('')}
-        ${rest.map((r,i)=>`<tr class="sku-rest hidden">${rowHTML(r,i+11).replace('<tr>','').replace('</tr>','')}</tr>`).join('')}
+        ${rest.map((r,i)=>rowHTML(r,i+11,'sku-rest hidden')).join('')}
       </tbody>
     </table></div>
     ${rest.length?`<div style="margin-top:10px;text-align:center">
@@ -603,23 +602,20 @@ function skuImgErr(el){
   el.parentNode.replaceWith(d);
 }
 
-function bindSkuChips(){
-  document.querySelectorAll('.chip[data-skup]').forEach(chip=>{
-    chip.addEventListener('click',()=>{
-      curSkuPlatform = chip.dataset.skup;
-      render(curPeriod);
-    });
-  });
-  const btn = document.getElementById('skuToggle');
+// SKU 区块交互：启动时绑定一次的事件委托，panel 被整体重渲染也不失效，
+// 且不依赖 render 回调链（避免回调链前序步骤抛错导致按钮“死掉”）
+document.addEventListener('click', e => {
+  const chip = e.target.closest('[data-skup]');
+  if(chip){ curSkuPlatform = chip.dataset.skup; render(curPeriod); return; }
+  const btn = e.target.closest('#skuToggle');
   if(btn){
-    btn.addEventListener('click',()=>{
-      const rows = document.querySelectorAll('tr.sku-rest');
-      const hidden = rows[0] && rows[0].classList.contains('hidden');
-      rows.forEach(r=>r.classList.toggle('hidden', !hidden));
-      btn.innerHTML = hidden ? `收起 ▲` : `展开剩余 ${rows.length} 条 ▼`;
-    });
+    const rows = document.querySelectorAll('tr.sku-rest');
+    if(!rows.length) return;
+    const hidden = rows[0].classList.contains('hidden');
+    rows.forEach(r=>r.classList.toggle('hidden', !hidden));
+    btn.textContent = hidden ? '收起 ▲' : `展开剩余 ${rows.length} 条 ▼`;
   }
-}
+});
 
 // ========== 图表 tooltip ==========
 function bindChartTips(){
@@ -650,7 +646,7 @@ function bindSort(){
 
 // ========== 筛选器 ==========
 function bindFilters(){
-  document.querySelectorAll('.chip').forEach(chip=>{
+  document.querySelectorAll('.chip[data-p]').forEach(chip=>{
     chip.addEventListener('click', ()=>{
       const p = chip.dataset.p;
       if(filterPlatforms.has(p)) filterPlatforms.delete(p);
