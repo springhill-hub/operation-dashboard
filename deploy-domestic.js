@@ -28,14 +28,14 @@ const WIDGET = path.join(DEPLOY, 'domestic-widget.html');
 const PAGES = path.join(DEPLOY, 'domestic.html');
 const LARK_CLI = 'C:/Users/DCKJ/.trae-cn/plugins/trae-remote-official/lark/1.0.5/bin/lark-cli.exe';
 
-// 飞书独立文档配置（首次需创建文档后填入；留空则跳过并提示）
-const LARK_DOC_ID = process.env.DOMESTIC_LARK_DOC_ID || '';
+// 飞书独立文档（2026-09-29 由 docs +create 创建）
+const LARK_DOC_ID = process.env.DOMESTIC_LARK_DOC_ID || 'AtYWd4f2aoX8rZx40GHcDmiqnG0';
 
 const GIT_FILES = [
   'domestic.html', 'domestic-widget.html',
   'build-domestic.js', 'embed-domestic.js',
   'smoke-domestic.js', 'check-domestic-syntax.js',
-  'deploy-domestic.js',
+  'deploy-domestic.js', 'domestic-reference-map.json',
 ];
 
 const step = m => console.log(`\n[STEP] ${m}`);
@@ -117,11 +117,11 @@ const sh = (cmd, allowFail) => {
     if (!m) {
       // 文档无 html5-block → 新建块
       info('文档中无 html5-block，尝试 append 创建');
-      sh(`"${LARK_CLI}" docs +update --doc ${LARK_DOC_ID} --command block_insert_after --content "<html5-block path='@./domestic-widget.html'/>" --reference-map "@./reference-map.json" --as user`);
+      sh(`"${LARK_CLI}" docs +update --doc ${LARK_DOC_ID} --command block_insert_after --content "<html5-block path='@./domestic-widget.html'/>" --reference-map "@./domestic-reference-map.json" --as user`);
     } else {
       const blockId = m[1];
       info(`html5-block id=${blockId}`);
-      sh(`"${LARK_CLI}" docs +update --doc ${LARK_DOC_ID} --command block_replace --block-id ${blockId} --content "<html5-block path='@./domestic-widget.html'/>" --reference-map "@./reference-map.json" --as user`);
+      sh(`"${LARK_CLI}" docs +update --doc ${LARK_DOC_ID} --command block_replace --block-id ${blockId} --content "<html5-block path='@./domestic-widget.html'/>" --reference-map "@./domestic-reference-map.json" --as user`);
     }
     ok('飞书独立文档已更新');
   }
