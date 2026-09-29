@@ -167,10 +167,17 @@ if ($SkipLark) {
   $ErrorActionPreference = 'Continue'
   try {
     Push-Location $DeployDir
-    # 必须在deploy目录运行：@./widget.html 相对CWD
+    # 4.1 动态获取当前 html5-block id（block_replace 每次生成新 id，硬编码会失效）
+    Write-Info "fetch 文档定位当前 html5-block id"
+    $fetchOut = & $LarkCli docs +fetch --doc $LarkDocId --detail with-ids --as user 2>&1
+    # fetch 输出为转义JSON，id 引号可能形如 id=\"...\"，正则兼容转义/非转义
+    $mm = [regex]::Match(($fetchOut -join ' '), '<html5-block[^>]*id=\\?"([A-Za-z0-9]+)\\?"')
+    if (-not $mm.Success) { throw "文档中未找到 html5-block，可能需先在飞书手工创建该块" }
+    $curBlockId = $mm.Groups[1].Value
+    Write-Info "当前 html5-block id=$curBlockId"
+    # 4.2 已有 data-ref 的块必须带 --reference-map，content 用 path 引用新 widget
     $content = "<html5-block path='@./widget.html'/>"
-    Write-Info "block_replace → doc=$LarkDocId block=$LarkBlockId"
-    $output = & $LarkCli docs +update --doc $LarkDocId --command block_replace --block-id $LarkBlockId --content $content --as user 2>&1
+    $output = & $LarkCli docs +update --doc $LarkDocId --command block_replace --block-id $curBlockId --content $content --reference-map "@./reference-map.json" --as user 2>&1
     if ($LASTEXITCODE -ne 0) {
       throw "lark-cli 失败 (exit $LASTEXITCODE)：$output"
     }
