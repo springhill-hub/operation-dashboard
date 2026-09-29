@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="use-iframe" content="true">
+<meta name="html-box-height-mode" content="auto">
+<meta name="description" content="春山户外国内经营看板：聚水潭支付口径，KPI四卡+渠道环形图+趋势图+店铺明细+SKU TOP">
+<title>春山户外 · 国内经营看板</title>
+<style>
+:root{
+  --bg:#141518; --card:#1d1f24; --card2:#23262c; --line:#33363e;
+  --txt:#e8e6e1; --sub:#9a9da6; --fire:#ff7a3c; --gold:#f5c66a;
+  --green:#4cc38a; --red:#e5534b; --blue:#5b9dd9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:44px;height:44px;border:2px solid var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--green);font-size:20px;letter-spacing:-1px}
+h1{font-size:22px;letter-spacing:1px}
+h1 small{display:block;font-size:11px;color:var(--sub);letter-spacing:3px;font-weight:400;margin-top:3px}
+.meta{text-align:right;font-size:12px;color:var(--sub);line-height:1.7}
+.meta b{color:var(--gold)}
+.tabs{display:flex;gap:8px;margin-bottom:20px}
+.tab{flex:1;padding:13px 0;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:10px;cursor:pointer;color:var(--sub);font-size:14px;transition:.25s}
+.tab:hover{color:var(--txt)}
+.tab.on{background:linear-gradient(160deg,#182a20,#1d1f24);border-color:var(--green);color:var(--green);font-weight:600}
+.tab .d{font-size:11px;color:var(--sub);margin-top:3px;font-weight:400}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--green),transparent 70%)}
+.kpi .lb{font-size:12px;color:var(--sub)}
+.kpi .v{font-size:26px;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.kpi .s{font-size:11px;color:var(--sub);margin-top:4px}
+.kpi .v.gmv{color:var(--gold)}
+.kpi .v.net{color:var(--green)}
+.kpi .v.ord{color:var(--txt)}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px}
+.sec h2{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec h2::before{content:"";width:3px;height:14px;background:var(--green);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:var(--sub);font-weight:500;text-align:right;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:9px 10px;text-align:right;border-bottom:1px solid #262930;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:hover td{background:#22252b}
+td.pf{font-weight:600}
+.neg{color:var(--red)}
+.pos{color:var(--green)}
+.cur{font-size:10px;color:var(--sub);margin-left:2px}
+.tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;margin-left:6px}
+.tag.warn{background:#3a2f1a;color:var(--gold)}
+.tag.bad{background:#3a1f1e;color:var(--red)}
+.tag.ok{background:#16312a;color:var(--green)}
+.tag.mut{background:#2a2d34;color:var(--sub)}
+.caliber-note{margin:10px 0 6px;padding:9px 12px;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:11px;color:var(--sub);line-height:1.9}
+.caliber-note b{color:var(--txt)}
+.bars{display:flex;flex-direction:column;gap:11px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 150px;gap:10px;align-items:center;font-size:13px}
+.bar-track{height:16px;background:#262930;border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#2d7a56,var(--green));width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.bar-fill.o{background:linear-gradient(90deg,#b8551f,var(--fire))}
+.bar-num{font-size:12px;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+.note{font-size:12px;color:var(--sub);line-height:2}
+.note b{color:var(--gold)}
+.note .r{color:var(--red)}
+.filters{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.filter-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-group .label{font-size:12px;color:var(--sub);margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;background:var(--card2);border:1px solid var(--line);border-radius:20px;font-size:12px;cursor:pointer;transition:.2s;user-select:none}
+.chip:hover{border-color:var(--green)}
+.chip.on{background:#182a20;border-color:var(--green);color:var(--green)}
+.chip .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.chip:not(.on) .dot{opacity:.4}
+.metric-switch{display:flex;gap:4px;background:var(--card2);border-radius:8px;padding:3px}
+.metric-switch button{background:none;border:none;color:var(--sub);font-size:12px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:.2s;font-family:inherit}
+.metric-switch button.on{background:var(--green);color:#141518;font-weight:600}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.chart-card h3{font-size:13px;color:var(--sub);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.chart-card h3::before{content:"";width:3px;height:12px;background:var(--blue);border-radius:2px}
+.svg-box{width:100%;display:flex;justify-content:center;align-items:center}
+.svg-box svg{max-width:100%;height:auto}
+.chart-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;font-size:11px;color:var(--sub)}
+.chart-legend .li{display:flex;align-items:center;gap:5px}
+.chart-legend .li .dot{width:9px;height:9px;border-radius:2px}
+.chart-tip{position:absolute;background:#0d0e10;border:1px solid var(--line);border-radius:6px;padding:8px 11px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:99;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.chart-tip.on{opacity:1}
+th.sort{cursor:pointer;user-select:none;transition:color .2s}
+th.sort:hover{color:var(--green)}
+th.sort-asc::after{content:" ↑";color:var(--green)}
+th.sort-desc::after{content:" ↓";color:var(--green)}
+.table-wrap{overflow-x:auto;border-radius:8px}
+.hidden{display:none}
+footer{margin-top:26px;text-align:center;font-size:11px;color:#5d616b;letter-spacing:1px}
+.fade{animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes drawDonut{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:var(--off)}}
+@keyframes growHeight{from{height:0}to{height:var(--h)}}
+.kpi{animation:fadeUp .5s ease both}
+.kpi-num{display:inline-block;transition:opacity .3s}
+@media(max-width:900px){
+  .grid2{grid-template-columns:1fr}
+  .chart-grid{grid-template-columns:1fr}
+  .filters{flex-direction:column;align-items:stretch}
+  .bar-row{grid-template-columns:90px 1fr 110px;font-size:12px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  h1{font-size:18px}
+  .kpi .v{font-size:22px}
+}
+@media(max-width:600px){
+  .wrap{padding:18px 12px 40px}
+  .chart-card{padding:14px}
+  .sec{padding:14px}
+  th,td{padding:7px 6px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="fade">
+  <div class="brand">
+    <div class="logo">山</div>
+    <h1>春山户外 · 国内经营看板<small>GOOUT SPRINGHILL · DOMESTIC DASHBOARD</small></h1>
+  </div>
+  <div class="meta">
+    数据更新：<b id="genAt"></b> ｜ 币种：<b>CNY 本币</b>（无汇率折算）<br>
+    数据源：聚水潭 OpenAPI ｜ 口径：<b>支付口径</b>（按支付时间归期） ｜ 拉取窗口：<span id="win"></span>
+  </div>
+</header>
+
+<div class="tabs fade">
+  <div class="tab on" data-p="today"><b>今日经营</b><div class="d" id="tabD-today"></div></div>
+  <div class="tab" data-p="week"><b>本周经营</b><div class="d" id="tabD-week"></div></div>
+  <div class="tab" data-p="month"><b>本月经营</b><div class="d" id="tabD-month"></div></div>
+</div>
+
+<div id="panel"></div>
+
+<footer>春山户外智能中枢 · 总控Agent ｜ 数据源：聚水潭 OpenAPI（国内ERP）· 支付口径 v1.0</footer>
+</div>
+
+<script id="DATA-JSON" type="application/json">
+{"meta":{"generatedAt":"2026-09-29 20:54","source":"聚水潭 OpenAPI /open/orders/single/query","currency":"CNY","caliber":"支付口径：按支付时间(pay_date)归期；净销售额=有效订单支付额（取消单退款单列，不重复扣减）；支付GMV=净销售额+取消退款；客单价=净销售额/有效订单数","coveredChannels":["抖音","视频号","小红书","天猫/淘宝","京东","拼多多","微店","线下/分销"],"gaps":"天猫/淘宝/京东/微店/拼多多已在聚水潭授权但订单未进入OpenAPI（待开启订单下载）；部分退款(items.refund_qty)与平台佣金未含，待财务校准SOP接入","window":"2026-07-31 ~ 2026-09-29（按modified拉取）","reconcile":"OK"},"today":{"dateFrom":"2026-09-29","dateTo":"2026-09-29","totals":{"gmv":4202.5,"refund":1,"net":4202.5,"orders":17,"cancelOrders":1,"aov":247.21,"skuCount":18},"channels":{"抖音":{"orders":8,"gmv":1644.54,"refund":0,"net":1644.54},"线下/分销":{"orders":9,"gmv":2557.96,"refund":1,"net":2557.96}},"shops":[{"shopId":"0","shop":"{线下}","channel":"线下/分销","orders":8,"gmv":2133.96,"refund":1},{"shopId":"12973935","shop":"「抖音」春山户外","channel":"抖音","orders":7,"gmv":1376.34,"refund":0},{"shopId":"12026073","shop":"海外店","channel":"线下/分销","orders":1,"gmv":424,"refund":0},{"shopId":"19998723","shop":"「抖音」goout springhill","channel":"抖音","orders":1,"gmv":268.2,"refund":0}],"skuTop":[{"skuId":"TC-MNBL-Y","name":"春山Mini观火壁炉户外露营柴火炉小型便携折叠桌面焚火台烧水炉具","qty":6,"amount":716.4},{"skuId":"LDL-TZTM-V","name":"goout springhill春山昆仑小g拓展天幕G新型户外露营轻量化黑胶","qty":1,"amount":454.4},{"skuId":"BEL-TXW-TMGE*2","name":"碳纤维天幕杆【2根】","qty":2,"amount":451.2},{"skuId":"BH-QNQ-ZWJ","name":"春山祝融取暖器黑色户外卡式取暖炉小型便携冬天露营帐篷围炉煮茶","qty":27,"amount":401.76},{"skuId":"SL-ZML0.5-Y","name":"春山0.5单元IGT桌面炉","qty":1,"amount":368},{"skuId":"LDL-XYCQZ-TPU-E","name":"春山轩辕充气隧道帐篷TPU门【黑色】","qty":1,"amount":290.4},{"skuId":"TC-LLMN-Y","name":"goout springhill春山Mini观火灯炉复古煤油灯户外氛围灯暖茶照明","qty":1,"amount":268.2},{"skuId":"LDL-TMSL-E","name":"春山轻量化SOLO天幕","qty":1,"amount":220.8},{"skuId":"SL-MNXFL-Y","name":"goout springhill春山Mini旋风炉户外露营小型柴火炉桌面观火炉","qty":4,"amount":196},{"skuId":"BY-YHH-E","name":"goout springhill春山户外云华复古茶壶露营烧水壶泡茶煮不锈钢","qty":1,"amount":178.2},{"skuId":"LDL-XYCQZ-ZPDD","name":"goout springhill春山轩辕充气隧道帐篷户外黑胶门地垫内帐","qty":1,"amount":164.34},{"skuId":"BY-YHH-FGY1","name":"goout springhill春山户外云华复古茶壶露营烧水壶泡茶煮不锈钢","qty":1,"amount":160.2},{"skuId":"SL-TBZ-Y","name":"goout springhill春山户外轻量化徒步桌BC迷你小桌子露营便携折叠","qty":1,"amount":143.1},{"skuId":"LDL-ZSSF-CQB","name":"goout springhill春山电动充气泵户外露营充气床垫充气沙发充气泵","qty":1,"amount":80.1},{"skuId":"SL-ZRKSL-SNB","name":"春山祝融卡式气炉收纳包","qty":1,"amount":56},{"skuId":"SL-YH-Y","name":"春山便携战术油壶户外油瓶露营酒精壶按压式煤油炉燃料备用储存瓶","qty":1,"amount":53.4},{"skuId":"YS-YXCJ-Y","name":"春山云岫茶具套装","qty":1,"amount":0},{"skuId":"BEL-TXWTMG-SND","name":"春山碳纤维天幕杆收纳袋","qty":1,"amount":0}],"dailyTrend":[{"date":"2026-09-29","gmv":4202.5,"orders":17}]},"yesterday":{"dateFrom":"2026-09-28","dateTo":"2026-09-28","totals":{"gmv":11871.18,"refund":821.7,"net":11871.18,"orders":26,"cancelOrders":4,"aov":456.58,"skuCount":34},"channels":{"抖音":{"orders":13,"gmv":4905.3,"refund":821.7,"net":4905.3},"小红书":{"orders":1,"gmv":2212.2,"refund":0,"net":2212.2},"线下/分销":{"orders":12,"gmv":4753.68,"refund":0,"net":4753.68}},"shops":[{"shopId":"0","shop":"{线下}","channel":"线下/分销","orders":11,"gmv":4427.68,"refund":0},{"shopId":"20202410","shop":"睡在外面户外店","channel":"抖音","orders":2,"gmv":3531.6,"refund":0},{"shopId":"14292343","shop":"「小红书」goout springhill户外的店","channel":"小红书","orders":1,"gmv":2212.2,"refund":0},{"shopId":"12973935","shop":"「抖音」春山户外","channel":"抖音","orders":11,"gmv":1373.7,"refund":553.5},{"shopId":"12026073","shop":"海外店","channel":"线下/分销","orders":1,"gmv":326,"refund":0},{"shopId":"19998723","shop":"「抖音」goout springhill","channel":"抖音","orders":0,"gmv":0,"refund":268.2}],"skuTop":[{"skuId":"LDL-QZ-K-5-DP","name":"昆仑Pro 3.0 （顶配）沙色","qty":1,"amount":3232.8},{"skuId":"LDL-CQ4PM-V","name":"goout springhill 春山蓬莱4P庇护所充气帐篷地堡一室一厅户外露营BC防雨过夜天窗 2.0棉布款蓬莱4P充气帐篷【军绿色】","qty":1,"amount":2212.2},{"skuId":"LDL-CQ4P-U2.0","name":"春山蓬莱4P庇护所充气帐篷主帐2.0【灰色】","qty":1,"amount":1108.8},{"skuId":"TC-MNBL-Y","name":"春山mini观火壁炉","qty":5,"amount":616.9},{"skuId":"LDL-CQ4PTZ-U2.0","name":"蓬莱4P庇护所充气帐篷拓展前厅2.0【灰色】","qty":1,"amount":598.8},{"skuId":"SL-MNXFL-Y","name":"goout springhill春山Mini旋风炉户外露营小型柴火炉桌面观火炉","qty":6,"amount":588},{"skuId":"BEL-SFZ-E","name":"goout springhill春山2026碳纤维四方桌便携igt露营桌徒步轻量化","qty":1,"amount":268.2},{"skuId":"CS-PL-3R-WZ-V","name":"蓬莱3P外帐【军绿色】","qty":2,"amount":260},{"skuId":"BH-QNQ-Y-TZ","name":"祝融取暖器【银色套装】","qty":1,"amount":254.28},{"skuId":"SL-ZML0.5-Y","name":"春山0.5单元IGT桌面炉","qty":1,"amount":239.4},{"skuId":"SL-ZSTMG-U","name":"春山战术伸缩天幕杆","qty":1,"amount":238.8},{"skuId":"CS-BT-HS-G","name":"goout springhill寒霜冰桶304大容量保冷桶储存放冰块保温桶","qty":1,"amount":224.1},{"skuId":"LDL-TMSL-E","name":"春山轻量化SOLO天幕","qty":1,"amount":220.8},{"skuId":"LDL-CQ4P-NZ","name":"蓬莱4P庇护所充气帐篷内帐","qty":1,"amount":220.8},{"skuId":"BEL-FSYLY-E","name":"春山扶桑碳纤维月亮椅户外折叠椅轻量化露营椅子超轻钓鱼椅便携式","qty":1,"amount":214.8},{"skuId":"SL-ZQHT-Y-LTTZ","name":"朱雀取暖器（炉头2件套）","qty":1,"amount":208.8},{"skuId":"SL-XWHT-Y-LTTZ","name":"玄武取暖器（炉头2件套）","qty":1,"amount":190.8},{"skuId":"LDL-CQ4PTZ-TPUU2.0","name":"蓬莱4P庇护所充气帐拓展前厅2.0TPU门【灰色】","qty":1,"amount":166.8},{"skuId":"SL-DBTT-H","name":"春山半加仑一加仑冰桶战术壶套保温套千风yeti冰桶户外防撞保护套","qty":3,"amount":142.2},{"skuId":"LDL-CQ4P-DD","name":"蓬莱4P庇护所充气帐篷澡盆地垫","qty":1,"amount":112.8}],"dailyTrend":[{"date":"2026-09-28","gmv":11871.18,"orders":26}]},"week":{"dateFrom":"2026-09-23","dateTo":"2026-09-29","totals":{"gmv":68632.68,"refund":15801.36,"net":68632.68,"orders":126,"cancelOrders":21,"aov":544.7,"skuCount":74},"channels":{"抖音":{"orders":90,"gmv":45758.44,"refund":15800.36,"net":45758.44},"视频号":{"orders":1,"gmv":199,"refund":0,"net":199},"小红书":{"orders":2,"gmv":2611.2,"refund":0,"net":2611.2},"线下/分销":{"orders":33,"gmv":20064.04,"refund":1,"net":20064.04}},"shops":[{"shopId":"12973935","shop":"「抖音」春山户外","channel":"抖音","orders":83,"gmv":41116.76,"refund":15532.16},{"shopId":"20103209","shop":"{分销线下}","channel":"线下/分销","orders":2,"gmv":10021.4,"refund":0},{"shopId":"0","shop":"{线下}","channel":"线下/分销","orders":28,"gmv":8089.64,"refund":1},{"shopId":"20202410","shop":"睡在外面户外店","channel":"抖音","orders":4,"gmv":3972.8,"refund":0},{"shopId":"14292343","shop":"「小红书」goout springhill户外的店","channel":"小红书","orders":2,"gmv":2611.2,"refund":0},{"shopId":"12026073","shop":"海外店","channel":"线下/分销","orders":3,"gmv":1953,"refund":0},{"shopId":"19998723","shop":"「抖音」goout springhill","channel":"抖音","orders":1,"gmv":268.2,"refund":268.2},{"shopId":"21410296","shop":"青禾户外装备","channel":"抖音","orders":1,"gmv":274.28,"refund":0},{"shopId":"21107846","shop":"「微信视频号」春山户外装备店","channel":"视频号","orders":1,"gmv":199,"refund":0},{"shopId":"21954837","shop":"成都云羚户外集合店","channel":"抖音","orders":1,"gmv":126.4,"refund":0}],"skuTop":[{"skuId":"LDL-XYCQZM-E","name":"goout springhill春山轩辕充气隧道帐篷一体充气帐篷大型户外露营","qty":5,"amount":12049.11},{"skuId":"BEL-FSYLY-E","name":"春山扶桑碳纤维月亮椅","qty":20,"amount":4296},{"skuId":"BH-ZRKSL-TZ","name":"goout springhill春山祝融卡式气炉气罐卡式炉户外便携式防风家用","qty":12,"amount":4036.56},{"skuId":"LDL-XYCQZM-V","name":"goout springhill春山轩辕充气隧道帐篷一体充气帐篷大型户外露营","qty":1,"amount":4016.37},{"skuId":"LDL-QZ-K-5-DP","name":"昆仑Pro 3.0 （顶配）沙色","qty":1,"amount":3232.8},{"skuId":"TC-LLMN-Y","name":"goout springhill春山Mini观火灯炉复古煤油灯户外氛围灯暖茶照明","qty":17,"amount":3197.2},{"skuId":"LDL-XYCQZ-U-1","name":"goout springhill春山轩辕充气隧道帐篷一体充气帐篷大型户外露营","qty":1,"amount":3186.37},{"skuId":"BH-ZRKSL-Y","name":"goout springhill春山祝融卡式气炉气罐卡式炉户外便携式防风家用","qty":10,"amount":3062.4},{"skuId":"TC-MNBL-Y","name":"春山mini观火壁炉","qty":24,"amount":2981.82},{"skuId":"LDL-XYCQZ-NZ","name":"goout springhill春山轩辕充气隧道帐篷户外黑胶门地垫内帐","qty":8,"amount":2828.64},{"skuId":"LDL-CQ4PM-V","name":"goout springhill 春山蓬莱4P庇护所充气帐篷地堡一室一厅户外露营BC防雨过夜天窗 2.0棉布款蓬莱4P充气帐篷【军绿色】","qty":1,"amount":2212.2},{"skuId":"SL-ZML0.5-Y","name":"春山0.5单元IGT桌面炉","qty":5,"amount":1634.8},{"skuId":"BEL-TXW-TMGE*2","name":"碳纤维天幕杆【2根】","qty":7,"amount":1579.2},{"skuId":"BEL-SFZ-E","name":"goout springhill春山金乌碳纤维四方桌便携igt露营桌徒步轻量化","qty":5,"amount":1317.16},{"skuId":"LDL-CQ4P-U2.0","name":"春山蓬莱4P庇护所充气帐篷主帐2.0【灰色】","qty":1,"amount":1108.8},{"skuId":"SL-MNXFL-Y","name":"goout springhill春山Mini旋风炉户外露营小型柴火炉桌面观火炉","qty":14,"amount":1078},{"skuId":"LDL-XYCQZM-TPU-E","name":"棉布款轩辕充气隧道帐篷TPU门【黑色】","qty":4,"amount":952.84},{"skuId":"BH-QNQ-Y-TZ","name":"春山祝融取暖器黑色户外卡式取暖炉小型便携冬天露营帐篷围炉煮茶","qty":3,"amount":881.51},{"skuId":"LDL-TZTM-V","name":"goout springhill春山昆仑小g拓展天幕G新型户外露营轻量化黑胶","qty":2,"amount":852},{"skuId":"LDL-XYCQZTM-U","name":"goout springhill春山轩辕充气隧道帐篷户外黑胶门地垫内帐","qty":1,"amount":828.34}],"dailyTrend":[{"date":"2026-09-23","gmv":17491.17,"orders":22},{"date":"2026-09-24","gmv":24748.52,"orders":24},{"date":"2026-09-25","gmv":2786.24,"orders":11},{"date":"2026-09-26","gmv":3553.03,"orders":10},{"date":"2026-09-27","gmv":3980.04,"orders":16},{"date":"2026-09-28","gmv":11871.18,"orders":26},{"date":"2026-09-29","gmv":4202.5,"orders":17}]},"lastWeek":{"dateFrom":"2026-09-16","dateTo":"2026-09-22","totals":{"gmv":143462.41,"refund":24350.35,"net":143462.41,"orders":230,"cancelOrders":53,"aov":623.75,"skuCount":115},"channels":{"抖音":{"orders":138,"gmv":38561.9,"refund":19028.01,"net":38561.9},"视频号":{"orders":15,"gmv":2858.61,"refund":1393,"net":2858.61},"小红书":{"orders":16,"gmv":3316.95,"refund":3789.34,"net":3316.95},"京东":{"orders":1,"gmv":294.2,"refund":0,"net":294.2},"线下/分销":{"orders":60,"gmv":98430.75,"refund":140,"net":98430.75}},"shops":[{"shopId":"0","shop":"{线下}","channel":"线下/分销","orders":50,"gmv":58216.35,"refund":140},{"shopId":"12973935","shop":"「抖音」春山户外","channel":"抖音","orders":136,"gmv":38373.7,"refund":18844.21},{"shopId":"21685921","shop":"台湾老史强","channel":"线下/分销","orders":3,"gmv":38294.4,"refund":0},{"shopId":"14292343","shop":"「小红书」goout springhill户外的店","channel":"小红书","orders":16,"gmv":3316.95,"refund":3789.34},{"shopId":"21107846","shop":"「微信视频号」春山户外装备店","channel":"视频号","orders":14,"gmv":2651.94,"refund":1393},{"shopId":"12026073","shop":"海外店","channel":"线下/分销","orders":6,"gmv":1920,"refund":0},{"shopId":"21374601","shop":"凤楼吟户外装备专营店","channel":"京东","orders":1,"gmv":294.2,"refund":0},{"shopId":"19197760","shop":"「微信视频号」春山户外","channel":"视频号","orders":1,"gmv":206.67,"refund":0},{"shopId":"21401096","shop":"露营用品装备店","channel":"抖音","orders":2,"gmv":188.2,"refund":0},{"shopId":"16679917","shop":"懒人露营","channel":"抖音","orders":0,"gmv":0,"refund":183.8},{"shopId":"20103209","shop":"{分销线下}","channel":"线下/分销","orders":1,"gmv":0,"refund":0}],"skuTop":[{"skuId":"LDL-XYCQZ-U-1","name":"春山轩辕充气隧道帐篷【灰色】","qty":26,"amount":25145.45},{"skuId":"TC-LLMN-Y","name":"goout springhill春山Mini观火灯炉复古煤油灯户外氛围灯暖茶照明","qty":60,"amount":11729.28},{"skuId":"BH-ZRKSL-Y","name":"goout springhill春山祝融卡式气炉气罐卡式炉户外便携式防风家用","qty":61,"amount":9075.84},{"skuId":"LDL-XYCQZ-E-1","name":"春山轩辕充气隧道帐篷【黑色】","qty":33,"amount":7409.27},{"skuId":"YS-YXCJ-Y","name":"春山云岫茶具套装户外露营泡茶神器旅行专用茶杯便携式双层轻量化","qty":24,"amount":5877},{"skuId":"LDL-XYCQZ-NZ","name":"春山轩辕充气隧道帐篷内帐","qty":16,"amount":5032.48},{"skuId":"LDL-QZ-ME-3","name":"昆仑棉布款 3.0【黑色】","qty":2,"amount":4437.6},{"skuId":"LDL-XYCQZTM-E","name":"春山轩辕充气隧道帐篷拓展天幕【黑色】","qty":7,"amount":4421.14},{"skuId":"BH-ZRKSL-TZ","name":"goout springhill春山祝融卡式气炉气罐卡式炉户外便携式防风家用","qty":12,"amount":4036.56},{"skuId":"BH-QNQ-Y","name":"春山祝融取暖器黑色户外卡式取暖炉小型便携冬天露营帐篷围炉煮茶","qty":15,"amount":3814.44},{"skuId":"BH-QNQ-Y-TZ","name":"祝融取暖器【银色套装】","qty":14,"amount":3424.31},{"skuId":"SL-ZML0.5-Y","name":"goout springhill春山0.5单元小型桌面炉户外露营柴火便携折叠","qty":41,"amount":3360.6},{"skuId":"BY-YHH-FGY1","name":"goout springhill春山云华复古茶壶套装户外露营烧水壶泡茶不锈钢","qty":29,"amount":3232.48},{"skuId":"LDL-PL4P-ME","name":"春山蓬莱4P庇护所棉布款","qty":2,"amount":2942.24},{"skuId":"BEL-FSYLY-E","name":"春山扶桑碳纤维月亮椅","qty":52,"amount":2878.32},{"skuId":"LDL-QZTZ-ME","name":"goout springhill春山昆仑球帐拓展帐小g配件专拍通用棉布昆仑","qty":4,"amount":2854.8},{"skuId":"SL-LL2.0-QE","name":"琉璃观火灯炉2.0【枪灰色+黑胡桃木】","qty":9,"amount":2507.08},{"skuId":"LDL-XYCQZTM-V","name":"春山轩辕充气隧道帐篷拓展天幕【军绿色】","qty":4,"amount":2395.2},{"skuId":"BEL-SFZ-E","name":"goout springhill春山金乌碳纤维四方桌便携igt露营桌徒步轻量化","qty":10,"amount":2360.16},{"skuId":"SL-FXL3.0-Y","name":"gooutspringhill春山户外Mini柴火炉3.0复古焚香炉酒精炉煮茶木柴","qty":42,"amount":2044.29}],"dailyTrend":[{"date":"2026-09-16","gmv":2790.4,"orders":18},{"date":"2026-09-17","gmv":8408.02,"orders":27},{"date":"2026-09-18","gmv":5464.02,"orders":26},{"date":"2026-09-19","gmv":10661.69,"orders":30},{"date":"2026-09-20","gmv":56641.53,"orders":76},{"date":"2026-09-21","gmv":29891.52,"orders":21},{"date":"2026-09-22","gmv":29605.23,"orders":32}]},"month":{"dateFrom":"2026-09-01","dateTo":"2026-09-29","totals":{"gmv":527470.39,"refund":61595.74,"net":527470.39,"orders":795,"cancelOrders":182,"aov":663.48,"skuCount":218},"channels":{"抖音":{"orders":417,"gmv":149223.22,"refund":49948.59,"net":149223.22},"视频号":{"orders":75,"gmv":14737.43,"refund":4256.5,"net":14737.43},"小红书":{"orders":79,"gmv":18634.08,"refund":7068.85,"net":18634.08},"京东":{"orders":3,"gmv":483,"refund":180.8,"net":483},"线下/分销":{"orders":221,"gmv":344392.66,"refund":141,"net":344392.66}},"shops":[{"shopId":"12973935","shop":"「抖音」春山户外","channel":"抖音","orders":399,"gmv":142593.18,"refund":48990.99},{"shopId":"21685921","shop":"台湾老史强","channel":"线下/分销","orders":7,"gmv":176989.5,"refund":0},{"shopId":"0","shop":"{线下}","channel":"线下/分销","orders":184,"gmv":144160.59,"refund":141},{"shopId":"14292343","shop":"「小红书」goout springhill户外的店","channel":"小红书","orders":79,"gmv":18634.08,"refund":7068.85},{"shopId":"21107846","shop":"「微信视频号」春山户外装备店","channel":"视频号","orders":70,"gmv":13704.08,"refund":4256.5},{"shopId":"12026073","shop":"海外店","channel":"线下/分销","orders":24,"gmv":13173.77,"refund":0},{"shopId":"20103209","shop":"{分销线下}","channel":"线下/分销","orders":6,"gmv":10068.8,"refund":0},{"shopId":"20202410","shop":"睡在外面户外店","channel":"抖音","orders":4,"gmv":3972.8,"refund":190.8},{"shopId":"19197760","shop":"「微信视频号」春山户外","channel":"视频号","orders":5,"gmv":1033.35,"refund":0},{"shopId":"21401096","shop":"露营用品装备店","channel":"抖音","orders":6,"gmv":1030.8,"refund":0},{"shopId":"19998723","shop":"「抖音」goout springhill","channel":"抖音","orders":3,"gmv":749.56,"refund":268.2},{"shopId":"16679917","shop":"懒人露营","channel":"抖音","orders":3,"gmv":476.2,"refund":498.6},{"shopId":"21374601","shop":"凤楼吟户外装备专营店","channel":"京东","orders":3,"gmv":483,"refund":180.8},{"shopId":"21410296","shop":"青禾户外装备","channel":"抖音","orders":1,"gmv":274.28,"refund":0},{"shopId":"21954837","shop":"成都云羚户外集合店","channel":"抖音","orders":1,"gmv":126.4,"refund":0}],"skuTop":[{"skuId":"LDL-XYCQZ-U-1","name":"春山轩辕充气隧道帐篷【灰色】","qty":34,"amount":51365.82},{"skuId":"LDL-XYCQZ-E-1","name":"春山轩辕充气隧道帐篷【黑色】","qty":49,"amount":47680.38},{"skuId":"SL-FXL3.0-Y","name":"露营小布gooutspringhill春山户外Mini柴火炉3.0复古焚香炉酒精炉煮茶木柴","qty":186,"amount":33153.59},{"skuId":"LDL-XYCQZ-V-1","name":"春山轩辕充气隧道帐篷【军绿色】","qty":16,"amount":32593.11},{"skuId":"LDL-XYCQZ-NZ","name":"春山轩辕充气隧道帐篷内帐","qty":62,"amount":20288.96},{"skuId":"BH-ZRKSL-Y","name":"goout springhill春山祝融卡式气炉气罐卡式炉户外便携式防风家用","qty":151,"amount":17326.92},{"skuId":"TC-LLMN-Y","name":"goout springhill春山Mini观火灯炉复古煤油灯户外氛围灯暖茶照明","qty":85,"amount":16586.34},{"skuId":"LDL-MGCQZ-V","name":"伏羲充气球帐【军绿色】","qty":6,"amount":15796.8},{"skuId":"BY-YHH-FGY1","name":"露营小布goout springhill春山云华复古茶壶套装户外露营烧水壶泡茶不锈钢","qty":109,"amount":14687.86},{"skuId":"BY-YHH-FGY-BB","name":"复古银色云华壶定制白包装","qty":110,"amount":13200},{"skuId":"LDL-MGCQZ-E","name":"伏羲充气球帐【黑色】","qty":5,"amount":13164},{"skuId":"LDL-XYCQZM-E","name":"春山轩辕充气隧道帐篷棉布款","qty":7,"amount":12049.11},{"skuId":"BH-ZRKSL-TZ","name":"goout springhill春山祝融卡式气炉气罐卡式炉户外便携式防风家用","qty":37,"amount":11359.08},{"skuId":"BEL-FSYLY-E","name":"春山扶桑碳纤维月亮椅","qty":106,"amount":10654.08},{"skuId":"LDL-CQZ-ME","name":"伏羲充气球帐棉布款【黑色】","qty":3,"amount":9698.4},{"skuId":"SL-ZML0.5-Y","name":"春山0.5单元IGT桌面炉","qty":67,"amount":8331.04},{"skuId":"YS-YXCJ-Y","name":"春山云岫茶具套装户外露营泡茶神器旅行专用茶杯便携式双层轻量化","qty":40,"amount":8261.36},{"skuId":"LDL-ZSSF-E","name":"春山毕方战术沙发","qty":24,"amount":7538.4},{"skuId":"BH-QNQ-Y","name":"春山祝融取暖器黑色户外卡式取暖炉小型便携冬天露营帐篷围炉煮茶","qty":28,"amount":7309.68},{"skuId":"TC-MNBL-Y","name":"春山mini观火壁炉","qty":99,"amount":6611.58}],"dailyTrend":[{"date":"2026-09-01","gmv":7204.57,"orders":13},{"date":"2026-09-02","gmv":10702.41,"orders":46},{"date":"2026-09-03","gmv":50690.82,"orders":78},{"date":"2026-09-04","gmv":8462.36,"orders":33},{"date":"2026-09-05","gmv":9246.87,"orders":47},{"date":"2026-09-06","gmv":2326.3,"orders":12},{"date":"2026-09-07","gmv":33588.08,"orders":17},{"date":"2026-09-08","gmv":2273.43,"orders":12},{"date":"2026-09-09","gmv":37939.44,"orders":16},{"date":"2026-09-10","gmv":8129.74,"orders":21},{"date":"2026-09-11","gmv":19964.26,"orders":44},{"date":"2026-09-12","gmv":12547.01,"orders":15},{"date":"2026-09-13","gmv":5254.53,"orders":31},{"date":"2026-09-14","gmv":87560.31,"orders":23},{"date":"2026-09-15","gmv":19485.17,"orders":31},{"date":"2026-09-16","gmv":2790.4,"orders":18},{"date":"2026-09-17","gmv":8408.02,"orders":27},{"date":"2026-09-18","gmv":5464.02,"orders":26},{"date":"2026-09-19","gmv":10661.69,"orders":30},{"date":"2026-09-20","gmv":56641.53,"orders":76},{"date":"2026-09-21","gmv":29891.52,"orders":21},{"date":"2026-09-22","gmv":29605.23,"orders":32},{"date":"2026-09-23","gmv":17491.17,"orders":22},{"date":"2026-09-24","gmv":24748.52,"orders":24},{"date":"2026-09-25","gmv":2786.24,"orders":11},{"date":"2026-09-26","gmv":3553.03,"orders":10},{"date":"2026-09-27","gmv":3980.04,"orders":16},{"date":"2026-09-28","gmv":11871.18,"orders":26},{"date":"2026-09-29","gmv":4202.5,"orders":17}]},"lastMonth":{"dateFrom":"2026-08-01","dateTo":"2026-08-31","totals":{"gmv":481777.99,"refund":265318.91,"net":481777.99,"orders":890,"cancelOrders":176,"aov":541.32,"skuCount":428},"channels":{"抖音":{"orders":294,"gmv":100510.96,"refund":44803.24,"net":100510.96},"视频号":{"orders":58,"gmv":12368.72,"refund":4188.61,"net":12368.72},"小红书":{"orders":76,"gmv":21085.05,"refund":8588.98,"net":21085.05},"京东":{"orders":2,"gmv":318.6,"refund":200011,"net":318.6},"线下/分销":{"orders":460,"gmv":347494.66,"refund":7727.08,"net":347494.66}},"shops":[{"shopId":"0","shop":"{线下}","channel":"线下/分销","orders":417,"gmv":216027.66,"refund":7727.08},{"shopId":"21374601","shop":"凤楼吟户外装备专营店","channel":"京东","orders":2,"gmv":318.6,"refund":200011},{"shopId":"12973935","shop":"「抖音」春山户外","channel":"抖音","orders":265,"gmv":70385.2,"refund":36479.56},{"shopId":"21685921","shop":"台湾老史强","channel":"线下/分销","orders":3,"gmv":103631.6,"refund":0},{"shopId":"19998723","shop":"「抖音」goout springhill","channel":"抖音","orders":15,"gmv":27211.96,"refund":7121.08},{"shopId":"14292343","shop":"「小红书」goout springhill户外的店","channel":"小红书","orders":76,"gmv":21085.05,"refund":8588.98},{"shopId":"12026073","shop":"海外店","channel":"线下/分销","orders":31,"gmv":26945.4,"refund":0},{"shopId":"21107846","shop":"「微信视频号」春山户外装备店","channel":"视频号","orders":54,"gmv":11745.39,"refund":4188.61},{"shopId":"20202410","shop":"睡在外面户外店","channel":"抖音","orders":5,"gmv":1318.4,"refund":831},{"shopId":"16679917","shop":"懒人露营","channel":"抖音","orders":5,"gmv":924,"refund":186.8},{"shopId":"20103209","shop":"{分销线下}","channel":"线下/分销","orders":9,"gmv":890,"refund":0},{"shopId":"19197760","shop":"「微信视频号」春山户外","channel":"视频号","orders":4,"gmv":623.33,"refund":0},{"shopId":"18127558","shop":"山脉之光户外（青海）","channel":"抖音","orders":2,"gmv":396.2,"refund":184.8},{"shopId":"21401096","shop":"露营用品装备店","channel":"抖音","orders":2,"gmv":275.2,"refund":0}],"skuTop":[{"skuId":"TC-LLMN-Y","name":"露营小布goout springhill春山Mini观火灯炉复古煤油灯户外氛围灯暖茶照明","qty":215,"amount":52474.02},{"skuId":"LDL-XYCQZ-V-1","name":"春山轩辕充气隧道帐篷【军绿色】","qty":14,"amount":34466.52},{"skuId":"LDL-XYCQZ-E-1","name":"春山轩辕充气隧道帐篷【黑色】","qty":11,"amount":26220.37},{"skuId":"LDL-XYCQZ-E","name":"春山轩辕充气隧道帐篷","qty":9,"amount":20996.68},{"skuId":"SL-BTJ-E","name":"春山冰桶架","qty":191,"amount":20860.4},{"skuId":"LDL-MGCQZ-V","name":"伏羲充气球帐【军绿色】","qty":7,"amount":18429.6},{"skuId":"LDL-XYCQZ-V","name":"春山轩辕充气隧道帐篷","qty":7,"amount":15582.44},{"skuId":"BY-YHH-FGY-BB","name":"复古银色云华壶定制白包装","qty":107,"amount":12840},{"skuId":"LDL-XYCQZTM-E","name":"goout springhill春山轩辕充气隧道帐篷TPU门地垫内帐","qty":18,"amount":11766.42},{"skuId":"LDL-CQZTZ-V","name":"春山伏羲拓展帐【军绿色】","qty":16,"amount":10540.8},{"skuId":"LDL-CQZTZ-E","name":"春山伏羲拓展帐【黑色】","qty":16,"amount":10540.8},{"skuId":"BY-YHH-FGY1","name":"露营小布goout springhill春山云华复古茶壶套装户外露营烧水壶泡茶不锈钢","qty":67,"amount":9310.76},{"skuId":"YS-YXCJ-Y","name":"春山云岫茶具套装","qty":65,"amount":9112.24},{"skuId":"LDL-XYCQZ-NZ","name":"春山轩辕充气隧道帐篷内帐","qty":32,"amount":8695.48},{"skuId":"LDL-XYCQZTM-V","name":"春山轩辕充气隧道帐篷拓展天幕【军绿色】","qty":16,"amount":8542.88},{"skuId":"BH-ZRKSL-Y","name":"春山祝融卡式气炉","qty":118,"amount":8150.2},{"skuId":"LDL-CQZTZ-NZ","name":"春山伏羲拓展帐内帐","qty":22,"amount":6969.6},{"skuId":"LDL-CQZ-ME","name":"伏��充气球帐棉布款【黑色】","qty":2,"amount":6465.6},{"skuId":"LDL-CQ4P-E2.0","name":"春山蓬莱4P庇护所充气帐篷主帐2.0【黑色】","qty":22,"amount":4939.06},{"skuId":"LDL-QZ-ME-3","name":"昆仑棉布款 3.0【黑色】","qty":2,"amount":4437.6}],"dailyTrend":[{"date":"2026-08-01","gmv":38045.1,"orders":17},{"date":"2026-08-02","gmv":5254.18,"orders":4},{"date":"2026-08-03","gmv":7775.46,"orders":24},{"date":"2026-08-04","gmv":1931.6,"orders":7},{"date":"2026-08-05","gmv":2856.26,"orders":16},{"date":"2026-08-06","gmv":2221.54,"orders":7},{"date":"2026-08-07","gmv":17215.35,"orders":136},{"date":"2026-08-08","gmv":9427.14,"orders":35},{"date":"2026-08-09","gmv":918.72,"orders":8},{"date":"2026-08-10","gmv":37110.35,"orders":36},{"date":"2026-08-11","gmv":5751.88,"orders":18},{"date":"2026-08-12","gmv":3911.12,"orders":12},{"date":"2026-08-13","gmv":2497.32,"orders":14},{"date":"2026-08-14","gmv":38852.96,"orders":70},{"date":"2026-08-15","gmv":16309.24,"orders":21},{"date":"2026-08-16","gmv":11275.2,"orders":9},{"date":"2026-08-17","gmv":3668.16,"orders":21},{"date":"2026-08-18","gmv":24863.1,"orders":21},{"date":"2026-08-19","gmv":17648.91,"orders":21},{"date":"2026-08-20","gmv":2259.6,"orders":9},{"date":"2026-08-21","gmv":28765.92,"orders":25},{"date":"2026-08-22","gmv":4695.3,"orders":14},{"date":"2026-08-23","gmv":4908.7,"orders":12},{"date":"2026-08-24","gmv":106913.97,"orders":15},{"date":"2026-08-25","gmv":5741.98,"orders":19},{"date":"2026-08-26","gmv":6428.96,"orders":11},{"date":"2026-08-27","gmv":7218.6,"orders":9},{"date":"2026-08-28","gmv":10806.99,"orders":51},{"date":"2026-08-29","gmv":29133.74,"orders":116},{"date":"2026-08-30","gmv":19458.53,"orders":91},{"date":"2026-08-31","gmv":7912.11,"orders":21}]}}
+</script>
+
+<script>
+const DATA = JSON.parse(document.getElementById('DATA-JSON').textContent);
+const fmt = n => Number(n).toLocaleString('zh-CN',{maximumFractionDigits:2});
+const fmt0 = n => Number(Math.round(n)).toLocaleString('zh-CN');
+
+// 渠道配色（固定）
+const CHANNELS = DATA.meta.coveredChannels || ['抖音','视频号','小红书','天猫/淘宝','京东','拼多多','微店','线下/分销'];
+const CCOLOR = {'抖音':'#ff7a3c','视频号':'#5b9dd9','小红书':'#e5534b','天猫/淘宝':'#f5c66a','京东':'#b07cd6','拼多多':'#d6a06e','微店':'#7eb8c9','线下/分销':'#4cc38a'};
+const colorOf = c => CCOLOR[c] || '#9a9da6';
+
+// 头部
+document.getElementById('genAt').textContent = DATA.meta.generatedAt;
+document.getElementById('win').textContent = DATA.meta.window || '';
+
+// Tab 日期
+document.getElementById('tabD-today').textContent = DATA.today ? DATA.today.dateFrom : '';
+document.getElementById('tabD-week').textContent = DATA.week ? DATA.week.dateFrom + ' ~ ' + DATA.week.dateTo : '';
+document.getElementById('tabD-month').textContent = DATA.month ? DATA.month.dateFrom + ' ~ ' + DATA.month.dateTo : '';
+
+let curPeriod = 'today';
+let filterChannels = new Set(CHANNELS);
+let curMetric = 'net'; // net | gmv
+let sortCol = 'gmv';
+let sortDir = 'desc';
+
+// 店铺行构建（含取消退款）
+function rowsOf(p){
+  return (DATA[p].shops||[]).map(r => ({
+    name:r.shop, channel:r.channel, orders:r.orders,
+    gmv:r.gmv, refund:r.refund||0, net:r.gmv,
+    aov: r.orders ? r.gmv/r.orders : 0
+  }));
+}
+function filteredRows(rows){ return rows.filter(r => filterChannels.has(r.channel)); }
+const r2 = v => Math.round((Number(v) || 0) * 100) / 100;
+function totals(rows){
+  const t = {orders:0, gmv:0, refund:0, net:0};
+  for(const r of rows){ t.orders+=r.orders; t.refund+=r.refund; t.net+=r.gmv; }
+  t.net = r2(t.net); t.refund = r2(t.refund);
+  t.gmv = r2(t.net + t.refund); // 支付GMV = 有效支付 + 取消退款（全口径）
+  t.aov = t.orders ? r2(t.net/t.orders) : 0;
+  return t;
+}
+function pct(cur, prev){
+  if(prev==null||prev===0||cur==null) return null;
+  return +(((cur-prev)/Math.abs(prev))*100).toFixed(1);
+}
+const arrHTML = p => {
+  if(p==null) return '<span style="color:var(--sub)">—</span>';
+  return `<span class="${p>=0?'pos':'neg'}">${p>=0?'▲':'▼'} ${Math.abs(p)}%</span>`;
+};
+
+// ========== 渠道聚合（图表用） ==========
+function channelAgg(rows){
+  const m = {};
+  for(const r of rows){
+    m[r.channel] = m[r.channel] || {channel:r.channel, orders:0, gmv:0, refund:0, net:0};
+    m[r.channel].orders += r.orders; m[r.channel].gmv = r2(m[r.channel].gmv + r.gmv + r.refund); m[r.channel].refund = r2(m[r.channel].refund + r.refund); m[r.channel].net = r2(m[r.channel].net + r.gmv);
+  }
+  return Object.values(m).sort((a,b)=>b.net-a.net);
+}
+
+// ========== KPI ==========
+function kpiHTML(t, prev){
+  const dGmv=pct(t.gmv,prev&&prev.gmv), dNet=pct(t.net,prev&&prev.net),
+        dOrd=pct(t.orders,prev&&prev.orders), dAov=pct(t.aov,prev&&prev.aov);
+  const refundRate = t.gmv ? (t.refund/t.gmv*100) : 0;
+  return `<div class="kpis">
+    <div class="kpi"><div class="lb">支付GMV（含取消单）</div><div class="v gmv kpi-num" data-val="${t.gmv}" data-prefix="¥">¥0</div>
+      <div class="s">退款率 ${refundRate.toFixed(1)}%（取消口径）</div>
+      <div class="s">环比 ${arrHTML(dGmv)}</div></div>
+    <div class="kpi"><div class="lb">净销售额（支付GMV−取消退款）</div><div class="v net kpi-num" data-val="${t.net}" data-prefix="¥">¥0</div>
+      <div class="s">取消退款 ¥${fmt0(t.refund)}</div>
+      <div class="s">环比 ${arrHTML(dNet)}</div></div>
+    <div class="kpi"><div class="lb">有效订单数</div><div class="v ord kpi-num" data-val="${t.orders}">0<span class="cur">单</span></div>
+      <div class="s">另取消 ${prev!=null?'':''}订单（详见表格）</div>
+      <div class="s">环比 ${arrHTML(dOrd)}</div></div>
+    <div class="kpi"><div class="lb">客单价（净销售口径）</div><div class="v kpi-num" data-val="${t.aov}" data-prefix="¥">¥0</div>
+      <div class="s">净销售额 ÷ 有效订单数</div>
+      <div class="s">环比 ${arrHTML(dAov)}</div></div>
+  </div>`;
+}
+
+// ========== 环形图（渠道净销售占比） ==========
+function donutHTML(chs, metric){
+  const items = chs.filter(c=>(metric==='net'?c.net:c.gmv)>0)
+    .map(c=>({name:c.channel, value: metric==='net'?c.net:c.gmv, color:colorOf(c.channel)}))
+    .sort((a,b)=>b.value-a.value);
+  if(!items.length) return '<div style="color:var(--sub);font-size:12px;text-align:center;padding:40px 0">暂无可统计数据</div>';
+  const total = items.reduce((s,i)=>s+i.value,0);
+  const R=70, r=42, cx=90, cy=90, len=2*Math.PI*R;
+  let acc=0;
+  const segs = items.map((it,idx)=>{
+    const frac = it.value/total, off = -acc*len, dur = .8+idx*.15;
+    acc += frac;
+    return `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${it.color}" stroke-width="${R-r}"
+      stroke-dasharray="${(frac*len).toFixed(2)} ${(len*(1-frac)).toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}"
+      transform="rotate(-90 ${cx} ${cy})"
+      style="animation:drawDonut ${dur}s ease both; --len:${len}; --off:${off.toFixed(2)}"
+      data-name="${it.name}" data-val2="${fmt0(it.value)}" data-pct2="${(frac*100).toFixed(1)}"/>`;
+  }).join('');
+  const label = metric==='net'?'净销售额':'支付GMV';
+  const legend = items.map(it=>`<div class="li"><span class="dot" style="background:${it.color}"></span>${it.name} ${fmt0(it.value)} (${(it.value/total*100).toFixed(1)}%)</div>`).join('');
+  return `<div class="svg-box" style="position:relative">
+    <svg viewBox="0 0 180 180" width="180" height="180">${segs}
+      <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="var(--sub)" font-size="10">${label}</text>
+      <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="var(--gold)" font-size="14" font-weight="700">${fmt0(total)}</text>
+      <text x="${cx}" y="${cy+26}" text-anchor="middle" fill="var(--sub)" font-size="9">CNY</text>
+    </svg><div class="chart-tip" id="donutTip"></div></div>
+    <div class="chart-legend">${legend}</div>`;
+}
+
+// ========== 渠道条形对比（含退款率） ==========
+function chanBarsHTML(chs, metric){
+  const items = chs.filter(c=>(metric==='net'?c.net:c.gmv)>0)
+    .map(c=>({...c, value: metric==='net'?c.net:c.gmv})).sort((a,b)=>b.value-a.value);
+  if(!items.length) return '<div style="color:var(--sub);font-size:12px;text-align:center;padding:40px 0">暂无数据</div>';
+  const max = items[0].value;
+  const rows = items.map(c=>{
+    const rr = c.gmv ? (c.refund/c.gmv*100) : 0;
+    const rrCls = rr>=30?'bad':rr>=15?'warn':'ok';
+    return `<div class="bar-row">
+      <div style="display:flex;align-items:center;gap:6px"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:${colorOf(c.channel)};display:inline-block"></span>${c.channel}</div>
+      <div class="bar-track"><div class="bar-fill" data-w="${(c.value/max*100).toFixed(1)}" style="background:linear-gradient(90deg,${colorOf(c.channel)}88,${colorOf(c.channel)})"></div></div>
+      <div class="bar-num">¥${fmt0(c.value)} <span class="tag ${rrCls}" title="取消退款÷(支付GMV+取消退款)">退${rr.toFixed(0)}%</span></div>
+    </div>`;
+  }).join('');
+  return `<div class="bars">${rows}</div>`;
+}
+
+// ========== 近30日趋势 ==========
+function trendHTML(d){
+  const arr = d.dailyTrend || [];
+  if(arr.length<2) return '<div style="color:var(--sub);font-size:12px;text-align:center;padding:40px 0">数据点不足（单日周期）</div>';
+  const W=400, H=190, padL=44, padB=34, padT=14;
+  const plotW=W-padL-8, plotH=H-padT-padB;
+  const max = Math.max(...arr.map(x=>x.gmv));
+  const bw = plotW/arr.length*0.68;
+  const bars = arr.map((x,i)=>{
+    const h = x.gmv/max*plotH;
+    const x0 = padL + i*(plotW/arr.length) + (plotW/arr.length-bw)/2;
+    const y = padT+plotH-h;
+    const isLast = i===arr.length-1;
+    return `<g class="bar-grp" data-name="${x.date}" data-val="¥${fmt0(x.gmv)}" data-ord="${x.orders}单">
+      <rect x="${x0}" y="${y}" width="${bw.toFixed(1)}" height="${Math.max(h,1).toFixed(1)}" fill="${isLast?'var(--fire)':'var(--green)'}" rx="2" opacity="${isLast?1:.8}" style="animation:growHeight .8s ease ${i*.02}s both; --h:${Math.max(h,1).toFixed(1)}px"/>
+      ${i%Math.ceil(arr.length/10)===0?`<text x="${x0+bw/2}" y="${H-18}" text-anchor="middle" fill="var(--sub)" font-size="8">${x.date.slice(5)}</text>`:''}
+    </g>`;
+  }).join('');
+  const grid = [0.5,1].map(f=>`<line x1="${padL}" y1="${padT+plotH-plotH*f}" x2="${W-8}" y2="${padT+plotH-plotH*f}" stroke="var(--line)" stroke-dasharray="3,3"/>
+    <text x="${padL-6}" y="${padT+plotH-plotH*f+3}" text-anchor="end" fill="var(--sub)" font-size="9">${fmt0(max*f/1000)}k</text>`).join('');
+  return `<div class="svg-box" style="position:relative"><svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}">
+    ${grid}${bars}</svg><div class="chart-tip" id="trendTip"></div></div>
+    <div style="font-size:11px;color:var(--sub);text-align:center;margin-top:6px">绿色=历史日 ｜ 橙色=今日 ｜ 悬停查看单日GMV与订单数</div>`;
+}
+
+// ========== 店铺明细表（可排序） ==========
+function tableHTML(rows){
+  const sorted = [...rows].sort((a,b)=>{
+    const get = r => sortCol==='name'?r.name:(r[sortCol]==null?-Infinity:r[sortCol]);
+    const va=get(a), vb=get(b);
+    if(va===vb) return 0;
+    return sortDir==='asc' ? (va>vb?1:-1) : (va<vb?1:-1);
+  });
+  const sortCls = c => c===sortCol ? (sortDir==='asc'?'sort sort-asc':'sort sort-desc') : 'sort';
+  const tr = sorted.map(r=>{
+    const rr = (r.gmv+r.refund) ? (r.refund/(r.gmv+r.refund)*100) : 0;
+    return `<tr>
+      <td class="pf">${r.name}<span class="tag mut" style="background:${colorOf(r.channel)}22;color:${colorOf(r.channel)}">${r.channel}</span></td>
+      <td>${r.orders}</td>
+      <td>¥${fmt0(r.gmv)}</td>
+      <td>${r.refund>0?`<span class="neg">¥${fmt0(r.refund)}</span>`:'—'}<span style="font-size:10px;color:var(--sub)"> ${rr>0?rr.toFixed(0)+'%':''}</span></td>
+      <td><b>¥${fmt0(r.net)}</b></td>
+      <td>¥${fmt(r.aov)}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="sec"><h2>店铺明细（点击表头排序 ｜ 渠道芯片可筛选）</h2>
+  <div class="table-wrap"><table><thead><tr>
+    <th class="${sortCls('name')}" data-col="name">店铺</th>
+    <th class="${sortCls('orders')}" data-col="orders">有效订单</th>
+    <th class="${sortCls('gmv')}" data-col="gmv">支付GMV</th>
+    <th class="${sortCls('refund')}" data-col="refund">取消退款</th>
+    <th class="${sortCls('net')}" data-col="net">净销售额</th>
+    <th class="${sortCls('aov')}" data-col="aov">客单价</th>
+  </tr></thead><tbody>${tr}</tbody></table></div></div>`;
+}
+
+// ========== SKU TOP20 ==========
+function skuHTML(d){
+  const list = d.skuTop || [];
+  if(!list.length) return '<div class="sec"><h2>动销SKU TOP20</h2><div style="color:var(--sub);padding:20px;text-align:center">本周期暂无SKU明细</div></div>';
+  const max = list[0].amount || 1;
+  const totalAmt = list.reduce((s,r)=>s+r.amount,0);
+  const rowHTML = (r,i,cls)=>`<tr${cls?` class="${cls}"`:''}>
+    <td class="pf"><div style="display:flex;align-items:center;gap:10px">
+      <div style="position:relative;flex-shrink:0"><span class="sku-rank" style="position:absolute;top:-6px;left:-6px;background:var(--green);color:#141518;font-size:9px;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center">${i}</span>
+      <div class="sku-ph" style="width:38px;height:38px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:#262930;border:1px solid var(--line);font-size:10px;color:var(--sub)">${r.qty}件</div></div>
+      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.skuId}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3;max-width:340px">${r.name}</div>`:''}</div>
+    </div></td>
+    <td>${r.qty}</td>
+    <td>¥${fmt0(r.amount)}</td>
+    <td style="min-width:120px"><div class="bar-track" style="height:14px"><div class="bar-fill o" data-w="${(r.amount/max*100).toFixed(1)}"></div></div>
+    <div style="font-size:11px;color:var(--sub);margin-top:3px">${(r.amount/totalAmt*100).toFixed(1)}%</div></td>
+  </tr>`;
+  const rest = list.slice(10);
+  return `<div class="sec"><h2>动销SKU TOP20（按销售额降序 · 不含取消订单）</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>SKU / 产品</th><th>销量</th><th>销售额</th><th style="text-align:right">销售额占比</th></tr></thead>
+    <tbody>
+      ${list.slice(0,10).map((r,i)=>rowHTML(r,i+1)).join('')}
+      ${rest.map((r,i)=>rowHTML(r,i+11,'sku-rest hidden')).join('')}
+    </tbody></table></div>
+    ${rest.length?`<div style="margin-top:10px;text-align:center">
+      <button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    <div style="margin-top:12px;font-size:12px;color:var(--sub);line-height:1.9">
+      · SKU销售额为商品行金额合计，与订单GMV存在组合装/运费分摊差异<br>
+      · 成本与毛利维度待财务校准SOP接入后补充（聚水潭出库单成本接口首版未通）
+    </div></div>`;
+}
+
+// ========== 渲染 ==========
+function render(p){
+  curPeriod = p;
+  const d = DATA[p];
+  const allRows = rowsOf(p);
+  const rows = filteredRows(allRows);
+  const t = totals(rows);
+  const prevMap = {today:'yesterday', week:'lastWeek', month:'lastMonth'};
+  const prev = prevMap[p] ? totals(filteredRows(rowsOf(prevMap[p]))) : null;
+  const chs = channelAgg(rows);
+  const metricLabel = curMetric==='net'?'净销售额':'支付GMV';
+  let html = `<div class="fade">${filtersHTML()}
+  ${kpiHTML(t, prev)}
+  <div class="chart-grid">
+    <div class="chart-card"><h3>渠道占比（${metricLabel}）</h3>${donutHTML(chs,curMetric)}</div>
+    <div class="chart-card"><h3>渠道对比（含退款率标注）</h3>${chanBarsHTML(chs,curMetric)}</div>
+    <div class="chart-card"><h3>日GMV趋势（本周期）</h3>${trendHTML(d)}</div>
+  </div>
+  <div class="grid2">
+    <div>${tableHTML(rows)}</div>
+    <div><div class="sec"><h2>口径说明</h2><div class="note">
+    · <b>支付口径</b>：按支付时间(pay_date)归期，仅含已付款订单<br>
+    · 净销售额 = 支付GMV − 取消退款（status=Cancelled且已支付）<br>
+    · 客单价 = 净销售额 ÷ 有效订单数<br>
+    · <b class="r">取消退款含刷单未剔除</b>：真实GMV=支付GMV−退款−刷单，刷单标记待财务校准（8月取消率异常偏高即为刷单所致）<br>
+    · <b class="r">渠道缺口</b>：天猫/淘宝/京东/微店/拼多多已在聚水潭授权，但订单未进入OpenAPI（待开启订单下载），本看板暂不覆盖<br>
+    · 部分退款（items级refund_qty）与平台佣金未含，待财务校准SOP接入<br>
+    · 数据T+0实时拉取，存在平台推送延迟（今日数据偏低属正常）<br>
+    · 勾稽校验：渠道合计=总盘（meta.reconcile=${DATA.meta.reconcile||'OK'}）<br>
+    · 环比：今日vs昨日 / 本周vs上周 / 本月vs上月（滚动7天对齐）<br>
+    · 点击表头排序 ｜ 点击渠道芯片筛选</div></div></div>
+  </div>
+  ${skuHTML(d)}</div>`;
+  document.getElementById('panel').innerHTML = html;
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');
+    document.querySelectorAll('.kpi .v[data-val]').forEach(animateNum);
+    bindChartTips();
+    bindSort();
+    bindFilters();
+  });
+}
+
+// ========== 筛选器 ==========
+function filtersHTML(){
+  const chips = CHANNELS.map(c=>{
+    const on = filterChannels.has(c);
+    return `<span class="chip ${on?'on':''}" data-p="${c}"><span class="dot" style="background:${colorOf(c)}"></span>${c}</span>`;
+  }).join('');
+  const metricBtns = [{k:'net',l:'净销售额'},{k:'gmv',l:'支付GMV'}]
+    .map(m=>`<button class="${curMetric===m.k?'on':''}" data-m="${m.k}">${m.l}</button>`).join('');
+  return `<div class="filters">
+    <div class="filter-group"><span class="label">渠道筛选：</span>${chips}</div>
+    <div class="metric-switch">${metricBtns}</div></div>`;
+}
+
+// ========== 数字滚动 ==========
+function animateNum(el){
+  const target = parseFloat(el.dataset.val);
+  if(isNaN(target)) return;
+  const prefix = el.dataset.prefix||'';
+  const curEl = el.querySelector('.cur');
+  const curHTML = curEl?curEl.outerHTML:'';
+  const dur = 900, t0 = performance.now();
+  function step(t){
+    const p = Math.min((t-t0)/dur,1);
+    const v = target*(1-Math.pow(1-p,3));
+    el.innerHTML = prefix+fmt0(v)+curHTML;
+    if(p<1) requestAnimationFrame(step);
+    else el.innerHTML = prefix+fmt0(target)+curHTML;
+  }
+  requestAnimationFrame(step);
+}
+
+// ========== 图表 tooltip ==========
+function bindChartTips(){
+  const bind = (segSel, tipId) => {
+    const tip = document.getElementById(tipId);
+    if(!tip) return;
+    document.querySelectorAll(segSel).forEach(seg=>{
+      seg.addEventListener('mousemove', e=>{
+        tip.innerHTML = `<b style="color:${seg.getAttribute('stroke')||'var(--green)'}">${seg.dataset.name}</b><br>${seg.dataset.val||''}${seg.dataset.ord?'<br>'+seg.dataset.ord:''}${seg.dataset.pct2?`<br>占比：${seg.dataset.pct2}%`:''}`;
+        tip.classList.add('on');
+        tip.style.left = (e.pageX+12)+'px';
+        tip.style.top = (e.pageY+12)+'px';
+      });
+      seg.addEventListener('mouseleave', ()=>tip.classList.remove('on'));
+    });
+  };
+  bind('.donut-seg','donutTip');
+  bind('.bar-grp','trendTip');
+}
+
+// ========== 表格排序 ==========
+function bindSort(){
+  document.querySelectorAll('th.sort').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      const col = th.dataset.col;
+      if(sortCol===col) sortDir = sortDir==='asc'?'desc':'asc';
+      else { sortCol=col; sortDir='desc'; }
+      render(curPeriod);
+    });
+  });
+}
+
+// ========== 筛选绑定 ==========
+function bindFilters(){
+  document.querySelectorAll('.chip[data-p]').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const p = chip.dataset.p;
+      if(filterChannels.has(p)) filterChannels.delete(p);
+      else filterChannels.add(p);
+      render(curPeriod);
+    });
+  });
+  document.querySelectorAll('.metric-switch button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ curMetric = btn.dataset.m; render(curPeriod); });
+  });
+}
+
+// SKU 展开（事件委托）
+document.addEventListener('click', e => {
+  const btn = e.target.closest('#skuToggle');
+  if(btn){
+    const rows = document.querySelectorAll('tr.sku-rest');
+    if(!rows.length) return;
+    const hidden = rows[0].classList.contains('hidden');
+    rows.forEach(r=>r.classList.toggle('hidden', !hidden));
+    btn.textContent = hidden ? '收起 ▲' : `展开剩余 ${rows.length} 条 ▼`;
+  }
+});
+
+// Tab 切换
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');
+  render(t.dataset.p);
+}));
+
+render('today');
+</script>
+</body>
+</html>
