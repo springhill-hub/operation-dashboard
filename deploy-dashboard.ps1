@@ -127,8 +127,8 @@ if ($SkipGit) {
   $ErrorActionPreference = 'Continue'
   try {
     Push-Location $DeployDir
-    Write-Info "git add index.html widget.html"
-    $null = & git add index.html widget.html 2>&1
+    Write-Info "git add index.html widget.html + 固化脚本/成本表"
+    $null = & git add index.html widget.html build-shopee.js build-msku-cost.js msku-cost.json .gitignore 2>&1
     if ($LASTEXITCODE -ne 0) { throw "git add 失败 (exit $LASTEXITCODE)" }
 
     # 检查已暂存的变更（仅staged，避免untracked文件触发误commit）
