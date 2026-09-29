@@ -1,0 +1,1828 @@
+{
+  "version": "1.1",
+  "generatedAt": "2026-09-29 10:11:40",
+  "source": {
+    "primary": "shopee-raw/{SITE}_profit_msku.txt（finance_settlement_profit_list, summaryField=3, sids指定店铺）",
+    "supplement": "f:/ai agent/operation_data.json skuDetail：unitCost = cost / qty",
+    "note": "单位成本为店铺原币负值，含采购成本、未含头程；取值为数量加权"
+  },
+  "mskuCount": {
+    "MYR": 46,
+    "THB": 82
+  },
+  "unitCost": {
+    "MYR": {
+      "LDL-CQ4P-E": -471.6644,
+      "LDL-CQ4P-V": -471.6639,
+      "SL-BTJ-E": -50.3628,
+      "LDL-ZSSF-E": -186.8268,
+      "LDL-CQ4PTZ-E": -252.9886,
+      "LDL-CQ4PTZ-V": -252.9893,
+      "YS-DBT-Y": -76.618,
+      "CS-HYZ-TZ-A": -180.0963,
+      "TC-LLGHDL-E": -168.3786,
+      "JT-XJC-E": -172.4641,
+      "LDL-CQ4P-NZ": -92.2417,
+      "LDL-4P-NV": -371.3702,
+      "LDL-4P-NE": -371.3702,
+      "LDL-ZSSF-V": -187.4289,
+      "JT-XJC-V": -172.4649,
+      "SL-YLY-WS": -75.1156,
+      "SL-BTJ-E+CS-BT-HS-H": -65.7104,
+      "BEL-TXW-TMGE": -50.7177,
+      "SL-DBTT-H": -14.1391,
+      "TC-LLGHDL-Y": -168.3786,
+      "CS-BT-HS-Y": -64.3895,
+      "CS-PL-3R-K": -275.5232,
+      "SL-MGGHDL-Y": -141.9981,
+      "LDL-CQZTM-E": -108.7671,
+      "CS-HYZ-PJ-4ZGT": -27.6425,
+      "SL-YLY-H": -68.5052,
+      "SL-XKP": -25.4195,
+      "BH-ZRKSL-Y": -84.9705,
+      "TC-CHLX-Y": -20.9872,
+      "LDL-TMSL-B": -80.5237,
+      "HX-KJ-E": -9.2542,
+      "YS-DBT-G": -81.9058,
+      "CS-BT-HS-G": -67.033,
+      "SL-BTT-H": -13.4246,
+      "TC-CHLX-E": -24.097,
+      "SL-YH-Y": -20.7018,
+      "CS-HYZ-PJ-1DYB": -30.4067,
+      "BEL-ZSD-K": 0,
+      "HX-KJ-FGY": 0,
+      "LDL-ZSSF-DD": 0,
+      "BEL-TXWTMG-SND": 0,
+      "BEL-CFZ-E": -108.7671,
+      "补发伏羲帐篷扣夹": 0,
+      "SPXTH067010057058": 0,
+      "BEL-GBY-E": -156.5404,
+      "BEL-FSYLY-E": -92.2417
+    },
+    "THB": {
+      "BH-ZRKSL-Y": -692.0856,
+      "BEL-FSYLY-E": -751.3092,
+      "CS-PL-1R-V": -1382.7028,
+      "JT-XJC-E": -1404.7283,
+      "SL-YLY-WS": -611.8154,
+      "LDL-ZSSF-E": -1521.7071,
+      "SL-YLY-H": -557.9757,
+      "CS-PL-1R-E": -1382.7029,
+      "SL-BTJ-E": -396.6823,
+      "LDL-MGCQZ-E-DP": -8100.4378,
+      "CS-HYZ-TZ-A": -1466.8886,
+      "LDL-XYCQZ-E-DP": -7535.1191,
+      "YS-DBT-G": -667.1236,
+      "JT-XJC-V": -1404.7281,
+      "LDL-XYCQZ-V": -7535.1191,
+      "TC-HYSL-E": -1074.3478,
+      "YS-DBT-Y": -624.0517,
+      "BEL-CFZ-E": -885.9087,
+      "CS-PL-1R-WZ-V": -602.0265,
+      "SL-BTJ-E+CS-BT-HS-G": -524.4483,
+      "LDL-CQ4P-V": -3841.7105,
+      "BH-QNQ-Y-TZ": -980.6666,
+      "BH-QNQ-Y": -980.6666,
+      "CS-PL-1R-WZ-E": -643.6299,
+      "LDL-ZSSF-V": -1526.6017,
+      "BEL-FSYLY-Z": -751.3093,
+      "SL-BTJ-E+CS-BT-HS-H": -535.216,
+      "SL-YH-Y": -168.6163,
+      "CS-HYZ-E": -1466.8886,
+      "SL-ZML0.5-Y": -902.0606,
+      "CS-PL-1R-K": -1382.7028,
+      "SL-XKP": -207.0383,
+      "TC-MNBL-Y": -415.3003,
+      "BEL-GBY-E": -1275.0232,
+      "BEL-TXW-TMGE": -413.0977,
+      "CS-BT-HS-G": -545.984,
+      "SL-DBTT-H": -115.1632,
+      "LDL-4P-NE": -3024.8152,
+      "CS-BT-HS-Y": -524.4481,
+      "CS-PL-1R-WZ-K": -602.0263,
+      "LDL-WSPL-1R-K": -216.4603,
+      "BEL-SFZ-E-ATZ": -735.1574,
+      "BEL-SFZ-E": -735.1574,
+      "SL-BTT-H": -109.3436,
+      "LDL-TMSL-E": 0,
+      "LDL-CQ4PTZ-V": -2060.5942,
+      "LDL-TZTM-V": -1086.5841,
+      "CS-2DPL-E": -1786.5009,
+      "TC-LLMN-Y": -619.1572,
+      "LDL-WSPL-1R-V": -288.6137,
+      "CS-2DPL-V": -1786.5009,
+      "SL-FXL3.0-Y": -461.5535,
+      "LDL-TZTM-E": -1086.5841,
+      "SL-PGDL-E": -2017.7671,
+      "SL-TBZ-Y": -295.1397,
+      "BEL-XKZ-E": -693.0645,
+      "TC-LLGHDL-Y": -1371.4454,
+      "BEL-ZSD-K": 0,
+      "LDL-XYCQZ-NZ": -577.5537,
+      "SL-ZSTMG-U": -912.8285,
+      "CS-HYZ-PJ-4ZGT": -225.1481,
+      "CS-2PL-WZ-V": -817.3853,
+      "LDL-DQZ-GZ": -912.8285,
+      "BEL-YLYJT-E": -179.8737,
+      "SL-MGGHDL-Y": 0,
+      "LDL-CQ4P-NZ": -751.3093,
+      "BEL-AZ-E": -606.9209,
+      "LDL-QZ-WS-3": -166.9032,
+      "HX-KJ-E": -75.3757,
+      "一单元铝板（单块）": -247.6629,
+      "TC-HYSL-ZWJD": 0,
+      "BEL-HYSL-ZWJ": -161.5193,
+      "TC-CHLX-E": -196.2704,
+      "TC-CHLX-Y": -170.9412,
+      "HX-KJ-FGY": 0,
+      "增高腿": -225.1481,
+      "CS-HYZ-PJ-1DYB": -247.6629,
+      "CS-LLGHDL-YDX2": 0,
+      "LDL-CQ4P-DD": 0,
+      "补发行军床支腿12只": 0,
+      "补发盘古黄铜支架": 0,
+      "黄铜支架": 0
+    }
+  },
+  "detail": {
+    "MYR": {
+      "LDL-CQ4P-E": {
+        "samples": [
+          {
+            "unit": -471.6645,
+            "qty": 14,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -471.6643,
+            "qty": 14,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0002,
+        "note": "ok"
+      },
+      "LDL-CQ4P-V": {
+        "samples": [
+          {
+            "unit": -471.6645,
+            "qty": 3,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -471.6633,
+            "qty": 3,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0012,
+        "note": "ok"
+      },
+      "SL-BTJ-E": {
+        "samples": [
+          {
+            "unit": -79.1416,
+            "qty": 14,
+            "source": "profit_msku"
+          },
+          {
+            "unit": 0,
+            "qty": 8,
+            "source": "profit_msku"
+          },
+          {
+            "unit": 0,
+            "qty": 8,
+            "source": "skuDetail:month"
+          },
+          {
+            "unit": -79.1414,
+            "qty": 14,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 79.1416,
+        "note": "样本分歧>5%，需人工核对"
+      },
+      "LDL-ZSSF-E": {
+        "samples": [
+          {
+            "unit": -186.827,
+            "qty": 6,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -186.8267,
+            "qty": 6,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0003,
+        "note": "ok"
+      },
+      "LDL-CQ4PTZ-E": {
+        "samples": [
+          {
+            "unit": -252.9886,
+            "qty": 6,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-CQ4PTZ-V": {
+        "samples": [
+          {
+            "unit": -252.9886,
+            "qty": 3,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -252.99,
+            "qty": 3,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0014,
+        "note": "ok"
+      },
+      "YS-DBT-Y": {
+        "samples": [
+          {
+            "unit": -76.6177,
+            "qty": 9,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -76.6177,
+            "qty": 2,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -76.6178,
+            "qty": 9,
+            "source": "skuDetail:month"
+          },
+          {
+            "unit": -76.62,
+            "qty": 2,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0023,
+        "note": "ok"
+      },
+      "CS-HYZ-TZ-A": {
+        "samples": [
+          {
+            "unit": -180.0966,
+            "qty": 5,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -180.096,
+            "qty": 5,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0006,
+        "note": "ok"
+      },
+      "TC-LLGHDL-E": {
+        "samples": [
+          {
+            "unit": -168.3786,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "JT-XJC-E": {
+        "samples": [
+          {
+            "unit": -172.4649,
+            "qty": 3,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -172.4633,
+            "qty": 3,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0016,
+        "note": "ok"
+      },
+      "LDL-CQ4P-NZ": {
+        "samples": [
+          {
+            "unit": -92.2417,
+            "qty": 8,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-4P-NV": {
+        "samples": [
+          {
+            "unit": -371.3704,
+            "qty": 1,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -371.37,
+            "qty": 1,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0004,
+        "note": "ok"
+      },
+      "LDL-4P-NE": {
+        "samples": [
+          {
+            "unit": -371.3704,
+            "qty": 1,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -371.37,
+            "qty": 1,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0004,
+        "note": "ok"
+      },
+      "LDL-ZSSF-V": {
+        "samples": [
+          {
+            "unit": -187.4279,
+            "qty": 2,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -187.43,
+            "qty": 2,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0021,
+        "note": "ok"
+      },
+      "JT-XJC-V": {
+        "samples": [
+          {
+            "unit": -172.4649,
+            "qty": 2,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -172.465,
+            "qty": 2,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0001,
+        "note": "ok"
+      },
+      "SL-YLY-WS": {
+        "samples": [
+          {
+            "unit": -75.1154,
+            "qty": 5,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -75.1154,
+            "qty": 3,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -75.116,
+            "qty": 5,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0006,
+        "note": "ok"
+      },
+      "SL-BTJ-E+CS-BT-HS-H": {
+        "samples": [
+          {
+            "unit": -65.7109,
+            "qty": 2,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -65.71,
+            "qty": 2,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0009,
+        "note": "ok"
+      },
+      "BEL-TXW-TMGE": {
+        "samples": [
+          {
+            "unit": -50.7179,
+            "qty": 4,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -50.7175,
+            "qty": 4,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0004,
+        "note": "ok"
+      },
+      "SL-DBTT-H": {
+        "samples": [
+          {
+            "unit": -14.1391,
+            "qty": 11,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -14.1391,
+            "qty": 11,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-LLGHDL-Y": {
+        "samples": [
+          {
+            "unit": -168.3786,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-BT-HS-Y": {
+        "samples": [
+          {
+            "unit": -64.3889,
+            "qty": 3,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -64.39,
+            "qty": 3,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0011,
+        "note": "ok"
+      },
+      "CS-PL-3R-K": {
+        "samples": [
+          {
+            "unit": -275.5232,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-MGGHDL-Y": {
+        "samples": [
+          {
+            "unit": -141.9981,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-CQZTM-E": {
+        "samples": [
+          {
+            "unit": -108.7671,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-HYZ-PJ-4ZGT": {
+        "samples": [
+          {
+            "unit": -27.6425,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-YLY-H": {
+        "samples": [
+          {
+            "unit": -68.5052,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-XKP": {
+        "samples": [
+          {
+            "unit": -25.419,
+            "qty": 4,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -25.42,
+            "qty": 4,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.001,
+        "note": "ok"
+      },
+      "BH-ZRKSL-Y": {
+        "samples": [
+          {
+            "unit": -84.9705,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-CHLX-Y": {
+        "samples": [
+          {
+            "unit": -20.9872,
+            "qty": 3,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-TMSL-B": {
+        "samples": [
+          {
+            "unit": -80.5237,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "HX-KJ-E": {
+        "samples": [
+          {
+            "unit": -9.2542,
+            "qty": 10,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "YS-DBT-G": {
+        "samples": [
+          {
+            "unit": -81.9058,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-BT-HS-G": {
+        "samples": [
+          {
+            "unit": -67.033,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-BTT-H": {
+        "samples": [
+          {
+            "unit": -13.4246,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-CHLX-E": {
+        "samples": [
+          {
+            "unit": -24.097,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-YH-Y": {
+        "samples": [
+          {
+            "unit": -20.7018,
+            "qty": 15,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-HYZ-PJ-1DYB": {
+        "samples": [
+          {
+            "unit": -30.4067,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-ZSD-K": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 12,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "HX-KJ-FGY": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-ZSSF-DD": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 6,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-TXWTMG-SND": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-CFZ-E": {
+        "samples": [
+          {
+            "unit": -108.7671,
+            "qty": 5,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "补发伏羲帐篷扣夹": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 45,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SPXTH067010057058": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-GBY-E": {
+        "samples": [
+          {
+            "unit": -156.5404,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-FSYLY-E": {
+        "samples": [
+          {
+            "unit": -92.2417,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      }
+    },
+    "THB": {
+      "BH-ZRKSL-Y": {
+        "samples": [
+          {
+            "unit": -692.0856,
+            "qty": 39,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -692.0856,
+            "qty": 39,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-FSYLY-E": {
+        "samples": [
+          {
+            "unit": -751.3093,
+            "qty": 38,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -751.3092,
+            "qty": 38,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0001,
+        "note": "ok"
+      },
+      "CS-PL-1R-V": {
+        "samples": [
+          {
+            "unit": -1382.7028,
+            "qty": 15,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1382.7027,
+            "qty": 15,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0001,
+        "note": "ok"
+      },
+      "JT-XJC-E": {
+        "samples": [
+          {
+            "unit": -1404.7281,
+            "qty": 13,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1404.7281,
+            "qty": 5,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1404.7285,
+            "qty": 13,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0004,
+        "note": "ok"
+      },
+      "SL-YLY-WS": {
+        "samples": [
+          {
+            "unit": -611.8154,
+            "qty": 29,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -611.8154,
+            "qty": 15,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -611.8155,
+            "qty": 29,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0001,
+        "note": "ok"
+      },
+      "LDL-ZSSF-E": {
+        "samples": [
+          {
+            "unit": -1521.7072,
+            "qty": 10,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1521.707,
+            "qty": 10,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0002,
+        "note": "ok"
+      },
+      "SL-YLY-H": {
+        "samples": [
+          {
+            "unit": -557.9756,
+            "qty": 26,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -557.9758,
+            "qty": 26,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0002,
+        "note": "ok"
+      },
+      "CS-PL-1R-E": {
+        "samples": [
+          {
+            "unit": -1382.7028,
+            "qty": 10,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1382.703,
+            "qty": 10,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0002,
+        "note": "ok"
+      },
+      "SL-BTJ-E": {
+        "samples": [
+          {
+            "unit": -644.6087,
+            "qty": 16,
+            "source": "profit_msku"
+          },
+          {
+            "unit": 0,
+            "qty": 10,
+            "source": "profit_msku"
+          },
+          {
+            "unit": 0,
+            "qty": 10,
+            "source": "skuDetail:month"
+          },
+          {
+            "unit": -644.6087,
+            "qty": 16,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 644.6087,
+        "note": "样本分歧>5%，需人工核对"
+      },
+      "LDL-MGCQZ-E-DP": {
+        "samples": [
+          {
+            "unit": -8100.4356,
+            "qty": 1,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -8100.44,
+            "qty": 1,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0044,
+        "note": "ok"
+      },
+      "CS-HYZ-TZ-A": {
+        "samples": [
+          {
+            "unit": -1466.8886,
+            "qty": 8,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-XYCQZ-E-DP": {
+        "samples": [
+          {
+            "unit": -7535.1182,
+            "qty": 1,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -7535.12,
+            "qty": 1,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0018,
+        "note": "ok"
+      },
+      "YS-DBT-G": {
+        "samples": [
+          {
+            "unit": -667.1235,
+            "qty": 16,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -667.1237,
+            "qty": 16,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0002,
+        "note": "ok"
+      },
+      "JT-XJC-V": {
+        "samples": [
+          {
+            "unit": -1404.7281,
+            "qty": 8,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1404.7281,
+            "qty": 3,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-XYCQZ-V": {
+        "samples": [
+          {
+            "unit": -7535.1182,
+            "qty": 1,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -7535.12,
+            "qty": 1,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0018,
+        "note": "ok"
+      },
+      "TC-HYSL-E": {
+        "samples": [
+          {
+            "unit": -1074.3478,
+            "qty": 9,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1074.3478,
+            "qty": 9,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "YS-DBT-Y": {
+        "samples": [
+          {
+            "unit": -624.0517,
+            "qty": 14,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-CFZ-E": {
+        "samples": [
+          {
+            "unit": -885.9087,
+            "qty": 10,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-PL-1R-WZ-V": {
+        "samples": [
+          {
+            "unit": -602.0263,
+            "qty": 12,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -602.0267,
+            "qty": 12,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0004,
+        "note": "ok"
+      },
+      "SL-BTJ-E+CS-BT-HS-G": {
+        "samples": [
+          {
+            "unit": -524.4481,
+            "qty": 7,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -524.4486,
+            "qty": 7,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0005,
+        "note": "ok"
+      },
+      "LDL-CQ4P-V": {
+        "samples": [
+          {
+            "unit": -3841.7111,
+            "qty": 2,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -3841.71,
+            "qty": 2,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0011,
+        "note": "ok"
+      },
+      "BH-QNQ-Y-TZ": {
+        "samples": [
+          {
+            "unit": -980.6666,
+            "qty": 8,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BH-QNQ-Y": {
+        "samples": [
+          {
+            "unit": -980.6666,
+            "qty": 8,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-PL-1R-WZ-E": {
+        "samples": [
+          {
+            "unit": -643.6298,
+            "qty": 9,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -643.63,
+            "qty": 9,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0002,
+        "note": "ok"
+      },
+      "LDL-ZSSF-V": {
+        "samples": [
+          {
+            "unit": -1526.6017,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-FSYLY-Z": {
+        "samples": [
+          {
+            "unit": -751.3093,
+            "qty": 8,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-BTJ-E+CS-BT-HS-H": {
+        "samples": [
+          {
+            "unit": -535.2161,
+            "qty": 5,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -535.216,
+            "qty": 5,
+            "source": "skuDetail:month"
+          }
+        ],
+        "spread": 0.0001,
+        "note": "ok"
+      },
+      "SL-YH-Y": {
+        "samples": [
+          {
+            "unit": -168.6163,
+            "qty": 28,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-HYZ-E": {
+        "samples": [
+          {
+            "unit": -1466.8886,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-ZML0.5-Y": {
+        "samples": [
+          {
+            "unit": -902.0606,
+            "qty": 6,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-PL-1R-K": {
+        "samples": [
+          {
+            "unit": -1382.7028,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-XKP": {
+        "samples": [
+          {
+            "unit": -207.0383,
+            "qty": 16,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-MNBL-Y": {
+        "samples": [
+          {
+            "unit": -415.3003,
+            "qty": 11,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-GBY-E": {
+        "samples": [
+          {
+            "unit": -1275.0232,
+            "qty": 3,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1275.0232,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-TXW-TMGE": {
+        "samples": [
+          {
+            "unit": -413.0977,
+            "qty": 7,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-BT-HS-G": {
+        "samples": [
+          {
+            "unit": -545.984,
+            "qty": 7,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-DBTT-H": {
+        "samples": [
+          {
+            "unit": -115.1632,
+            "qty": 20,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-4P-NE": {
+        "samples": [
+          {
+            "unit": -3024.8152,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-BT-HS-Y": {
+        "samples": [
+          {
+            "unit": -524.4481,
+            "qty": 6,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-PL-1R-WZ-K": {
+        "samples": [
+          {
+            "unit": -602.0263,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-WSPL-1R-K": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 3,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -865.8411,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 865.8411,
+        "note": "样本分歧>5%，需人工核对"
+      },
+      "BEL-SFZ-E-ATZ": {
+        "samples": [
+          {
+            "unit": -735.1574,
+            "qty": 3,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-SFZ-E": {
+        "samples": [
+          {
+            "unit": -735.1574,
+            "qty": 3,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-BTT-H": {
+        "samples": [
+          {
+            "unit": -109.3436,
+            "qty": 15,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-TMSL-E": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-CQ4PTZ-V": {
+        "samples": [
+          {
+            "unit": -2060.5942,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-TZTM-V": {
+        "samples": [
+          {
+            "unit": -1086.5841,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-2DPL-E": {
+        "samples": [
+          {
+            "unit": -1786.5009,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-LLMN-Y": {
+        "samples": [
+          {
+            "unit": -619.1572,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-WSPL-1R-V": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 2,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -865.8411,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 865.8411,
+        "note": "样本分歧>5%，需人工核对"
+      },
+      "CS-2DPL-V": {
+        "samples": [
+          {
+            "unit": -1786.5009,
+            "qty": 1,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1786.5009,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-FXL3.0-Y": {
+        "samples": [
+          {
+            "unit": -461.5535,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-TZTM-E": {
+        "samples": [
+          {
+            "unit": -1086.5841,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-PGDL-E": {
+        "samples": [
+          {
+            "unit": -2017.7671,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "SL-TBZ-Y": {
+        "samples": [
+          {
+            "unit": -295.1397,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-XKZ-E": {
+        "samples": [
+          {
+            "unit": -693.0645,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-LLGHDL-Y": {
+        "samples": [
+          {
+            "unit": -1371.4454,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-ZSD-K": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 8,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-XYCQZ-NZ": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -1155.1074,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 1155.1074,
+        "note": "样本分歧>5%，需人工核对"
+      },
+      "SL-ZSTMG-U": {
+        "samples": [
+          {
+            "unit": -912.8285,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-HYZ-PJ-4ZGT": {
+        "samples": [
+          {
+            "unit": -225.1481,
+            "qty": 3,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-2PL-WZ-V": {
+        "samples": [
+          {
+            "unit": -817.3853,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-DQZ-GZ": {
+        "samples": [
+          {
+            "unit": -912.8285,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-YLYJT-E": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 2,
+            "source": "profit_msku"
+          },
+          {
+            "unit": -359.7474,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 359.7474,
+        "note": "样本分歧>5%，需人工核对"
+      },
+      "SL-MGGHDL-Y": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-CQ4P-NZ": {
+        "samples": [
+          {
+            "unit": -751.3093,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-AZ-E": {
+        "samples": [
+          {
+            "unit": -606.9209,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-QZ-WS-3": {
+        "samples": [
+          {
+            "unit": -166.9032,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "HX-KJ-E": {
+        "samples": [
+          {
+            "unit": -75.3757,
+            "qty": 4,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "一单元铝板（单块）": {
+        "samples": [
+          {
+            "unit": -247.6629,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-HYSL-ZWJD": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "BEL-HYSL-ZWJ": {
+        "samples": [
+          {
+            "unit": -161.5193,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-CHLX-E": {
+        "samples": [
+          {
+            "unit": -196.2704,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "TC-CHLX-Y": {
+        "samples": [
+          {
+            "unit": -170.9412,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "HX-KJ-FGY": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "增高腿": {
+        "samples": [
+          {
+            "unit": -225.1481,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-HYZ-PJ-1DYB": {
+        "samples": [
+          {
+            "unit": -247.6629,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "CS-LLGHDL-YDX2": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "LDL-CQ4P-DD": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 2,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "补发行军床支腿12只": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "补发盘古黄铜支架": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      },
+      "黄铜支架": {
+        "samples": [
+          {
+            "unit": 0,
+            "qty": 1,
+            "source": "profit_msku"
+          }
+        ],
+        "spread": 0,
+        "note": "ok"
+      }
+    }
+  },
+  "usage": "build-shopee.js: staticProductCost = Σ settledQty(msku) × unitCost[ccy][msku]；未知MSKU计入unknownMskus，覆盖率见运行日志",
+  "maintenance": "每月利润报表出全后重跑本脚本更新；采购调价后以财务确认成本手工修正对应MSKU"
+}
