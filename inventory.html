@@ -1,0 +1,2887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>春山户外 · 库存管理看板</title>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--card2:#1c2333;--line:#30363d;
+  --txt:#e6edf3;--sub:#8b949e;--green:#3fb950;--red:#f85149;
+  --yellow:#d29922;--blue:#6ea8fe;--orange:#db6d28;--purple:#bc8cff;
+  --radius:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.6}
+.header{background:var(--card);border-bottom:1px solid var(--line);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header h1{font-size:18px;font-weight:600;display:flex;align-items:center;gap:10px}
+.header .logo{width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--blue));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--bg)}
+.header .meta{font-size:12px;color:var(--sub)}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:20px;overflow:hidden}
+.sec h2{font-size:14px;font-weight:600;padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.sec h2 .sub{font-size:12px;color:var(--sub);font-weight:400}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line)}
+.kpi{background:var(--card);padding:16px 18px}
+.kpi .label{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi .v{font-size:24px;font-weight:700;font-family:'SF Mono',monospace}
+.kpi .v small{font-size:13px;color:var(--sub);font-weight:400;margin-left:4px}
+.kpi .delta{font-size:11px;margin-top:4px}
+.kpi.pos .v{color:var(--green)}
+.kpi.neg .v{color:var(--red)}
+.kpi.warn .v{color:var(--yellow)}
+.kpi.info .v{color:var(--blue)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 14px;color:var(--sub);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--card);cursor:pointer;user-select:none}
+th:hover{color:var(--txt)}
+td{padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+tr:hover td{background:var(--card2)}
+.pos{color:var(--green)}.neg{color:var(--red)}.warn{color:var(--yellow)}
+.bar-track{width:100%;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.bar-fill.g{background:var(--green)}.bar-fill.r{background:var(--red)}.bar-fill.b{background:var(--blue)}.bar-fill.y{background:var(--yellow)}
+.filter-group{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--line);background:var(--card2);color:var(--sub);font-size:12px;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--blue);color:var(--txt)}
+.chip.on{border-color:var(--blue);color:var(--blue);background:rgba(110,168,254,.1)}
+.chip .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.note{padding:14px 18px;font-size:12px;color:var(--sub);line-height:1.9;border-top:1px solid var(--line)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.badge.red{background:rgba(248,81,73,.15);color:var(--red)}
+.badge.yel{background:rgba(210,153,34,.15);color:var(--yellow)}
+.badge.grn{background:rgba(63,185,80,.15);color:var(--green)}
+.badge.gry{background:var(--card2);color:var(--sub)}
+.hidden{display:none}
+.sku-rank{position:absolute;top:2px;left:2px;font-size:10px;color:var(--sub);background:var(--card2);border-radius:4px;padding:1px 5px;z-index:1}
+.sku-ph{width:40px;height:40px;border-radius:6px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--sub);overflow:hidden;flex-shrink:0}
+.sku-ph img{width:100%;height:100%;object-fit:cover}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line);padding:0 18px}
+.tab{padding:12px 20px;font-size:13px;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+.tab:hover{color:var(--txt)}
+.tab.on{color:var(--blue);border-bottom-color:var(--blue)}
+@media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1><span class="logo">春</span>春山户外 · 库存管理看板</h1>
+  <div class="meta" id="meta">加载中...</div>
+</div>
+<div class="container">
+  <div class="tabs">
+    <div class="tab on" data-tab="fba">FBA库存</div>
+    <div class="tab" data-tab="overseas">海外仓</div>
+  </div>
+  <div id="panel"></div>
+</div>
+
+<script id="DATA-JSON" type="application/json">
+{
+  "meta": {
+    "generatedAt": "2026-09-30",
+    "source": "领星ERP REST API"
+  },
+  "fba": {
+    "undefined": {
+      "country": "",
+      "endCount": 4,
+      "endAmount": 1095,
+      "endOnWayCount": 0,
+      "endOnWayAmount": 0,
+      "receiptsCount": 0,
+      "transferOutCount": 1,
+      "customerReturnsCount": 0,
+      "damagedCount": 0,
+      "lostCount": -1,
+      "foundCount": 0,
+      "disposedCount": 0,
+      "differenceCount": 0,
+      "vendorReturnsCount": 0
+    },
+    "amazonJP": {
+      "sellerId": "ADIYJW0UXJYNU",
+      "storeName": "日本-亚马逊",
+      "country": "JP",
+      "skuDetail": [
+        {
+          "fnsku": "X001C5V27R",
+          "asin": "B0G4MG63XS",
+          "msku": "LDL-CQZ-ME-FBA",
+          "productName": "",
+          "endCount": 26,
+          "endAmount": 65296.4,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001CJBDY5",
+          "asin": "B0GS8YK1X4",
+          "msku": "LDL-CQ4P-E-FBA",
+          "productName": "",
+          "endCount": 44,
+          "endAmount": 34051.6,
+          "endOnWayCount": 0,
+          "receiptsCount": 53,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DP70OZ",
+          "asin": "B0H4FXW5CH",
+          "msku": "LDL-XYCQZ-E-FBA",
+          "productName": "",
+          "endCount": 22,
+          "endAmount": 33869,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BIC9UT",
+          "asin": "B0FPDWVGJN",
+          "msku": "SP-PL4P-G-JP",
+          "productName": "",
+          "endCount": 49,
+          "endAmount": 30282,
+          "endOnWayCount": 0,
+          "receiptsCount": 50,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BTBE6D",
+          "asin": "B0FR8WV3JX",
+          "msku": "CS-CQQZ-B-FBA",
+          "productName": "",
+          "endCount": 14,
+          "endAmount": 23170,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001CJBDZT",
+          "asin": "B0GHR863R8",
+          "msku": "LDL-CQ4P-V-FBA",
+          "productName": "",
+          "endCount": 28,
+          "endAmount": 21669.2,
+          "endOnWayCount": 0,
+          "receiptsCount": 13,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001C8AU95",
+          "asin": "B0G6938JKF",
+          "msku": "CS-CQQZ-AG-FBA1",
+          "productName": "",
+          "endCount": 12,
+          "endAmount": 19860,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BIC5IP",
+          "asin": "B0FPDYQ4W9",
+          "msku": "SP-PL4P-B-JP",
+          "productName": "",
+          "endCount": 31,
+          "endAmount": 19158,
+          "endOnWayCount": 0,
+          "receiptsCount": 32,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 1,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001C8K5PJ",
+          "asin": "B0G69LYRVN",
+          "msku": "LDL-CQZ-MV-FBA",
+          "productName": "",
+          "endCount": 5,
+          "endAmount": 12557,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0019JD6J3",
+          "asin": "B0DTD7559D",
+          "msku": "IR-5D74-URZ5",
+          "productName": "",
+          "endCount": 25,
+          "endAmount": 10306.25,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001CYNR2L",
+          "asin": "B0GSJK54SC",
+          "msku": "LDL-PL4P-ME-FBA1",
+          "productName": "",
+          "endCount": 10,
+          "endAmount": 8839,
+          "endOnWayCount": 0,
+          "receiptsCount": 10,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0CWS18QXJ",
+          "asin": "B0CWS18QXJ",
+          "msku": "SA-M5Q6-B89T",
+          "productName": "",
+          "endCount": 29,
+          "endAmount": 8691.3,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D6Y321",
+          "asin": "B0GHRCXC9S",
+          "msku": "LDL-CQ4P-V-DP-FBA",
+          "productName": "",
+          "endCount": 17,
+          "endAmount": 6579,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DHB66V",
+          "asin": "B0H1PRGFN5",
+          "msku": "BEL-FSYLY-Z-FBA",
+          "productName": "",
+          "endCount": 40,
+          "endAmount": 6140,
+          "endOnWayCount": 0,
+          "receiptsCount": 40,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D6XTS5",
+          "asin": "B0GHRDP4SM",
+          "msku": "LDL-CQ4P-E-DP-FBA",
+          "productName": "",
+          "endCount": 15,
+          "endAmount": 5805,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DP50ZB",
+          "asin": "B0HJGGKCRD",
+          "msku": "LDL-ZSSF-E-FBA",
+          "productName": "",
+          "endCount": 17,
+          "endAmount": 5285.3,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001AK9LVN",
+          "asin": "B0F9DLS914",
+          "msku": "CS-BT-B-JP",
+          "productName": "",
+          "endCount": 48,
+          "endAmount": 5248.8,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BMHK8L",
+          "asin": "B0FQMDWRWW",
+          "msku": "LDL-QZ-ME-3-black-FBA",
+          "productName": "",
+          "endCount": 3,
+          "endAmount": 4602,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BHDTW7",
+          "asin": "B0FN3PM6K8",
+          "msku": "CS-HYSL-JP",
+          "productName": "",
+          "endCount": 19,
+          "endAmount": 4151.5,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DPTRA5",
+          "asin": "B0FMFB52KG",
+          "msku": "LDL-TZTM-V-FBA",
+          "productName": "",
+          "endCount": 18,
+          "endAmount": 3996,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DPFRPJ",
+          "asin": "B0FMF7T4RW",
+          "msku": "LDL-TZTM-E-FBA",
+          "productName": "",
+          "endCount": 15,
+          "endAmount": 3330,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D0G9F1",
+          "asin": "B0GSVTMQ56",
+          "msku": "SL-LL2.0-QQ-FBA",
+          "productName": "",
+          "endCount": 15,
+          "endAmount": 3094.5,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BWBUJB",
+          "asin": "B0FY68X11R",
+          "msku": "CS-HYSL-ZWJ-FBA",
+          "productName": "",
+          "endCount": 11,
+          "endAmount": 2922.7,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001AK8E0R",
+          "asin": "B0F9DV441P",
+          "msku": "CS-BT-Y-JP",
+          "productName": "",
+          "endCount": 27,
+          "endAmount": 2893.05,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D21279",
+          "asin": "B0GTQ59J6D",
+          "msku": "BEL-SFZ-E-BTZ-FBA",
+          "productName": "",
+          "endCount": 9,
+          "endAmount": 2797.2,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018QOU47",
+          "asin": "B0DJ2X559K",
+          "msku": "CS-KLP-G",
+          "productName": "",
+          "endCount": 2,
+          "endAmount": 2353,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0019ZR797",
+          "asin": "B0DZX72WVT",
+          "msku": "CS-FXL-Y",
+          "productName": "",
+          "endCount": 18,
+          "endAmount": 1724.76,
+          "endOnWayCount": 0,
+          "receiptsCount": 18,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0DJ6XWWPP",
+          "asin": "B0DJ6XWWPP",
+          "msku": "Q3-KTDP-51JY",
+          "productName": "",
+          "endCount": 27,
+          "endAmount": 1581.39,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001AK9JR9",
+          "asin": "B0FPM7QVDS",
+          "msku": "CS-BT-G",
+          "productName": "",
+          "endCount": 14,
+          "endAmount": 1561.7,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DP6HG7",
+          "asin": "B0H4FWFYXY",
+          "msku": "LDL-XYCQZ-V-FBA",
+          "productName": "",
+          "endCount": 1,
+          "endAmount": 1539.5,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DHBZMV",
+          "asin": "B0H1MFB1B2",
+          "msku": "SL-YLY-WS-FBA",
+          "productName": "",
+          "endCount": 12,
+          "endAmount": 1500,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001CDP2FH",
+          "asin": "B0GCZSR72V",
+          "msku": "SL-YLY-H-FBA",
+          "productName": "",
+          "endCount": 13,
+          "endAmount": 1482,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D0LPMD",
+          "asin": "B0GSW2LFBB",
+          "msku": "SL-LL2.0-MC-FBA",
+          "productName": "",
+          "endCount": 7,
+          "endAmount": 1444.1,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001C5V7QX",
+          "asin": "B0G38QYZJF",
+          "msku": "SL-ZQHT-Y-JP-FBA",
+          "productName": "",
+          "endCount": 16,
+          "endAmount": 1352,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BT8ZER",
+          "asin": "B0FWK7VBTJ",
+          "msku": "CS-SGZDZ-FBA",
+          "productName": "",
+          "endCount": 4,
+          "endAmount": 1217.2,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BR1J83",
+          "asin": "B0FVXQ48BZ",
+          "msku": "CS-BTT-2L",
+          "productName": "",
+          "endCount": 53,
+          "endAmount": 1184.02,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001DPIQ0H",
+          "asin": "B0H4L31VMJ",
+          "msku": "SL-YH-Y-FBAA",
+          "productName": "",
+          "endCount": 30,
+          "endAmount": 1033.5,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00186S00H",
+          "asin": "B0DBQ66KG8",
+          "msku": "CS-CHL",
+          "productName": "",
+          "endCount": 23,
+          "endAmount": 927.59,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001C5V3I5",
+          "asin": "B0G38VBZTS",
+          "msku": "SL-XWHT-Y-JP-FBA",
+          "productName": "",
+          "endCount": 7,
+          "endAmount": 603.05,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D1ZNY3",
+          "asin": "B0GTQ9B1F2",
+          "msku": "BEL-FSYLY-E-FBA",
+          "productName": "",
+          "endCount": 3,
+          "endAmount": 460.5,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BR0JZR",
+          "asin": "B0FVWQL7JG",
+          "msku": "CS-SKL1-JP-FBA",
+          "productName": "",
+          "endCount": 3,
+          "endAmount": 408,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BH8YVN",
+          "asin": "B0FQ2RW2CJ",
+          "msku": "CS-MNFXL1.5",
+          "productName": "",
+          "endCount": 11,
+          "endAmount": 375.1,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BT07V1",
+          "asin": "B0FT6XLJKD",
+          "msku": "SP-0.5ZML-FBA",
+          "productName": "",
+          "endCount": 1,
+          "endAmount": 184.3,
+          "endOnWayCount": 0,
+          "receiptsCount": 1,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BTTGDB",
+          "asin": "B0FR4DFDPZ",
+          "msku": "CS-MNGHBL-JP-FBA",
+          "productName": "",
+          "endCount": 1,
+          "endAmount": 84.85,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 1,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BQP9E9",
+          "asin": "B0DFY8QSVK",
+          "msku": "9X-XS4A-U97R-FBA",
+          "productName": "",
+          "endCount": 2,
+          "endAmount": 29.8,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0CY1J78DR",
+          "asin": "B0CY1J78DR",
+          "msku": "Z7-JC05-DGXX",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017LL005",
+          "asin": "B0CYWVDWJ4",
+          "msku": "XX-02",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X0016VWK37",
+          "asin": "B0CYLQ4GMP",
+          "msku": "Writing Test",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001CUM7OT",
+          "asin": "B0GLXC8MFW",
+          "msku": "SL-YH-Y-FBA",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001ECLJCL",
+          "asin": "B0HCC33ZKL",
+          "msku": "SL-TBZ-Y-FBA",
+          "productName": "",
+          "endCount": 48,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 50,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D0CSND",
+          "asin": "B0GSVRLL5T",
+          "msku": "SL-LL2.0-QE-FBA",
+          "productName": "",
+          "endCount": 1,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001D0LPTV",
+          "asin": "B0GSVVLDCY",
+          "msku": "SL-LL2.0-MB-FBA",
+          "productName": "",
+          "endCount": 1,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017EO19T",
+          "asin": "B0D2DLQZ5P",
+          "msku": "PO-LAS8-UQ9U",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00176R36P",
+          "asin": "B0D2D6CCRB",
+          "msku": "MM-05",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0CZ9HWJ2F",
+          "asin": "B0CZ9HWJ2F",
+          "msku": "MM-04",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017LOBVP",
+          "asin": "B0CX8ZZ7F8",
+          "msku": "M186",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0CX917H3N",
+          "asin": "B0CX917H3N",
+          "msku": "M184",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0CX912XPZ",
+          "asin": "B0CX912XPZ",
+          "msku": "M183",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018PWMJX",
+          "asin": "B0CX89ZF13",
+          "msku": "M182",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018PWMGL",
+          "asin": "B0CX8LGZX9",
+          "msku": "M181",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001C2Q0VD",
+          "asin": "B0FQN5JVYH",
+          "msku": "LDL-QZ-MJ-3-FBA",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001C3TA8H",
+          "asin": "B0G39JSP5K",
+          "msku": "LDL-PL4P-ME-FBA",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BH8Y77",
+          "asin": "B0FQ22KNHC",
+          "msku": "CS-YLJJL-JP",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00191PUXL",
+          "asin": "B0DP4FGCC1",
+          "msku": "CS-YHL-Y",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00191YH4T",
+          "asin": "B0DP459CR9",
+          "msku": "CS-YDN-S",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017X8XZ3",
+          "asin": "B0D9LHWW8T",
+          "msku": "CS-YDC-G",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017M13FB",
+          "asin": "B0D6R6QVNY",
+          "msku": "CS-WSPL-1R-K",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017M13FL",
+          "asin": "B0D6QRMZ9B",
+          "msku": "CS-WSPL-1R-G",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017M13F1",
+          "asin": "B0D6QFPYNF",
+          "msku": "CS-WSPL-1R-B",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0DMDXMCG2",
+          "asin": "B0DMDXMCG2",
+          "msku": "CS-STLL-S",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "B0DLSW77CD",
+          "asin": "B0DLSW77CD",
+          "msku": "CS-STLL-B",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001AF1SIR",
+          "asin": "B0F3X5G6QY",
+          "msku": "CS-SKJ-JP",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017LL4PV",
+          "asin": "B0D6KMW63F",
+          "msku": "CS-QQZZ-K",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017LL4PL",
+          "asin": "B0D6KMPFRT",
+          "msku": "CS-QQZZ-G",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0D6KL6T8Y",
+          "asin": "B0D6KL6T8Y",
+          "msku": "CS-QQTZ-K",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0D6KJC2NW",
+          "asin": "B0D6KJC2NW",
+          "msku": "CS-QQTZ-G",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0D6KLGXQ9",
+          "asin": "B0D6KLGXQ9",
+          "msku": "CS-QQQT-K",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017LW4E1",
+          "asin": "B0D6KJ6FX7",
+          "msku": "CS-QQQT",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0019CZNNR",
+          "asin": "B0DSF65N1L",
+          "msku": "CS-QL-S-JP",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X0019JFNEJ",
+          "asin": "B0DTK4TD96",
+          "msku": "CS-PG-S-JP",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018QO9CF",
+          "asin": "B0DFB863PK",
+          "msku": "CS-MGZJ-S",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001A1D1P9",
+          "asin": "B0F26JMMNW",
+          "msku": "CS-LL-JP-1",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001AA4K0P",
+          "asin": "B0F5MRXWYZ",
+          "msku": "CS-LL-B1",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018P4S0T",
+          "asin": "B0DGXK9WBL",
+          "msku": "CS-JJL-S",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00186KZFP",
+          "asin": "B0DC392L6J",
+          "msku": "CS-JGD-Y",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00186KZFF",
+          "asin": "B0DC3BN2J4",
+          "msku": "CS-JGD-B",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018QPVE5",
+          "asin": "B0DB7SXR84",
+          "msku": "CS-HYZYS",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018QO9GB",
+          "asin": "B0DB7WGJSJ",
+          "msku": "CS-HYZDB",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0019D12RR",
+          "asin": "B0DSF11YJK",
+          "msku": "CS-HYZ-S-JP",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "B0D3XJ835T",
+          "asin": "B0D3XJ835T",
+          "msku": "CS-HSBT",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "B0DK8H1KML",
+          "asin": "B0DK8H1KML",
+          "msku": "CS-GHT-S",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00186S007",
+          "asin": "B0DBQ63LQQ",
+          "msku": "CS-FXT",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BMF2VX",
+          "asin": "B0FR9FFRBB",
+          "msku": "CS-CQQZ-AG-FBA",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017EO1A3",
+          "asin": "B0D223DRQM",
+          "msku": "CH-MG-B-01",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017LRQVH",
+          "asin": "B0FPQK5499",
+          "msku": "CH-LLDZ",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001BWBLJP",
+          "asin": "B0FY5RZSXL",
+          "msku": "BH-ZRQN-FBA",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001ECCFW9",
+          "asin": "B0HFMVM4HY",
+          "msku": "BEL-XKZ-E-DP-FBA",
+          "productName": "",
+          "endCount": 24,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 24,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001EBFXB5",
+          "asin": "B0HD5PXSNP",
+          "msku": "BEL-GBY-Z-FBA",
+          "productName": "",
+          "endCount": 18,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 19,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X001EBRCE1",
+          "asin": "B0HD5F3B2D",
+          "msku": "BEL-GBY-E-FBA",
+          "productName": "",
+          "endCount": 19,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 19,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X0018QOU83",
+          "asin": "B0DFY8QSVK",
+          "msku": "9X-XS4A-U97R",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X00194RQ6R",
+          "asin": "B0DFW6YNDG",
+          "msku": "9Q-212O-XEP3",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "B0DPYXVT7T",
+          "asin": "B0DPYXVT7T",
+          "msku": "90-0SPI-ANN4",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "",
+          "asin": "",
+          "msku": "564759476902_B00FIX8Z9M",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X00194P0D3",
+          "asin": "B0DFW9T9HG",
+          "msku": "45-0I7D-KTXM",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X001A2DLCL",
+          "asin": "B0F2LVQ8LX",
+          "msku": "2Z-R83W-PYQM",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0017VXAG7",
+          "asin": "B0D76NQ3X3",
+          "msku": "0E-Q1IN-CN17",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        }
+      ]
+    },
+    "amazonUS": {
+      "sellerId": "A3WVG9GU455RD",
+      "storeName": "美国-亚马逊",
+      "country": "US",
+      "skuDetail": [
+        {
+          "fnsku": "X004SQ23IP",
+          "asin": "B0FM2KZTCZ",
+          "msku": "CSPL-2 Person Tent-Black",
+          "productName": "",
+          "endCount": 3,
+          "endAmount": 1095,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X0058JK6Y9",
+          "asin": "B0FM2KZTCZ",
+          "msku": "amzn.gr.CSPL-2_Person_Tent-Bla-gfBMWU-LN",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X005BOXO1X",
+          "asin": "B0FM2KZTCZ",
+          "msku": "amzn.gr.CSPL-2_Person_Tent-Bla--1AX_c-LN",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "",
+          "asin": "",
+          "msku": "amzn.gr.CS-PL1P-S-N1TfuPJOxtt7__1i3Gn-PO",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X0058M3CZV",
+          "asin": "B0FF9PN6NJ",
+          "msku": "amzn.gr.CS-PL1P-S-9gBaKllsuN4VrQrHI-B-LN",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "",
+          "asin": "",
+          "msku": "amzn.gr.CS-LLGHMD-B-WYR4OMcLwn1BRhfVb-PO",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X004VPTGZ1",
+          "asin": "B0D9D73SQ8",
+          "msku": "amzn.gr.CS-LLGHDL-G-ef7xm-9A1ocPEiBB6-LN",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X004Z109OX",
+          "asin": "B0D9D73SQ8",
+          "msku": "amzn.gr.CS-LLGHDL-G-WjStZgr61tl-Ptx3y-LN",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X004X04ITX",
+          "asin": "B0DFCHTCTW",
+          "msku": "amzn.gr.CS-JGMYD-B-FfWK-aUo1AOn1sOCMS-LN",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "",
+          "asin": "",
+          "msku": "amzn.gr.CS-FHT-S-US-hTCHbT4XauYSx0sqS-PO",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X004W334DR",
+          "asin": "B0DQ8Q7GBB",
+          "msku": "amzn.gr.CS-FHT-S-US-8KaPWQr-37fQKcfMH-LN",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X0059BCBNZ",
+          "asin": "B0DQ8B9MQN",
+          "msku": "amzn.gr.CS-CHL-S-US-oLz-oMdIZu9oHA3Yk-VG",
+          "productName": "",
+          "endCount": 1,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "",
+          "asin": "",
+          "msku": "amzn.gr.CS-CHL-B-US-BZAwzTWsTe-rsOF8X-PO",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "X004HYFT6B",
+          "asin": "B0DQ89LVKX",
+          "msku": "CS-YLJJY-S-US",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": -1,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004BIGJ53",
+          "asin": "B0D9DB1R2R",
+          "msku": "CS-YDC",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004HY57QN",
+          "asin": "B0DQ8HJSQM",
+          "msku": "CS-XFL-S-US",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004QTBA1F",
+          "asin": "B0FF9PN6NJ",
+          "msku": "CS-PL1P-S",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004QTHY2T",
+          "asin": "B0FF9W27FW",
+          "msku": "CS-PL1P-AG",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004BIG769",
+          "asin": "B0D9D7VLV2",
+          "msku": "CS-MGGHDL-Y",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004BIG773",
+          "asin": "B0D9D7NPV3",
+          "msku": "CS-MGGHDL-B",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004BIG76T",
+          "asin": "B0D9D6QQ72",
+          "msku": "CS-LLGHMD-B",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004BIG76J",
+          "asin": "B0D9D73SQ8",
+          "msku": "CS-LLGHDL-G",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004DIHK2R",
+          "asin": "B0DFC2R8WN",
+          "msku": "CS-JGMYD-S",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004DIKN1H",
+          "asin": "B0DFCHTCTW",
+          "msku": "CS-JGMYD-B",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004MEQHM1",
+          "asin": "B0F1K4HC1Q",
+          "msku": "CS-FXL2.0-Y",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004HY5BSH",
+          "asin": "B0DQ8Q7GBB",
+          "msku": "CS-FHT-S-US",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004HY7E3H",
+          "asin": "B0DQ8B9MQN",
+          "msku": "CS-CHL-S-US",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004HY7EJV",
+          "asin": "B0DQ8J1G3K",
+          "msku": "CS-CHL-B-US",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "springhill",
+          "category": ""
+        },
+        {
+          "fnsku": "X004SQ3LPT",
+          "asin": "B0FM1XQKJ3",
+          "msku": "CS AIR MATTRESS",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "",
+          "asin": "",
+          "msku": "CS-YLJJY-S-US",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        },
+        {
+          "fnsku": "",
+          "asin": "",
+          "msku": "CS-CHL-S-US",
+          "productName": "",
+          "endCount": 0,
+          "endAmount": 0,
+          "endOnWayCount": 0,
+          "receiptsCount": 0,
+          "customerReturnsCount": 0,
+          "damagedCount": 0,
+          "lostCount": 0,
+          "foundCount": 0,
+          "disposedCount": 0,
+          "differenceCount": 0,
+          "brandName": "",
+          "category": ""
+        }
+      ]
+    }
+  },
+  "overseas": {
+    "summary": [
+      {
+        "warehouseName": "美鸥 Sea&Mew Canada Inc",
+        "warehouseType": "第三方",
+        "productCount": 1,
+        "dayEarlyCount": 0,
+        "dayEndCount": 0,
+        "dayEarlyCost": 0,
+        "dayEndCost": 0,
+        "allocationInTransitCount": 0,
+        "allocationInTransitCost": 0,
+        "purchaseInCount": 0,
+        "allocationOutCount": 0,
+        "fbaOutCount": 0,
+        "fbmOutCount": 0,
+        "returnGoodsInCount": 0,
+        "rotationDayCost": 0,
+        "sysWid": 7102
+      }
+    ],
+    "skuDetail": [
+      {
+        "warehouseName": "美鸥 Sea&Mew Canada Inc",
+        "sku": "CS-KSL-H",
+        "spu": "",
+        "productName": "卡式炉-灰色",
+        "brand": "",
+        "dayEarlyCount": 0,
+        "dayEndCount": 0,
+        "dayEarlyCost": 0,
+        "dayEndCost": 0,
+        "allocationInTransitCount": 0,
+        "purchaseInCount": 0,
+        "allocationOutCount": 0,
+        "fbaOutCount": 0,
+        "returnGoodsInCount": 0,
+        "rotationDayCount": 0,
+        "category1": "",
+        "category2": ""
+      }
+    ]
+  }
+}
+</script>
+<script>
+const COLORS=['#6ea8fe','#3fb950','#bc8cff','#db6d28','#d29922'];
+const SELLERS={'ADIYJW0UXJYNU':{name:'日本-亚马逊',key:'amazonJP',cur:'JPY'},'A3WVG9GU455RD':{name:'美国-亚马逊',key:'amazonUS',cur:'USD'}};
+let DATA={};
+let curTab='fba';
+let curSkuPlatform=null;
+let curSort={key:'endAmount',dir:-1};
+
+try{DATA=JSON.parse(document.getElementById('DATA-JSON').textContent)}catch(e){}
+
+const fmt0=v=>Math.round(Number(v)||0).toLocaleString();
+const fmt2=v=>(Number(v)||0).toFixed(2).replace(/\B(?=(\d{3})+\.)/g,',').replace(/\.00$/,'');
+const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
+
+function render(){
+  const d=DATA;
+  document.getElementById('meta').textContent='数据更新：'+(d.meta&&d.meta.generatedAt||'?')+' · 来源：领星ERP';
+
+  if(curTab==='fba') renderFBA(d);
+  else renderOverseas(d);
+}
+
+// ========== FBA 库存 ==========
+function renderFBA(d){
+  const fba=d.fba||{};
+  // 找有数据的店铺
+  const candidates=Object.entries(fba).filter(([k,v])=>v&&v.endCount!=null);
+  if(!candidates.length){
+    document.getElementById('panel').innerHTML='<div class="sec"><h2>FBA库存</h2><div style="color:var(--sub);padding:40px;text-align:center">暂无FBA库存数据</div></div>';
+    return;
+  }
+
+  // 汇总KPI
+  let totalEnd=0,totalOnWay=0,totalReceipts=0,totalReturns=0,totalDamaged=0;
+  for(const [k,v] of candidates){
+    totalEnd+=num(v.endCount);
+    totalOnWay+=num(v.endOnWayCount);
+    totalReceipts+=num(v.receiptsCount);
+    totalReturns+=num(v.customerReturnsCount);
+    totalDamaged+=num(v.damagedCount)+num(v.lostCount);
+  }
+
+  // 各店铺KPI卡片
+  const storeKPIs=candidates.map(([k,v])=>{
+    const info=SELLERS[v.sellerId]||{name:v.storeName||k,cur:'JPY'};
+    return `<div class="kpi ${v.endCount>0?'pos':'gry'}">
+      <div class="label">${info.name}</div>
+      <div class="v">${fmt0(v.endCount)}<small>${info.cur}</small></div>
+      <div class="delta">期末库存 · 成本 ¥${fmt2(v.endAmount)}</div>
+    </div>`;
+  }).join('');
+
+  let html=`<div class="sec">
+    <h2>FBA库存总览 <span class="sub">本月 · 按店铺</span></h2>
+    <div class="kpi-grid">
+      <div class="kpi info"><div class="label">总期末库存</div><div class="v">${fmt0(totalEnd)}<small>件</small></div></div>
+      <div class="kpi warn"><div class="label">总在途库存</div><div class="v">${fmt0(totalOnWay)}<small>件</small></div></div>
+      <div class="kpi pos"><div class="label">本月入库</div><div class="v">${fmt0(totalReceipts)}<small>件</small></div></div>
+      <div class="kpi neg"><div class="label">退货+残损</div><div class="v">${fmt0(totalReturns+totalDamaged)}<small>件</small></div></div>
+      ${storeKPIs}
+    </div>
+  </div>`;
+
+  // SKU明细
+  const platforms=candidates.map(([k,v])=>{
+    const info=SELLERS[v.sellerId]||{name:v.storeName||k,cur:'JPY'};
+    return{name:info.name,key:k,list:v.skuDetail||[],currency:info.cur,endCount:v.endCount,endAmount:v.endAmount};
+  }).filter(p=>p.list.length>0);
+
+  if(!curSkuPlatform||!platforms.find(p=>p.key===curSkuPlatform)){
+    curSkuPlatform=platforms.length?[...platforms].sort((a,b)=>b.endAmount-a.endAmount)[0].key:null;
+  }
+
+  const chips=platforms.map(p=>{
+    const color=COLORS[platforms.indexOf(p)%COLORS.length];
+    return `<span class="chip ${p.key===curSkuPlatform?'on':''}" data-skup="${p.key}"><span class="dot" style="background:${color}"></span>${p.name} <span style="opacity:.7">(${p.list.length})</span></span>`;
+  }).join('');
+
+  const cur=platforms.find(p=>p.key===curSkuPlatform)||platforms[0];
+  const list=(cur.list||[]).slice().sort((a,b)=>{
+    const s=curSort;
+    const va=num(a[s.key]),vb=num(b[s.key]);
+    return s.dir*(va-vb);
+  });
+  const top20=list.slice(0,20);
+  const rest=list.slice(20);
+
+  const rowHTML=(r,i,cls)=>{
+    const stockStatus=r.endCount>20?'grn':r.endCount>0?'yel':'red';
+    const stockBadge=`<span class="badge ${stockStatus}">${r.endCount>20?'充足':r.endCount>0?'偏低':'缺货'}</span>`;
+    return `<tr${cls?` class="${cls}"`:''}>
+      <td><div style="display:flex;align-items:center;gap:10px">
+        <div style="position:relative;flex-shrink:0"><span class="sku-rank">${i}</span><div class="sku-ph">${r.fnsku?'FBA':'—'}</div></div>
+        <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.msku||r.fnsku||'—'}</div>${r.productName?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${r.productName}</div>`:''}</div>
+      </div></td>
+      <td>${fmt0(r.endCount)}</td>
+      <td>${fmt2(r.endAmount)}<span style="color:var(--sub);font-size:11px;margin-left:2px">${cur.currency}</span></td>
+      <td>${fmt0(r.endOnWayCount)}</td>
+      <td>${fmt0(r.receiptsCount)}</td>
+      <td>${fmt0(r.customerReturnsCount)}</td>
+      <td>${fmt0(r.damagedCount+r.lostCount)}</td>
+      <td>${stockBadge}</td>
+    </tr>`;
+  };
+
+  const sortIcon=k=>curSort.key===k?(curSort.dir>0?' ↑':' ↓'):'';
+
+  html+=`<div class="sec">
+    <h2>FBA SKU库存明细 <span class="sub">按平台切换 · Top 20 按选中列排序</span></h2>
+    <div class="filter-group">${chips}</div>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th data-sort="msku">MSKU / 产品${sortIcon('msku')}</th>
+        <th data-sort="endCount" style="text-align:right">期末库存${sortIcon('endCount')}</th>
+        <th data-sort="endAmount" style="text-align:right">库存成本${sortIcon('endAmount')}</th>
+        <th data-sort="endOnWayCount" style="text-align:right">在途${sortIcon('endOnWayCount')}</th>
+        <th data-sort="receiptsCount" style="text-align:right">入库${sortIcon('receiptsCount')}</th>
+        <th data-sort="customerReturnsCount" style="text-align:right">退货${sortIcon('customerReturnsCount')}</th>
+        <th data-sort="damagedCount" style="text-align:right">残损+丢失${sortIcon('damagedCount')}</th>
+        <th>状态</th>
+      </tr></thead>
+      <tbody>
+        ${top20.map((r,i)=>rowHTML(r,i+1)).join('')}
+        ${rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
+      </tbody>
+    </table></div>
+    ${rest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    <div class="note">
+      · 数据源：领星ERP · FBA新版库存报表（月度汇总）<br>
+      · 期末库存=当月最后一天的FBA在仓库存（可售+预留+残损）；在途=调拨在途<br>
+      · 库存成本=领星计算的商品成本（含物流成本调整）<br>
+      · 状态：>20件充足(绿) / 1-20件偏低(黄) / 0件缺货(红)<br>
+      · 点击表头排序 ｜ 点击平台芯片切换 ｜ 仅展示 Top 20
+    </div>
+  </div>`;
+
+  document.getElementById('panel').innerHTML=html;
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');
+  });
+  bindSkuEvents();
+}
+
+// ========== 海外仓 ==========
+function renderOverseas(d){
+  const ov=d.overseas||{};
+  const summary=ov.summary||[];
+  const detail=ov.skuDetail||[];
+
+  if(!summary.length && !detail.length){
+    document.getElementById('panel').innerHTML='<div class="sec"><h2>海外仓库存</h2><div style="color:var(--sub);padding:40px;text-align:center">暂无海外仓库存数据</div></div>';
+    return;
+  }
+
+  let totalEnd=0,totalOnWay=0,totalEarly=0;
+  for(const s of summary){
+    totalEnd+=num(s.dayEndCount);
+    totalOnWay+=num(s.allocationInTransitCount);
+    totalEarly+=num(s.dayEarlyCount);
+  }
+
+  const storeKPIs=summary.map(s=>`<div class="kpi ${s.dayEndCount>0?'pos':'gry'}">
+    <div class="label">${s.warehouseName}</div>
+    <div class="v">${fmt0(s.dayEndCount)}<small>件</small></div>
+    <div class="delta">期末 · 期初${fmt0(s.dayEarlyCount)} · 在途${fmt0(s.allocationInTransitCount)}</div>
+  </div>`).join('');
+
+  let html=`<div class="sec">
+    <h2>海外仓库存总览 <span class="sub">第三方仓库</span></h2>
+    <div class="kpi-grid">
+      <div class="kpi info"><div class="label">总期末库存</div><div class="v">${fmt0(totalEnd)}<small>件</small></div></div>
+      <div class="kpi warn"><div class="label">总在途库存</div><div class="v">${fmt0(totalOnWay)}<small>件</small></div></div>
+      <div class="kpi"><div class="label">总期初库存</div><div class="v">${fmt0(totalEarly)}<small>件</small></div></div>
+      ${storeKPIs}
+    </div>
+  </div>`;
+
+  if(detail.length){
+    const top20=detail.slice(0,20);
+    const rest=detail.slice(20);
+    html+=`<div class="sec">
+      <h2>海外仓 SKU 明细 <span class="sub">Top 20</span></h2>
+      <div class="table-wrap"><table>
+        <thead><tr>
+          <th>SKU / 产品</th>
+          <th style="text-align:right">期初</th>
+          <th style="text-align:right">期末</th>
+          <th style="text-align:right">在途</th>
+          <th style="text-align:right">入库</th>
+          <th style="text-align:right">出库</th>
+          <th style="text-align:right">FBA出</th>
+          <th style="text-align:right">周转天</th>
+        </tr></thead>
+        <tbody>
+          ${top20.map((r,i)=>`<tr>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="sku-ph">${r.warehouseName?r.warehouseName.slice(0,2):'—'}</div><div><div style="font-family:monospace;font-size:12px">${r.sku||r.spu||'—'}</div>${r.productName?`<div style="font-size:11px;color:var(--sub);margin-top:2px">${r.productName}</div>`:''}</div></div></td>
+            <td style="text-align:right">${fmt0(r.dayEarlyCount)}</td>
+            <td style="text-align:right;font-weight:600">${fmt0(r.dayEndCount)}</td>
+            <td style="text-align:right;color:var(--blue)">${fmt0(r.allocationInTransitCount)}</td>
+            <td style="text-align:right">${fmt0(r.purchaseInCount)}</td>
+            <td style="text-align:right">${fmt0(r.allocationOutCount)}</td>
+            <td style="text-align:right">${fmt0(r.fbaOutCount)}</td>
+            <td style="text-align:right">${fmt2(r.rotationDayCount)}</td>
+          </tr>`).join('')}
+          ${rest.map(r=>`<tr class="sku-rest hidden">
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="sku-ph">${r.warehouseName?r.warehouseName.slice(0,2):'—'}</div><div><div style="font-family:monospace;font-size:12px">${r.sku||r.spu||'—'}</div></div></div></td>
+            <td style="text-align:right">${fmt0(r.dayEarlyCount)}</td>
+            <td style="text-align:right">${fmt0(r.dayEndCount)}</td>
+            <td style="text-align:right;color:var(--blue)">${fmt0(r.allocationInTransitCount)}</td>
+            <td style="text-align:right">${fmt0(r.purchaseInCount)}</td>
+            <td style="text-align:right">${fmt0(r.allocationOutCount)}</td>
+            <td style="text-align:right">${fmt0(r.fbaOutCount)}</td>
+            <td style="text-align:right">${fmt2(r.rotationDayCount)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      ${rest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+      <div class="note">
+        · 数据源：领星ERP · 海外仓库存报表<br>
+        · 期末=当期末在仓库存；在途=仓间调拨在途<br>
+        · 周转天数=库存周转一次所需天数（越低越好）<br>
+        · 海外仓目前仅美鸥Sea&Mew（加拿大），当前库存为0
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('panel').innerHTML=html;
+  bindSkuEvents();
+}
+
+// ========== 事件绑定 ==========
+function bindSkuEvents(){
+  document.querySelectorAll('[data-tab]').forEach(t=>{
+    t.onclick=()=>{curTab=t.dataset.tab;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===t));render();};
+  });
+  document.querySelectorAll('[data-skup]').forEach(c=>{
+    c.onclick=()=>{curSkuPlatform=c.dataset.skup;render();};
+  });
+  document.querySelectorAll('th[data-sort]').forEach(th=>{
+    th.onclick=()=>{
+      const k=th.dataset.sort;
+      if(curSort.key===k) curSort.dir=-curSort.dir;
+      else curSort.key=k,curSort.dir=-1;
+      render();
+    };
+  });
+  const btn=document.getElementById('skuToggle');
+  if(btn) btn.onclick=()=>{
+    const rows=document.querySelectorAll('tr.sku-rest');
+    if(!rows.length)return;
+    const hidden=rows[0].classList.contains('hidden');
+    rows.forEach(r=>r.classList.toggle('hidden',!hidden));
+    btn.textContent=hidden?'收起 ▲':`展开剩余 ${rows.length} 条 ▼`;
+  };
+}
+
+render();
+</script>
+</body>
+</html>
