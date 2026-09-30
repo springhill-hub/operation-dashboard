@@ -15,6 +15,9 @@ body{background:var(--bg);color:var(--txt);font-family:"PingFang SC","Microsoft 
 .wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
 header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:22px}
 .brand{display:flex;align-items:center;gap:14px}
+.switch-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 14px;background:var(--card2);border:1px solid var(--line);border-radius:8px;color:var(--sub);font-size:12px;text-decoration:none;cursor:pointer;transition:.25s;white-space:nowrap}
+.switch-btn:hover{border-color:var(--fire);color:var(--fire);background:#2a2318}
+.switch-btn b{font-size:13px}
 .logo{width:44px;height:44px;border:2px solid var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--green);font-size:20px;letter-spacing:-1px}
 h1{font-size:22px;letter-spacing:1px}
 h1 small{display:block;font-size:11px;color:var(--sub);letter-spacing:3px;font-weight:400;margin-top:3px}
@@ -120,6 +123,7 @@ footer{margin-top:26px;text-align:center;font-size:11px;color:#5d616b;letter-spa
 <header class="fade">
   <div class="brand">
     <div class="logo">山</div>
+    <a class="switch-btn" href="./" title="切换到跨境经营看板">外盘 →</a>
     <h1>春山户外 · 国内经营看板<small>GOOUT SPRINGHILL · DOMESTIC DASHBOARD</small></h1>
   </div>
   <div class="meta">
