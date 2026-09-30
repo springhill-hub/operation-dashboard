@@ -469,7 +469,11 @@ function lastMonthStr() {
         // 拉取本月销售数据
         console.log('  拉取本月销售数据...');
         const monthStartDate = today.slice(0, 8) + '01';
-        const salesMap = new Map(); // sku -> qty
+        const salesMap = new Map();     // sku -> 净销量
+        const salesNameMap = new Map(); // sku -> 品名（给"有销量但全仓零库存"的SKU补名）
+        // 非卖品链接（邮费/补差/消毒链接等）不计销量
+        const NON_SKU_SALES = /邮费|补差价|补差链接|处理品|放心购|快递.*消毒|test/i;
+        let jstGross = 0, jstRefund = 0, lxGross = 0, lxRefund = 0;
 
         // 聚水潭订单（国内）- 按7天分片拉取，每片内分页
         // 销量口径：真实成交，剔除 已取消(Cancelled)/已合并(Merged)/已拆分(Split) 三类异常单
@@ -502,7 +506,13 @@ function lastMonthStr() {
                         if (order.items && Array.isArray(order.items)) {
                             for (const item of order.items) {
                                 const sku = item.sku_id;
-                                if (sku) salesMap.set(sku, (salesMap.get(sku) || 0) + num(item.qty));
+                                if (!sku || NON_SKU_SALES.test(sku + ' ' + (item.name || ''))) continue;
+                                // 净销量 = 订单数量 - 退款数量（refund_qty），单行做非负保护
+                                const gross = num(item.qty), refund = num(item.refund_qty);
+                                const netQty = Math.max(0, gross - refund);
+                                jstGross += gross; jstRefund += refund;
+                                salesMap.set(sku, (salesMap.get(sku) || 0) + netQty);
+                                if (item.name && !salesNameMap.has(sku)) salesNameMap.set(sku, item.name);
                             }
                         }
                     }
@@ -513,7 +523,7 @@ function lastMonthStr() {
                 cur = new Date(end);
                 cur.setDate(cur.getDate() + 1);
             }
-            console.log(`    聚水潭订单: 拉取${orderCount}单, 有效${validOrders}单, 剔除取消/合并/拆分${invalidOrders}单, 涉及 ${salesMap.size} 个SKU`);
+            console.log(`    聚水潭订单: 拉取${orderCount}单, 有效${validOrders}单, 剔除取消/合并/拆分${invalidOrders}单; 毛销${jstGross}件 退款${jstRefund}件 净销${jstGross-jstRefund}件, 涉及 ${salesMap.size} 个SKU`);
         }
 
         // 领星销量（跨境日亚）
@@ -525,16 +535,35 @@ function lastMonthStr() {
             for (const r of records) {
                 if (r.storeName && r.storeName.includes('日本')) {
                     const sku = r.msku;
-                    if (sku) salesMap.set(sku, (salesMap.get(sku) || 0) + num(r.totalSalesQuantity));
+                    if (!sku || NON_SKU_SALES.test(sku + ' ' + (r.localName || ''))) continue;
+                    // 净销量 = 销售数量 - 退款数量(refundsQuantity，区别于FBA退货fbaReturnsQuantity，不重复扣)
+                    const gross = num(r.totalSalesQuantity), refund = num(r.refundsQuantity);
+                    const netQty = Math.max(0, gross - refund);
+                    lxGross += gross; lxRefund += refund;
+                    salesMap.set(sku, (salesMap.get(sku) || 0) + netQty);
+                    if ((r.localName || r.itemName) && !salesNameMap.has(sku)) salesNameMap.set(sku, r.localName || r.itemName);
                 }
             }
-            console.log(`    领星日亚销量: ${records.length} 条记录`);
+            console.log(`    领星日亚: ${records.length}条, 毛销${lxGross}件 退款${lxRefund}件 净销${lxGross-lxRefund}件`);
         }
+
+        // 补录"本月有销量但各仓零库存/无库存记录"的SKU（卖断货SKU）：
+        // 否则其销量不计入总销量、且不会出现在缺货预警中
+        let salesOnly = 0;
+        for (const [sku, qty] of salesMap) {
+            if (qty > 0 && !cloudMap.has(sku)) {
+                const o = addSku(sku, salesNameMap.get(sku) || '');
+                o.cloudQty = 0; // 现货总量在上方已汇总，补录SKU显式置0
+                salesOnly++;
+            }
+        }
+        if (salesOnly > 0) console.log(`    补录零库存有销量SKU: ${salesOnly} 个`);
 
         // 合并销售到云端总仓
         let totalSales = 0;
         for (const v of cloudMap.values()) {
             v.salesQty = salesMap.get(v.sku) || 0;
+            if (!v.name && salesNameMap.has(v.sku)) v.name = salesNameMap.get(v.sku);
             totalSales += v.salesQty;
             // 周转率 = 现货库存 / 本月销售量（用户口径：库存可卖几个月）
             v.turnover = v.salesQty > 0 ? r2(v.cloudQty / v.salesQty) : (v.cloudQty > 0 ? 999 : 0);
