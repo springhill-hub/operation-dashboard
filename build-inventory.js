@@ -472,10 +472,14 @@ function lastMonthStr() {
         const salesMap = new Map(); // sku -> qty
 
         // 聚水潭订单（国内）- 按7天分片拉取，每片内分页
+        // 销量口径：真实成交，剔除 已取消(Cancelled)/已合并(Merged)/已拆分(Split) 三类异常单
+        //   - 已取消：未成交；已合并：并入主单后原单作废，避免重复；已拆分：拆成新单后原单作废
+        //   - 已发货/待发货/待审核 等有效状态全部计入（含线下大单，B端出货算销量）
+        const INVALID_ORDER_STATUS = /^(Cancelled|Merged|Split)$/;
         {
             const monthStart = new Date(monthStartDate + 'T00:00:00+08:00');
             const todayEnd = new Date(today + 'T23:59:59+08:00');
-            let orderCount = 0;
+            let orderCount = 0, validOrders = 0, invalidOrders = 0;
             let cur = new Date(monthStart);
             while (cur <= todayEnd) {
                 const sliceEnd = new Date(cur);
@@ -492,6 +496,9 @@ function lastMonthStr() {
                     const j = JSON.parse(r);
                     if (j.code !== 0 || !j.data || !j.data.orders || j.data.orders.length === 0) break;
                     for (const order of j.data.orders) {
+                        orderCount++;
+                        if (INVALID_ORDER_STATUS.test(order.status || '')) { invalidOrders++; continue; }
+                        validOrders++;
                         if (order.items && Array.isArray(order.items)) {
                             for (const item of order.items) {
                                 const sku = item.sku_id;
@@ -499,7 +506,6 @@ function lastMonthStr() {
                             }
                         }
                     }
-                    orderCount += j.data.orders.length;
                     if (!j.data.has_next || j.data.orders.length < 100) break;
                     page++;
                     if (page > 80) break;
@@ -507,7 +513,7 @@ function lastMonthStr() {
                 cur = new Date(end);
                 cur.setDate(cur.getDate() + 1);
             }
-            console.log(`    聚水潭订单: ${orderCount} 单, 涉及 ${salesMap.size} 个SKU`);
+            console.log(`    聚水潭订单: 拉取${orderCount}单, 有效${validOrders}单, 剔除取消/合并/拆分${invalidOrders}单, 涉及 ${salesMap.size} 个SKU`);
         }
 
         // 领星销量（跨境日亚）
