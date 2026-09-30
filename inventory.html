@@ -18,7 +18,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-app
 .header .logo{width:28px;height:28px;background:linear-gradient(135deg,var(--green),var(--blue));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--bg)}
 .header .meta{font-size:12px;color:var(--sub)}
 .container{max-width:1400px;margin:0 auto;padding:20px}
-.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:20px;overflow:hidden}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:20px;overflow:hidden;scroll-margin-top:70px}
 .sec h2{font-size:14px;font-weight:600;padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 .sec h2 .sub{font-size:12px;color:var(--sub);font-weight:400}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line)}
@@ -33,8 +33,9 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-app
 .kpi.info .v{color:var(--blue)}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;padding:10px 14px;color:var(--sub);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--card);cursor:pointer;user-select:none}
-th:hover{color:var(--txt)}
+th{text-align:left;padding:10px 14px;color:var(--sub);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0;background:var(--card)}
+th[data-sort]{cursor:pointer;user-select:none}
+th[data-sort]:hover{color:var(--txt)}
 td{padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
 tr:hover td{background:var(--card2)}
 .pos{color:var(--green)}.neg{color:var(--red)}.warn{color:var(--yellow)}
@@ -63,6 +64,28 @@ tr:hover td{background:var(--card2)}
 .tab{padding:12px 20px;font-size:13px;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
 .tab:hover{color:var(--txt)}
 .tab.on{color:var(--blue);border-bottom-color:var(--blue)}
+/* 搜索框 */
+.sku-search{width:100%;max-width:360px;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:9px 12px;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s}
+.sku-search:focus{border-color:var(--blue)}
+.sku-search::placeholder{color:var(--sub)}
+.search-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.search-bar .cnt{font-size:12px;color:var(--sub)}
+/* 预警专区 */
+.alert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line)}
+.alert-card{background:var(--card);padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;color:var(--txt)}
+.alert-card:hover{background:var(--card2)}
+.alert-card .ic{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.alert-card.r .ic{background:rgba(248,81,73,.15)}
+.alert-card.y .ic{background:rgba(210,153,34,.15)}
+.alert-card.p .ic{background:rgba(188,140,255,.15)}
+.alert-card .lab{font-size:11px;color:var(--sub)}
+.alert-card .num{font-size:22px;font-weight:700;font-family:'SF Mono',monospace;line-height:1.2}
+.alert-card .sub2{font-size:11px;color:var(--sub)}
+.alert-card.r .num{color:var(--red)}.alert-card.y .num{color:var(--yellow)}.alert-card.p .num{color:var(--purple)}
+.badge.urg{background:rgba(248,81,73,.18);color:var(--red)}
+.badge.mid{background:rgba(210,153,34,.18);color:var(--yellow)}
+.badge.norm{background:rgba(63,185,80,.15);color:var(--green)}
+.thresh-note{font-size:11px;color:var(--sub);padding:10px 18px;border-top:1px solid var(--line)}
 @media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -119,7 +142,7 @@ tr:hover td{background:var(--card2)}
           "fnsku": "X001C5V27R",
           "asin": "B0G4MG63XS",
           "msku": "LDL-CQZ-ME-FBA",
-          "productName": "",
+          "productName": "春山伏羲充气球帐棉布款黑色",
           "endCount": 26,
           "endAmount": 65296.4,
           "endOnWayCount": 0,
@@ -131,13 +154,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-CQZ-ME"
         },
         {
           "fnsku": "X001CJBDY5",
           "asin": "B0GS8YK1X4",
           "msku": "LDL-CQ4P-E-FBA",
-          "productName": "",
+          "productName": "蓬莱4P庇护所充气帐篷主帐【黑色】",
           "endCount": 44,
           "endAmount": 34051.6,
           "endOnWayCount": 0,
@@ -149,13 +173,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-CQ4P-E"
         },
         {
           "fnsku": "X001DP70OZ",
           "asin": "B0H4FXW5CH",
           "msku": "LDL-XYCQZ-E-FBA",
-          "productName": "",
+          "productName": "轩辕充气隧道帐篷【黑色顶配】",
           "endCount": 22,
           "endAmount": 33869,
           "endOnWayCount": 0,
@@ -167,13 +192,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-XYCQZ-E-DP"
         },
         {
           "fnsku": "X001BIC9UT",
           "asin": "B0FPDWVGJN",
           "msku": "SP-PL4P-G-JP",
-          "productName": "",
+          "productName": "春山蓬莱4P庇护所2.0军绿色",
           "endCount": 49,
           "endAmount": 30282,
           "endOnWayCount": 0,
@@ -185,13 +211,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-4P-NV"
         },
         {
           "fnsku": "X001BTBE6D",
           "asin": "B0FR8WV3JX",
           "msku": "CS-CQQZ-B-FBA",
-          "productName": "",
+          "productName": "伏羲充气球帐【黑色】",
           "endCount": 14,
           "endAmount": 23170,
           "endOnWayCount": 0,
@@ -203,13 +230,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-MGCQZ-E"
         },
         {
           "fnsku": "X001CJBDZT",
           "asin": "B0GHR863R8",
           "msku": "LDL-CQ4P-V-FBA",
-          "productName": "",
+          "productName": "蓬莱4P庇护所充气帐篷主帐【军绿色】",
           "endCount": 28,
           "endAmount": 21669.2,
           "endOnWayCount": 0,
@@ -221,13 +249,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-CQ4P-V"
         },
         {
           "fnsku": "X001C8AU95",
           "asin": "B0G6938JKF",
           "msku": "CS-CQQZ-AG-FBA1",
-          "productName": "",
+          "productName": "伏羲充气球帐【军绿色】",
           "endCount": 12,
           "endAmount": 19860,
           "endOnWayCount": 0,
@@ -239,13 +268,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-MGCQZ-V"
         },
         {
           "fnsku": "X001BIC5IP",
           "asin": "B0FPDYQ4W9",
           "msku": "SP-PL4P-B-JP",
-          "productName": "",
+          "productName": "春山蓬莱4P庇护所2.0黑色",
           "endCount": 31,
           "endAmount": 19158,
           "endOnWayCount": 0,
@@ -257,13 +287,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-4P-NE"
         },
         {
           "fnsku": "X001C8K5PJ",
           "asin": "B0G69LYRVN",
           "msku": "LDL-CQZ-MV-FBA",
-          "productName": "",
+          "productName": "春山伏羲充气球帐棉布款军绿色",
           "endCount": 5,
           "endAmount": 12557,
           "endOnWayCount": 0,
@@ -275,13 +306,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-CQZ-XQMV"
         },
         {
           "fnsku": "X0019JD6J3",
           "asin": "B0DTD7559D",
           "msku": "IR-5D74-URZ5",
-          "productName": "",
+          "productName": "盘古观火灯炉黑色",
           "endCount": 25,
           "endAmount": 10306.25,
           "endOnWayCount": 0,
@@ -293,13 +325,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "",
-          "category": ""
+          "category": "",
+          "localSku": "SL-PGDL-E"
         },
         {
           "fnsku": "X001CYNR2L",
           "asin": "B0GSJK54SC",
           "msku": "LDL-PL4P-ME-FBA1",
-          "productName": "",
+          "productName": "春山蓬莱4P庇护所棉布款黑色",
           "endCount": 10,
           "endAmount": 8839,
           "endOnWayCount": 0,
@@ -311,13 +344,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-PL4P-ME"
         },
         {
           "fnsku": "B0CWS18QXJ",
           "asin": "B0CWS18QXJ",
           "msku": "SA-M5Q6-B89T",
-          "productName": "",
+          "productName": "幻影IGT-A套装",
           "endCount": 29,
           "endAmount": 8691.3,
           "endOnWayCount": 0,
@@ -329,13 +363,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-HYZ-TZ-A"
         },
         {
           "fnsku": "X001D6Y321",
           "asin": "B0GHRCXC9S",
           "msku": "LDL-CQ4P-V-DP-FBA",
-          "productName": "",
+          "productName": "蓬莱4P庇护所充气帐篷拓展前厅【军绿色】",
           "endCount": 17,
           "endAmount": 6579,
           "endOnWayCount": 0,
@@ -347,13 +382,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-CQ4PTZ-V"
         },
         {
           "fnsku": "X001DHB66V",
           "asin": "B0H1PRGFN5",
           "msku": "BEL-FSYLY-Z-FBA",
-          "productName": "",
+          "productName": "扶桑碳纤维月亮椅【紫色】",
           "endCount": 40,
           "endAmount": 6140,
           "endOnWayCount": 0,
@@ -365,13 +401,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "BEL-FSYLY-Z"
         },
         {
           "fnsku": "X001D6XTS5",
           "asin": "B0GHRDP4SM",
           "msku": "LDL-CQ4P-E-DP-FBA",
-          "productName": "",
+          "productName": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
           "endCount": 15,
           "endAmount": 5805,
           "endOnWayCount": 0,
@@ -383,13 +420,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-CQ4PTZ-E"
         },
         {
           "fnsku": "X001DP50ZB",
           "asin": "B0HJGGKCRD",
           "msku": "LDL-ZSSF-E-FBA",
-          "productName": "",
+          "productName": "毕方战术沙发【黑色】",
           "endCount": 17,
           "endAmount": 5285.3,
           "endOnWayCount": 0,
@@ -401,13 +439,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-ZSSF-E"
         },
         {
           "fnsku": "X001AK9LVN",
           "asin": "B0F9DLS914",
           "msku": "CS-BT-B-JP",
-          "productName": "",
+          "productName": "黑色寒霜冰桶",
           "endCount": 48,
           "endAmount": 5248.8,
           "endOnWayCount": 0,
@@ -419,13 +458,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-BT-HS-H"
         },
         {
           "fnsku": "X001BMHK8L",
           "asin": "B0FQMDWRWW",
           "msku": "LDL-QZ-ME-3-black-FBA",
-          "productName": "",
+          "productName": "昆仑棉布款 3.0【黑色】",
           "endCount": 3,
           "endAmount": 4602,
           "endOnWayCount": 0,
@@ -437,13 +477,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-QZ-ME-3"
         },
         {
           "fnsku": "X001BHDTW7",
           "asin": "B0FN3PM6K8",
           "msku": "CS-HYSL-JP",
-          "productName": "",
+          "productName": "春山IGT幻影桌SOLO",
           "endCount": 19,
           "endAmount": 4151.5,
           "endOnWayCount": 0,
@@ -455,13 +496,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-HYSL-E"
         },
         {
           "fnsku": "X001DPTRA5",
           "asin": "B0FMFB52KG",
           "msku": "LDL-TZTM-V-FBA",
-          "productName": "",
+          "productName": "拓展天幕【军绿】",
           "endCount": 18,
           "endAmount": 3996,
           "endOnWayCount": 0,
@@ -473,13 +515,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-TZTM-V"
         },
         {
           "fnsku": "X001DPFRPJ",
           "asin": "B0FMF7T4RW",
           "msku": "LDL-TZTM-E-FBA",
-          "productName": "",
+          "productName": "拓展天幕【黑色】",
           "endCount": 15,
           "endAmount": 3330,
           "endOnWayCount": 0,
@@ -491,13 +534,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-TZTM-E"
         },
         {
           "fnsku": "X001D0G9F1",
           "asin": "B0GSVTMQ56",
           "msku": "SL-LL2.0-QQ-FBA",
-          "productName": "",
+          "productName": "琉璃观火灯炉2.0【枪灰色+枪灰亚克力】",
           "endCount": 15,
           "endAmount": 3094.5,
           "endOnWayCount": 0,
@@ -509,13 +553,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-LL2.0-QQ"
         },
         {
           "fnsku": "X001BWBUJB",
           "asin": "B0FY68X11R",
           "msku": "CS-HYSL-ZWJ-FBA",
-          "productName": "",
+          "productName": "春山幻影SOLO桌+SOLO置物架灯架",
           "endCount": 11,
           "endAmount": 2922.7,
           "endOnWayCount": 0,
@@ -527,13 +572,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-HYSL-E-ATZ"
         },
         {
           "fnsku": "X001AK8E0R",
           "asin": "B0F9DV441P",
           "msku": "CS-BT-Y-JP",
-          "productName": "",
+          "productName": "银色寒霜冰桶",
           "endCount": 27,
           "endAmount": 2893.05,
           "endOnWayCount": 0,
@@ -545,13 +591,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-BT-HS-Y"
         },
         {
           "fnsku": "X001D21279",
           "asin": "B0GTQ59J6D",
           "msku": "BEL-SFZ-E-BTZ-FBA",
-          "productName": "",
+          "productName": "金乌碳纤维四方桌【B套装】",
           "endCount": 9,
           "endAmount": 2797.2,
           "endOnWayCount": 0,
@@ -563,13 +610,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "BEL-SFZ-E-BTZ"
         },
         {
           "fnsku": "X0018QOU47",
           "asin": "B0DJ2X559K",
           "msku": "CS-KLP-G",
-          "productName": "",
+          "productName": "昆仑3.0pro 绿色",
           "endCount": 2,
           "endAmount": 2353,
           "endOnWayCount": 0,
@@ -581,13 +629,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-QZ-J-5"
         },
         {
           "fnsku": "X0019ZR797",
           "asin": "B0DZX72WVT",
           "msku": "CS-FXL-Y",
-          "productName": "",
+          "productName": "迷你焚香炉2.0",
           "endCount": 18,
           "endAmount": 1724.76,
           "endOnWayCount": 0,
@@ -599,13 +648,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-FXL2.0-Y"
         },
         {
           "fnsku": "B0DJ6XWWPP",
           "asin": "B0DJ6XWWPP",
           "msku": "Q3-KTDP-51JY",
-          "productName": "",
+          "productName": "迷你柴火炉黑色",
           "endCount": 27,
           "endAmount": 1581.39,
           "endOnWayCount": 0,
@@ -617,13 +667,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-CHLX-E"
         },
         {
           "fnsku": "X001AK9JR9",
           "asin": "B0FPM7QVDS",
           "msku": "CS-BT-G",
-          "productName": "",
+          "productName": "灰色寒霜冰桶",
           "endCount": 14,
           "endAmount": 1561.7,
           "endOnWayCount": 0,
@@ -635,13 +686,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-BT-HS-G"
         },
         {
           "fnsku": "X001DP6HG7",
           "asin": "B0H4FWFYXY",
           "msku": "LDL-XYCQZ-V-FBA",
-          "productName": "",
+          "productName": "轩辕充气隧道帐篷【军绿色顶配】",
           "endCount": 1,
           "endAmount": 1539.5,
           "endOnWayCount": 0,
@@ -653,13 +705,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-XYCQZ-V-DP"
         },
         {
           "fnsku": "X001DHBZMV",
           "asin": "B0H1MFB1B2",
           "msku": "SL-YLY-WS-FBA",
-          "productName": "",
+          "productName": "春山摇光月亮椅【网纱款】",
           "endCount": 12,
           "endAmount": 1500,
           "endOnWayCount": 0,
@@ -671,13 +724,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-YLY-WS"
         },
         {
           "fnsku": "X001CDP2FH",
           "asin": "B0GCZSR72V",
           "msku": "SL-YLY-H-FBA",
-          "productName": "",
+          "productName": "春山摇光月亮椅",
           "endCount": 13,
           "endAmount": 1482,
           "endOnWayCount": 0,
@@ -689,13 +743,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-YLY-H"
         },
         {
           "fnsku": "X001D0LPMD",
           "asin": "B0GSW2LFBB",
           "msku": "SL-LL2.0-MC-FBA",
-          "productName": "",
+          "productName": "琉璃观火灯炉2.0【米白色+橙色亚克力】",
           "endCount": 7,
           "endAmount": 1444.1,
           "endOnWayCount": 0,
@@ -707,13 +762,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-LL2.0-MC"
         },
         {
           "fnsku": "X001C5V7QX",
           "asin": "B0G38QYZJF",
           "msku": "SL-ZQHT-Y-JP-FBA",
-          "productName": "",
+          "productName": "朱雀取暖器【银色】",
           "endCount": 16,
           "endAmount": 1352,
           "endOnWayCount": 0,
@@ -725,13 +781,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-ZQHT-Y"
         },
         {
           "fnsku": "X001BT8ZER",
           "asin": "B0FWK7VBTJ",
           "msku": "CS-SGZDZ-FBA",
-          "productName": "",
+          "productName": "春山韶光IGT超轻折叠桌",
           "endCount": 4,
           "endAmount": 1217.2,
           "endOnWayCount": 0,
@@ -743,13 +800,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "XM-SGZ-E"
         },
         {
           "fnsku": "X001BR1J83",
           "asin": "B0FVXQ48BZ",
           "msku": "CS-BTT-2L",
-          "productName": "",
+          "productName": "新款战术冰桶套-1.9L",
           "endCount": 53,
           "endAmount": 1184.02,
           "endOnWayCount": 0,
@@ -761,13 +819,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-BTT-H"
         },
         {
           "fnsku": "X001DPIQ0H",
           "asin": "B0H4L31VMJ",
           "msku": "SL-YH-Y-FBAA",
-          "productName": "",
+          "productName": "春山便携战术油壶【银色】",
           "endCount": 30,
           "endAmount": 1033.5,
           "endOnWayCount": 0,
@@ -779,13 +838,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-YH-Y"
         },
         {
           "fnsku": "X00186S00H",
           "asin": "B0DBQ66KG8",
           "msku": "CS-CHL",
-          "productName": "",
+          "productName": "MINI-柴火炉银色",
           "endCount": 23,
           "endAmount": 927.59,
           "endOnWayCount": 0,
@@ -797,13 +857,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-CHLX-Y"
         },
         {
           "fnsku": "X001C5V3I5",
           "asin": "B0G38VBZTS",
           "msku": "SL-XWHT-Y-JP-FBA",
-          "productName": "",
+          "productName": "春山玄武取暖器",
           "endCount": 7,
           "endAmount": 603.05,
           "endOnWayCount": 0,
@@ -815,13 +876,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-XWHT-Y"
         },
         {
           "fnsku": "X001D1ZNY3",
           "asin": "B0GTQ9B1F2",
           "msku": "BEL-FSYLY-E-FBA",
-          "productName": "",
+          "productName": "扶桑碳纤维月亮椅【黑色】",
           "endCount": 3,
           "endAmount": 460.5,
           "endOnWayCount": 0,
@@ -833,13 +895,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "BEL-FSYLY-E"
         },
         {
           "fnsku": "X001BR0JZR",
           "asin": "B0FVWQL7JG",
           "msku": "CS-SKL1-JP-FBA",
-          "productName": "",
+          "productName": "春山轻量化战术烧烤炉",
           "endCount": 3,
           "endAmount": 408,
           "endOnWayCount": 0,
@@ -851,13 +914,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-SKL-H"
         },
         {
           "fnsku": "X001BH8YVN",
           "asin": "B0FQ2RW2CJ",
           "msku": "CS-MNFXL1.5",
-          "productName": "",
+          "productName": "迷你焚香炉1.5",
           "endCount": 11,
           "endAmount": 375.1,
           "endOnWayCount": 0,
@@ -869,13 +933,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "BEL-CHL1.5-Y"
         },
         {
           "fnsku": "X001BT07V1",
           "asin": "B0FT6XLJKD",
           "msku": "SP-0.5ZML-FBA",
-          "productName": "",
+          "productName": "春山0.5单元IGT桌面炉",
           "endCount": 1,
           "endAmount": 184.3,
           "endOnWayCount": 0,
@@ -887,13 +952,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-ZML0.5-Y"
         },
         {
           "fnsku": "X001BTTGDB",
           "asin": "B0FR4DFDPZ",
           "msku": "CS-MNGHBL-JP-FBA",
-          "productName": "",
+          "productName": "春山mini观火壁炉",
           "endCount": 1,
           "endAmount": 84.85,
           "endOnWayCount": 0,
@@ -905,13 +971,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-MNBL-Y"
         },
         {
           "fnsku": "X001BQP9E9",
           "asin": "B0DFY8QSVK",
           "msku": "9X-XS4A-U97R-FBA",
-          "productName": "",
+          "productName": "觅光支架黑色",
           "endCount": 2,
           "endAmount": 29.8,
           "endOnWayCount": 0,
@@ -923,13 +990,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-MGGHDL-ZJE"
         },
         {
           "fnsku": "B0CY1J78DR",
           "asin": "B0CY1J78DR",
           "msku": "Z7-JC05-DGXX",
-          "productName": "",
+          "productName": "灯芯",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -941,7 +1009,8 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-LLGHDL-YDX2"
         },
         {
           "fnsku": "X0017LL005",
@@ -983,7 +1052,7 @@ tr:hover td{background:var(--card2)}
           "fnsku": "X001CUM7OT",
           "asin": "B0GLXC8MFW",
           "msku": "SL-YH-Y-FBA",
-          "productName": "",
+          "productName": "春山便携战术油壶【银色】",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -995,7 +1064,8 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-YH-Y"
         },
         {
           "fnsku": "X001ECLJCL",
@@ -1019,7 +1089,7 @@ tr:hover td{background:var(--card2)}
           "fnsku": "X001D0CSND",
           "asin": "B0GSVRLL5T",
           "msku": "SL-LL2.0-QE-FBA",
-          "productName": "",
+          "productName": "琉璃观火灯炉2.0【枪灰色+黑胡桃木】",
           "endCount": 1,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1031,13 +1101,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-LL2.0-QE"
         },
         {
           "fnsku": "X001D0LPTV",
           "asin": "B0GSVVLDCY",
           "msku": "SL-LL2.0-MB-FBA",
-          "productName": "",
+          "productName": "琉璃观火灯炉2.0【米白色+白橡木】",
           "endCount": 1,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1049,13 +1120,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-LL2.0-MB"
         },
         {
           "fnsku": "X0017EO19T",
           "asin": "B0D2DLQZ5P",
           "msku": "PO-LAS8-UQ9U",
-          "productName": "",
+          "productName": "觅光银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1067,13 +1139,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-MGGHDL-Y"
         },
         {
           "fnsku": "X00176R36P",
           "asin": "B0D2D6CCRB",
           "msku": "MM-05",
-          "productName": "",
+          "productName": "单头琉璃银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1085,13 +1158,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-LLGHDL-Y"
         },
         {
           "fnsku": "B0CZ9HWJ2F",
           "asin": "B0CZ9HWJ2F",
           "msku": "MM-04",
-          "productName": "",
+          "productName": "单头琉璃黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1103,13 +1177,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-LLGHDL-E"
         },
         {
           "fnsku": "X0017LOBVP",
           "asin": "B0CX8ZZ7F8",
           "msku": "M186",
-          "productName": "",
+          "productName": "三人棉布蓬莱绿",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1121,13 +1196,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-PL-3R-V"
         },
         {
           "fnsku": "B0CX917H3N",
           "asin": "B0CX917H3N",
           "msku": "M184",
-          "productName": "",
+          "productName": "双人棉布蓬莱绿",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1139,13 +1215,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-2DPL-V"
         },
         {
           "fnsku": "B0CX912XPZ",
           "asin": "B0CX912XPZ",
           "msku": "M183",
-          "productName": "",
+          "productName": "双人棉布蓬莱黑",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1157,13 +1234,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-2DPL-E"
         },
         {
           "fnsku": "X0018PWMJX",
           "asin": "B0CX89ZF13",
           "msku": "M182",
-          "productName": "",
+          "productName": "单人棉布蓬莱黑",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1175,13 +1253,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-PL-1R-E"
         },
         {
           "fnsku": "X0018PWMGL",
           "asin": "B0CX8LGZX9",
           "msku": "M181",
-          "productName": "",
+          "productName": "单人棉布蓬莱绿",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1193,13 +1272,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-PL-1R-V"
         },
         {
           "fnsku": "X001C2Q0VD",
           "asin": "B0FQN5JVYH",
           "msku": "LDL-QZ-MJ-3-FBA",
-          "productName": "",
+          "productName": "昆仑棉布款 3.0【军绿色】",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1211,13 +1291,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-QZ-MJ-3"
         },
         {
           "fnsku": "X001C3TA8H",
           "asin": "B0G39JSP5K",
           "msku": "LDL-PL4P-ME-FBA",
-          "productName": "",
+          "productName": "春山蓬莱4P庇护所棉布款黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1229,13 +1310,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-PL4P-ME"
         },
         {
           "fnsku": "X001BH8Y77",
           "asin": "B0FQ22KNHC",
           "msku": "CS-YLJJL-JP",
-          "productName": "",
+          "productName": "酒精炉",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1247,13 +1329,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "XM-YLJJL-Y"
         },
         {
           "fnsku": "X00191PUXL",
           "asin": "B0DP4FGCC1",
           "msku": "CS-YHL-Y",
-          "productName": "",
+          "productName": "原火旋风炉-银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1265,13 +1348,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "FYGM-YHL-Y"
         },
         {
           "fnsku": "X00191YH4T",
           "asin": "B0DP459CR9",
           "msku": "CS-YDN-S",
-          "productName": "",
+          "productName": "雅典娜-银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1283,13 +1367,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-YDNYL-Y"
         },
         {
           "fnsku": "X0017X8XZ3",
           "asin": "B0D9LHWW8T",
           "msku": "CS-YDC-G",
-          "productName": "",
+          "productName": "营地车",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1301,13 +1386,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "ZYB-LDYDC-XV"
         },
         {
           "fnsku": "X0017M13FB",
           "asin": "B0D6R6QVNY",
           "msku": "CS-WSPL-1R-K",
-          "productName": "",
+          "productName": "单人云纱蓬莱沙色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1319,13 +1405,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-WSPL-1R-K"
         },
         {
           "fnsku": "X0017M13FL",
           "asin": "B0D6QRMZ9B",
           "msku": "CS-WSPL-1R-G",
-          "productName": "",
+          "productName": "单人云纱蓬莱绿色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1337,13 +1424,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-WSPL-1R-V"
         },
         {
           "fnsku": "X0017M13F1",
           "asin": "B0D6QFPYNF",
           "msku": "CS-WSPL-1R-B",
-          "productName": "",
+          "productName": "蓬莱网沙单人-黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1355,13 +1443,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-WSPL-1R-E"
         },
         {
           "fnsku": "B0DMDXMCG2",
           "asin": "B0DMDXMCG2",
           "msku": "CS-STLL-S",
-          "productName": "",
+          "productName": "琉璃-双头炉-银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1373,13 +1462,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "",
-          "category": ""
+          "category": "",
+          "localSku": "TC-STDL-Y"
         },
         {
           "fnsku": "B0DLSW77CD",
           "asin": "B0DLSW77CD",
           "msku": "CS-STLL-B",
-          "productName": "",
+          "productName": "琉璃-双头炉-黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1391,13 +1481,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "",
-          "category": ""
+          "category": "",
+          "localSku": "TC-STDL-E"
         },
         {
           "fnsku": "X001AF1SIR",
           "asin": "B0F3X5G6QY",
           "msku": "CS-SKJ-JP",
-          "productName": "",
+          "productName": "烧烤夹子",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1409,13 +1500,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "",
-          "category": ""
+          "category": "",
+          "localSku": "CS-KJ-J"
         },
         {
           "fnsku": "X0017LL4PV",
           "asin": "B0D6KMW63F",
           "msku": "CS-QQZZ-K",
-          "productName": "",
+          "productName": "青丘主帐沙色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1427,13 +1519,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-QQ-K"
         },
         {
           "fnsku": "X0017LL4PL",
           "asin": "B0D6KMPFRT",
           "msku": "CS-QQZZ-G",
-          "productName": "",
+          "productName": "绿色青丘主帐",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1445,13 +1538,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-QQ-V"
         },
         {
           "fnsku": "B0D6KL6T8Y",
           "asin": "B0D6KL6T8Y",
           "msku": "CS-QQTZ-K",
-          "productName": "",
+          "productName": "沙色青丘拓展帐",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1463,13 +1557,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-QQ-TZ-K"
         },
         {
           "fnsku": "B0D6KJC2NW",
           "asin": "B0D6KJC2NW",
           "msku": "CS-QQTZ-G",
-          "productName": "",
+          "productName": "绿色青丘拓展帐",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1481,13 +1576,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-QQ-TZ-V"
         },
         {
           "fnsku": "B0D6KLGXQ9",
           "asin": "B0D6KLGXQ9",
           "msku": "CS-QQQT-K",
-          "productName": "",
+          "productName": "沙色青丘前厅",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1499,13 +1595,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-QQ-QT-K"
         },
         {
           "fnsku": "X0017LW4E1",
           "asin": "B0D6KJ6FX7",
           "msku": "CS-QQQT",
-          "productName": "",
+          "productName": "青丘前厅绿",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1517,7 +1614,8 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-QQ-QT-V"
         },
         {
           "fnsku": "X0019CZNNR",
@@ -1541,7 +1639,7 @@ tr:hover td{background:var(--card2)}
           "fnsku": "X0019JFNEJ",
           "asin": "B0DTK4TD96",
           "msku": "CS-PG-S-JP",
-          "productName": "",
+          "productName": "盘古观火灯炉银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1553,13 +1651,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-PGDL-Y"
         },
         {
           "fnsku": "X0018QO9CF",
           "asin": "B0DFB863PK",
           "msku": "CS-MGZJ-S",
-          "productName": "",
+          "productName": "觅光支架银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1571,13 +1670,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-MGGHDL-ZJY"
         },
         {
           "fnsku": "X001A1D1P9",
           "asin": "B0F26JMMNW",
           "msku": "CS-LL-JP-1",
-          "productName": "",
+          "productName": "琉璃-双头炉-银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1589,13 +1689,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-STDL-Y"
         },
         {
           "fnsku": "X001AA4K0P",
           "asin": "B0F5MRXWYZ",
           "msku": "CS-LL-B1",
-          "productName": "",
+          "productName": "琉璃-双头炉-黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1607,13 +1708,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-STDL-E"
         },
         {
           "fnsku": "X0018P4S0T",
           "asin": "B0DGXK9WBL",
           "msku": "CS-JJL-S",
-          "productName": "",
+          "productName": "酒精炉",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1625,13 +1727,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "XM-YLJJL-Y"
         },
         {
           "fnsku": "X00186KZFP",
           "asin": "B0DC392L6J",
           "msku": "CS-JGD-Y",
-          "productName": "",
+          "productName": "极光煤油灯银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1643,13 +1746,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "ROD-SHMYD-Y"
         },
         {
           "fnsku": "X00186KZFF",
           "asin": "B0DC3BN2J4",
           "msku": "CS-JGD-B",
-          "productName": "",
+          "productName": "极光煤油灯黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1661,13 +1765,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "ROD-SHMYD-E"
         },
         {
           "fnsku": "X0018QPVE5",
           "asin": "B0DB7SXR84",
           "msku": "CS-HYZYS",
-          "productName": "",
+          "productName": "幻影配件一单元板",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1679,13 +1784,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-HYZ-PJ-1DYB"
         },
         {
           "fnsku": "X0018QO9GB",
           "asin": "B0DB7WGJSJ",
           "msku": "CS-HYZDB",
-          "productName": "",
+          "productName": "幻影配件两单元板套装",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1697,7 +1803,8 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-HYZ-PJ-XC-TZ"
         },
         {
           "fnsku": "X0019D12RR",
@@ -1739,7 +1846,7 @@ tr:hover td{background:var(--card2)}
           "fnsku": "B0DK8H1KML",
           "asin": "B0DK8H1KML",
           "msku": "CS-GHT-S",
-          "productName": "",
+          "productName": "MINI观火台-银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1751,13 +1858,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-GHTX-Y"
         },
         {
           "fnsku": "X00186S007",
           "asin": "B0DBQ63LQQ",
           "msku": "CS-FXT",
-          "productName": "",
+          "productName": "MINI-焚火台银色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1769,13 +1877,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-FHTX-Y"
         },
         {
           "fnsku": "X001BMF2VX",
           "asin": "B0FR9FFRBB",
           "msku": "CS-CQQZ-AG-FBA",
-          "productName": "",
+          "productName": "伏羲充气球帐【军绿色】",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1787,13 +1896,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-MGCQZ-V"
         },
         {
           "fnsku": "X0017EO1A3",
           "asin": "B0D223DRQM",
           "msku": "CH-MG-B-01",
-          "productName": "",
+          "productName": "觅光黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1805,13 +1915,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "SL-MGGHDL-E"
         },
         {
           "fnsku": "X0017LRQVH",
           "asin": "B0FPQK5499",
           "msku": "CH-LLDZ",
-          "productName": "",
+          "productName": "琉璃底座",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1823,13 +1934,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-LLGHDL-DZ-HM"
         },
         {
           "fnsku": "X001BWBLJP",
           "asin": "B0FY5RZSXL",
           "msku": "BH-ZRQN-FBA",
-          "productName": "",
+          "productName": "春山祝融取暖器",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1841,7 +1953,8 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "BH-QNQ-Y"
         },
         {
           "fnsku": "X001ECCFW9",
@@ -1901,7 +2014,7 @@ tr:hover td{background:var(--card2)}
           "fnsku": "X0018QOU83",
           "asin": "B0DFY8QSVK",
           "msku": "9X-XS4A-U97R",
-          "productName": "",
+          "productName": "觅光支架黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1913,13 +2026,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-MGGHDL-ZJE"
         },
         {
           "fnsku": "X00194RQ6R",
           "asin": "B0DFW6YNDG",
           "msku": "9Q-212O-XEP3",
-          "productName": "",
+          "productName": "灯挂架-幻影IGT配件",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1931,13 +2045,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-HYZ-PJ-CDGJ"
         },
         {
           "fnsku": "B0DPYXVT7T",
           "asin": "B0DPYXVT7T",
           "msku": "90-0SPI-ANN4",
-          "productName": "",
+          "productName": "尼龙昆仑3.0-黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1949,7 +2064,8 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "LDL-QZ-H-5"
         },
         {
           "fnsku": "",
@@ -1973,7 +2089,7 @@ tr:hover td{background:var(--card2)}
           "fnsku": "X00194P0D3",
           "asin": "B0DFW9T9HG",
           "msku": "45-0I7D-KTXM",
-          "productName": "",
+          "productName": "侧面板单块-幻影IGT配件",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -1985,13 +2101,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "CS-HYZ-PJ-CMB"
         },
         {
           "fnsku": "X001A2DLCL",
           "asin": "B0F2LVQ8LX",
           "msku": "2Z-R83W-PYQM",
-          "productName": "",
+          "productName": "单头琉璃黑色",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -2003,13 +2120,14 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "TC-LLGHDL-E"
         },
         {
           "fnsku": "X0017VXAG7",
           "asin": "B0D76NQ3X3",
           "msku": "0E-Q1IN-CN17",
-          "productName": "",
+          "productName": "风行风扇",
           "endCount": 0,
           "endAmount": 0,
           "endOnWayCount": 0,
@@ -2021,7 +2139,8 @@ tr:hover td{background:var(--card2)}
           "disposedCount": 0,
           "differenceCount": 0,
           "brandName": "springhill",
-          "category": ""
+          "category": "",
+          "localSku": "XS-FXFS-V"
         }
       ]
     }
@@ -5390,7 +5509,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-BTT-2L",
-        "name": "",
+        "name": "新款战术冰桶套-1.9L",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 53,
@@ -5507,7 +5626,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SP-PL4P-G-JP",
-        "name": "",
+        "name": "春山蓬莱4P庇护所2.0军绿色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 49,
@@ -5546,7 +5665,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-BT-B-JP",
-        "name": "",
+        "name": "黑色寒霜冰桶",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 48,
@@ -5702,7 +5821,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-CQ4P-E-FBA",
-        "name": "",
+        "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 44,
@@ -5884,7 +6003,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "BEL-FSYLY-Z-FBA",
-        "name": "",
+        "name": "扶桑碳纤维月亮椅【紫色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 40,
@@ -6105,7 +6224,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SP-PL4P-B-JP",
-        "name": "",
+        "name": "春山蓬莱4P庇护所2.0黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 31,
@@ -6131,7 +6250,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-YH-Y-FBAA",
-        "name": "",
+        "name": "春山便携战术油壶【银色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 30,
@@ -6183,7 +6302,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SA-M5Q6-B89T",
-        "name": "",
+        "name": "幻影IGT-A套装",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 29,
@@ -6222,7 +6341,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-CQ4P-V-FBA",
-        "name": "",
+        "name": "蓬莱4P庇护所充气帐篷主帐【军绿色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 28,
@@ -6274,7 +6393,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "Q3-KTDP-51JY",
-        "name": "",
+        "name": "迷你柴火炉黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 27,
@@ -6287,7 +6406,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-BT-Y-JP",
-        "name": "",
+        "name": "银色寒霜冰桶",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 27,
@@ -6300,7 +6419,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-CQZ-ME-FBA",
-        "name": "",
+        "name": "春山伏羲充气球帐棉布款黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 26,
@@ -6365,7 +6484,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "IR-5D74-URZ5",
-        "name": "",
+        "name": "盘古观火灯炉黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 25,
@@ -6430,7 +6549,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-CHL",
-        "name": "",
+        "name": "MINI-柴火炉银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 23,
@@ -6456,7 +6575,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-XYCQZ-E-FBA",
-        "name": "",
+        "name": "轩辕充气隧道帐篷【黑色顶配】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 22,
@@ -6560,7 +6679,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-HYSL-JP",
-        "name": "",
+        "name": "春山IGT幻影桌SOLO",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 19,
@@ -6664,7 +6783,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-TZTM-V-FBA",
-        "name": "",
+        "name": "拓展天幕【军绿】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 18,
@@ -6677,7 +6796,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-FXL-Y",
-        "name": "",
+        "name": "迷你焚香炉2.0",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 18,
@@ -6768,7 +6887,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-ZSSF-E-FBA",
-        "name": "",
+        "name": "毕方战术沙发【黑色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 17,
@@ -6781,7 +6900,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-CQ4P-V-DP-FBA",
-        "name": "",
+        "name": "蓬莱4P庇护所充气帐篷拓展前厅【军绿色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 17,
@@ -6885,7 +7004,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-ZQHT-Y-JP-FBA",
-        "name": "",
+        "name": "朱雀取暖器【银色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 16,
@@ -6924,7 +7043,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-LL2.0-QQ-FBA",
-        "name": "",
+        "name": "琉璃观火灯炉2.0【枪灰色+枪灰亚克力】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 15,
@@ -6937,7 +7056,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-TZTM-E-FBA",
-        "name": "",
+        "name": "拓展天幕【黑色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 15,
@@ -6950,7 +7069,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-CQ4P-E-DP-FBA",
-        "name": "",
+        "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 15,
@@ -7002,7 +7121,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-CQQZ-B-FBA",
-        "name": "",
+        "name": "伏羲充气球帐【黑色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 14,
@@ -7015,7 +7134,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-BT-G",
-        "name": "",
+        "name": "灰色寒霜冰桶",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 14,
@@ -7080,7 +7199,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-YLY-H-FBA",
-        "name": "",
+        "name": "春山摇光月亮椅",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 13,
@@ -7158,7 +7277,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-YLY-WS-FBA",
-        "name": "",
+        "name": "春山摇光月亮椅【网纱款】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 12,
@@ -7171,7 +7290,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-CQQZ-AG-FBA1",
-        "name": "",
+        "name": "伏羲充气球帐【军绿色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 12,
@@ -7197,7 +7316,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-MNFXL1.5",
-        "name": "",
+        "name": "迷你焚香炉1.5",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 11,
@@ -7210,7 +7329,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-HYSL-ZWJ-FBA",
-        "name": "",
+        "name": "春山幻影SOLO桌+SOLO置物架灯架",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 11,
@@ -7327,7 +7446,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-PL4P-ME-FBA1",
-        "name": "",
+        "name": "春山蓬莱4P庇护所棉布款黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 10,
@@ -7353,7 +7472,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "BEL-SFZ-E-BTZ-FBA",
-        "name": "",
+        "name": "金乌碳纤维四方桌【B套装】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 9,
@@ -7431,7 +7550,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-XWHT-Y-JP-FBA",
-        "name": "",
+        "name": "春山玄武取暖器",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 7,
@@ -7444,7 +7563,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-LL2.0-MC-FBA",
-        "name": "",
+        "name": "琉璃观火灯炉2.0【米白色+橙色亚克力】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 7,
@@ -7470,7 +7589,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-CQZ-MV-FBA",
-        "name": "",
+        "name": "春山伏羲充气球帐棉布款军绿色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 5,
@@ -7535,7 +7654,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-SGZDZ-FBA",
-        "name": "",
+        "name": "春山韶光IGT超轻折叠桌",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 4,
@@ -7600,7 +7719,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-QZ-ME-3-black-FBA",
-        "name": "",
+        "name": "昆仑棉布款 3.0【黑色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 3,
@@ -7613,7 +7732,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-SKL1-JP-FBA",
-        "name": "",
+        "name": "春山轻量化战术烧烤炉",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 3,
@@ -7626,7 +7745,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "BEL-FSYLY-E-FBA",
-        "name": "",
+        "name": "扶桑碳纤维月亮椅【黑色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 3,
@@ -7704,7 +7823,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-KLP-G",
-        "name": "",
+        "name": "昆仑3.0pro 绿色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 2,
@@ -7717,7 +7836,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "9X-XS4A-U97R-FBA",
-        "name": "",
+        "name": "觅光支架黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 2,
@@ -7782,7 +7901,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SP-0.5ZML-FBA",
-        "name": "",
+        "name": "春山0.5单元IGT桌面炉",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 1,
@@ -7795,7 +7914,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-LL2.0-QE-FBA",
-        "name": "",
+        "name": "琉璃观火灯炉2.0【枪灰色+黑胡桃木】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 1,
@@ -7808,7 +7927,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-LL2.0-MB-FBA",
-        "name": "",
+        "name": "琉璃观火灯炉2.0【米白色+白橡木】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 1,
@@ -7821,7 +7940,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-XYCQZ-V-FBA",
-        "name": "",
+        "name": "轩辕充气隧道帐篷【军绿色顶配】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 1,
@@ -7834,7 +7953,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-MNGHBL-JP-FBA",
-        "name": "",
+        "name": "春山mini观火壁炉",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 1,
@@ -8055,7 +8174,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "Z7-JC05-DGXX",
-        "name": "",
+        "name": "灯芯",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8094,7 +8213,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "SL-YH-Y-FBA",
-        "name": "",
+        "name": "春山便携战术油壶【银色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8107,7 +8226,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "PO-LAS8-UQ9U",
-        "name": "",
+        "name": "觅光银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8120,7 +8239,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "MM-05",
-        "name": "",
+        "name": "单头琉璃银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8133,7 +8252,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "MM-04",
-        "name": "",
+        "name": "单头琉璃黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8146,7 +8265,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "M186",
-        "name": "",
+        "name": "三人棉布蓬莱绿",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8159,7 +8278,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "M184",
-        "name": "",
+        "name": "双人棉布蓬莱绿",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8172,7 +8291,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "M183",
-        "name": "",
+        "name": "双人棉布蓬莱黑",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8185,7 +8304,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "M182",
-        "name": "",
+        "name": "单人棉布蓬莱黑",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8198,7 +8317,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "M181",
-        "name": "",
+        "name": "单人棉布蓬莱绿",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8211,7 +8330,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-QZ-MJ-3-FBA",
-        "name": "",
+        "name": "昆仑棉布款 3.0【军绿色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8224,7 +8343,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "LDL-PL4P-ME-FBA",
-        "name": "",
+        "name": "春山蓬莱4P庇护所棉布款黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8237,7 +8356,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-YLJJL-JP",
-        "name": "",
+        "name": "酒精炉",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8250,7 +8369,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-YHL-Y",
-        "name": "",
+        "name": "原火旋风炉-银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8263,7 +8382,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-YDN-S",
-        "name": "",
+        "name": "雅典娜-银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8276,7 +8395,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-YDC-G",
-        "name": "",
+        "name": "营地车",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8289,7 +8408,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-WSPL-1R-K",
-        "name": "",
+        "name": "单人云纱蓬莱沙色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8302,7 +8421,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-WSPL-1R-G",
-        "name": "",
+        "name": "单人云纱蓬莱绿色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8315,7 +8434,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-WSPL-1R-B",
-        "name": "",
+        "name": "蓬莱网沙单人-黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8328,7 +8447,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-STLL-S",
-        "name": "",
+        "name": "琉璃-双头炉-银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8341,7 +8460,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-STLL-B",
-        "name": "",
+        "name": "琉璃-双头炉-黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8354,7 +8473,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-SKJ-JP",
-        "name": "",
+        "name": "烧烤夹子",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8367,7 +8486,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-QQZZ-K",
-        "name": "",
+        "name": "青丘主帐沙色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8380,7 +8499,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-QQZZ-G",
-        "name": "",
+        "name": "绿色青丘主帐",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8393,7 +8512,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-QQTZ-K",
-        "name": "",
+        "name": "沙色青丘拓展帐",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8406,7 +8525,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-QQTZ-G",
-        "name": "",
+        "name": "绿色青丘拓展帐",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8419,7 +8538,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-QQQT-K",
-        "name": "",
+        "name": "沙色青丘前厅",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8432,7 +8551,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-QQQT",
-        "name": "",
+        "name": "青丘前厅绿",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8458,7 +8577,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-PG-S-JP",
-        "name": "",
+        "name": "盘古观火灯炉银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8471,7 +8590,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-MGZJ-S",
-        "name": "",
+        "name": "觅光支架银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8484,7 +8603,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-LL-JP-1",
-        "name": "",
+        "name": "琉璃-双头炉-银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8497,7 +8616,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-LL-B1",
-        "name": "",
+        "name": "琉璃-双头炉-黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8510,7 +8629,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-JJL-S",
-        "name": "",
+        "name": "酒精炉",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8523,7 +8642,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-JGD-Y",
-        "name": "",
+        "name": "极光煤油灯银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8536,7 +8655,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-JGD-B",
-        "name": "",
+        "name": "极光煤油灯黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8549,7 +8668,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-HYZYS",
-        "name": "",
+        "name": "幻影配件一单元板",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8562,7 +8681,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-HYZDB",
-        "name": "",
+        "name": "幻影配件两单元板套装",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8601,7 +8720,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-GHT-S",
-        "name": "",
+        "name": "MINI观火台-银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8614,7 +8733,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-FXT",
-        "name": "",
+        "name": "MINI-焚火台银色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8627,7 +8746,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CS-CQQZ-AG-FBA",
-        "name": "",
+        "name": "伏羲充气球帐【军绿色】",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8640,7 +8759,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CH-MG-B-01",
-        "name": "",
+        "name": "觅光黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8653,7 +8772,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "CH-LLDZ",
-        "name": "",
+        "name": "琉璃底座",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8666,7 +8785,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "BH-ZRQN-FBA",
-        "name": "",
+        "name": "春山祝融取暖器",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8679,7 +8798,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "9X-XS4A-U97R",
-        "name": "",
+        "name": "觅光支架黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8692,7 +8811,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "9Q-212O-XEP3",
-        "name": "",
+        "name": "灯挂架-幻影IGT配件",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8705,7 +8824,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "90-0SPI-ANN4",
-        "name": "",
+        "name": "尼龙昆仑3.0-黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8731,7 +8850,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "45-0I7D-KTXM",
-        "name": "",
+        "name": "侧面板单块-幻影IGT配件",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8744,7 +8863,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "2Z-R83W-PYQM",
-        "name": "",
+        "name": "单头琉璃黑色",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8757,7 +8876,7 @@ tr:hover td{background:var(--card2)}
       },
       {
         "sku": "0E-Q1IN-CN17",
-        "name": "",
+        "name": "风行风扇",
         "jstQty": 0,
         "localQty": 0,
         "fbaQty": 0,
@@ -8828,15 +8947,53 @@ tr:hover td{background:var(--card2)}
 const COLORS=['#6ea8fe','#3fb950','#bc8cff','#db6d28','#d29922'];
 const SELLERS={'ADIYJW0UXJYNU':{name:'日本-亚马逊',key:'amazonJP',cur:'JPY'},'A3WVG9GU455RD':{name:'美国-亚马逊',key:'amazonUS',cur:'USD'}};
 let DATA={};
-let curTab='fba';
+let curTab='cloud';
 let curSkuPlatform=null;
-let curSort={key:'endAmount',dir:-1};
+let curSearch='';
+// 每个Tab独立的排序状态
+const SORTS={
+  cloud:{key:'cloudQty',dir:-1},
+  jst:{key:'qty',dir:-1},
+  crossborder:{key:'dayEndCount',dir:-1},
+  fba:{key:'endAmount',dir:-1},
+  overseas:{key:'dayEndCount',dir:-1}
+};
+// 预警/补货阈值（建议值，可按业务调整）
+const CFG={lowDays:30,urgentDays:15,coverTargetDays:45,deadMonths:3};
 
 try{DATA=JSON.parse(document.getElementById('DATA-JSON').textContent)}catch(e){}
 
 const fmt0=v=>Math.round(Number(v)||0).toLocaleString();
 const fmt2=v=>(Number(v)||0).toFixed(2).replace(/\B(?=(\d{3})+\.)/g,',').replace(/\.00$/,'');
 const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sortIcon=(tab,k)=>{const s=SORTS[tab];return s.key===k?(s.dir>0?' ↑':' ↓'):''};
+// 通用排序：数字按数值，其他按字符串
+function sortedRows(list,tab){
+  const s=SORTS[tab];const k=s.key;
+  return list.slice().sort((a,b)=>{
+    let va=a[k],vb=b[k];
+    const na=Number(va),nb=Number(vb);
+    if(va!==''&&vb!==''&&isFinite(na)&&isFinite(nb))return s.dir*(na-nb);
+    va=String(va||'').toLowerCase();vb=String(vb||'').toLowerCase();
+    return s.dir*va.localeCompare(vb,'zh');
+  });
+}
+// 关键词过滤（SKU/品名等多字段）
+function filterKw(list,fields){
+  const kw=curSearch.trim().toLowerCase();
+  if(!kw)return list;
+  return list.filter(r=>fields.some(f=>String(r[f]==null?'':r[f]).toLowerCase().includes(kw)));
+}
+// 搜索框HTML
+function searchBar(ph,total,shown){
+  return `<div class="search-bar">
+    <input class="sku-search" id="skuSearch" type="text" placeholder="${ph}" value="${esc(curSearch)}">
+    <span class="cnt">${curSearch.trim()?`匹配 ${shown} / ${total} 个SKU`:`共 ${total} 个SKU`}</span>
+  </div>`;
+}
+// 非卖品/测试SKU排除
+const NON_SKU=/邮费|补差价|补差链接|处理品|放心购|快递.*消毒|test/i;
 
 function render(){
   const d=DATA;
@@ -8849,17 +9006,13 @@ function render(){
   else renderOverseas(d);
 }
 
-// ========== 云端总仓（全渠道库存合并 + 周转率）==========
+// ========== 云端总仓（全渠道库存合并 + 周转率 + 预警补货）==========
 function renderCloud(d){
   const cw=d.cloudWarehouse||{};
   if(!cw.skuCount){
     document.getElementById('panel').innerHTML='<div class="sec"><h2>云端总仓</h2><div style="color:var(--sub);padding:40px;text-align:center">暂无云端总仓数据</div></div>';
     return;
   }
-
-  const list=(cw.skuDetail||[]).filter(x=>x.cloudQty>0);
-  const top20=list.slice(0,20);
-  const rest=list.slice(20);
 
   // 周转率颜色
   const turnCls=t=>{
@@ -8879,12 +9032,119 @@ function renderCloud(d){
     return Math.round(t);
   };
 
-  const rowHTML=(r,i,cls)=>`<tr${cls?` class="${cls}"`:''}>
-    <td><div style="display:flex;align-items:center;gap:10px">
-      <div style="position:relative;flex-shrink:0"><span class="sku-rank">${i}</span><div class="sku-ph">云</div></div>
-      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.sku}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${r.name}</div>`:''}</div>
-    </div></td>
+  // ===== 预警 & 补货计算（全量SKU，排除非卖品/测试SKU）=====
+  const all=(cw.skuDetail||[]).filter(x=>!NON_SKU.test((x.name||'')+' '+(x.sku||'')));
+  const dm=/(\d{4})-(\d{2})-(\d{2})/.exec((d.meta&&d.meta.generatedAt)||'');
+  const elapsed=dm?Math.max(1,num(dm[3])):30;
+
+  const oos=[],low=[],dead=[];
+  for(const x of all){
+    const stock=num(x.cloudQty),sales=num(x.salesQty);
+    const daily=sales/elapsed;
+    x._daily=daily;
+    x._cover=daily>0?stock/daily:(stock>0?99999:0);
+    x._suggest=daily>0?Math.max(0,Math.ceil(daily*CFG.coverTargetDays-stock-num(x.inTransitQty))):0;
+    if(stock===0){ if(sales>0)oos.push(x); }
+    else if(stock>0){
+      if(sales>0&&x._cover<CFG.lowDays)low.push(x);
+      if(sales===0||num(x.turnover)>CFG.deadMonths)dead.push(x);
+    }
+    // stock<0 为ERP库存数据异常，不纳入预警（避免误报缺货）
+  }
+  // 状态按"现货+在途"总覆盖天数判定：<15天紧急 / <30天需补货 / ≥30天在途补给中
+  const statusOf=x=>{
+    const pipe=x._daily>0?(num(x.cloudQty)+num(x.inTransitQty))/x._daily:99999;
+    if(pipe<CFG.urgentDays)return {cls:'urg',txt:num(x.cloudQty)===0?'紧急断货':'紧急',rank:0};
+    if(pipe<CFG.lowDays)return {cls:'mid',txt:'需补货',rank:1};
+    return {cls:'norm',txt:'在途补给中',rank:2};
+  };
+  const replenish=[...oos,...low].sort((a,b)=>{
+    const sa=statusOf(a),sb=statusOf(b);
+    return sa.rank-sb.rank||b._suggest-a._suggest||num(b.salesQty)-num(a.salesQty);
+  });
+  dead.sort((a,b)=>num(b.cloudQty)-num(a.cloudQty));
+  const deadQty=dead.reduce((s,x)=>s+num(x.cloudQty),0);
+
+  const skuCell=(r,ph)=>`<div style="display:flex;align-items:center;gap:10px">
+      <div style="position:relative;flex-shrink:0"><span class="sku-rank">${ph||'云'}</span><div class="sku-ph">云</div></div>
+      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${esc(r.sku)}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${esc(r.name)}</div>`:''}</div>
+    </div>`;
+
+  // 补货优先级表
+  const repTop=replenish.slice(0,20),repRest=replenish.slice(20);
+  const repRow=(r,cls)=>{
+    const st=statusOf(r);
+    const pipe=r._daily>0?(num(r.cloudQty)+num(r.inTransitQty))/r._daily:99999;
+    return `<tr${cls?` class="${cls}"`:''}>
+    <td>${skuCell(r)}</td>
     <td style="text-align:right;font-weight:600">${fmt0(r.cloudQty)}</td>
+    <td style="text-align:right;color:var(--yellow)">${fmt0(r.inTransitQty)}</td>
+    <td style="text-align:right;color:var(--blue)">${fmt0(r.salesQty)}</td>
+    <td style="text-align:right">${r._daily.toFixed(1)}</td>
+    <td style="text-align:right" class="${r._cover<CFG.urgentDays?'turn-red':r._cover<CFG.lowDays?'turn-yellow':'turn-green'}">${r._cover>=99999?'∞':Math.round(r._cover)}<small>天</small><div style="font-size:10px;color:var(--sub);font-weight:400">含在途 ${pipe>=99999?'∞':Math.round(pipe)}天</div></td>
+    <td style="text-align:right;font-weight:600;color:var(--orange)">${r._suggest?fmt0(r._suggest):'—'}</td>
+    <td><span class="badge ${st.cls}">${st.txt}</span></td>
+  </tr>`;};
+  const repHTML=replenish.length?`<div class="sec" id="alert-replenish">
+    <h2>补货优先级清单 <span class="sub">缺货 + 现货可卖&lt;${CFG.lowDays}天 · 共 ${replenish.length} 个SKU · 按紧迫度排序</span></h2>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>SKU / 产品</th>
+        <th style="text-align:right">现货</th>
+        <th style="text-align:right">在途</th>
+        <th style="text-align:right">本月销量</th>
+        <th style="text-align:right">日均销量</th>
+        <th style="text-align:right">现货可卖</th>
+        <th style="text-align:right">建议补货量</th>
+        <th>状态</th>
+      </tr></thead>
+      <tbody>
+        ${repTop.map(r=>repRow(r)).join('')}
+        ${repRest.map(r=>repRow(r,'sku-rest hidden')).join('')}
+      </tbody>
+    </table></div>
+    ${repRest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${repRest.length} 条 ▼</button></div>`:''}
+    <div class="thresh-note">建议补货量 = 日均销量 × ${CFG.coverTargetDays}天 − 现货 − 在途（${CFG.coverTargetDays}天备货口径，含头程周期；仅为决策参考，下单前请结合MOQ与生产周期确认）</div>
+  </div>`:'';
+
+  // 滞销积压表
+  const deadTop=dead.slice(0,20),deadRest=dead.slice(20);
+  const deadRow=(r,cls)=>`<tr${cls?` class="${cls}"`:''}>
+    <td>${skuCell(r)}</td>
+    <td style="text-align:right;font-weight:600">${fmt0(r.cloudQty)}</td>
+    <td style="text-align:right;font-size:11px;color:var(--sub)">总${fmt0(r.jstQty)}·跨${fmt0(r.localQty)}·F${fmt0(r.fbaQty)}·海${fmt0(r.overseasQty)}</td>
+    <td style="text-align:right;color:var(--blue)">${fmt0(r.salesQty)}</td>
+    <td class="${turnCls(r.turnover)}" style="text-align:right;font-weight:600">${turnLabel(r.turnover)}</td>
+    <td><span class="badge ${r.salesQty===0?'gry':'yel'}">${r.salesQty===0?'本月零销量':'周转>'+CFG.deadMonths+'月'}</span></td>
+  </tr>`;
+  const deadHTML=dead.length?`<div class="sec" id="alert-dead">
+    <h2>滞销积压预警 <span class="sub">现货&gt;0 且 本月零销量 或 周转率&gt;${CFG.deadMonths}月 · ${dead.length}个SKU / ${fmt0(deadQty)}件</span></h2>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>SKU / 产品</th>
+        <th style="text-align:right">现货库存</th>
+        <th style="text-align:right">分仓(总/跨/F/海)</th>
+        <th style="text-align:right">本月销量</th>
+        <th style="text-align:right">周转率</th>
+        <th>判定</th>
+      </tr></thead>
+      <tbody>
+        ${deadTop.map(r=>deadRow(r)).join('')}
+        ${deadRest.map(r=>deadRow(r,'sku-rest hidden')).join('')}
+      </tbody>
+    </table></div>
+    ${deadRest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${deadRest.length} 条 ▼</button></div>`:''}
+  </div>`:'';
+
+  // ===== 明细（搜索 + 排序；搜索时展示全部匹配，否则Top20）=====
+  const stockAll=all.filter(x=>num(x.cloudQty)>0);
+  const filtered=sortedRows(filterKw(stockAll,['sku','name']),'cloud');
+  const searching=!!curSearch.trim();
+  const top20=filtered.slice(0,20),rest=filtered.slice(20);
+
+  const rowHTML=(r,i,cls)=>`<tr${cls?` class="${cls}"`:''}>
+    <td>${skuCell(r,i)}</td>
+    <td style="text-align:right;font-weight:600" data-sort-num="cloudQty">${fmt0(r.cloudQty)}</td>
     <td style="text-align:right;font-size:11px;color:var(--sub)">总${fmt0(r.jstQty)}·跨${fmt0(r.localQty)}·F${fmt0(r.fbaQty)}·海${fmt0(r.overseasQty)}</td>
     <td style="text-align:right;color:var(--yellow)">${fmt0(r.inTransitQty)}</td>
     <td style="text-align:right;color:var(--blue)">${fmt0(r.salesQty)}</td>
@@ -8893,6 +9153,25 @@ function renderCloud(d){
   </tr>`;
 
   let html=`<div class="sec">
+    <h2>库存预警总览 <span class="sub">按本月${elapsed}天实际销量测算 · 全渠道合并口径</span></h2>
+    <div class="alert-grid">
+      <a class="alert-card r" href="#alert-replenish">
+        <div class="ic">🚨</div>
+        <div><div class="lab">缺货（现货=0且本月有销量）</div><div class="num">${oos.length}<small style="font-size:12px"> 个SKU</small></div><div class="sub2">正在断货，需立即处理</div></div>
+      </a>
+      <a class="alert-card y" href="#alert-replenish">
+        <div class="ic">⚠️</div>
+        <div><div class="lab">低库存（现货可卖&lt;${CFG.lowDays}天）</div><div class="num">${low.length}<small style="font-size:12px"> 个SKU</small></div><div class="sub2">含在途仍不足的需尽快下单</div></div>
+      </a>
+      <a class="alert-card p" href="#alert-dead">
+        <div class="ic">📦</div>
+        <div><div class="lab">滞销积压（&gt;${CFG.deadMonths}月/零销量）</div><div class="num">${dead.length}<small style="font-size:12px"> 个 · ${fmt0(deadQty)}件</small></div><div class="sub2">建议清仓/促销/停补</div></div>
+      </a>
+    </div>
+  </div>
+  ${repHTML}
+  ${deadHTML}
+  <div class="sec">
     <h2>云端总仓 <span class="sub">全渠道库存合并 · 聚水潭 + 跨境仓 + FBA + 海外仓 + 在途</span></h2>
     <div class="kpi-grid">
       <div class="kpi info"><div class="label">现货库存</div><div class="v">${fmt0(cw.totalCloudQty)}<small>件</small></div></div>
@@ -8909,23 +9188,25 @@ function renderCloud(d){
     </div>
   </div>
   <div class="sec">
-    <h2>SKU 库存与周转明细 <span class="sub">Top 20 · 按现货库存排序</span></h2>
+    <h2>SKU 库存与周转明细 <span class="sub">${searching?'搜索结果 · 按选中列排序':'点击表头排序 · 默认Top 20'}</span></h2>
+    ${searchBar('搜索 SKU 编码或中文品名…',stockAll.length,filtered.length)}
     <div class="table-wrap"><table>
       <thead><tr>
         <th>SKU / 产品</th>
-        <th style="text-align:right">现货库存</th>
+        <th data-sort="cloudQty" style="text-align:right">现货库存${sortIcon('cloud','cloudQty')}</th>
         <th style="text-align:right">分仓(总/跨/F/海)</th>
-        <th style="text-align:right">在途</th>
-        <th style="text-align:right">本月销售</th>
-        <th style="text-align:right">周转率</th>
-        <th style="text-align:right">周转天数</th>
+        <th data-sort="inTransitQty" style="text-align:right">在途${sortIcon('cloud','inTransitQty')}</th>
+        <th data-sort="salesQty" style="text-align:right">本月销售${sortIcon('cloud','salesQty')}</th>
+        <th data-sort="turnover" style="text-align:right">周转率${sortIcon('cloud','turnover')}</th>
+        <th data-sort="turnoverDays" style="text-align:right">周转天数${sortIcon('cloud','turnoverDays')}</th>
       </tr></thead>
       <tbody>
         ${top20.map((r,i)=>rowHTML(r,i+1)).join('')}
-        ${rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
+        ${!searching?rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join(''):rest.map((r,i)=>rowHTML(r,i+21)).join('')}
       </tbody>
     </table></div>
-    ${rest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${(!searching&&rest.length)?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${searching&&!filtered.length?'<div style="color:var(--sub);padding:30px;text-align:center">没有匹配的SKU</div>':''}
   </div>`;
 
   document.getElementById('panel').innerHTML=html;
@@ -8989,11 +9270,9 @@ function renderFBA(d){
   }).join('');
 
   const cur=platforms.find(p=>p.key===curSkuPlatform)||platforms[0];
-  const list=(cur.list||[]).slice().sort((a,b)=>{
-    const s=curSort;
-    const va=num(a[s.key]),vb=num(b[s.key]);
-    return s.dir*(va-vb);
-  });
+  const searching=!!curSearch.trim();
+  const listAll=cur.list||[];
+  const list=sortedRows(filterKw(listAll,['msku','fnsku','productName','localSku']),'fba');
   const top20=list.slice(0,20);
   const rest=list.slice(20);
 
@@ -9003,46 +9282,46 @@ function renderFBA(d){
     return `<tr${cls?` class="${cls}"`:''}>
       <td><div style="display:flex;align-items:center;gap:10px">
         <div style="position:relative;flex-shrink:0"><span class="sku-rank">${i}</span><div class="sku-ph">${r.fnsku?'FBA':'—'}</div></div>
-        <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.msku||r.fnsku||'—'}</div>${r.productName?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${r.productName}</div>`:''}</div>
+        <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${esc(r.msku||r.fnsku||'—')}</div>${r.productName?`<div style="font-size:11px;color:var(--txt);margin-top:2px;line-height:1.3">${esc(r.productName)}</div>`:''}${r.localSku?`<div style="font-size:10px;color:var(--sub);margin-top:1px">本地SKU：${esc(r.localSku)}</div>`:''}</div>
       </div></td>
       <td>${fmt0(r.endCount)}</td>
       <td>${fmt2(r.endAmount)}<span style="color:var(--sub);font-size:11px;margin-left:2px">${cur.currency}</span></td>
       <td>${fmt0(r.endOnWayCount)}</td>
       <td>${fmt0(r.receiptsCount)}</td>
       <td>${fmt0(r.customerReturnsCount)}</td>
-      <td>${fmt0(r.damagedCount+r.lostCount)}</td>
+      <td>${fmt0(num(r.damagedCount)+num(r.lostCount))}</td>
       <td>${stockBadge}</td>
     </tr>`;
   };
 
-  const sortIcon=k=>curSort.key===k?(curSort.dir>0?' ↑':' ↓'):'';
-
   html+=`<div class="sec">
-    <h2>FBA SKU库存明细 <span class="sub">按平台切换 · Top 20 按选中列排序</span></h2>
+    <h2>FBA SKU库存明细 <span class="sub">按平台切换 · ${searching?'搜索结果':'点击表头排序 · 默认Top 20'}</span></h2>
     <div class="filter-group">${chips}</div>
+    ${searchBar('搜索 MSKU / FNSKU / 中文品名 / 本地SKU…',listAll.length,list.length)}
     <div class="table-wrap"><table>
       <thead><tr>
-        <th data-sort="msku">MSKU / 产品${sortIcon('msku')}</th>
-        <th data-sort="endCount" style="text-align:right">期末库存${sortIcon('endCount')}</th>
-        <th data-sort="endAmount" style="text-align:right">库存成本${sortIcon('endAmount')}</th>
-        <th data-sort="endOnWayCount" style="text-align:right">在途${sortIcon('endOnWayCount')}</th>
-        <th data-sort="receiptsCount" style="text-align:right">入库${sortIcon('receiptsCount')}</th>
-        <th data-sort="customerReturnsCount" style="text-align:right">退货${sortIcon('customerReturnsCount')}</th>
-        <th data-sort="damagedCount" style="text-align:right">残损+丢失${sortIcon('damagedCount')}</th>
+        <th data-sort="msku">MSKU / 产品${sortIcon('fba','msku')}</th>
+        <th data-sort="endCount" style="text-align:right">期末库存${sortIcon('fba','endCount')}</th>
+        <th data-sort="endAmount" style="text-align:right">库存成本${sortIcon('fba','endAmount')}</th>
+        <th data-sort="endOnWayCount" style="text-align:right">在途${sortIcon('fba','endOnWayCount')}</th>
+        <th data-sort="receiptsCount" style="text-align:right">入库${sortIcon('fba','receiptsCount')}</th>
+        <th data-sort="customerReturnsCount" style="text-align:right">退货${sortIcon('fba','customerReturnsCount')}</th>
+        <th data-sort="damagedCount" style="text-align:right">残损+丢失${sortIcon('fba','damagedCount')}</th>
         <th>状态</th>
       </tr></thead>
       <tbody>
         ${top20.map((r,i)=>rowHTML(r,i+1)).join('')}
-        ${rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
+        ${searching?rest.map((r,i)=>rowHTML(r,i+21)).join(''):rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
       </tbody>
     </table></div>
-    ${rest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${(!searching&&rest.length)?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${searching&&!list.length?'<div style="color:var(--sub);padding:30px;text-align:center">没有匹配的SKU</div>':''}
     <div class="note">
       · 数据源：领星ERP · FBA新版库存报表（月度汇总）<br>
       · 期末库存=当月最后一天的FBA在仓库存（可售+预留+残损）；在途=调拨在途<br>
-      · 库存成本=领星计算的商品成本（含物流成本调整）<br>
+      · 库存成本=领星计算的商品成本（含物流成本调整）；品名取自领星本地商品名(local_name)<br>
       · 状态：>20件充足(绿) / 1-20件偏低(黄) / 0件缺货(红)<br>
-      · 点击表头排序 ｜ 点击平台芯片切换 ｜ 仅展示 Top 20
+      · 点击表头排序 ｜ 点击平台芯片切换 ｜ 搜索时展示全部匹配结果
     </div>
   </div>`;
 
@@ -9088,24 +9367,12 @@ function renderOverseas(d){
   </div>`;
 
   if(detail.length){
-    const top20=detail.slice(0,20);
-    const rest=detail.slice(20);
-    html+=`<div class="sec">
-      <h2>海外仓 SKU 明细 <span class="sub">Top 20</span></h2>
-      <div class="table-wrap"><table>
-        <thead><tr>
-          <th>SKU / 产品</th>
-          <th style="text-align:right">期初</th>
-          <th style="text-align:right">期末</th>
-          <th style="text-align:right">在途</th>
-          <th style="text-align:right">入库</th>
-          <th style="text-align:right">出库</th>
-          <th style="text-align:right">FBA出</th>
-          <th style="text-align:right">周转天</th>
-        </tr></thead>
-        <tbody>
-          ${top20.map((r,i)=>`<tr>
-            <td><div style="display:flex;align-items:center;gap:10px"><div class="sku-ph">${r.warehouseName?r.warehouseName.slice(0,2):'—'}</div><div><div style="font-family:monospace;font-size:12px">${r.sku||r.spu||'—'}</div>${r.productName?`<div style="font-size:11px;color:var(--sub);margin-top:2px">${r.productName}</div>`:''}</div></div></td>
+    const searching=!!curSearch.trim();
+    const list=sortedRows(filterKw(detail,['sku','spu','productName','warehouseName']),'overseas');
+    const top20=list.slice(0,20);
+    const rest=list.slice(20);
+    const row=(r,cls)=>`<tr${cls?` class="${cls}"`:''}>
+            <td><div style="display:flex;align-items:center;gap:10px"><div class="sku-ph">${r.warehouseName?esc(r.warehouseName.slice(0,2)):'—'}</div><div style="min-width:0"><div style="font-family:monospace;font-size:12px">${esc(r.sku||r.spu||'—')}</div>${r.productName?`<div style="font-size:11px;color:var(--sub);margin-top:2px">${esc(r.productName)}</div>`:''}</div></div></td>
             <td style="text-align:right">${fmt0(r.dayEarlyCount)}</td>
             <td style="text-align:right;font-weight:600">${fmt0(r.dayEndCount)}</td>
             <td style="text-align:right;color:var(--blue)">${fmt0(r.allocationInTransitCount)}</td>
@@ -9113,20 +9380,28 @@ function renderOverseas(d){
             <td style="text-align:right">${fmt0(r.allocationOutCount)}</td>
             <td style="text-align:right">${fmt0(r.fbaOutCount)}</td>
             <td style="text-align:right">${fmt2(r.rotationDayCount)}</td>
-          </tr>`).join('')}
-          ${rest.map(r=>`<tr class="sku-rest hidden">
-            <td><div style="display:flex;align-items:center;gap:10px"><div class="sku-ph">${r.warehouseName?r.warehouseName.slice(0,2):'—'}</div><div><div style="font-family:monospace;font-size:12px">${r.sku||r.spu||'—'}</div></div></div></td>
-            <td style="text-align:right">${fmt0(r.dayEarlyCount)}</td>
-            <td style="text-align:right">${fmt0(r.dayEndCount)}</td>
-            <td style="text-align:right;color:var(--blue)">${fmt0(r.allocationInTransitCount)}</td>
-            <td style="text-align:right">${fmt0(r.purchaseInCount)}</td>
-            <td style="text-align:right">${fmt0(r.allocationOutCount)}</td>
-            <td style="text-align:right">${fmt0(r.fbaOutCount)}</td>
-            <td style="text-align:right">${fmt2(r.rotationDayCount)}</td>
-          </tr>`).join('')}
+          </tr>`;
+    html+=`<div class="sec">
+      <h2>海外仓 SKU 明细 <span class="sub">${searching?'搜索结果':'点击表头排序 · 默认Top 20'}</span></h2>
+      ${searchBar('搜索 SKU / 品名 / 仓库名…',detail.length,list.length)}
+      <div class="table-wrap"><table>
+        <thead><tr>
+          <th>SKU / 产品</th>
+          <th data-sort="dayEarlyCount" style="text-align:right">期初${sortIcon('overseas','dayEarlyCount')}</th>
+          <th data-sort="dayEndCount" style="text-align:right">期末${sortIcon('overseas','dayEndCount')}</th>
+          <th data-sort="allocationInTransitCount" style="text-align:right">在途${sortIcon('overseas','allocationInTransitCount')}</th>
+          <th data-sort="purchaseInCount" style="text-align:right">入库${sortIcon('overseas','purchaseInCount')}</th>
+          <th data-sort="allocationOutCount" style="text-align:right">出库${sortIcon('overseas','allocationOutCount')}</th>
+          <th data-sort="fbaOutCount" style="text-align:right">FBA出${sortIcon('overseas','fbaOutCount')}</th>
+          <th data-sort="rotationDayCount" style="text-align:right">周转天${sortIcon('overseas','rotationDayCount')}</th>
+        </tr></thead>
+        <tbody>
+          ${top20.map(r=>row(r)).join('')}
+          ${rest.map(r=>row(r,searching?'':'sku-rest hidden')).join('')}
         </tbody>
       </table></div>
-      ${rest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+      ${(!searching&&rest.length)?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+      ${searching&&!list.length?'<div style="color:var(--sub);padding:30px;text-align:center">没有匹配的SKU</div>':''}
       <div class="note">
         · 数据源：领星ERP · 海外仓库存报表<br>
         · 期末=当期末在仓库存；在途=仓间调拨在途<br>
@@ -9148,14 +9423,16 @@ function renderJst(d){
     return;
   }
 
-  const list=(jst.skuDetail||[]).filter(x=>x.qty>0);
+  const stockAll=(jst.skuDetail||[]).filter(x=>num(x.qty)>0);
+  const searching=!!curSearch.trim();
+  const list=sortedRows(filterKw(stockAll,['sku','name']),'jst');
   const top20=list.slice(0,20);
   const rest=list.slice(20);
 
   const rowHTML=(r,i,cls)=>`<tr${cls?` class="${cls}"`:''}>
     <td><div style="display:flex;align-items:center;gap:10px">
       <div style="position:relative;flex-shrink:0"><span class="sku-rank">${i}</span><div class="sku-ph">总</div></div>
-      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.sku}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${r.name}</div>`:''}</div>
+      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${esc(r.sku)}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${esc(r.name)}</div>`:''}</div>
     </div></td>
     <td style="text-align:right;font-weight:600">${fmt0(r.qty)}</td>
     <td style="text-align:right;color:var(--green)">${fmt0(r.available)}</td>
@@ -9175,22 +9452,24 @@ function renderJst(d){
     </div>
   </div>
   <div class="sec">
-    <h2>总仓 SKU 明细 <span class="sub">Top 20 · 按库存数量排序</span></h2>
+    <h2>总仓 SKU 明细 <span class="sub">${searching?'搜索结果':'点击表头排序 · 默认Top 20'}</span></h2>
+    ${searchBar('搜索 SKU 编码或中文品名…',stockAll.length,list.length)}
     <div class="table-wrap"><table>
       <thead><tr>
         <th>SKU / 产品</th>
-        <th style="text-align:right">库存数量</th>
-        <th style="text-align:right">可用数量</th>
-        <th style="text-align:right">订单占用</th>
-        <th style="text-align:right">采购在途</th>
-        <th style="text-align:right">虚拟库存</th>
+        <th data-sort="qty" style="text-align:right">库存数量${sortIcon('jst','qty')}</th>
+        <th data-sort="available" style="text-align:right">可用数量${sortIcon('jst','available')}</th>
+        <th data-sort="orderLock" style="text-align:right">订单占用${sortIcon('jst','orderLock')}</th>
+        <th data-sort="purchaseQty" style="text-align:right">采购在途${sortIcon('jst','purchaseQty')}</th>
+        <th data-sort="virtualQty" style="text-align:right">虚拟库存${sortIcon('jst','virtualQty')}</th>
       </tr></thead>
       <tbody>
         ${top20.map((r,i)=>rowHTML(r,i+1)).join('')}
-        ${rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
+        ${searching?rest.map((r,i)=>rowHTML(r,i+21)).join(''):rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
       </tbody>
     </table></div>
-    ${rest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${(!searching&&rest.length)?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${searching&&!list.length?'<div style="color:var(--sub);padding:30px;text-align:center">没有匹配的SKU</div>':''}
     <div class="note">
       · 数据源：聚水潭ERP · 商品库存报表<br>
       · 库存数量=主仓实际库存；可用=库存-订单占用<br>
@@ -9211,20 +9490,22 @@ function renderCrossBorder(d){
     return;
   }
 
-  const list=cb.skuDetail||[];
+  const listAll=cb.skuDetail||[];
+  const searching=!!curSearch.trim();
+  const list=sortedRows(filterKw(listAll,['sku','name']),'crossborder');
   const top20=list.slice(0,20);
   const rest=list.slice(20);
 
   const rowHTML=(r,i,cls)=>`<tr${cls?` class="${cls}"`:''}>
     <td><div style="display:flex;align-items:center;gap:10px">
       <div style="position:relative;flex-shrink:0"><span class="sku-rank">${i}</span><div class="sku-ph">跨</div></div>
-      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.sku}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${r.name}</div>`:''}</div>
+      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${esc(r.sku)}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${esc(r.name)}</div>`:''}</div>
     </div></td>
     <td style="text-align:right;font-weight:600">${fmt0(r.dayEndCount)}</td>
     <td style="text-align:right;color:var(--blue)">${fmt0(r.allocationInTransitCount)}</td>
     <td style="text-align:right">${fmt0(r.purchaseInCount)}</td>
     <td style="text-align:right">${fmt0(r.fbaOutCount)}</td>
-    <td>${(r.warehouses||[]).map(w=>`<span class="badge gry" style="margin-right:4px">${w}</span>`).join('')}</td>
+    <td>${(r.warehouses||[]).map(w=>`<span class="badge gry" style="margin-right:4px">${esc(w)}</span>`).join('')}</td>
   </tr>`;
 
   let html=`<div class="sec">
@@ -9236,22 +9517,24 @@ function renderCrossBorder(d){
     </div>
   </div>
   <div class="sec">
-    <h2>跨境仓 SKU 明细 <span class="sub">按库存数量排序</span></h2>
+    <h2>跨境仓 SKU 明细 <span class="sub">${searching?'搜索结果':'点击表头排序 · 默认Top 20'}</span></h2>
+    ${searchBar('搜索 SKU 编码或中文品名…',listAll.length,list.length)}
     <div class="table-wrap"><table>
       <thead><tr>
         <th>SKU / 产品</th>
-        <th style="text-align:right">期末库存</th>
-        <th style="text-align:right">在途</th>
-        <th style="text-align:right">采购入库</th>
-        <th style="text-align:right">FBA出库</th>
+        <th data-sort="dayEndCount" style="text-align:right">期末库存${sortIcon('crossborder','dayEndCount')}</th>
+        <th data-sort="allocationInTransitCount" style="text-align:right">在途${sortIcon('crossborder','allocationInTransitCount')}</th>
+        <th data-sort="purchaseInCount" style="text-align:right">采购入库${sortIcon('crossborder','purchaseInCount')}</th>
+        <th data-sort="fbaOutCount" style="text-align:right">FBA出库${sortIcon('crossborder','fbaOutCount')}</th>
         <th>所在仓库</th>
       </tr></thead>
       <tbody>
         ${top20.map((r,i)=>rowHTML(r,i+1)).join('')}
-        ${rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
+        ${searching?rest.map((r,i)=>rowHTML(r,i+21)).join(''):rest.map((r,i)=>rowHTML(r,i+21,'sku-rest hidden')).join('')}
       </tbody>
     </table></div>
-    ${rest.length?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${(!searching&&rest.length)?`<div style="margin-top:10px;text-align:center"><button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px">展开剩余 ${rest.length} 条 ▼</button></div>`:''}
+    ${searching&&!list.length?'<div style="color:var(--sub);padding:30px;text-align:center">没有匹配的SKU</div>':''}
     <div class="note">
       · 数据源：领星ERP · 本地仓库存报表<br>
       · 跨境仓=国内备货发往海外的仓库（跨境仓库-日本等）<br>
@@ -9265,29 +9548,42 @@ function renderCrossBorder(d){
 }
 
 // ========== 事件绑定 ==========
+let searchFocus=false;
 function bindSkuEvents(){
   document.querySelectorAll('[data-tab]').forEach(t=>{
-    t.onclick=()=>{curTab=t.dataset.tab;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===t));render();};
+    t.onclick=()=>{curTab=t.dataset.tab;curSearch='';curSkuPlatform=null;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===t));render();};
   });
   document.querySelectorAll('[data-skup]').forEach(c=>{
     c.onclick=()=>{curSkuPlatform=c.dataset.skup;render();};
   });
   document.querySelectorAll('th[data-sort]').forEach(th=>{
     th.onclick=()=>{
-      const k=th.dataset.sort;
-      if(curSort.key===k) curSort.dir=-curSort.dir;
-      else curSort.key=k,curSort.dir=-1;
+      const st=SORTS[curTab];const k=th.dataset.sort;
+      if(st.key===k) st.dir=-st.dir;
+      else {st.key=k;st.dir=-1;}
       render();
     };
   });
-  const btn=document.getElementById('skuToggle');
-  if(btn) btn.onclick=()=>{
-    const rows=document.querySelectorAll('tr.sku-rest');
-    if(!rows.length)return;
-    const hidden=rows[0].classList.contains('hidden');
-    rows.forEach(r=>r.classList.toggle('hidden',!hidden));
-    btn.textContent=hidden?'收起 ▲':`展开剩余 ${rows.length} 条 ▼`;
-  };
+  // 每个区块独立的“展开剩余”按钮（同页可能有多个）
+  document.querySelectorAll('button#skuToggle').forEach(btn=>{
+    btn.onclick=()=>{
+      const sec=btn.closest('.sec');if(!sec)return;
+      const rows=sec.querySelectorAll('tr.sku-rest');
+      if(!rows.length)return;
+      const hidden=rows[0].classList.contains('hidden');
+      rows.forEach(r=>r.classList.toggle('hidden',!hidden));
+      btn.textContent=hidden?'收起 ▲':`展开剩余 ${rows.length} 条 ▼`;
+    };
+  });
+  // SKU搜索（输入即筛选，重渲染后保持焦点）
+  const si=document.getElementById('skuSearch');
+  if(si){
+    si.oninput=()=>{curSearch=si.value;searchFocus=true;render();};
+    if(searchFocus){const p=si.value.length;si.focus();si.setSelectionRange(p,p);}
+    searchFocus=false;
+  }
+  // 预警卡片锚点滚动偏移（避开吸顶头部）
+  if(location.hash){const el=document.querySelector(location.hash);if(el)el.scrollIntoView();}
 }
 
 render();
