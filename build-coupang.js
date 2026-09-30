@@ -120,9 +120,9 @@ console.log('merged products: ' + products.length);
 
 // ---------- 三周期聚合 ----------
 const PERIODS = {
-  month: ['2026-09-01', '2026-09-28'],
-  week: ['2026-09-22', '2026-09-28'],
-  today: ['2026-09-28', '2026-09-28'],
+  month: ['2026-09-01', '2026-09-29'],
+  week: ['2026-09-23', '2026-09-29'],
+  today: ['2026-09-29', '2026-09-29'],
 };
 const stamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 const summary = [];

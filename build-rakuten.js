@@ -252,9 +252,9 @@ function orderLines(o) {
   const bucketOf = {};
   for (const p of PERIODS) {
     if (!D[p]) { console.warn('[skip] period missing: ' + p); continue; }
-    const [s, e] = p === 'month' ? ['2026-09-01', '2026-09-28']
-      : p === 'week' ? ['2026-09-22', '2026-09-28']
-      : ['2026-09-28', '2026-09-28'];
+    const [s, e] = p === 'month' ? ['2026-09-01', '2026-09-29']
+      : p === 'week' ? ['2026-09-23', '2026-09-29']
+      : ['2026-09-29', '2026-09-29'];
     bucketOf[p] = { s, e, agg: newAgg() };
   }
   const inRange = (d, s, e) => d && d.slice(0, 10) >= s && d.slice(0, 10) <= e;
