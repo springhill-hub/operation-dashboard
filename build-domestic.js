@@ -217,15 +217,18 @@ function periodAgg(orders, dateFrom, dateTo) {
     }
     const td = JSON.parse(fs.readFileSync(tmallPath, 'utf8'));
     const t = P.totals;
-    const gmv = r2(td.totalPayAmt || 0), refund = r2(td.totalRefundAmt || 0), buyers = td.totalBuyers || 0;
+    const pay = r2(td.totalPayAmt || 0), refund = r2(td.totalRefundAmt || 0), buyers = td.totalBuyers || 0;
+    // 净支付口径（2026-10-01 王泉斐确认）：gmv/net 存净支付 = 支付金额 − 成功退款金额；
+    // 前端"支付GMV"= gmv+refund 恰等于生意参谋支付金额，"净销售额"= gmv 即净支付，退款率=refund/支付金额
+    const gmv = r2(pay - refund);
     P.channels['天猫/淘宝'] = { orders: buyers, gmv, refund, net: gmv };
     P.shops.push({ shopId: 'sycm-tmall', shop: '天猫gooutspringhill（生意参谋汇总）', channel: '天猫/淘宝', orders: buyers, gmv, refund });
     t.gmv = r2(t.gmv + gmv); t.net = r2(t.net + gmv); t.refund = r2(t.refund + refund);
     t.orders += buyers;
     t.aov = t.orders ? r2(t.net / t.orders) : 0;
-    data.meta.tmallFallback = `天猫/淘宝：生意参谋商品排行导出兜底（支付口径，GMV=¥${gmv}，件数=${td.totalPayQty}，买家数=${buyers}为商品维度购买人次加总偏高估，成功退款金额¥${refund}为统计期内退款成功口径）；奇门恢复后自动停用`;
-    data.meta.gaps = '京东/微店/拼多多已在聚水潭授权但订单未进入OpenAPI；天猫/淘宝因奇门接口未恢复，走生意参谋导出兜底（支付口径，月度T+1同步）；部分退款(items.refund_qty)与平台佣金未含';
-    console.log(`tmall fallback injected [${pk}]: month=${mKey} gmv=${gmv} buyers=${buyers} refund=${refund}`);
+    data.meta.tmallFallback = `天猫/淘宝：生意参谋商品排行导出兜底（净支付口径：支付¥${pay}−成功退款¥${refund}=净支付¥${gmv}；件数=${td.totalPayQty}；买家数=${buyers}为商品维度购买人次加总偏高估；成功退款金额为统计期内退款成功口径）；奇门恢复后自动停用`;
+    data.meta.gaps = '京东/微店/拼多多已在聚水潭授权但订单未进入OpenAPI；天猫/淘宝因奇门接口未恢复，走生意参谋导出兜底（净支付口径=支付−退款，月度T+1同步；聚水潭各渠道净销售额未含退货退款，两口径并存已标注）；部分退款(items.refund_qty)与平台佣金未含';
+    console.log(`tmall fallback injected [${pk}]: month=${mKey} pay=${pay} refund=${refund} netPay=${gmv} buyers=${buyers}`);
   }
   let ok = true;
   for (const p of ['today', 'yesterday', 'week', 'lastWeek', 'month', 'lastMonth']) {
