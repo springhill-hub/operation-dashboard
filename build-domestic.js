@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
  * 春山户外 · 国内经营看板数据构建脚本（聚水潭 OpenAPI · v1.0）
  * ------------------------------------------------------------
  * 数据源：聚水潭 /open/orders/single/query（按 modified 拉取，≤7天分片）
@@ -187,12 +187,14 @@ function periodAgg(orders, dateFrom, dateTo) {
       window: `${fmtD(new Date(now.getTime() - DAYS * 86400e3))} ~ ${today}（按modified拉取）`,
     },
   };
-  // 本周=滚动7天（含今日），对齐跨境版
-  data.today     = periodAgg(orders, today, today);
-  data.yesterday = periodAgg(orders, dAgo(1), dAgo(1));
-  data.week      = periodAgg(orders, dAgo(6), today);
-  data.lastWeek  = periodAgg(orders, dAgo(13), dAgo(7));
-  data.month     = periodAgg(orders, `${now.getFullYear()}-${pad(now.getMonth() + 1)}-01`, today);
+  // 统计口径：统一T-1（展示前一天完整数据，与外盘/领星口径对齐）
+  const prevDay = new Date(now.getTime() - 1 * 86400e3);
+  const prevMonthBegin = new Date(prevDay.getFullYear(), prevDay.getMonth(), 1);   // 昨天所在月的1号
+  data.today     = periodAgg(orders, dAgo(1), dAgo(1));                                    // 今日看板 = 昨天
+  data.yesterday = periodAgg(orders, dAgo(2), dAgo(2));                                    // 环比基准 = 前天
+  data.week      = periodAgg(orders, dAgo(7), dAgo(1));                                    // 滚动7天（不含今天）
+  data.lastWeek  = periodAgg(orders, dAgo(14), dAgo(8));                                   // 上周（7天，不含今天）
+  data.month     = periodAgg(orders, fmtD(prevMonthBegin), dAgo(1));                        // 本月=昨天所在月
   data.lastMonth = periodAgg(orders, fmtD(lastMonthBegin), fmtD(lastMonthEnd));
 
   // 勾稽：today+…各周期渠道GMV合计 vs totals.gmv
