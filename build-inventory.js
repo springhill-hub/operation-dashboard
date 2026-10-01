@@ -102,8 +102,9 @@ function lastMonthStr() {
 }
 
 (async () => {
-    const today = todayStr();
-    const thisMonth = monthStr();
+    // 支持补跑：node build-inventory.js 2026-09-30（FBA月份/销量月/天猫兜底文件均按该日期所在月）
+    const today = (process.argv[2] && /^\d{4}-\d{2}-\d{2}$/.test(process.argv[2])) ? process.argv[2] : todayStr();
+    const thisMonth = today.slice(0, 7);
     const lastMonth = lastMonthStr();
     const sellerIds = SELLERS.map(s => s.seller_id);
 
@@ -474,6 +475,7 @@ function lastMonthStr() {
         // 非卖品链接（邮费/补差/消毒链接等）不计销量
         const NON_SKU_SALES = /邮费|补差价|补差链接|处理品|放心购|快递.*消毒|test/i;
         let jstGross = 0, jstRefund = 0, lxGross = 0, lxRefund = 0;
+        let jstTmallQty = 0; // 守卫：聚水潭一旦拉到天猫/淘宝有效单，说明奇门已恢复，停用生意参谋兜底防双算
 
         // 聚水潭订单（国内）- 按7天分片拉取，每片内分页
         // 销量口径：真实成交，剔除 已取消(Cancelled)/已合并(Merged)/已拆分(Split) 三类异常单
@@ -484,6 +486,7 @@ function lastMonthStr() {
             const monthStart = new Date(monthStartDate + 'T00:00:00+08:00');
             const todayEnd = new Date(today + 'T23:59:59+08:00');
             let orderCount = 0, validOrders = 0, invalidOrders = 0;
+            let jstTmallOrders = 0;
             let cur = new Date(monthStart);
             while (cur <= todayEnd) {
                 const sliceEnd = new Date(cur);
@@ -503,6 +506,11 @@ function lastMonthStr() {
                         orderCount++;
                         if (INVALID_ORDER_STATUS.test(order.status || '')) { invalidOrders++; continue; }
                         validOrders++;
+                        // 天猫/淘宝店铺检测（奇门恢复后聚水潭会开始拉到这些店的单）
+                        if (/天猫|淘宝|taobao|tmall/i.test(String(order.shop_name || ''))) {
+                            jstTmallOrders++;
+                            for (const it of (order.items || [])) jstTmallQty += num(it.qty);
+                        }
                         if (order.items && Array.isArray(order.items)) {
                             for (const item of order.items) {
                                 const sku = item.sku_id;
@@ -523,7 +531,8 @@ function lastMonthStr() {
                 cur = new Date(end);
                 cur.setDate(cur.getDate() + 1);
             }
-            console.log(`    聚水潭订单: 拉取${orderCount}单, 有效${validOrders}单, 剔除取消/合并/拆分${invalidOrders}单; 毛销${jstGross}件 退款${jstRefund}件 净销${jstGross-jstRefund}件, 涉及 ${salesMap.size} 个SKU`);
+            console.log(`    聚水潭订单: 拉取${orderCount}单, 有效${validOrders}单, 剔除取消/合并/拆分${invalidOrders}单; 毛销${jstGross}件 退款${jstRefund}件 净销${jstGross-jstRefund}件, 涉及 ${salesMap.size} 个SKU` +
+                (jstTmallOrders ? `；⚠️检测到天猫/淘宝有效单${jstTmallOrders}单/${jstTmallQty}件（奇门可能已恢复）` : ''));
         }
 
         // 领星销量（跨境日亚）
@@ -545,6 +554,33 @@ function lastMonthStr() {
                 }
             }
             console.log(`    领星日亚: ${records.length}条, 毛销${lxGross}件 退款${lxRefund}件 净销${lxGross-lxRefund}件`);
+        }
+
+        // 天猫（生意参谋导出兜底，奇门接口恢复前使用）
+        // 数据来自 parse-tmall-sycm.js 解析的商品排行导出；货号=SKU(王泉斐2026-10-01确认)，支付件数口径(毛，未扣退款件数)
+        // 防双算守卫：聚水潭已能拉到天猫/淘宝有效单时（奇门恢复），自动跳过本兜底
+        {
+            const monthTag = monthStartDate.slice(0, 7);
+            const tmallPath = `f:/ai agent/tmall_sales_${monthTag}.json`;
+            if (jstTmallQty > 0) {
+                console.log(`    天猫(生意参谋): 跳过兜底文件——聚水潭已含天猫/淘宝订单${jstTmallQty}件，奇门已恢复，避免双算；如确认仍需兜底请删除该判断`);
+            } else if (fs.existsSync(tmallPath)) {
+                const td = JSON.parse(fs.readFileSync(tmallPath, 'utf8'));
+                const ss = td.skuSales || {};
+                let tmallQty = 0, tmallSkus = 0;
+                const nameByCode = new Map((td.items || []).map(it => [it.code, it.name]));
+                for (const [sku, qty0] of Object.entries(ss)) {
+                    const qty = num(qty0);
+                    if (qty <= 0) continue;
+                    if (NON_SKU_SALES.test(sku + ' ' + (nameByCode.get(sku) || ''))) continue;
+                    salesMap.set(sku, (salesMap.get(sku) || 0) + qty);
+                    if (nameByCode.has(sku) && !salesNameMap.has(sku)) salesNameMap.set(sku, nameByCode.get(sku));
+                    tmallQty += qty; tmallSkus++;
+                }
+                console.log(`    天猫(生意参谋): ${tmallSkus}个SKU, 支付${tmallQty}件（支付口径，未扣退款件数；来源${td.sourceFile || tmallPath.split('/').pop()}）`);
+            } else {
+                console.log(`    天猫(生意参谋): 无兜底文件 ${tmallPath.split('/').pop()}，跳过（奇门恢复后此行为正常）`);
+            }
         }
 
         // 补录"本月有销量但各仓零库存/无库存记录"的SKU（卖断货SKU）：
