@@ -1,4 +1,4 @@
-# 周度经营策划数据准备脚本
+﻿# 周度经营策划数据准备脚本
 # 每周一 03:00 触发，拉取上周数据生成 weekly-data.json
 param([string]$WeekStart = "")  # 默认上周一
 
@@ -17,12 +17,14 @@ $weekEnd = ([datetime]$WeekStart).AddDays(6).ToString("yyyy-MM-dd")
 Write-Host "拉取周数据: $WeekStart ~ $weekEnd"
 
 # 1. 外盘数据（从 operation_data.json 提取 lastWeek + 对比）
-$opData = Get-Content "f:\ai agent\operation_data.json" -Raw | ConvertFrom-Json
+# 用 UTF-8 显式读取，避免 PS5 默认 GBK 导致中文乱码/JSON 解析失败
+$utf8 = [System.Text.UTF8Encoding]::new($false)
+$opData = [System.IO.File]::ReadAllText("f:\ai agent\operation_data.json", $utf8) | ConvertFrom-Json
 $lastWeek = $opData.lastWeek
 $week = $opData.week
 
 # 2. 内盘数据
-$domData = Get-Content "f:\ai agent\domestic_data.json" -Raw | ConvertFrom-Json
+$domData = [System.IO.File]::ReadAllText("f:\ai agent\domestic_data.json", $utf8) | ConvertFrom-Json
 $domLastWeek = $domData.lastWeek
 $domWeek = $domData.week
 
@@ -105,13 +107,14 @@ $weekly.topSkus = $allSkus | Sort-Object -Property profit -Descending | Select-O
 
 # 库存预警（从 inventory 数据）
 if (Test-Path "f:\ai agent\deploy\inventory-data.json") {
-    $inv = Get-Content "f:\ai agent\deploy\inventory-data.json" -Raw | ConvertFrom-Json
+    $inv = [System.IO.File]::ReadAllText("f:\ai agent\deploy\inventory-data.json", $utf8) | ConvertFrom-Json
     # 提取缺货/低库存 SKU
     if ($inv.alerts) { $weekly.alerts = $inv.alerts }
 }
 
 # 保存
-$weekly | ConvertTo-Json -Depth 10 | Set-Content "f:\ai agent\deploy\weekly-data.json" -Encoding UTF8
+# 保存（.NET UTF-8 无 BOM 写入，前端 fetch 友好）
+[System.IO.File]::WriteAllText("f:\ai agent\deploy\weekly-data.json", ($weekly | ConvertTo-Json -Depth 10), $utf8)
 Write-Host "✅ weekly-data.json 已生成: $($weekly.topSkus.Count) 个TOP SKU, $($weekly.alerts.Count) 条预警"
 
 # 4. 生成策划提示文本（供复制给AI）
@@ -152,5 +155,5 @@ $prompt += @"
 输出格式：Markdown，可直接粘贴到 weekly.html 的策划方案区。
 "@
 
-$prompt | Set-Content "f:\ai agent\deploy\weekly-prompt.txt" -Encoding UTF8
+[System.IO.File]::WriteAllText("f:\ai agent\deploy\weekly-prompt.txt", $prompt, $utf8)
 Write-Host "✅ weekly-prompt.txt 已生成（可复制给AI生成详细方案）"
