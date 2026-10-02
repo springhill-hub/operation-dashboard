@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>春山户外 · 周度经营策划</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2333;--line:#30363d;--txt:#e6edf3;--sub:#8b949e;--fire:#ff7a3c;--gold:#f5c66a;--green:#4cc38a;--red:#e5534b;--blue:#6ea8fe;--purple:#bc8cff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+.sys-nav{display:flex;align-items:center;gap:12px;padding:8px 20px;background:#161b22;border-bottom:1px solid var(--line);font-size:13px;position:sticky;top:0;z-index:999}
+.sys-nav a{color:var(--sub);text-decoration:none;padding:6px 14px;border-radius:6px;transition:.2s}
+.sys-nav a:hover{color:var(--txt);background:var(--card2)}
+.sys-nav a.on{color:var(--fire);background:rgba(255,122,60,.1)}
+.sys-nav .sp{flex:1}.sys-nav .brand{font-weight:700;color:var(--fire)}
+header{margin-bottom:24px}
+h1{font-size:22px;letter-spacing:1px}
+h1 small{display:block;font-size:11px;color:var(--sub);letter-spacing:3px;font-weight:400;margin-top:3px}
+.date-badge{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--sub);margin-top:8px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.sec h2{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec h2::before{content:"";width:3px;height:14px;background:var(--fire);border-radius:2px}
+.sec h2 .tag{font-size:11px;color:var(--sub);margin-left:auto;font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:var(--sub);font-weight:500;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:11px;text-transform:uppercase}
+td{padding:8px 10px;border-bottom:1px solid #262930}
+tr:hover td{background:var(--card2)}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.num{font-family:'SF Mono',monospace}
+textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:12px;font-size:13px;font-family:inherit;min-height:200px;outline:none;resize:vertical}
+textarea:focus{border-color:var(--blue)}
+.btn{display:inline-block;background:var(--blue);border:none;border-radius:6px;color:#fff;padding:8px 20px;font-size:13px;cursor:pointer;margin-top:10px}
+.btn.copy{background:var(--green)}
+.note{font-size:12px;color:var(--sub);line-height:1.8;padding:12px;background:var(--card2);border-radius:8px;margin-top:12px}
+.alert-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #262930;font-size:13px}
+.alert-item:last-child{border-bottom:none}
+.alert-item .ic{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.alert-item .ic.r{background:rgba(248,81,73,.15)}
+.alert-item .ic.y{background:rgba(210,153,34,.15)}
+</style>
+</head>
+<body>
+
+<div class="sys-nav">
+  <span class="brand">春山户外 · 智能经营中枢</span>
+  <a href="portal.html">门户</a>
+  <a href="dashboard.html">外盘</a>
+  <a href="domestic.html">内盘</a>
+  <a href="inventory.html">库存</a>
+  <a href="daily.html">简报</a>
+  <a href="weekly.html" class="on">周策划</a>
+  <div class="sp"></div>
+  <a href="#" onclick="localStorage.removeItem('chunshan_auth');location.href='portal.html'" style="font-size:12px">退出</a>
+</div>
+
+<div class="wrap">
+<header>
+  <h1>周度经营策划<small>WEEKLY STRATEGY & PLANNING</small></h1>
+  <div class="date-badge" id="dateBadge">加载中...</div>
+</header>
+
+<!-- 数据总览 -->
+<div class="sec">
+  <h2>上周数据总览 <span class="tag">自动提取</span></h2>
+  <div id="weeklyData">加载中...</div>
+</div>
+
+<!-- TOP SKU -->
+<div class="sec">
+  <h2>TOP 利润 SKU <span class="tag">上周毛利前10</span></h2>
+  <div id="topSkus">加载中...</div>
+</div>
+
+<!-- 库存预警 -->
+<div class="sec">
+  <h2>库存预警 <span class="tag">需关注</span></h2>
+  <div id="alerts">加载中...</div>
+</div>
+
+<!-- AI 策划生成 -->
+<div class="sec">
+  <h2>AI 策划方案生成 <span class="tag">复制数据给AI</span></h2>
+  <div class="note">
+    💡 点击下方按钮复制数据提示文本，粘贴给 AI（如 Trae / ChatGPT / Claude），AI 将生成详细策划方案。<br>
+    生成后粘贴到下方文本框保存。
+  </div>
+  <button class="btn copy" onclick="copyPrompt()">📋 复制数据提示文本</button>
+  <textarea id="aiOutput" placeholder="粘贴 AI 生成的策划方案..."></textarea>
+  <button class="btn" onclick="savePlan()">💾 保存方案</button>
+  <div id="savedPlan"></div>
+</div>
+
+</div>
+
+<script>
+let weeklyData = null;
+
+async function loadWeeklyData(){
+  try{
+    const res = await fetch('weekly-data.json');
+    weeklyData = await res.json();
+    document.getElementById('dateBadge').textContent = `周区间: ${weeklyData.weekStart} ~ ${weeklyData.weekEnd} ｜ 生成: ${weeklyData.generatedAt}`;
+    
+    // 渲染数据总览
+    const cb = weeklyData.crossborder.channels;
+    const dom = weeklyData.domestic.channels;
+    let html = '<table><tr><th>渠道</th><th>上周净销售</th><th>上周毛利</th><th>毛利率</th><th>环比净销售</th><th>环比毛利</th></tr>';
+    for(const [name, c] of Object.entries(cb)){
+      html += `<tr><td>${name}</td><td class="num">${fmtNum(c.week.net)}</td><td class="num">${fmtNum(c.week.profit)}</td><td class="num">${c.week.margin||'-'}%</td><td class="${c.wowNet>0?'pos':'neg'}">${c.wowNet||'-'}%</td><td class="${c.wowProfit>0?'pos':'neg'}">${c.wowProfit||'-'}%</td></tr>`;
+    }
+    for(const [name, c] of Object.entries(dom)){
+      html += `<tr><td>${name}</td><td class="num">${fmtNum(c.week.net)}</td><td class="num">${fmtNum(c.week.profit)}</td><td class="num">${c.week.margin||'-'}%</td><td class="${c.wowNet>0?'pos':'neg'}">${c.wowNet||'-'}%</td><td class="${c.wowProfit>0?'pos':'neg'}">${c.wowProfit||'-'}%</td></tr>`;
+    }
+    html += '</table>';
+    document.getElementById('weeklyData').innerHTML = html;
+    
+    // TOP SKU
+    let skuHtml = '<table><tr><th>平台</th><th>SKU</th><th>销量</th><th>净销售额</th><th>毛利</th><th>毛利率</th></tr>';
+    for(const s of weeklyData.topSkus){
+      skuHtml += `<tr><td>${s.platform}</td><td>${s.name}</td><td class="num">${s.qty}</td><td class="num">${fmtNum(s.net)}</td><td class="num">${fmtNum(s.profit)}</td><td class="num">${s.margin}%</td></tr>`;
+    }
+    skuHtml += '</table>';
+    document.getElementById('topSkus').innerHTML = skuHtml;
+    
+    // 预警
+    if(weeklyData.alerts.length){
+      let alertHtml = '';
+      for(const a of weeklyData.alerts){
+        alertHtml += `<div class="alert-item"><div class="ic ${a.level==='high'?'r':'y'}">${a.level==='high'?'🔴':'🟡'}</div><div>${a.message}</div></div>`;
+      }
+      document.getElementById('alerts').innerHTML = alertHtml;
+    } else {
+      document.getElementById('alerts').innerHTML = '<div class="note">暂无库存预警</div>';
+    }
+  }catch(e){
+    document.getElementById('weeklyData').innerHTML = '<div class="note">数据加载失败，请先运行 weekly-data-prep.ps1</div>';
+    document.getElementById('topSkus').innerHTML = '';
+    document.getElementById('alerts').innerHTML = '';
+  }
+}
+function fmtNum(n){ return n==null?'-':Number(n).toLocaleString('zh-CN'); }
+loadWeeklyData();
+
+async function copyPrompt(){
+  try{
+    const res = await fetch('weekly-prompt.txt');
+    const text = await res.text();
+    await navigator.clipboard.writeText(text);
+    alert('已复制数据提示文本，请粘贴给 AI 生成策划方案');
+  }catch(e){
+    alert('复制失败，请手动打开 weekly-prompt.txt 复制');
+  }
+}
+
+function savePlan(){
+  const text = document.getElementById('aiOutput').value;
+  if(!text.trim()){ alert('请先粘贴策划方案'); return; }
+  localStorage.setItem('chunshan_weekly_plan', text);
+  localStorage.setItem('chunshan_weekly_plan_date', weeklyData.weekStart);
+  document.getElementById('savedPlan').innerHTML = '<div class="note" style="margin-top:12px">✅ 方案已保存（localStorage）</div>';
+}
+
+// 加载已保存方案
+const saved = localStorage.getItem('chunshan_weekly_plan');
+if(saved) document.getElementById('aiOutput').value = saved;
+</script>
+</body>
+</html>
