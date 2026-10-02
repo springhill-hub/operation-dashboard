@@ -233,7 +233,9 @@ function amzRow(p, a, tagNote){
     jpyNet:a.net, jpyProfit:a.gp,
     // 结算口径自洽组：日亚用 settled 快照，其他（美亚）本身即结算口径
     jpySettledNet: a.settled?a.settled.net:a.net,
-    jpySettledProfit: a.settled?a.settled.gp:a.gp};
+    jpySettledProfit: a.settled?a.settled.gp:a.gp,
+    // 下单口径预估毛利：日亚=下单净额×结算毛利率；其他平台本身结算口径取实际毛利
+    jpyEstOrderProfit: (a.settled && a.settled.net) ? +(a.net*(a.settled.gp/a.settled.net)).toFixed(2) : a.gp};
 }
 function stRows(settlement, knowMap){
   const out=[];
@@ -248,7 +250,8 @@ function stRows(settlement, knowMap){
       cost:s.productCost, feeMain:s.commission, fbaD:s.delivery, storage:s.storage+s.otherLogistics,
       ads:s.ads, other:s.otherPlatformFee+s.serviceFee+s.affiliate+s.otherPromo,
       profit:s.profit, margin:parseFloat(s.margin)||0, note, tagCls:tag, cash, cashOrders,
-      jpyNet:toJpy(s.currency,s.net), jpyProfit:toJpy(s.currency,s.profit)});
+      jpyNet:toJpy(s.currency,s.net), jpyProfit:toJpy(s.currency,s.profit),
+      jpyEstOrderProfit:toJpy(s.currency,s.profit)});
   }
   return out;
 }
@@ -268,7 +271,7 @@ function filteredRows(rows){
 }
 
 function totals(rows){
-  const t={qty:0,net:0,profit:0,orders:null, settledNet:0, settledProfit:0};
+  const t={qty:0,net:0,profit:0,orders:null, settledNet:0, settledProfit:0, orderProfit:0};
   // JPY 本币行直接计；非JPY行用 jpyNet/jpyProfit（Shopee折算；USD独立站无折算则不计）
   for(const r of rows){
     const net = r.currency==='JPY' ? r.net : r.jpyNet;
@@ -278,9 +281,13 @@ function totals(rows){
     const sNet = r.currency==='JPY' ? (r.jpySettledNet??r.net) : r.jpyNet;
     const sGp  = r.currency==='JPY' ? (r.jpySettledProfit??r.profit) : r.jpyProfit;
     if(sNet!=null){ t.settledNet+=sNet; t.settledProfit+=sGp||0; }
+    // 下单口径预估毛利：日亚=下单净额×日亚结算毛利率；其他平台=实际毛利（其口径即结算）
+    const estGp = r.currency==='JPY' ? (r.jpyEstOrderProfit??r.profit) : r.jpyEstOrderProfit;
+    if(net!=null && estGp!=null){ t.orderProfit+=estGp; }
     if(r.orders!=null){ t.orders=(t.orders||0)+r.orders; } // 日亚下单订单量（其他平台订单口径不一，不并入）
   }
   t.margin=t.settledNet?+(t.settledProfit/t.settledNet*100).toFixed(2):0;
+  t.orderMargin=t.net?+(t.orderProfit/t.net*100).toFixed(2):0;
   return t;
 }
 
@@ -417,10 +424,13 @@ function waterfallHTML(d){
 // ========== KPI ==========
 function kpiHTML(t,label,prev,yoy){
   const dNet=pct(t.net,prev&&prev.net), dGp=pct(t.profit,prev&&prev.profit), dQty=pct(t.qty,prev&&prev.qty);
+  const dEstGp=pct(t.orderProfit,prev&&prev.orderProfit);
   const yoyNet=yoy&&pct(t.net,yoy.net), yoyGp=yoy&&pct(t.profit,yoy.gp), yoyQty=yoy&&pct(t.qty,yoy.qty);
   return `<div class="kpis">
     <div class="kpi"><div class="lb">净销售额（全渠道·JPY折算·下单口径）</div><div class="v cny" data-val="${t.net}" data-prefix="¥">¥0</div><div class="s">≈ ${fmt(CNY(t.net))} CNY ｜ 下单时间·剔除取消，即时</div>
       <div class="s">环比 ${arrHTML(dNet)}${yoyNet!=null?` ｜ 同比 ${arrHTML(yoyNet)}`:''}</div></div>
+    <div class="kpi"><div class="lb">预估毛利（下单口径 · 未含头程）</div><div class="v gp" data-val="${t.orderProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--blue,#6ea8fe)">⚡ 下单销售额 ${fmt0(t.net)} × 各平台结算毛利率 · 预估 ${t.orderMargin}%</div>
+      <div class="s">环比 ${arrHTML(dEstGp)} ｜ 日亚按结算毛利率推算，乐天/Coupang等取实际毛利</div></div>
     <div class="kpi"><div class="lb">销量（全渠道合计·下单口径）</div><div class="v" data-val="${t.qty}">0<span class="cur">件</span></div><div class="s">${t.orders!=null?`日亚 ${t.orders} 单 ｜ `:''}与领星后台排行榜一致</div>
       <div class="s">环比 ${arrHTML(dQty)}${yoyQty!=null?` ｜ 同比 ${arrHTML(yoyQty)}`:''}</div></div>
     <div class="kpi"><div class="lb">毛利润（已结算 · 未含头程）</div><div class="v gp" data-val="${t.settledProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 结算口径，滞后约7-10天 · ≈${fmt(CNY(t.settledProfit))} CNY</div>
@@ -558,6 +568,7 @@ function render(p){
     <div>${barsHTML(rows)}
     <div class="sec"><h2>口径说明</h2><div class="note">
     · <b style="color:var(--blue,#6ea8fe)">净销售额/销量/订单量＝下单口径</b>（下单时间·剔除已取消·即时，与领星后台排行榜、内盘支付口径对齐）<br>
+    · <b style="color:var(--blue,#6ea8fe)">预估毛利（下单口径）＝下单净销售额×各平台结算毛利率</b>，日亚按结算毛利率推算、乐天/Coupang/Shopee/独立站取其实际毛利（本身即结算口径）；为参考值，非最终利润<br>
     · <b style="color:var(--gold,#e5b567)">毛利润/毛利率/成本/费用＝已结算口径</b>（平台收入+平台费用+商品成本），滞后约7-10天；<b>毛利率＝结算毛利÷结算销售额（自洽）</b>，不再除以当日下单销售额<br>
     · 平台费用 = 扣点 + FBA派送 + FBA仓储 + 广告 + 其他<br>
     · <b class="r">头程运费（中国→海外仓）暂未计入</b><br>
