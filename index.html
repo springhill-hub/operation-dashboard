@@ -230,7 +230,10 @@ function amzRow(p, a, tagNote){
     profit:a.gp, margin:a.margin,
     note:tagNote || (isOrder?'下单口径（即时）·毛利为已结算部分':'含税'+fmt0(a.salesAmt)+'−税'+fmt0(a.tax)),
     tagCls:a.qty===0?'mut':(isOrder?'ok':'ok'),
-    jpyNet:a.net, jpyProfit:a.gp};
+    jpyNet:a.net, jpyProfit:a.gp,
+    // 结算口径自洽组：日亚用 settled 快照，其他（美亚）本身即结算口径
+    jpySettledNet: a.settled?a.settled.net:a.net,
+    jpySettledProfit: a.settled?a.settled.gp:a.gp};
 }
 function stRows(settlement, knowMap){
   const out=[];
@@ -265,15 +268,19 @@ function filteredRows(rows){
 }
 
 function totals(rows){
-  const t={qty:0,net:0,profit:0,orders:null};
+  const t={qty:0,net:0,profit:0,orders:null, settledNet:0, settledProfit:0};
   // JPY 本币行直接计；非JPY行用 jpyNet/jpyProfit（Shopee折算；USD独立站无折算则不计）
   for(const r of rows){
     const net = r.currency==='JPY' ? r.net : r.jpyNet;
     const gp  = r.currency==='JPY' ? (r.profit) : r.jpyProfit;
     if(net!=null){ t.qty+=r.qty||0; t.net+=net; t.profit+=gp||0; }
+    // 结算口径自洽：日亚用 settled 快照，其他平台本身即结算口径
+    const sNet = r.currency==='JPY' ? (r.jpySettledNet??r.net) : r.jpyNet;
+    const sGp  = r.currency==='JPY' ? (r.jpySettledProfit??r.profit) : r.jpyProfit;
+    if(sNet!=null){ t.settledNet+=sNet; t.settledProfit+=sGp||0; }
     if(r.orders!=null){ t.orders=(t.orders||0)+r.orders; } // 日亚下单订单量（其他平台订单口径不一，不并入）
   }
-  t.margin=t.net?+(t.profit/t.net*100).toFixed(2):0;
+  t.margin=t.settledNet?+(t.settledProfit/t.settledNet*100).toFixed(2):0;
   return t;
 }
 
@@ -416,9 +423,9 @@ function kpiHTML(t,label,prev,yoy){
       <div class="s">环比 ${arrHTML(dNet)}${yoyNet!=null?` ｜ 同比 ${arrHTML(yoyNet)}`:''}</div></div>
     <div class="kpi"><div class="lb">销量（全渠道合计·下单口径）</div><div class="v" data-val="${t.qty}">0<span class="cur">件</span></div><div class="s">${t.orders!=null?`日亚 ${t.orders} 单 ｜ `:''}与领星后台排行榜一致</div>
       <div class="s">环比 ${arrHTML(dQty)}${yoyQty!=null?` ｜ 同比 ${arrHTML(yoyQty)}`:''}</div></div>
-    <div class="kpi"><div class="lb">毛利润（已结算 · 未含头程）</div><div class="v gp" data-val="${t.profit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 结算口径，滞后约7-10天 · ≈${fmt(CNY(t.profit))} CNY</div>
+    <div class="kpi"><div class="lb">毛利润（已结算 · 未含头程）</div><div class="v gp" data-val="${t.settledProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 结算口径，滞后约7-10天 · ≈${fmt(CNY(t.settledProfit))} CNY</div>
       <div class="s">环比 ${arrHTML(dGp)}${yoyGp!=null?` ｜ 同比 ${arrHTML(yoyGp)}`:''}</div></div>
-    <div class="kpi"><div class="lb">毛利率（已结算口径）</div><div class="v mg" data-val="${t.margin}" data-suffix="%">0%</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 已结算/估算毛利÷下单净额 · 近几日偏低</div>
+    <div class="kpi"><div class="lb">毛利率（已结算口径）</div><div class="v mg" data-val="${t.margin}" data-suffix="%">0%</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 结算毛利 ÷ 结算销售额 ¥${fmt0(t.settledNet)}（自洽）</div>
       <div class="s">${prev&&prev.margin?`上期 ${prev.margin}% · 变动 ${(t.margin-prev.margin>=0?'+':'')+(t.margin-prev.margin).toFixed(2)}pp`:'真实利润需再扣头程运费'}</div></div>
   </div>`;
 }
@@ -551,7 +558,7 @@ function render(p){
     <div>${barsHTML(rows)}
     <div class="sec"><h2>口径说明</h2><div class="note">
     · <b style="color:var(--blue,#6ea8fe)">净销售额/销量/订单量＝下单口径</b>（下单时间·剔除已取消·即时，与领星后台排行榜、内盘支付口径对齐）<br>
-    · <b style="color:var(--gold,#e5b567)">毛利润/毛利率/成本/费用＝已结算口径</b>（平台收入+平台费用+商品成本），滞后约7-10天，近几日仅代表已结算部分<br>
+    · <b style="color:var(--gold,#e5b567)">毛利润/毛利率/成本/费用＝已结算口径</b>（平台收入+平台费用+商品成本），滞后约7-10天；<b>毛利率＝结算毛利÷结算销售额（自洽）</b>，不再除以当日下单销售额<br>
     · 平台费用 = 扣点 + FBA派送 + FBA仓储 + 广告 + 其他<br>
     · <b class="r">头程运费（中国→海外仓）暂未计入</b><br>
     · Shopee为结算口径（滞后7-10天，月内账单未出时本月Tab显示占位）<br>
