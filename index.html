@@ -220,6 +220,28 @@ let curMetric = 'net'; // net | profit | margin
 let sortCol = 'profit';
 let sortDir = 'desc';
 
+// 单品历史毛利率索引（上月=全结算完整月）：msku → margin比率
+// 下单口径预估毛利 = 已结算SKU真实毛利 + 未结算SKU×单品上月毛利率（缺历史回退店铺结算毛利率）
+let _unitMargin = null;
+function unitMarginOf(msku){
+  if(_unitMargin==null){
+    _unitMargin = {};
+    const lm = DATA.lastMonth && DATA.lastMonth.amazonJP && DATA.lastMonth.amazonJP.skuDetail || [];
+    for(const s of lm){ if(s.settled && s.net>0 && s.profit!=null) _unitMargin[s.msku] = s.profit/s.net; }
+  }
+  return _unitMargin[msku];
+}
+function estOrderProfitJP(a){
+  if(a.caliber!=='order' || !a.skuDetail || !a.skuDetail.length) return a.gp;
+  const shopMargin = (a.settled && a.settled.net) ? a.settled.gp/a.settled.net : 0;
+  let sum = 0;
+  for(const x of a.skuDetail){
+    if(x.settled && x.profit!=null){ sum += x.profit; }
+    else if(x.net!=null){ const m = unitMarginOf(x.msku); sum += x.net*(m!=null?m:shopMargin); }
+  }
+  return +sum.toFixed(2);
+}
+
 // 平台行构建
 function amzRow(p, a, tagNote){
   const c = a.currency||'JPY';
@@ -234,8 +256,8 @@ function amzRow(p, a, tagNote){
     // 结算口径自洽组：日亚用 settled 快照，其他（美亚）本身即结算口径
     jpySettledNet: a.settled?a.settled.net:a.net,
     jpySettledProfit: a.settled?a.settled.gp:a.gp,
-    // 下单口径预估毛利：日亚=下单净额×结算毛利率；其他平台本身结算口径取实际毛利
-    jpyEstOrderProfit: (a.settled && a.settled.net) ? +(a.net*(a.settled.gp/a.settled.net)).toFixed(2) : a.gp};
+    // 下单口径预估毛利：已结算SKU取真实毛利，未结算SKU按上月单品毛利率换算（缺历史回退店铺结算毛利率）
+    jpyEstOrderProfit: estOrderProfitJP(a)};
 }
 function stRows(settlement, knowMap){
   const out=[];
