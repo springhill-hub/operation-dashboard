@@ -220,24 +220,33 @@ let curMetric = 'net'; // net | profit | margin
 let sortCol = 'profit';
 let sortDir = 'desc';
 
-// 单品历史毛利率索引（上月=全结算完整月）：msku → margin比率
-// 下单口径预估毛利 = 已结算SKU真实毛利 + 未结算SKU×单品上月毛利率（缺历史回退店铺结算毛利率）
-let _unitMargin = null;
-function unitMarginOf(msku){
-  if(_unitMargin==null){
-    _unitMargin = {};
-    const lm = DATA.lastMonth && DATA.lastMonth.amazonJP && DATA.lastMonth.amazonJP.skuDetail || [];
-    for(const s of lm){ if(s.settled && s.net>0 && s.profit!=null) _unitMargin[s.msku] = s.profit/s.net; }
+// 单品成本索引（上月=全结算完整月）：msku → { unitCost: 单位成本(负,JPY), feeRate: 费用率(负) }
+// 下单口径毛利直接计算 = 下单净额 + 下单件数×单位成本 + 下单净额×单品费用率（非推算，成本真实）
+let _skuCostRef = null, _feeRateFallback = 0;
+function buildSkuCostRef(){
+  if(_skuCostRef) return;
+  _skuCostRef = {};
+  const lm = (DATA.lastMonth && DATA.lastMonth.amazonJP && DATA.lastMonth.amazonJP.skuDetail) || [];
+  let sn=0, sp=0, sc=0;
+  for(const s of lm){
+    if(!s.settled || !s.net || s.profit==null) continue;
+    sn+=s.net; sp+=s.profit; sc+=(s.cost||0);
+    if(s.qty && s.cost){ _skuCostRef[s.msku] = { unitCost: s.cost/s.qty, feeRate: (s.profit - s.net - s.cost)/s.net }; }
   }
-  return _unitMargin[msku];
+  _feeRateFallback = sn>0 ? (sp-sn-sc)/sn : 0;   // 店铺整体费用率（缺单品成本的新品用）
 }
 function estOrderProfitJP(a){
   if(a.caliber!=='order' || !a.skuDetail || !a.skuDetail.length) return a.gp;
+  buildSkuCostRef();
   const shopMargin = (a.settled && a.settled.net) ? a.settled.gp/a.settled.net : 0;
   let sum = 0;
   for(const x of a.skuDetail){
-    if(x.settled && x.profit!=null){ sum += x.profit; }
-    else if(x.net!=null){ const m = unitMarginOf(x.msku); sum += x.net*(m!=null?m:shopMargin); }
+    // 已结算且有真实毛利：取真实值；cost==0 且 profit==0 属无结算数据的异常行，落到成本直算
+    if(x.settled && x.profit!=null && !(x.profit===0 && !x.cost)){ sum += x.profit; continue; }
+    if(x.net==null) continue;
+    const ref = _skuCostRef[x.msku];
+    if(ref){ sum += x.net + (x.qty||0)*ref.unitCost + x.net*ref.feeRate; } // 成本直算
+    else { sum += x.net*shopMargin; }                                    // 新品无成本：店铺结算毛利率兜底
   }
   return +sum.toFixed(2);
 }
@@ -256,7 +265,7 @@ function amzRow(p, a, tagNote){
     // 结算口径自洽组：日亚用 settled 快照，其他（美亚）本身即结算口径
     jpySettledNet: a.settled?a.settled.net:a.net,
     jpySettledProfit: a.settled?a.settled.gp:a.gp,
-    // 下单口径预估毛利：已结算SKU取真实毛利，未结算SKU按上月单品毛利率换算（缺历史回退店铺结算毛利率）
+    // 下单口径预估毛利：已结算SKU真实毛利；未结算SKU用上月单品成本直算（净额 + 件数×单位成本 + 净额×费用率）
     jpyEstOrderProfit: estOrderProfitJP(a)};
 }
 function stRows(settlement, knowMap){
@@ -451,8 +460,8 @@ function kpiHTML(t,label,prev,yoy){
   return `<div class="kpis">
     <div class="kpi"><div class="lb">净销售额（全渠道·JPY折算·下单口径）</div><div class="v cny" data-val="${t.net}" data-prefix="¥">¥0</div><div class="s">≈ ${fmt(CNY(t.net))} CNY ｜ 下单时间·剔除取消，即时</div>
       <div class="s">环比 ${arrHTML(dNet)}${yoyNet!=null?` ｜ 同比 ${arrHTML(yoyNet)}`:''}</div></div>
-    <div class="kpi"><div class="lb">预估毛利（下单口径 · 未含头程）</div><div class="v gp" data-val="${t.orderProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--blue,#6ea8fe)">⚡ 下单销售额 ${fmt0(t.net)} × 各平台结算毛利率 · 预估 ${t.orderMargin}%</div>
-      <div class="s">环比 ${arrHTML(dEstGp)} ｜ 日亚按结算毛利率推算，乐天/Coupang等取实际毛利</div></div>
+    <div class="kpi"><div class="lb">预估毛利（下单口径 · 未含头程）</div><div class="v gp" data-val="${t.orderProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--blue,#6ea8fe)">⚡ 下单净额 − 单品成本(上月领星单位成本×销量) − 费用率 · 预估 ${t.orderMargin}%</div>
+      <div class="s">环比 ${arrHTML(dEstGp)} ｜ 日亚成本直算非推算，乐天/Coupang等取实际毛利</div></div>
     <div class="kpi"><div class="lb">销量（全渠道合计·下单口径）</div><div class="v" data-val="${t.qty}">0<span class="cur">件</span></div><div class="s">${t.orders!=null?`日亚 ${t.orders} 单 ｜ `:''}与领星后台排行榜一致</div>
       <div class="s">环比 ${arrHTML(dQty)}${yoyQty!=null?` ｜ 同比 ${arrHTML(yoyQty)}`:''}</div></div>
     <div class="kpi"><div class="lb">毛利润（已结算 · 未含头程）</div><div class="v gp" data-val="${t.settledProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 结算口径，滞后约7-10天 · ≈${fmt(CNY(t.settledProfit))} CNY</div>
@@ -590,7 +599,7 @@ function render(p){
     <div>${barsHTML(rows)}
     <div class="sec"><h2>口径说明</h2><div class="note">
     · <b style="color:var(--blue,#6ea8fe)">净销售额/销量/订单量＝下单口径</b>（下单时间·剔除已取消·即时，与领星后台排行榜、内盘支付口径对齐）<br>
-    · <b style="color:var(--blue,#6ea8fe)">预估毛利（下单口径）＝下单净销售额×各平台结算毛利率</b>，日亚按结算毛利率推算、乐天/Coupang/Shopee/独立站取其实际毛利（本身即结算口径）；为参考值，非最终利润<br>
+    · <b style="color:var(--blue,#6ea8fe)">预估毛利（下单口径）＝已结算SKU真实毛利 + 未结算SKU成本直算</b>：净额 − 件数×上月单品成本 − 净额×上月单品费用率（非毛利率推算），乐天/Coupang等取实际毛利；为参考值，非最终利润<br>
     · <b style="color:var(--gold,#e5b567)">毛利润/毛利率/成本/费用＝已结算口径</b>（平台收入+平台费用+商品成本），滞后约7-10天；<b>毛利率＝结算毛利÷结算销售额（自洽）</b>，不再除以当日下单销售额<br>
     · 平台费用 = 扣点 + FBA派送 + FBA仓储 + 广告 + 其他<br>
     · <b class="r">头程运费（中国→海外仓）暂未计入</b><br>
