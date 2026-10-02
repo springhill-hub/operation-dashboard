@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>春山户外 · 每日简报</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2333;--line:#30363d;--txt:#e6edf3;--sub:#8b949e;--fire:#ff7a3c;--gold:#f5c66a;--green:#4cc38a;--red:#e5534b;--blue:#6ea8fe;--purple:#bc8cff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.sys-nav{display:flex;align-items:center;gap:12px;padding:8px 20px;background:#161b22;border-bottom:1px solid var(--line);font-size:13px;position:sticky;top:0;z-index:999}
+.sys-nav a{color:var(--sub);text-decoration:none;padding:6px 14px;border-radius:6px;transition:.2s}
+.sys-nav a:hover{color:var(--txt);background:var(--card2)}
+.sys-nav a.on{color:var(--fire);background:rgba(255,122,60,.1)}
+.sys-nav .sp{flex:1}.sys-nav .brand{font-weight:700;color:var(--fire)}
+header{margin-bottom:24px}
+h1{font-size:22px;letter-spacing:1px}
+h1 small{display:block;font-size:11px;color:var(--sub);letter-spacing:3px;font-weight:400;margin-top:3px}
+.date-badge{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--sub);margin-top:8px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.sec h2{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec h2::before{content:"";width:3px;height:14px;background:var(--fire);border-radius:2px}
+.sec h2 .tag{font-size:11px;color:var(--sub);margin-left:auto;font-weight:400}
+.brief-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #262930;font-size:14px}
+.brief-item:last-child{border-bottom:none}
+.brief-item .ic{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.brief-item .ic.g{background:rgba(76,195,138,.15)}.brief-item .ic.y{background:rgba(210,153,34,.15)}.brief-item .ic.r{background:rgba(248,81,73,.15)}.brief-item .ic.b{background:rgba(110,168,254,.15)}.brief-item .ic.p{background:rgba(188,140,255,.15)}
+.brief-item .txt{flex:1}
+.brief-item .txt b{display:block;margin-bottom:2px}
+.brief-item .txt p{color:var(--sub);font-size:13px;line-height:1.5}
+.brief-item .num{font-family:'SF Mono',monospace;font-weight:600}
+/* checklist */
+.check-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid #262930;font-size:14px}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--fire);cursor:pointer}
+.check-item label{flex:1;cursor:pointer}
+.check-item.done label{text-decoration:line-through;color:var(--sub)}
+.check-item .pri{font-size:10px;padding:2px 6px;border-radius:4px}
+.check-item .pri.hi{background:rgba(248,81,73,.2);color:var(--red)}
+.check-item .pri.md{background:rgba(210,153,34,.2);color:var(--yellow)}
+.check-item .pri.lo{background:var(--card2);color:var(--sub)}
+.add-row{display:flex;gap:8px;padding:12px 0 0}
+.add-row input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--txt);padding:8px 12px;font-size:13px;outline:none}
+.add-row select{background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--txt);padding:8px;font-size:13px}
+.add-row button{background:var(--fire);border:none;border-radius:6px;color:#fff;padding:8px 16px;font-size:13px;cursor:pointer}
+/* feedback */
+textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:12px;font-size:13px;font-family:inherit;min-height:120px;outline:none;resize:vertical}
+textarea:focus{border-color:var(--blue)}
+.btn{display:inline-block;background:var(--blue);border:none;border-radius:6px;color:#fff;padding:8px 20px;font-size:13px;cursor:pointer;margin-top:10px}
+.btn.copy{background:var(--green)}
+.note{font-size:12px;color:var(--sub);line-height:1.8;padding:12px;background:var(--card2);border-radius:8px;margin-top:12px}
+</style>
+</head>
+<body>
+
+<div class="sys-nav">
+  <span class="brand">春山户外 · 智能经营中枢</span>
+  <a href="portal.html">门户</a>
+  <a href="dashboard.html">外盘</a>
+  <a href="domestic.html">内盘</a>
+  <a href="inventory.html">库存</a>
+  <a href="daily.html" class="on">简报</a>
+  <div class="sp"></div>
+  <a href="#" onclick="localStorage.removeItem('chunshan_auth');location.href='portal.html'" style="font-size:12px">退出</a>
+</div>
+
+<div class="wrap">
+<header>
+  <h1>每日简报<small>DAILY BRIEFING & CHECKLIST</small></h1>
+  <div class="date-badge" id="dateBadge">加载中...</div>
+</header>
+
+<!-- 昨日经营摘要 -->
+<div class="sec">
+  <h2>昨日经营摘要 <span class="tag">自动从数据提取</span></h2>
+  <div id="briefSummary">加载中...</div>
+</div>
+
+<!-- 今日必干 -->
+<div class="sec">
+  <h2>今日必干 <span class="tag">localStorage 持久化</span></h2>
+  <div id="checklist"></div>
+  <div class="add-row">
+    <input type="text" id="newTask" placeholder="新增任务...">
+    <select id="newPri">
+      <option value="hi">高优</option>
+      <option value="md">中优</option>
+      <option value="lo">低优</option>
+    </select>
+    <button onclick="addTask()">添加</button>
+  </div>
+  <div class="note">💡 任务数据存在浏览器 localStorage，换设备需重新录入。完成后可勾选，次日自动重置。</div>
+</div>
+
+<!-- 结果反馈 -->
+<div class="sec">
+  <h2>结果反馈 <span class="tag">复制给 AI 强化学习</span></h2>
+  <textarea id="feedback" placeholder="记录今日结果、异常、决策...&#10;例：&#10;1. 日亚 QZ-P8BR-KGMU 补货 200 件已下单&#10;2. 乐天 10 月促销 ROI 目标 1:5&#10;3. 库存预警：SP-0.5ZML 剩余 12 天"></textarea>
+  <button class="btn copy" onclick="copyFeedback()">📋 复制反馈文本</button>
+  <div class="note">复制后粘贴给 AI，AI 会更新记忆并优化后续建议。</div>
+</div>
+
+</div>
+
+<script>
+// ---------- 日期 ----------
+const today = new Date();
+const yesterday = new Date(today); yesterday.setDate(yesterday.getDate()-1);
+const fmtD = d => d.toISOString().slice(0,10);
+document.getElementById('dateBadge').textContent = `今日 ${fmtD(today)} ｜ 昨日 ${fmtD(yesterday)}`;
+
+// ---------- 昨日经营摘要 ----------
+async function loadBrief(){
+  try{
+    const res = await fetch('operation_data.json');
+    const data = await res.json();
+    const d = data.yesterday || data.today; // 优先昨日
+    const jp = d.amazonJP || {};
+    const items = [];
+    // 日亚
+    if(jp.net) items.push({ic:'g',icn:'📊',b:`日本亚马逊（昨日）`,p:`净销售额 ¥${fmtNum(jp.net)} / ${jp.orders||'-'}单 / ${jp.qty||'-'}件 / 结算毛利 ¥${fmtNum(jp.gp||0)}`});
+    // 乐天
+    const st = d.settlement || {};
+    if(st['日本-乐天']) items.push({ic:'b',icn:'🛒',b:'日本乐天',p:`${st['日本-乐天'].orders||'-'}单 / 净销售额 ¥${fmtNum(st['日本-乐天'].net)} / 毛利 ${st['日本-乐天'].margin||'-'}%`});
+    if(st['韩国-Coupang']) items.push({ic:'p',icn:'🇰🇷',b:'韩国Coupang',p:`净销售额 ₩${fmtNum(st['韩国-Coupang'].net)} / 毛利 ${st['韩国-Coupang'].margin||'-'}%`});
+    // Shopee
+    const shopee = Object.keys(st).filter(k=>k.includes('shopee')).map(k=>({name:k,...st[k]}));
+    for(const s of shopee) items.push({ic:'y',icn:'🌏',b:s.name,p:`净销售额 ${s.currency==='THB'?'฿':'RM'}${fmtNum(s.net)} / 毛利 ${s.margin||'-'}%`});
+    // 库存预警（从 inventory 数据推断，这里简化）
+    items.push({ic:'r',icn:'⚠️',b:'库存预警',p:'查看库存看板 → 云端总仓/聚水潭安全库存状态'});
+    document.getElementById('briefSummary').innerHTML = items.map(i=>
+      `<div class="brief-item"><div class="ic ${i.ic}">${i.icn}</div><div class="txt"><b>${i.b}</b><p>${i.p}</p></div></div>`
+    ).join('');
+  }catch(e){
+    document.getElementById('briefSummary').innerHTML = '<div class="note">数据加载失败，请检查 operation_data.json 是否已更新</div>';
+  }
+}
+function fmtNum(n){ return n==null?'-':Number(n).toLocaleString('zh-CN'); }
+loadBrief();
+
+// ---------- Checklist ----------
+const CL_KEY = 'chunshan_daily_checklist';
+const CL_DATE = 'chunshan_daily_date';
+let tasks = JSON.parse(localStorage.getItem(CL_KEY) || '[]');
+const savedDate = localStorage.getItem(CL_DATE);
+if(savedDate !== fmtD(today)){ tasks.forEach(t=>t.done=false); localStorage.setItem(CL_KEY, JSON.stringify(tasks)); localStorage.setItem(CL_DATE, fmtD(today)); }
+
+function renderChecklist(){
+  const el = document.getElementById('checklist');
+  if(!tasks.length){ el.innerHTML = '<div class="note">暂无任务，点击下方添加</div>'; return; }
+  el.innerHTML = tasks.map((t,i)=>
+    `<div class="check-item ${t.done?'done':''}">
+      <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})">
+      <label onclick="toggleTask(${i})">${t.text}</label>
+      <span class="pri ${t.pri}">${t.pri==='hi'?'高':t.pri==='md'?'中':'低'}</span>
+    </div>`
+  ).join('');
+}
+function toggleTask(i){ tasks[i].done=!tasks[i].done; localStorage.setItem(CL_KEY,JSON.stringify(tasks)); renderChecklist(); }
+function addTask(){
+  const text = document.getElementById('newTask').value.trim();
+  if(!text) return;
+  tasks.push({text, pri:document.getElementById('newPri').value, done:false});
+  localStorage.setItem(CL_KEY, JSON.stringify(tasks));
+  document.getElementById('newTask').value='';
+  renderChecklist();
+}
+renderChecklist();
+
+// ---------- 反馈 ----------
+function copyFeedback(){
+  const text = document.getElementById('feedback').value;
+  const date = fmtD(today);
+  const checklist = tasks.map(t=>`- [${t.done?'x':' '}] ${t.text}`).join('\n');
+  const full = `【春山户外 · 每日反馈】${date}\n\n【今日必干完成度】\n${checklist}\n\n【结果反馈】\n${text}\n\n---\n请将此反馈纳入记忆，优化后续建议。`;
+  navigator.clipboard.writeText(full).then(()=>alert('已复制，粘贴给 AI 即可'));
+}
+</script>
+</body>
+</html>
