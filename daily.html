@@ -129,6 +129,22 @@ async function loadBrief(){
     for(const s of shopee) items.push({ic:'y',icn:'🌏',b:s.name,p:`净销售额 ${s.currency==='THB'?'฿':'RM'}${fmtNum(s.net)} / 毛利 ${s.margin||'-'}%`});
     // 库存预警（从 inventory 数据推断，这里简化）
     items.push({ic:'r',icn:'⚠️',b:'库存预警',p:'查看库存看板 → 云端总仓/聚水潭安全库存状态'});
+
+    // 内盘数据
+    try{
+      const res2 = await fetch('domestic_data.json');
+      const dd = await res2.json();
+      const dom = dd.yesterday || dd.today;
+      if(dom){
+        const ch = dom.channels || {};
+        const total = Object.values(ch).reduce((s,c)=>s+(c.net||0),0);
+        items.push({ic:'g',icn:'🇨🇳',b:'内盘合计（昨日）',p:`净销售额 ¥${fmtNum(total)} / ${dom.orders||'-'}单`});
+        for(const [name,c] of Object.entries(ch)){
+          if(c.net) items.push({ic:'b',icn:'🏪',b:name,p:`净销售额 ¥${fmtNum(c.net)} / ${c.orders||'-'}单 / 毛利 ${c.margin||'-'}%`});
+        }
+      }
+    }catch(e2){ /* 内盘数据可选 */ }
+
     document.getElementById('briefSummary').innerHTML = items.map(i=>
       `<div class="brief-item"><div class="ic ${i.ic}">${i.icn}</div><div class="txt"><b>${i.b}</b><p>${i.p}</p></div></div>`
     ).join('');
@@ -139,12 +155,33 @@ async function loadBrief(){
 function fmtNum(n){ return n==null?'-':Number(n).toLocaleString('zh-CN'); }
 loadBrief();
 
-// ---------- Checklist ----------
+// ---------- Checklist（GitHub 同步 + localStorage 缓存） ----------
 const CL_KEY = 'chunshan_daily_checklist';
 const CL_DATE = 'chunshan_daily_date';
-let tasks = JSON.parse(localStorage.getItem(CL_KEY) || '[]');
-const savedDate = localStorage.getItem(CL_DATE);
-if(savedDate !== fmtD(today)){ tasks.forEach(t=>t.done=false); localStorage.setItem(CL_KEY, JSON.stringify(tasks)); localStorage.setItem(CL_DATE, fmtD(today)); }
+let tasks = [];
+
+async function loadTasks(){
+  try{
+    const res = await fetch('daily-tasks.json');
+    const remote = await res.json();
+    // 远程模板 + 本地状态合并
+    const local = JSON.parse(localStorage.getItem(CL_KEY) || '[]');
+    const savedDate = localStorage.getItem(CL_DATE);
+    const isToday = savedDate === fmtD(new Date());
+    tasks = remote.map(t => {
+      const l = local.find(x=>x.id===t.id);
+      return { ...t, done: isToday && l ? l.done : false };
+    });
+    localStorage.setItem(CL_KEY, JSON.stringify(tasks));
+    localStorage.setItem(CL_DATE, fmtD(new Date()));
+  }catch(e){
+    // 远程失败用本地
+    tasks = JSON.parse(localStorage.getItem(CL_KEY) || '[]');
+    const savedDate = localStorage.getItem(CL_DATE);
+    if(savedDate !== fmtD(new Date())) tasks.forEach(t=>t.done=false);
+  }
+  renderChecklist();
+}
 
 function renderChecklist(){
   const el = document.getElementById('checklist');
@@ -161,12 +198,12 @@ function toggleTask(i){ tasks[i].done=!tasks[i].done; localStorage.setItem(CL_KE
 function addTask(){
   const text = document.getElementById('newTask').value.trim();
   if(!text) return;
-  tasks.push({text, pri:document.getElementById('newPri').value, done:false});
+  tasks.push({id:'local_'+Date.now(), text, pri:document.getElementById('newPri').value, done:false});
   localStorage.setItem(CL_KEY, JSON.stringify(tasks));
   document.getElementById('newTask').value='';
   renderChecklist();
 }
-renderChecklist();
+loadTasks();
 
 // ---------- 反馈 ----------
 function copyFeedback(){
