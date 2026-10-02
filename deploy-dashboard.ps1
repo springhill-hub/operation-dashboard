@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
   春山户外经营看板 · 每日刷新部署脚本
 .DESCRIPTION
@@ -92,22 +92,45 @@ $htmlTemplate = Get-Content $SourceHtml -Raw -Encoding UTF8
 # 压缩JSON为单行（与原文件格式一致）
 $compactJson = ($rawJson | ConvertFrom-Json | ConvertTo-Json -Depth 100 -Compress)
 
-# 替换 DATA-JSON script 块内容
-$pattern = '(<script id="DATA-JSON" type="application/json">)\s*[\s\S]*?(</script>)'
-$replacement = "`$1`n$compactJson`n`$2"
-
-$newHtml = [regex]::Replace($htmlTemplate, $pattern, $replacement, [System.Text.RegularExpressions.RegexOptions]::Singleline)
-
-if ($newHtml -eq $htmlTemplate) {
-  Stop-OnError 'Step2-HTML替换' '未匹配到 DATA-JSON script块，请检查源HTML格式'
+# 替换 DATA-JSON script 块内容（用字符串定位，避免正则 replacement 中 $ 被转义）
+$startTag = '<script id="DATA-JSON" type="application/json">'
+$endTag = '</script>'
+$startIdx = $htmlTemplate.IndexOf($startTag)
+if ($startIdx -lt 0) {
+  Stop-OnError 'Step2-HTML替换' '未找到 DATA-JSON script 开始标签'
 }
+$endIdx = $htmlTemplate.IndexOf($endTag, $startIdx)
+if ($endIdx -lt 0) {
+  Stop-OnError 'Step2-HTML替换' '未找到 DATA-JSON script 结束标签'
+}
+$contentStart = $startIdx + $startTag.Length
+$newHtml = $htmlTemplate.Substring(0, $contentStart) + "`n" + $compactJson + "`n" + $htmlTemplate.Substring($endIdx)
+Write-Info "DATA-JSON 替换完成（位置 $startIdx ~ $endIdx）"
+
+# 同步更新硬编码的 tab 日期（从 DATA-JSON 提取）
+$dataObj = $rawJson | ConvertFrom-Json
+$todayDate = $dataObj.today.date                                    # 2026-09-29
+$weekRange = $dataObj.week.range                                    # 2026-09-23 ~ 2026-09-29
+$monthRange = $dataObj.month.range                                  # 2026-09-01 ~ 2026-09-29
+# 转为短格式 MM-DD ~ MM-DD
+$weekShort = $weekRange -replace '^\d{4}-(\d{2}-\d{2}) ~ \d{4}-(\d{2}-\d{2})$', '$1 ~ $2'
+$monthShort = $monthRange -replace '^\d{4}-(\d{2}-\d{2}) ~ \d{4}-(\d{2}-\d{2})$', '$1 ~ $2'
+
+$newHtml = $newHtml -replace '(<div class="d" id="tabD-today">)[^<]*(</div>)', "`${1}$todayDate`${2}"
+$newHtml = $newHtml -replace '(<div class="d" id="tabD-week">)[^<]*(</div>)', "`${1}$weekShort`${2}"
+$newHtml = $newHtml -replace '(<div class="d" id="tabD-month">)[^<]*(</div>)', "`${1}$monthShort`${2}"
+Write-Info "tab日期已同步: today=$todayDate week=$weekShort month=$monthShort"
 
 # 用 .NET 直接写 UTF-8 无 BOM（避免 Set-Content 在 PS 5.1 加 BOM 导致 lark-cli 解析问题）
-$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
-
-# 写 widget.html（保留meta标签，飞书文档用）
-[System.IO.File]::WriteAllText($WidgetHtml, $newHtml, $utf8NoBom)
-Write-OK "widget.html 已生成（含meta标签）"
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  
+  # 回写源文件 经营看板.html（保证本地打开源文件也是最新数据）
+  [System.IO.File]::WriteAllText($SourceHtml, $newHtml, $utf8NoBom)
+  Write-OK "经营看板.html 源文件已同步更新"
+  
+  # 写 widget.html（保留meta标签，飞书文档用）
+  [System.IO.File]::WriteAllText($WidgetHtml, $newHtml, $utf8NoBom)
+  Write-OK "widget.html 已生成（含meta标签）"
 
 # 写 index.html（GitHub Pages版，去掉3个meta标签）—— 注意 PS 变量不区分大小写，用独立变量名
 $indexContent = $newHtml -replace '(?m)^<meta name="use-iframe" content="true">\r?\n', ''
@@ -128,7 +151,7 @@ if ($SkipGit) {
   try {
     Push-Location $DeployDir
     Write-Info "git add index.html widget.html + 固化脚本/成本表"
-    $null = & git add index.html widget.html build-shopee.js build-msku-cost.js msku-cost.json .gitignore 2>&1
+    $null = & git add index.html widget.html dashboard.html portal.html build-shopee.js build-msku-cost.js build-rakuten.js build-coupang.js msku-cost.json .gitignore 2>&1
     if ($LASTEXITCODE -ne 0) { throw "git add 失败 (exit $LASTEXITCODE)" }
 
     # 检查已暂存的变更（仅staged，避免untracked文件触发误commit）
