@@ -3,144 +3,791 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>春山户外 · 智能经营中枢</title>
+<meta name="use-iframe" content="true">
+<meta name="html-box-height-mode" content="auto">
+<meta name="description" content="春山户外经营利润看板：KPI四卡+三图表+平台筛选+指标切换+表格排序，今日/本周/本月三Tab">
+<title>春山户外 · 经营看板</title>
 <style>
 :root{
-  --bg:#0d1117;--card:#161b22;--card2:#1c2333;--line:#30363d;
-  --txt:#e6edf3;--sub:#8b949e;--fire:#ff7a3c;--gold:#f5c66a;
-  --green:#4cc38a;--blue:#6ea8fe;--purple:#bc8cff;
+  --bg:#141518; --card:#1d1f24; --card2:#23262c; --line:#33363e;
+  --txt:#e8e6e1; --sub:#9a9da6; --fire:#ff7a3c; --gold:#f5c66a;
+  --green:#4cc38a; --red:#e5534b; --blue:#5b9dd9; --jpy:#f5c66a;
+  --c1:#ff7a3c; --c2:#5b9dd9; --c3:#4cc38a; --c4:#f5c66a; --c5:#b07cd6; --c6:#e5534b; --c7:#7eb8c9; --c8:#d6a06e;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--txt);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
-.login-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.logo-area{text-align:center;margin-bottom:32px}
-.logo{width:64px;height:64px;border:2px solid var(--fire);border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:var(--fire);font-size:28px;margin-bottom:16px}
-h1{font-size:22px;letter-spacing:1px;margin-bottom:4px}
-h1 small{display:block;font-size:11px;color:var(--sub);letter-spacing:3px;font-weight:400;margin-top:4px}
-.version{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:2px 12px;font-size:11px;color:var(--sub);margin-top:8px}
-.form-group{margin-bottom:20px}
-label{display:block;font-size:13px;color:var(--sub);margin-bottom:8px}
-input[type=password]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:12px 16px;font-size:15px;outline:none;transition:border-color .2s}
-input[type=password]:focus{border-color:var(--fire)}
-.btn{width:100%;background:linear-gradient(135deg,var(--fire),#e55a2b);border:none;border-radius:8px;color:#fff;padding:14px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,122,60,.3)}
-.remember{display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:13px;color:var(--sub);cursor:pointer}
-.remember input{width:auto}
-.error{background:rgba(248,81,73,.15);border:1px solid rgba(248,81,73,.3);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:16px;display:none}
-/* 导航页 */
-.nav-container{max-width:900px;width:100%;padding:20px}
-.nav-header{text-align:center;margin-bottom:40px}
-.nav-header .logo{width:56px;height:56px;font-size:24px;margin-bottom:12px}
-.nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.nav-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px 24px;text-decoration:none;color:var(--txt);transition:.25s;display:block}
-.nav-card:hover{transform:translateY(-4px);border-color:var(--fire);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.nav-card .icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-.nav-card.g .icon{background:rgba(76,195,138,.15)}
-.nav-card.b .icon{background:rgba(110,168,254,.15)}
-.nav-card.p .icon{background:rgba(188,140,255,.15)}
-.nav-card h2{font-size:17px;margin-bottom:6px}
-.nav-card p{font-size:13px;color:var(--sub);line-height:1.6}
-.nav-card .arrow{float:right;color:var(--sub);font-size:18px;margin-top:-40px}
-.nav-footer{text-align:center;margin-top:32px;font-size:12px;color:var(--sub)}
+body{background:var(--bg);color:var(--txt);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:14px}
+.switch-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 14px;background:var(--card2);border:1px solid var(--line);border-radius:8px;color:var(--sub);font-size:12px;text-decoration:none;cursor:pointer;transition:.25s;white-space:nowrap}
+.switch-btn:hover{border-color:var(--fire);color:var(--fire);background:#2a2318}
+.switch-btn b{font-size:13px}
+.logo{width:44px;height:44px;border:2px solid var(--fire);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--fire);font-size:20px;letter-spacing:-1px}
+h1{font-size:22px;letter-spacing:1px}
+h1 small{display:block;font-size:11px;color:var(--sub);letter-spacing:3px;font-weight:400;margin-top:3px}
+.meta{text-align:right;font-size:12px;color:var(--sub);line-height:1.7}
+.meta b{color:var(--gold)}
+.tabs{display:flex;gap:8px;margin-bottom:20px}
+.tab{flex:1;padding:13px 0;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:10px;cursor:pointer;color:var(--sub);font-size:14px;transition:.25s;position:relative;overflow:hidden}
+.tab:hover{color:var(--txt)}
+.tab.on{background:linear-gradient(160deg,#2a2318,#1d1f24);border-color:var(--fire);color:var(--fire);font-weight:600}
+.tab .d{font-size:11px;color:var(--sub);margin-top:3px;font-weight:400}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--fire),transparent 70%)}
+.kpi .lb{font-size:12px;color:var(--sub)}
+.kpi .v{font-size:26px;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.kpi .s{font-size:11px;color:var(--sub);margin-top:4px}
+.kpi .v.cny{color:var(--gold)}
+.kpi .v.gp{color:var(--fire)}
+.kpi .v.mg{color:var(--green)}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px}
+.sec h2{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec h2::before{content:"";width:3px;height:14px;background:var(--fire);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:var(--sub);font-weight:500;text-align:right;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:9px 10px;text-align:right;border-bottom:1px solid #262930;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:hover td{background:#22252b}
+td.pf{font-weight:600}
+.neg{color:var(--red)}
+.pos{color:var(--green)}
+.cur{font-size:10px;color:var(--sub);margin-left:2px}
+.tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;margin-left:6px}
+.tag.warn{background:#3a2f1a;color:var(--gold)}
+.tag.bad{background:#3a1f1e;color:var(--red)}
+.tag.ok{background:#16312a;color:var(--green)}
+.tag.mut{background:#2a2d34;color:var(--sub)}
+.tag.cash{background:#16263a;color:var(--blue)}
+.cashline{font-size:10px;color:var(--blue);margin-top:2px;font-variant-numeric:tabular-nums}
+.caliber-note{margin:10px 0 6px;padding:9px 12px;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:11px;color:var(--sub);line-height:1.9}
+.caliber-note b{color:var(--txt)}
+.bars{display:flex;flex-direction:column;gap:11px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 150px;gap:10px;align-items:center;font-size:13px}
+.bar-track{height:16px;background:#262930;border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#b8551f,var(--fire));width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.bar-fill.g{background:linear-gradient(90deg,#2d7a56,var(--green))}
+.bar-num{font-size:12px;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+.note{font-size:12px;color:var(--sub);line-height:2}
+.note b{color:var(--gold)}
+.note .r{color:var(--red)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.rule{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.8}
+.rule b{color:var(--fire);display:block;margin-bottom:4px;font-size:12px}
 .hidden{display:none}
+footer{margin-top:26px;text-align:center;font-size:11px;color:#5d616b;letter-spacing:1px}
+.fade{animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ============ 新增：筛选器 ============ */
+.filters{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.filter-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-group .label{font-size:12px;color:var(--sub);margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;background:var(--card2);border:1px solid var(--line);border-radius:20px;font-size:12px;cursor:pointer;transition:.2s;user-select:none}
+.chip:hover{border-color:var(--fire)}
+.chip.on{background:#2a2318;border-color:var(--fire);color:var(--fire)}
+.chip .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.chip:not(.on) .dot{opacity:.4}
+.metric-switch{display:flex;gap:4px;background:var(--card2);border-radius:8px;padding:3px}
+.metric-switch button{background:none;border:none;color:var(--sub);font-size:12px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:.2s;font-family:inherit}
+.metric-switch button.on{background:var(--fire);color:#1a1a1a;font-weight:600}
+
+/* ============ 新增：图表网格 ============ */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.chart-card h3{font-size:13px;color:var(--sub);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.chart-card h3::before{content:"";width:3px;height:12px;background:var(--blue);border-radius:2px}
+.svg-box{width:100%;display:flex;justify-content:center;align-items:center}
+.svg-box svg{max-width:100%;height:auto}
+.chart-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;font-size:11px;color:var(--sub)}
+.chart-legend .li{display:flex;align-items:center;gap:5px}
+.chart-legend .li .dot{width:9px;height:9px;border-radius:2px}
+.chart-tip{position:absolute;background:#0d0e10;border:1px solid var(--line);border-radius:6px;padding:8px 11px;font-size:12px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:99;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.chart-tip.on{opacity:1}
+
+/* ============ 新增：表格排序 ============ */
+th.sort{cursor:pointer;user-select:none;transition:color .2s}
+th.sort:hover{color:var(--fire)}
+th.sort::after{content=" ↕";opacity:.3;font-size:10px}
+th.sort-asc::after{content=" ↑";opacity:1;color:var(--fire)}
+th.sort-desc::after{content=" ↓";opacity:1;color:var(--fire)}
+.table-wrap{overflow-x:auto;border-radius:8px}
+
+/* ============ SKU 产品缩略图 ============ */
+.sku-ph{width:46px;height:46px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:#262930;border:1px solid var(--line);flex-shrink:0;font-size:10px;color:var(--sub)}
+.sku-ph img{width:100%;height:100%;border-radius:6px;object-fit:cover;display:block}
+.sku-rank{position:absolute;top:-5px;left:-5px;background:var(--fire);color:#141518;font-size:9px;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;z-index:2}
+
+/* ============ 新增：动画 ============ */
+@keyframes drawDonut{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:var(--off)}}
+@keyframes growBar{from{width:0}to{width:var(--w)}}
+@keyframes growHeight{from{height:0}to{height:var(--h)}}
+.kpi{animation:fadeUp .5s ease both}
+.kpi .v{transition:color .3s}
+@keyframes countUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.kpi-num{display:inline-block;transition:opacity .3s}
+
+/* ============ 移动端优化 ============ */
+@media(max-width:900px){
+  .grid2{grid-template-columns:1fr}
+  .chart-grid{grid-template-columns:1fr}
+  .filters{flex-direction:column;align-items:stretch}
+  .filter-group{justify-content:flex-start}
+  .bar-row{grid-template-columns:90px 1fr 110px;font-size:12px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tabs{gap:6px}
+  .tab{font-size:12px;padding:10px 0}
+  .tab .d{font-size:10px}
+  h1{font-size:18px}
+  .kpi .v{font-size:22px}
+}
+@media(max-width:600px){
+  .wrap{padding:18px 12px 40px}
+  .chart-card{padding:14px}
+  .sec{padding:14px}
+  th,td{padding:7px 6px;font-size:12px}
+}
 </style>
 </head>
 <body>
+<div class="wrap">
+<header class="fade">
+  <div class="brand">
+    <div class="logo">山</div>
+    <a class="switch-btn" href="domestic.html" title="切换到国内经营看板">内盘 →</a>
+    <h1>春山户外 · 经营利润看板<small>GOOUT SPRINGHILL · OPERATION PROFIT DASHBOARD</small></h1>
+  </div>
+  <div class="meta">
+    数据更新：<b id="genAt">2026-09-29</b> ｜ 口径：日本计算法则 v1.1<br>
+    汇率（外管局中间价 <span id="fxDate"></span>）：1 JPY ≈ <b id="jpyRate">0.0427</b> CNY ｜ 1 THB ≈ <b id="thbRate">0.2000</b> CNY ｜ 1 MYR ≈ <b id="myrRate">1.6489</b> CNY ｜ 100 KRW ≈ <b id="krwRate">0.4947</b> CNY（中行折算价）
+  </div>
+</header>
 
-<!-- 登录页 -->
-<div class="login-card" id="loginView">
-  <div class="logo-area">
-    <div class="logo">春</div>
-    <h1>春山户外<small>智能经营中枢</small></h1>
-    <div class="version">v2.0.0 · 双口径数据引擎</div>
-  </div>
-  <div class="error" id="errMsg">口令错误，请重试</div>
-  <div class="form-group">
-    <label>访问口令</label>
-    <input type="password" id="pwd" placeholder="请输入口令" autocomplete="current-password">
-  </div>
-  <label class="remember">
-    <input type="checkbox" id="remember"> 记住口令（7天）
-  </label>
-  <button class="btn" onclick="doLogin()">进入系统</button>
+<div class="tabs fade">
+  <div class="tab on" data-p="today"><b>今日经营</b><div class="d" id="tabD-today">2026-10-01</div></div>
+  <div class="tab" data-p="week"><b>本周经营</b><div class="d" id="tabD-week">09-25 ~ 10-01</div></div>
+  <div class="tab" data-p="month"><b>本月经营</b><div class="d" id="tabD-month">10-01 ~ 10-01</div></div>
+  <div class="tab" data-p="lastMonth"><b>上月汇总</b><div class="d" id="tabD-lastMonth">—</div></div>
 </div>
 
-<!-- 导航页 -->
-<div class="nav-container hidden" id="navView">
-  <div class="nav-header">
-    <div class="logo">春</div>
-    <h1>春山户外<small>智能经营中枢</small></h1>
-    <div class="version">v2.0.0 · 双口径数据引擎</div>
-  </div>
-  <div class="nav-grid">
-    <a class="nav-card g" href="index.html" target="_blank">
-      <div class="icon">📊</div>
-      <h2>外盘经营看板</h2>
-      <p>亚马逊/乐天/Coupang/Shopee/独立站<br>下单口径·结算口径·双轨并行</p>
-      <span class="arrow">→</span>
-    </a>
-    <a class="nav-card b" href="domestic.html" target="_blank">
-      <div class="icon">🇨🇳</div>
-      <h2>内盘经营看板</h2>
-      <p>天猫/京东/抖音/小红书<br>支付口径·成本口径·实时同步</p>
-      <span class="arrow">→</span>
-    </a>
-    <a class="nav-card p" href="inventory.html" target="_blank">
-      <div class="icon">📦</div>
-      <h2>库存管理看板</h2>
-      <p>云端总仓·聚水潭·跨境仓<br>安全库存·周转预警·缺货提醒</p>
-      <span class="arrow">→</span>
-    </a>
-  </div>
-  <div class="nav-footer">
-    春山户外 · 数据驱动决策 · 每日 08:30 自动刷新
-  </div>
+<div id="panel"></div>
+
+<footer>春山户外智能中枢 · 经营利润财务Agent ｜ 数据源：领星ERP（跨境）· 聚水潭（国内，待接入）</footer>
 </div>
+
+<script id="DATA-JSON" type="application/json">
+{"meta":{"generatedAt":"2026-10-02","jpyRate":0.0427,"fx":{"fxDate":"2026-09-29","thbCny":0.19999,"myrCny":1.6489,"krwCny":0.004947,"source":"国家外汇管理局当日人民币汇率中间价","note":"Shopee THB/MYR 按此折算为 JPY 口径并入总KPI与环形图；KRW 外管局中间价不直接列示，采用中国银行折算价 100KRW=0.4947CNY（2026-09-29）"},"calcRule":{"name":"日本计算法则","netSales":"净销售额 = 含税销售额 - 消费税(10%)","profit":"毛利润 = 平台收入 + 平台费用合计 + 商品成本","fees":"平台费用 = 扣点 + FBA尾程派送 + FBA仓储 + 广告 + 其他(月租金等)","note":"头程运费(中国→海外仓)当前未含，待领星头程分摊配置后自动纳入"},"noteYoY":"同比仅日亚口径（去年9月Shopee/独立站结算数据领星不可得）"},"today":{"date":"2026-10-01","amazonJP":{"skuCount":22,"qty":44,"refQty":0,"salesAmt":853985,"tax":0,"net":853985,"cost":-23983.08,"commission":-10450,"fbaDeliv":-3517,"storage":-618,"ads":0,"other":0,"platExp":-14585,"gp":24910.92,"margin":43.12,"skuDetail":[{"msku":"LDL-XYCQZ-E-FBA","name":"轩辕充气隧道帐篷【黑色顶配】","qty":3,"orders":3,"net":389997,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg","pct":45.67},{"msku":"QZ-P8BR-KGMU","name":"春山祝融取暖器","qty":15,"orders":15,"net":164985,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg","pct":19.32},{"msku":"【顶配】全配置セットblack","name":"Springhill 崑崙3.0 ドームテント 自立式 ポリコットンテント 【全配置セット】","qty":1,"orders":1,"net":90800,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":10.63},{"msku":"SP-0.5ZML","name":"春山0.5单元IGT桌面炉","qty":4,"orders":4,"net":37996,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg","pct":4.45},{"msku":"LDL-4P-NU","name":"Springhill 蓬萊4P 庇護所 2.0 キャンプ テント 4人用 シェルター PU2000mm 軽量 自立式 二重層構造 通気 防風 防雨 簡単設営 収納バッグ付き","qty":1,"orders":1,"net":29699,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":3.48},{"msku":"SL-LL2.0-MB","name":"Springhill 琉璃2.0 オイルランタン アイロンストーブ型 焚き火 観火窓付き 加熱スタンド アルミ合金 軽量1.36kg キャンプ用ランタン キャンプ アウトドア 室内 卓上暖炉 調理 照明","qty":1,"orders":1,"net":18999,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":2.22},{"msku":"BEL-SFZ-E-BTZ-FBA","name":"金乌碳纤维四方桌【B套装】","qty":1,"orders":1,"net":16599,"cost":-7213.44,"platformFee":-2531,"profit":5179.56,"margin":38.14,"settled":true,"img":"https://m.media-amazon.com/images/I/615lgkx2zsL._SL75_.jpg","pct":1.94},{"msku":"CS-BT-B-JP","name":"黑色寒霜冰桶","qty":2,"orders":2,"net":13998,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/51sntQGnbXL._SL75_.jpg","pct":1.64},{"msku":"BEL-CFZ-E+IGTB","name":"Springhill カーボンファイバー アウトドアテーブル 超軽量 60×40cm 約888g IGT対応 ランタンスタンド対応 ソロ〜グループ対応 折りたたみ コンパクト 連結可能 アルミ天板 メッシュ収納付き 登山 ピクニック","qty":1,"orders":1,"net":11800,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":1.38},{"msku":"CS-HYSL-JP","name":"春山IGT幻影桌SOLO","qty":1,"orders":1,"net":11789,"cost":-5071.23,"platformFee":-1797,"profit":2949.77,"margin":30.58,"settled":true,"img":"https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg","pct":1.38},{"msku":"NEW-ZRKSL-SNB","name":"祝融卡式炉（收纳包套装）","qty":1,"orders":1,"net":11390,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg","pct":1.33},{"msku":"BEL-CFZ-E-ATZ","name":"Springhill カーボンファイバー アウトドアテーブル 超軽量 60×40cm 約888g ランタンスタンド対応 ソロ〜グループ対応 折りたたみ コンパクト 連結可能 アルミ天板 メッシュ収納付き 登山 ピクニック","qty":1,"orders":1,"net":9900,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":1.16},{"msku":"CS-MNGHBL-JP","name":"春山mini观火壁炉","qty":2,"orders":2,"net":9760,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":1.14},{"msku":"YS-DBT-Y","name":"Springhill アイスペール アイスジャグ アイスコンテナ 4L 真空断熱 保冷 保温 ステンレス 保冷専用 軽量 大容量 水筒 氷入れ","qty":1,"orders":1,"net":9498,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":1.11},{"msku":"BEL-FSYLY-Z-FBA","name":"Springhill アウトドアチェア 超軽量 約615g カーボン製骨組み 折りたたみ コンパクト 耐裂性 ダイニーマ生地 耐荷重120kg 登山 キャンプ 椅子 ソロキャンプ 携帯便利","qty":1,"orders":1,"net":6599,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.77},{"msku":"CS-MNFXL1.5","name":"迷你焚香炉1.5","qty":1,"orders":1,"net":3699,"cost":-791.44,"platformFee":-564,"profit":1550.56,"margin":51.22,"settled":true,"img":"https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg","pct":0.43},{"msku":"CS-SKL-JP","name":"Springhill バーベキュー 鉄板 焚き火 鉄製 軽量 折りたたみ式 焚き火台 IGT対応グリドル キャンプ飯 ソロキャンプ アウトドア グリルプレート 焼肉プレート BBQキャンプ バーベキュー 野営 多機能","qty":1,"orders":1,"net":3698,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.43},{"msku":"CS-HYZ-PJ-CMB","name":"Springhill IGT幻影テーブルサイドパネル 戦術テーブル部品 テーブルアクセサリー","qty":1,"orders":1,"net":3399,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.4},{"msku":"CS-HYSLPJ-JP","name":"springhill igt テーブル 専用アクセサリー シェルフ\u0026ライトスタンド","qty":1,"orders":1,"net":3160,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.37},{"msku":"CS-BTT-2L","name":"新款战术冰桶套-1.9L","qty":2,"orders":2,"net":3100,"cost":-518.5,"platformFee":-236,"profit":208.5,"margin":16.44,"settled":true,"img":"https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg","pct":0.36},{"msku":"CS-HYSL-ZGT","name":"springhill igt テーブル 専用アクセサリー 高さ調節用デスクの脚","qty":1,"orders":1,"net":2520,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.3},{"msku":"BH-QNQ-ZWJ","name":"Springhill アウトドアストーブヒーター フロント保温プレート サイトプレート","qty":1,"orders":1,"net":600,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.07}],"settled":{"qty":8,"net":57768,"salesAmt":64186,"tax":6418,"gp":24910.92,"margin":43.12,"skuCount":39,"refQty":0},"caliber":"order","orders":44},"amazonUS":{"skuCount":0,"qty":0,"refQty":0,"salesAmt":0,"tax":0,"net":0,"cost":0,"commission":0,"fbaDeliv":0,"storage":0,"ads":0,"other":0,"platExp":0,"gp":0,"margin":0,"skuDetail":[],"settled":{"qty":0,"net":0,"salesAmt":0,"tax":0,"gp":0,"margin":0,"skuCount":0,"refQty":0},"caliber":"order","orders":0},"settlement":{"独立站-日本":{"currency":"JPY","qty":16,"refundVol":0,"salesAmount":218969,"promoDisc":-23664,"net":195305,"productCost":-71002.26,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":124302.74,"margin":"63.65%","skuDetail":[{"msku":"50527587598511","name":"","qty":1,"net":68400,"cost":-24532.21,"platformFee":0,"profit":43867.79,"margin":64.13,"pct":35.29,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/2.0_4P.jpg?v=1790232442"},{"msku":"46474377035951","name":"","qty":4,"net":42640,"cost":-18823.45,"platformFee":0,"profit":23816.55,"margin":55.85,"pct":19.16,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/0_53c53553-11e8-48f4-829c-4e4f5f4a334c.jpg?v=1760001204"},{"msku":"45455399354543","name":"","qty":2,"net":14629,"cost":0,"platformFee":0,"profit":14629,"margin":100,"pct":11.77,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/12_67a2d07e-6f26-422d-83cf-565b73a3f715.jpg?v=1770109283"},{"msku":"47385106612399","name":"","qty":2,"net":18620,"cost":-5942.22,"platformFee":0,"profit":12677.78,"margin":68.09,"pct":10.2,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/5_d0b0490d-05a1-4708-a9b1-14c04510524d.jpg?v=1787381341"},{"msku":"47138317861039","name":"","qty":1,"net":12150,"cost":-4121.98,"platformFee":0,"profit":8028.02,"margin":66.07,"pct":6.46,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/793f2be0497180835439f35e2d5914ce.jpg?v=1783068449"},{"msku":"46474377068719","name":"","qty":1,"net":11520,"cost":-3922.34,"platformFee":0,"profit":7597.66,"margin":65.95,"pct":6.11,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/14_392ffc29-e09b-41b0-9f0c-2b519f52a4d8.jpg?v=1768960312"},{"msku":"45455327461551","name":"","qty":1,"net":12488,"cost":-7039.07,"platformFee":0,"profit":5448.93,"margin":43.63,"pct":4.38,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/a9ac9f12242079fc7b7236ae75dd192b.jpg?v=1766114092"},{"msku":"45915346141359","name":"","qty":1,"net":8100,"cost":-4328.66,"platformFee":0,"profit":3771.34,"margin":46.56,"pct":3.03,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/0.5.jpg?v=1762585406"},{"msku":"47070815092911","name":"","qty":1,"net":3059,"cost":-1007.59,"platformFee":0,"profit":2051.41,"margin":67.06,"pct":1.65,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/778a789ab391f36fb6863e09d6df6dfc.png?v=1781681041"},{"msku":"46744701206703","name":"","qty":1,"net":1600,"cost":-204.34,"platformFee":0,"profit":1395.66,"margin":87.23,"pct":1.12,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/1_387e961f-9eb3-4aef-82a3-d2a90e2522cb.jpg?v=1773468401"},{"msku":"46503780417711","name":"","qty":1,"net":2099,"cost":-1080.4,"platformFee":0,"profit":1018.6,"margin":48.53,"pct":0.82,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/2_3b81ad22-be8c-4205-8c30-4af44b5bf095.jpg?v=1769831702"}]},"日本-乐天":{"currency":"JPY","qty":13,"orderCount":12,"cancelOrders":0,"cancelPending":0,"cancelAmount":0,"salesAmount":222104,"tax":21112,"net":200992,"productCost":-90884.22,"commission":-21104.16,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-21104.16,"profit":89003.62,"margin":44.28,"feeEstimated":true,"feeNote":"佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含","costCoveragePct":92.31,"unknownKeys":[{"key":"CS-HYZ-PJ-0.5MBX2","qty":1}],"cashSettlement":78007,"cashOrders":9,"cashStatus":"proxy-注文確定口径，非真精算","cashGeneratedAt":"2026-10-02 14:18:54"},"韩国-Coupang":{"currency":"KRW","qty":7,"refundVol":0,"salesAmount":933680,"promoDisc":0,"net":933680,"productCost":-150671.59,"commission":-126046.8,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-126046.8,"profit":656961.61,"margin":"70.36%","feeEstimated":true,"feeNote":"佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准","costCoveragePct":57.14,"unknownKeys":[{"key":"96052997205","qty":1},{"key":"96103407408","qty":1},{"key":"96103821797","qty":1}],"generatedAt":"2026-10-02 14:13:53"}}},"week":{"range":"2026-09-25 ~ 2026-10-01","amazonJP":{"skuCount":63,"qty":235,"refQty":3,"salesAmt":4018835,"tax":0,"net":4018835,"cost":-1137688.21,"commission":-402725,"fbaDeliv":-24997,"storage":-17467.2,"ads":-50162,"other":0,"platExp":-495351.2,"gp":1254132.59,"margin":45.92,"skuDetail":[{"msku":"QZ-P8BR-KGMU","name":"春山祝融取暖器","qty":77,"orders":77,"net":846923,"cost":-218930.57,"platformFee":-97266,"profit":252195.43,"margin":48.32,"settled":true,"img":"https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg","pct":21.07},{"msku":"LDL-XYCQZ-E-FBA","name":"轩辕充气隧道帐篷【黑色顶配】","qty":6,"orders":6,"net":788995,"cost":-178693.01,"platformFee":-54466,"profit":238809.46,"margin":55.18,"settled":true,"img":"https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg","pct":19.63},{"msku":"LDL-XYCQZ-V-FBA","name":"轩辕充气隧道帐篷【军绿色顶配】","qty":4,"orders":4,"net":519996,"cost":-142954.41,"platformFee":-53540,"profit":165509.76,"margin":38.9,"settled":true,"img":"https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg","pct":12.94},{"msku":"LDL-CQ4P-E-FBA","name":"蓬莱4P庇护所充气帐篷主帐【黑色】","qty":4,"orders":4,"net":239996,"cost":-89828.21,"platformFee":-29445,"profit":133577.9,"margin":57.08,"settled":true,"img":"https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg","pct":5.97},{"msku":"NEW-ZRKSL-SNB","name":"祝融卡式炉（收纳包套装）","qty":19,"orders":19,"net":216410,"cost":-49444.86,"platformFee":-15249,"profit":66862.14,"margin":55.18,"settled":true,"img":"https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg","pct":5.38},{"msku":"SP-0.5ZML","name":"春山0.5单元IGT桌面炉","qty":15,"orders":15,"net":142485,"cost":-47062.6,"platformFee":-10758,"profit":34294.4,"margin":40.12,"settled":true,"img":"https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg","pct":3.55},{"msku":"【顶配】全配置セットblack","name":"Springhill 崑崙3.0 ドームテント 自立式 ポリコットンテント 【全配置セット】","qty":1,"orders":1,"net":90800,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":2.26},{"msku":"CS-CQQZ-AG-FBA1","name":"伏羲充气球帐【军绿色】","qty":1,"orders":1,"net":89999,"cost":-38419.87,"platformFee":-9266,"profit":31259.64,"margin":42.45,"settled":true,"img":"https://m.media-amazon.com/images/I/915C7+e6jiL._SL75_.jpg","pct":2.24},{"msku":"CS-MNGHBL-JP","name":"春山mini观火壁炉","qty":15,"orders":15,"net":73200,"cost":-21667.18,"platformFee":-7975,"profit":16620.82,"margin":37.85,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":1.82},{"msku":"CS-HYSL-JP","name":"春山IGT幻影桌SOLO","qty":6,"orders":6,"net":70734,"cost":-20288.28,"platformFee":-7188,"profit":-2209.86,"margin":-5.73,"settled":true,"img":"https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg","pct":1.76},{"msku":"LDL-CQ4P-V-FBA","name":"蓬莱4P庇护所充气帐篷主帐【军绿色】","qty":1,"orders":1,"net":59999,"cost":-17965.64,"platformFee":-6177,"profit":28694.51,"margin":58.45,"settled":true,"img":"https://m.media-amazon.com/images/I/914NSr+a3VL._SL75_.jpg","pct":1.49},{"msku":"BEL-CFZ-E+IGTB","name":"金乌碳纤维长方桌【黑色】A套餐+一单元IGT板","qty":5,"orders":5,"net":59000,"cost":-31687.69,"platformFee":-10794,"profit":21172.31,"margin":36.55,"settled":true,"img":"https://m.media-amazon.com/images/I/71G6djgr0FL._SL75_.jpg","pct":1.47},{"msku":"SL-LL2.0-QE-FBA","name":"琉璃观火灯炉2.0【枪灰色+黑胡桃木】","qty":3,"orders":3,"net":56997,"cost":-27201.66,"platformFee":-17382,"profit":56281.82,"margin":60.34,"settled":true,"img":"https://m.media-amazon.com/images/I/51nxhSw-h6L._SL75_.jpg","pct":1.42},{"msku":"LDL-CQ4P-E-DP-FBA","name":"蓬莱4P庇护所充气帐篷拓展前厅【黑色】","qty":2,"orders":2,"net":51998,"cost":-26951.94,"platformFee":-8031,"profit":34730.2,"margin":54.42,"settled":true,"img":"https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg","pct":1.29},{"msku":"CS-SGZDZ-FBA","name":"春山韶光IGT超轻折叠桌","qty":4,"orders":4,"net":51996,"cost":-35320.74,"platformFee":-9910,"profit":4887.55,"margin":9.19,"settled":true,"img":"https://m.media-amazon.com/images/I/51qPT2JhMAL._SL75_.jpg","pct":1.29},{"msku":"SL-LL2.0-MB","name":"Springhill 琉璃2.0 オイルランタン アイロンストーブ型 焚き火 観火窓付き 加熱スタンド アルミ合金 軽量1.36kg キャンプ用ランタン キャンプ アウトドア 室内 卓上暖炉 調理 照明","qty":2,"orders":2,"net":37998,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.95},{"msku":"LDL-TZTM-E-FBA","name":"拓展天幕【黑色】","qty":2,"orders":2,"net":34780,"cost":-10307.2,"platformFee":-3580,"profit":17382.8,"margin":61.09,"settled":true,"img":"https://m.media-amazon.com/images/I/41ipm5udqiL._SL75_.jpg","pct":0.87},{"msku":"LDL-CQ4P-E-DP","name":"蓬莱4P庇护所充气帐篷拓展前厅【黑色】","qty":1,"orders":1,"net":29999,"cost":-8983.98,"platformFee":-3089,"profit":14899.02,"margin":60.7,"settled":true,"img":"https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg","pct":0.75},{"msku":"LDL-4P-NU","name":"Springhill 蓬萊4P 庇護所 2.0 キャンプ テント 4人用 シェルター PU2000mm 軽量 自立式 二重層構造 通気 防風 防雨 簡単設営 収納バッグ付き","qty":1,"orders":1,"net":29699,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.74},{"msku":"SP-PL4P-B-JP","name":"春山蓬莱4P庇护所2.0黑色","qty":1,"orders":1,"net":29599,"cost":-14346.51,"platformFee":-3048,"profit":6912.74,"margin":28.54,"settled":true,"img":"https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg","pct":0.74},{"msku":"SP-PL4P-G-JP","name":"春山蓬莱4P庇护所2.0军绿色","qty":1,"orders":1,"net":29599,"cost":0,"platformFee":0,"profit":-1164.4,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg","pct":0.74},{"msku":"LDL-XYCQZ-HJDBE","name":"轩辕充气帐篷黑胶顶布【黑色】","qty":2,"orders":2,"net":27000,"cost":-8148.26,"platformFee":-2780,"profit":13031.26,"margin":58.99,"settled":true,"img":"https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg","pct":0.67},{"msku":"BEL-FSYLY-E-FBA","name":"扶桑碳纤维月亮椅【黑色】","qty":4,"orders":3,"net":26396,"cost":-21380.48,"platformFee":-5944,"profit":8273.51,"margin":25.08,"settled":true,"img":"https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg","pct":0.66},{"msku":"LDL-CQ4P-V-DP-FBA","name":"蓬莱4P庇护所充气帐篷拓展前厅【军绿色】","qty":1,"orders":1,"net":25999,"cost":-8983.98,"platformFee":-2677,"profit":11534.98,"margin":54.23,"settled":true,"img":"https://m.media-amazon.com/images/I/51OWF5IMzxL._SL75_.jpg","pct":0.65},{"msku":"CS-BT-G","name":"灰色寒霜冰桶","qty":3,"orders":3,"net":20997,"cost":-7768.71,"platformFee":-3201,"profit":5472.31,"margin":31.85,"settled":true,"img":"https://m.media-amazon.com/images/I/61+V0MDcBqL._SL75_.jpg","pct":0.52},{"msku":"LDL-CQZTZ-E","name":"伏羲拓展帐【黑色】","qty":1,"orders":1,"net":20800,"cost":-9947.38,"platformFee":-2142,"profit":6611.62,"margin":38.85,"settled":true,"img":"https://m.media-amazon.com/images/I/512eqlAK92L._SL75_.jpg","pct":0.52},{"msku":"LDL-XYCQZTM-E","name":"轩辕充气隧道帐篷拓展天幕【黑色】","qty":1,"orders":1,"net":19800,"cost":-9513.27,"platformFee":-2039,"profit":6249.73,"margin":38.58,"settled":true,"img":"https://m.media-amazon.com/images/I/51oHHmynmLL._SL75_.jpg","pct":0.49},{"msku":"BEL-CFZ-E-ATZ","name":"Springhill カーボンファイバー アウトドアテーブル 超軽量 60×40cm 約888g ランタンスタンド対応 ソロ〜グループ対応 折りたたみ コンパクト 連結可能 アルミ天板 メッシュ収納付き 登山 ピクニック","qty":2,"orders":2,"net":19800,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.49},{"msku":"SL-LL2.0-MB-FBA","name":"琉璃观火灯炉2.0【米白色+白橡木】","qty":1,"orders":1,"net":18999,"cost":-4533.78,"platformFee":-2897,"profit":9012.94,"margin":57.98,"settled":true,"img":"https://m.media-amazon.com/images/I/518grJWw5iL._SL75_.jpg","pct":0.47},{"msku":"LDL-CQZTM-E-M","name":"伏羲拓展天幕【黑色】","qty":1,"orders":1,"net":17599,"cost":-4201.81,"platformFee":-1812,"profit":9809.19,"margin":68.12,"settled":true,"img":"https://m.media-amazon.com/images/I/51X+4N8pqKL._SL75_.jpg","pct":0.44},{"msku":"SL-TBZ-Y-FBA","name":"春山轻量化徒步桌","qty":3,"orders":3,"net":16740,"cost":-4199.18,"platformFee":-1674,"profit":8223.82,"margin":60.04,"settled":true,"img":"https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg","pct":0.42},{"msku":"BEL-SFZ-E-BTZ-FBA","name":"金乌碳纤维四方桌【B套装】","qty":1,"orders":1,"net":16599,"cost":-7213.44,"platformFee":-2531,"profit":2615.56,"margin":19.26,"settled":true,"img":"https://m.media-amazon.com/images/I/615lgkx2zsL._SL75_.jpg","pct":0.41},{"msku":"CS-BT-B-JP","name":"黑色寒霜冰桶","qty":2,"orders":2,"net":13998,"cost":0,"platformFee":0,"profit":-1329.86,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/51sntQGnbXL._SL75_.jpg","pct":0.35},{"msku":"LDL-XYCQZ-HJDBV","name":"轩辕充气帐篷黑胶顶布【军绿色】","qty":1,"orders":1,"net":13500,"cost":-4074.13,"platformFee":-1390,"profit":6673.87,"margin":60.42,"settled":true,"img":"https://m.media-amazon.com/images/I/51RRuNwqV9L._SL75_.jpg","pct":0.34},{"msku":"SL-YLY-WS-FBA","name":"春山摇光月亮椅【网纱款】","qty":2,"orders":2,"net":13198,"cost":-5803.61,"platformFee":-2012,"profit":2972.11,"margin":27.52,"settled":true,"img":"https://m.media-amazon.com/images/I/61pRT0D8SxL._SL75_.jpg","pct":0.33},{"msku":"BEL-GBY-Z-FBA","name":"扶桑碳纤维高背月亮椅【紫色】","qty":1,"orders":1,"net":12500,"cost":-6047.36,"platformFee":-1250,"profit":3469.64,"margin":33.92,"settled":true,"img":"https://m.media-amazon.com/images/I/716WE5i32jL._SL75_.jpg","pct":0.31},{"msku":"LDL-CQZTZ-NZ","name":"伏羲拓展帐内帐","qty":1,"orders":1,"net":11800,"cost":-4793.78,"platformFee":-1215,"profit":4600.22,"margin":47.65,"settled":true,"img":"https://m.media-amazon.com/images/I/61ZCuu8LSFL._SL75_.jpg","pct":0.29},{"msku":"LDL-XYCQZ-ZPDD","name":"轩辕充气隧道帐篷澡盆地垫","qty":2,"orders":2,"net":11250,"cost":-3667.88,"platformFee":-1158,"profit":5290.12,"margin":57.46,"settled":true,"img":"https://m.media-amazon.com/images/I/61GngX9tHbL._SL75_.jpg","pct":0.28},{"msku":"CS-TMSL","name":"春山轻量化SOLO天幕","qty":1,"orders":1,"net":10535,"cost":-3110.73,"platformFee":-1085,"profit":5276.27,"margin":61.22,"settled":true,"img":"https://m.media-amazon.com/images/I/812cpP8Lv7L._SL75_.jpg","pct":0.26},{"msku":"BH-ZRKSL-SNEW","name":"祝融卡式炉【银色】","qty":1,"orders":1,"net":10390,"cost":-3282.52,"platformFee":-1070,"profit":3411.48,"margin":40.14,"settled":true,"img":"https://m.media-amazon.com/images/I/71uMsOAK8NL._SL75_.jpg","pct":0.26},{"msku":"TC-LLMN-Y","name":"Mini观火灯炉【银色】","qty":1,"orders":1,"net":9800,"cost":-2936.62,"platformFee":-1494,"profit":4380.38,"margin":54.63,"settled":true,"img":"https://m.media-amazon.com/images/I/6191OsTDp-L._SL75_.jpg","pct":0.24},{"msku":"YS-DBT-Y","name":"Springhill アイスペール アイスジャグ アイスコンテナ 4L 真空断熱 保冷 保温 ステンレス 保冷専用 軽量 大容量 水筒 氷入れ","qty":1,"orders":1,"net":9498,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.24},{"msku":"BEL-XKZ-E","name":"星空桌【黑色】","qty":1,"orders":1,"net":8800,"cost":-3287.16,"platformFee":-880,"profit":1848.84,"margin":25.68,"settled":true,"img":"https://m.media-amazon.com/images/I/51sXS29SY0L._SL75_.jpg","pct":0.22},{"msku":"BEL-SFZ-E","name":"金乌碳纤维四方桌【黑色】","qty":1,"orders":1,"net":7599,"cost":-3110.73,"platformFee":-1159,"profit":2562.27,"margin":41.21,"settled":true,"img":"https://m.media-amazon.com/images/I/61+xt8H5uqL._SL75_.jpg","pct":0.19},{"msku":"CS-MNFXL1.5","name":"迷你焚香炉1.5","qty":2,"orders":2,"net":7398,"cost":-1583.05,"platformFee":-1128,"profit":-675.97,"margin":-11.17,"settled":true,"img":"https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg","pct":0.18},{"msku":"CS-BT-Y-JP","name":"银色寒霜冰桶","qty":1,"orders":1,"net":6999,"cost":-2486.87,"platformFee":-1067,"profit":1167.79,"margin":20.39,"settled":true,"img":"https://m.media-amazon.com/images/I/517B49J8eML._SL75_.jpg","pct":0.17},{"msku":"CS-CHL","name":"MINI-柴火炉银色","qty":2,"orders":2,"net":6998,"cost":-1621.53,"platformFee":-1066,"profit":878.87,"margin":15.35,"settled":true,"img":"https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg","pct":0.17},{"msku":"Q3-KTDP-51JY","name":"迷你柴火炉黑色","qty":2,"orders":2,"net":6998,"cost":-2792.69,"platformFee":-1599,"profit":2766.79,"margin":32.21,"settled":true,"img":"https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg","pct":0.17},{"msku":"SL-XWHT-Y-JP-FBA","name":"春山玄武取暖器","qty":1,"orders":1,"net":6800,"cost":-1999.92,"platformFee":-1037,"profit":2645.98,"margin":47.56,"settled":true,"img":"https://m.media-amazon.com/images/I/71Oe0ZPhXSL._SL75_.jpg","pct":0.17},{"msku":"BEL-AZ-E","name":"Springhill カーボンファイバー ミニローテーブル アウトドアテ��ブル 超軽量 35×31.5cm 約440g ソロ〜グループ対応 コンパクト アルミ天板 登山 ピクニック","qty":1,"orders":1,"net":6800,"cost":0,"platformFee":-1037,"profit":5077,"margin":91.25,"settled":true,"img":"https://m.media-amazon.com/images/I/81Eh8nWSdnL._SL75_.jpg","pct":0.17},{"msku":"SL-YLY-H-FBA","name":"春山摇光月亮椅","qty":1,"orders":1,"net":6599,"cost":-2646.44,"platformFee":-1006,"profit":1670.62,"margin":30.94,"settled":true,"img":"https://m.media-amazon.com/images/I/31oZaYbmRpL._SL75_.jpg","pct":0.16},{"msku":"BEL-FSYLY-Z-FBA","name":"Springhill アウトドアチェア 超軽量 約615g カーボン製骨組み 折りたたみ コンパクト 耐裂性 ダイニーマ生地 耐荷重120kg 登山 キャンプ 椅子 ソロキャンプ 携帯便利","qty":1,"orders":1,"net":6599,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.16},{"msku":"CS-HYSLPJ-JP","name":"春山IGT幻影桌SOLO置物架灯架","qty":2,"orders":2,"net":6320,"cost":-1374.29,"platformFee":-325,"profit":1141.71,"margin":44.15,"settled":true,"img":"https://m.media-amazon.com/images/I/61FEkZng-cL._SL75_.jpg","pct":0.16},{"msku":"SL-YH-Y-FBAA","name":"春山便携战术油壶【银色】","qty":2,"orders":2,"net":5960,"cost":-2399.21,"platformFee":-1362,"profit":1784.79,"margin":24.4,"settled":true,"img":"https://m.media-amazon.com/images/I/61-AUMHmgAL._SL75_.jpg","pct":0.15},{"msku":"SL-TBZ-Y","name":"春山轻量化徒步桌","qty":1,"orders":1,"net":5580,"cost":-1399.83,"platformFee":-558,"profit":3059.17,"margin":67,"settled":true,"img":"https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg","pct":0.14},{"msku":"CS-MNGHBL-JP-FBA","name":"春山mini观火壁炉","qty":1,"orders":1,"net":5389,"cost":-1969.31,"platformFee":-800,"profit":1084.93,"margin":24.61,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":0.13},{"msku":"CS-HYSL-ZGT","name":"增高专用腿*4支","qty":2,"orders":2,"net":5040,"cost":-1067.86,"platformFee":-384,"profit":814.14,"margin":39.48,"settled":true,"img":"https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg","pct":0.13},{"msku":"CS-BTT-2L","name":"新款战术冰桶套-1.9L","qty":3,"orders":3,"net":4650,"cost":-1037.11,"platformFee":-472,"profit":217.51,"margin":8.58,"settled":true,"img":"https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg","pct":0.12},{"msku":"CS-HYZYS-FBM","name":"幻影配件一单元板","qty":1,"orders":1,"net":4299,"cost":-1174.65,"platformFee":-655,"profit":2035.35,"margin":57.87,"settled":true,"img":"https://m.media-amazon.com/images/I/61SrEwJyauL._SL75_.jpg","pct":0.11},{"msku":"CS-SKL-JP","name":"Springhill バーベキュー 鉄板 焚き火 鉄製 軽量 折りたたみ式 焚き火台 IGT対応グリドル キャンプ飯 ソロキャンプ アウトドア グリルプレート 焼肉プレート BBQキャンプ バーベキュー 野営 多機能","qty":1,"orders":1,"net":3698,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.09},{"msku":"CS-HYZ-PJ-CMB","name":"Springhill IGT幻影テーブルサイドパネル 戦術テーブル部品 テーブルアクセサリー","qty":1,"orders":1,"net":3399,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.08},{"msku":"CS-KL-WS","name":"昆仑主帐网纱门","qty":1,"orders":1,"net":2710,"cost":-791.61,"platformFee":-279,"profit":1366.39,"margin":61.6,"settled":true,"img":"https://m.media-amazon.com/images/I/51AfOf78PfL._SL75_.jpg","pct":0.07},{"msku":"BH-QNQ-ZWJ","name":"拓展置物隔板【银色】","qty":3,"orders":3,"net":1800,"cost":-276.25,"platformFee":-60,"profit":741.75,"margin":75.69,"settled":true,"img":"https://m.media-amazon.com/images/I/71VMKQfnnyL._SL75_.jpg","pct":0.04}],"settled":{"qty":194,"net":2730882,"salesAmt":3033653,"tax":302771,"gp":1254132.59,"margin":45.92,"skuCount":79,"refQty":3},"caliber":"order","orders":234},"amazonUS":{"skuCount":0,"qty":0,"refQty":0,"salesAmt":0,"tax":0,"net":0,"cost":0,"commission":0,"fbaDeliv":0,"storage":0,"ads":0,"other":0,"platExp":0,"gp":0,"margin":0,"skuDetail":[],"settled":{"qty":0,"net":0,"salesAmt":0,"tax":0,"gp":0,"margin":0,"skuCount":0,"refQty":0},"caliber":"order","orders":0},"settlement":{"独立站-日本":{"currency":"JPY","qty":29,"refundVol":0,"salesAmount":451720,"promoDisc":-44179,"net":407541,"productCost":-143921.54,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":263619.46,"margin":"64.69%"},"独立站-国际":{"currency":"USD","qty":3,"refundVol":0,"salesAmount":198.62,"promoDisc":0,"net":198.62,"productCost":-34.52,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":164.1,"margin":"82.62%"},"日本-乐天":{"currency":"JPY","qty":48,"orderCount":47,"cancelOrders":2,"cancelPending":0,"cancelAmount":15460,"salesAmount":665761,"tax":63795,"net":601966,"productCost":-252219.92,"commission":-63206.43,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-63206.43,"profit":286539.65,"margin":47.6,"feeEstimated":true,"feeNote":"佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含","costCoveragePct":93.75,"unknownKeys":[{"key":"CS-HYZ-PJ-0.5MBX2","qty":1},{"key":"LDL-QZTZDD","qty":1},{"key":"LDL-QZTZNZ","qty":1}],"cashSettlement":471620,"cashOrders":40,"cashStatus":"proxy-注文確定口径，非真精算","cashGeneratedAt":"2026-10-02 14:18:54"},"韩国-Coupang":{"currency":"KRW","qty":53,"refundVol":0,"salesAmount":8000580,"promoDisc":0,"net":8000580,"productCost":-2506849.07,"commission":-1080078.3,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-1080078.3,"profit":4413652.63,"margin":"55.17%","feeEstimated":true,"feeNote":"佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准","costCoveragePct":84.91,"unknownKeys":[{"key":"CS-2DPL-K","qty":2},{"key":"LDL-XYCQZ-TPU-E","qty":1},{"key":"96091463064","qty":1},{"key":"LDL-XYCQZ-TPU-V","qty":1},{"key":"96052997205","qty":1},{"key":"96103407408","qty":1},{"key":"96103821797","qty":1}],"generatedAt":"2026-10-02 14:13:53"}}},"month":{"range":"2026-10-01 ~ 2026-10-01","amazonJP":{"skuCount":22,"qty":44,"refQty":0,"salesAmt":853985,"tax":0,"net":853985,"cost":-23983.08,"commission":-10450,"fbaDeliv":-3517,"storage":-618,"ads":0,"other":0,"platExp":-14585,"gp":24910.92,"margin":43.12,"skuDetail":[{"msku":"LDL-XYCQZ-E-FBA","name":"轩辕充气隧道帐篷【黑色顶配】","qty":3,"orders":3,"net":389997,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg","pct":45.67},{"msku":"QZ-P8BR-KGMU","name":"春山祝融取暖器","qty":15,"orders":15,"net":164985,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg","pct":19.32},{"msku":"【顶配】全配置セットblack","name":"Springhill 崑崙3.0 ドームテント 自立式 ポリコットンテント 【全配置セット】","qty":1,"orders":1,"net":90800,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":10.63},{"msku":"SP-0.5ZML","name":"春山0.5单元IGT桌面炉","qty":4,"orders":4,"net":37996,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg","pct":4.45},{"msku":"LDL-4P-NU","name":"Springhill 蓬萊4P 庇護所 2.0 キャンプ テント 4人用 シェルター PU2000mm 軽量 自立式 二重層構造 通気 防風 防雨 簡単設営 収納バッグ付き","qty":1,"orders":1,"net":29699,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":3.48},{"msku":"SL-LL2.0-MB","name":"Springhill 琉璃2.0 オイルランタン アイロンストーブ型 焚き火 観火窓付き 加熱スタンド アルミ合金 軽量1.36kg キャンプ用ランタン キャンプ アウトドア 室内 卓上暖炉 調理 照明","qty":1,"orders":1,"net":18999,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":2.22},{"msku":"BEL-SFZ-E-BTZ-FBA","name":"金乌碳纤维四方桌【B套装】","qty":1,"orders":1,"net":16599,"cost":-7213.44,"platformFee":-2531,"profit":5179.56,"margin":38.14,"settled":true,"img":"https://m.media-amazon.com/images/I/615lgkx2zsL._SL75_.jpg","pct":1.94},{"msku":"CS-BT-B-JP","name":"黑色寒霜冰桶","qty":2,"orders":2,"net":13998,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/51sntQGnbXL._SL75_.jpg","pct":1.64},{"msku":"BEL-CFZ-E+IGTB","name":"Springhill カーボンファイバー アウトト���アテーブル 超軽量 60×40cm 約888g IGT対応 ランタンスタンド対応 ソロ〜グループ対応 折りたたみ コンパクト 連結可能 アルミ天板 メッシュ収納付き 登山 ピクニック","qty":1,"orders":1,"net":11800,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":1.38},{"msku":"CS-HYSL-JP","name":"春山IGT幻影桌SOLO","qty":1,"orders":1,"net":11789,"cost":-5071.23,"platformFee":-1797,"profit":2949.77,"margin":30.58,"settled":true,"img":"https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg","pct":1.38},{"msku":"NEW-ZRKSL-SNB","name":"祝融卡式炉（收纳包套装）","qty":1,"orders":1,"net":11390,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg","pct":1.33},{"msku":"BEL-CFZ-E-ATZ","name":"Springhill カーボンファイバー アウトドアテーブル 超軽量 60×40cm 約888g ランタンスタンド対応 ソロ〜グループ対応 折りたたみ コンパクト 連結可能 アルミ天板 メッシュ収納付き 登山 ピクニック","qty":1,"orders":1,"net":9900,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":1.16},{"msku":"CS-MNGHBL-JP","name":"春山mini观火壁炉","qty":2,"orders":2,"net":9760,"cost":0,"platformFee":0,"profit":0,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":1.14},{"msku":"YS-DBT-Y","name":"Springhill アイスペール アイスジャグ アイスコンテナ 4L 真空断熱 保冷 保温 ステンレス 保冷専用 軽量 大容量 水筒 氷入れ","qty":1,"orders":1,"net":9498,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":1.11},{"msku":"BEL-FSYLY-Z-FBA","name":"Springhill アウトドアチェア 超軽量 約615g カーボン製骨組み 折りたたみ コンパクト 耐裂性 ダイニーマ生地 耐荷重120kg 登山 キャンプ 椅子 ソロキャンプ 携帯便利","qty":1,"orders":1,"net":6599,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.77},{"msku":"CS-MNFXL1.5","name":"迷你焚香炉1.5","qty":1,"orders":1,"net":3699,"cost":-791.44,"platformFee":-564,"profit":1550.56,"margin":51.22,"settled":true,"img":"https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg","pct":0.43},{"msku":"CS-SKL-JP","name":"Springhill バーベキュー 鉄板 焚き火 鉄製 軽量 折りたたみ式 焚き火台 IGT対応グリドル キャンプ飯 ソロキャンプ アウトドア グリルプレート 焼肉プレート BBQキャンプ バーベキュー 野営 多機能","qty":1,"orders":1,"net":3698,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.43},{"msku":"CS-HYZ-PJ-CMB","name":"Springhill IGT幻影テーブルサイドパネル 戦術テーブル部品 テーブルアクセサリー","qty":1,"orders":1,"net":3399,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.4},{"msku":"CS-HYSLPJ-JP","name":"springhill igt テーブル 専用アクセサリー シェルフ\u0026ライトスタンド","qty":1,"orders":1,"net":3160,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.37},{"msku":"CS-BTT-2L","name":"新款战术冰桶套-1.9L","qty":2,"orders":2,"net":3100,"cost":-518.5,"platformFee":-236,"profit":208.5,"margin":16.44,"settled":true,"img":"https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg","pct":0.36},{"msku":"CS-HYSL-ZGT","name":"springhill igt テーブル 専用アクセサリー 高さ調節用デスクの脚","qty":1,"orders":1,"net":2520,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.3},{"msku":"BH-QNQ-ZWJ","name":"Springhill アウトドアストーブヒーター フロント保温プレート サイトプレート","qty":1,"orders":1,"net":600,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.07}],"settled":{"qty":8,"net":57768,"salesAmt":64186,"tax":6418,"gp":24910.92,"margin":43.12,"skuCount":39,"refQty":0},"caliber":"order","orders":44},"amazonUS":{"skuCount":0,"qty":0,"refQty":0,"salesAmt":0,"tax":0,"net":0,"cost":0,"commission":0,"fbaDeliv":0,"storage":0,"ads":0,"other":0,"platExp":0,"gp":0,"margin":0,"skuDetail":[],"settled":{"qty":0,"net":0,"salesAmt":0,"tax":0,"gp":0,"margin":0,"skuCount":0,"refQty":0},"caliber":"order","orders":0},"settlement":{"日本-乐天":{"currency":"JPY","qty":13,"orderCount":12,"cancelOrders":0,"cancelPending":0,"cancelAmount":0,"salesAmount":222104,"tax":21112,"net":200992,"productCost":-90884.22,"commission":-21104.16,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-21104.16,"profit":89003.62,"margin":44.28,"feeEstimated":true,"feeNote":"佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含","costCoveragePct":92.31,"unknownKeys":[{"key":"CS-HYZ-PJ-0.5MBX2","qty":1}],"cashSettlement":78007,"cashOrders":9,"cashStatus":"proxy-注文確定口径，非真精算","cashGeneratedAt":"2026-10-02 14:18:54"},"韩国-Coupang":{"currency":"KRW","qty":7,"refundVol":0,"salesAmount":933680,"promoDisc":0,"net":933680,"productCost":-150671.59,"commission":-126046.8,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-126046.8,"profit":656961.61,"margin":"70.36%","feeEstimated":true,"feeNote":"佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准","costCoveragePct":57.14,"unknownKeys":[{"key":"96052997205","qty":1},{"key":"96103407408","qty":1},{"key":"96103821797","qty":1}],"generatedAt":"2026-10-02 14:12:57"}}},"yesterday":{"date":"2026-09-30","amazonJP":{"skuCount":13,"qty":30,"refQty":1,"salesAmt":339704,"tax":0,"net":339704,"cost":-232333.66,"commission":-65038,"fbaDeliv":-4342,"storage":-2287.71,"ads":0,"other":0,"platExp":-71667.71,"gp":101794.63,"margin":21.94,"skuDetail":[{"msku":"QZ-P8BR-KGMU","name":"春山祝融取暖器","qty":9,"orders":9,"net":98991,"cost":-18873.33,"platformFee":-8385,"profit":22186.67,"margin":49.31,"settled":true,"img":"https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg","pct":29.14},{"msku":"NEW-ZRKSL-SNB","name":"祝融卡式炉（收纳包套装）","qty":6,"orders":6,"net":68340,"cost":-49444.86,"platformFee":-15249,"profit":68439.14,"margin":56.49,"settled":true,"img":"https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg","pct":20.12},{"msku":"SP-PL4P-G-JP","name":"春山蓬莱4P庇护所2.0军绿色","qty":1,"orders":1,"net":29599,"cost":0,"platformFee":0,"profit":-14.6,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg","pct":8.71},{"msku":"CS-HYSL-JP","name":"春山IGT幻影桌SOLO","qty":2,"orders":2,"net":23578,"cost":0,"platformFee":0,"profit":-105.93,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg","pct":6.94},{"msku":"LDL-CQZTZ-E","name":"伏羲拓展帐【黑色】","qty":1,"orders":1,"net":20800,"cost":-9947.38,"platformFee":-2142,"profit":6611.62,"margin":38.85,"settled":true,"img":"https://m.media-amazon.com/images/I/512eqlAK92L._SL75_.jpg","pct":6.12},{"msku":"CS-MNGHBL-JP","name":"春山mini观火壁炉","qty":4,"orders":4,"net":19520,"cost":-9848.72,"platformFee":-3625,"profit":8461.28,"margin":42.39,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":5.75},{"msku":"SL-LL2.0-MB","name":"Springhill 琉璃2.0 オイルランタン アイロンストーブ型 焚き火 観火窓付き 加熱スタンド アルミ合金 軽量1.36kg キャンプ用ランタン キャンプ アウトドア 室内 卓上暖炉 調理 照明","qty":1,"orders":1,"net":18999,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":5.59},{"msku":"SL-LL2.0-MB-FBA","name":"琉璃观火灯炉2.0【米白色+白橡木】","qty":1,"orders":1,"net":18999,"cost":-4533.78,"platformFee":-2897,"profit":9024.84,"margin":58.06,"settled":true,"img":"https://m.media-amazon.com/images/I/518grJWw5iL._SL75_.jpg","pct":5.59},{"msku":"LDL-CQZTZ-NZ","name":"伏羲拓展帐内帐","qty":1,"orders":1,"net":11800,"cost":-4793.78,"platformFee":-1215,"profit":4600.22,"margin":47.65,"settled":true,"img":"https://m.media-amazon.com/images/I/61ZCuu8LSFL._SL75_.jpg","pct":3.47},{"msku":"BEL-CFZ-E-ATZ","name":"Springhill カーボンファイバー アウトドアテーブル 超軽量 60×40cm 約888g ランタンスタンド対応 ソロ〜グループ対応 折りたたみ コンパクト 連結可能 アルミ天板 メッシュ収納付き 登山 ピクニック","qty":1,"orders":1,"net":9900,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":2.91},{"msku":"CS-BT-Y-JP","name":"银色寒霜冰桶","qty":1,"orders":1,"net":6999,"cost":0,"platformFee":0,"profit":-51.89,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/517B49J8eML._SL75_.jpg","pct":2.06},{"msku":"SL-YLY-WS-FBA","name":"春山摇光月亮椅【网纱款】","qty":1,"orders":1,"net":6599,"cost":-2901.8,"platformFee":-1006,"profit":1530.82,"margin":28.35,"settled":true,"img":"https://m.media-amazon.com/images/I/61pRT0D8SxL._SL75_.jpg","pct":1.94},{"msku":"SL-TBZ-Y-FBA","name":"Springhill 超軽量ミニテーブル 145g 折りたたみ式 アウトドアテーブル 五徳対応 ステンレス製 コンパクト収納 登山 キャンプ ソロキャンプ用","qty":1,"orders":1,"net":5580,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":1.64}],"settled":{"qty":34,"net":463922,"salesAmt":515465,"tax":51543,"gp":101794.63,"margin":21.94,"skuCount":57,"refQty":1},"caliber":"order","orders":30},"amazonUS":{"skuCount":0,"qty":0,"refQty":0,"salesAmt":0,"tax":0,"net":0,"cost":0,"commission":0,"fbaDeliv":0,"storage":0,"ads":0,"other":0,"platExp":0,"gp":0,"margin":0,"skuDetail":[],"settled":{"qty":0,"net":0,"salesAmt":0,"tax":0,"gp":0,"margin":0,"skuCount":0,"refQty":0},"caliber":"order","orders":0},"settlement":{"独立站-日本":{"currency":"JPY","qty":16,"refundVol":0,"salesAmount":218969,"promoDisc":-23664,"net":195305,"productCost":-71002.26,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":124302.74,"margin":"63.65%"},"日本-乐天":{"currency":"JPY","qty":4,"orderCount":5,"cancelOrders":1,"cancelPending":0,"cancelAmount":3480,"salesAmount":33881,"tax":3563,"net":30318,"productCost":-9965.11,"commission":-1364.31,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-1364.31,"profit":18988.58,"margin":62.63,"feeEstimated":true,"feeNote":"佣金按4.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含","costCoveragePct":100,"unknownKeys":[],"cashSettlement":219457,"cashOrders":5,"cashStatus":"proxy-注文確定口径，非真精算","cashGeneratedAt":"2026-10-02 10:27:18"},"韩国-Coupang":{"currency":"KRW","qty":6,"refundVol":0,"salesAmount":1740400,"promoDisc":0,"net":1740400,"productCost":-654352.37,"commission":-187963.2,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-187963.2,"profit":898084.43,"margin":"51.6%","feeEstimated":true,"feeNote":"佣金按10.8%估算(판매수수료运动户外档)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准","costCoveragePct":100,"unknownKeys":[],"generatedAt":"2026-10-02 10:28:02"}}},"lastWeek":{"range":"2026-09-18 ~ 2026-09-24","amazonJP":{"skuCount":57,"qty":275,"refQty":14,"salesAmt":3530438,"tax":0,"net":3530438,"cost":-1368448.2,"commission":-436876,"fbaDeliv":-53916,"storage":-33402.4,"ads":-50154,"other":-4900,"platExp":-579248.4,"gp":1208819.4,"margin":41.73,"skuDetail":[{"msku":"LDL-XYCQZ-E-FBA","name":"轩辕充气隧道帐篷【黑色顶配】","qty":3,"orders":3,"net":389997,"cost":-71477.21,"platformFee":-26770,"profit":133199.73,"margin":62.62,"settled":true,"img":"https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg","pct":11.05},{"msku":"QZ-P8BR-KGMU","name":"春山祝融取暖器","qty":34,"orders":34,"net":373966,"cost":-143437.27,"platformFee":-63726,"profit":163013.06,"margin":47.67,"settled":true,"img":"https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg","pct":10.59},{"msku":"LDL-CQ4P-E-FBA","name":"蓬莱4P庇护所充气帐篷主帐【黑色】","qty":6,"orders":6,"net":317994,"cost":-71862.57,"platformFee":-21828,"profit":92511.07,"margin":53.34,"settled":true,"img":"https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg","pct":9.01},{"msku":"BEL-CFZ-E+IGTB","name":"金乌碳纤维长方桌【黑色】A套餐+一单元IGT板","qty":26,"orders":25,"net":306800,"cost":-126750.74,"platformFee":-43176,"profit":84173.32,"margin":36.33,"settled":true,"img":"https://m.media-amazon.com/images/I/71G6djgr0FL._SL75_.jpg","pct":8.69},{"msku":"SL-FXL3.0-Y","name":"Mini柴火炉3.0【银色】","qty":39,"orders":39,"net":226200,"cost":-122590.72,"platformFee":-33432,"profit":131332.28,"margin":49.42,"settled":true,"img":"https://m.media-amazon.com/images/I/61xkZRS7S1L._SL75_.jpg","pct":6.41},{"msku":"SP-PL4P-B-JP","name":"春山蓬莱4P庇护所2.0黑色","qty":6,"orders":6,"net":177594,"cost":-86079.08,"platformFee":-18288,"profit":48603.54,"margin":33.45,"settled":true,"img":"https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg","pct":5.03},{"msku":"SL-LL2.0-QE-FBA","name":"琉璃观火灯炉2.0【枪灰色+黑胡桃木】","qty":9,"orders":9,"net":170991,"cost":-27202.66,"platformFee":-17382,"profit":57856.55,"margin":62.03,"settled":true,"img":"https://m.media-amazon.com/images/I/51nxhSw-h6L._SL75_.jpg","pct":4.84},{"msku":"SP-0.5ZML-FBA","name":"春山0.5单元IGT桌面炉","qty":14,"orders":14,"net":132986,"cost":-81289.94,"platformFee":-18582,"profit":47954.83,"margin":32.48,"settled":true,"img":"https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg","pct":3.77},{"msku":"LDL-XYCQZ-V-FBA","name":"轩辕充气隧道帐篷【军绿色顶配】","qty":1,"orders":1,"net":129999,"cost":-35738.6,"platformFee":-13385,"profit":67236.69,"margin":63.21,"settled":true,"img":"https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg","pct":3.68},{"msku":"NEW-ZRKSL-SNB","name":"祝融卡式炉（收纳包套装）","qty":10,"orders":10,"net":115700,"cost":-41837.96,"platformFee":-13147,"profit":56543.32,"margin":54.12,"settled":true,"img":"https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg","pct":3.28},{"msku":"LDL-CQZ-ME-FBA","name":"春山伏羲充气球帐棉布款黑色","qty":1,"orders":1,"net":109999,"cost":-58300.7,"platformFee":-11325,"profit":23230.33,"margin":25.81,"settled":true,"img":"https://m.media-amazon.com/images/I/81Y+1AKAt3L._SL75_.jpg","pct":3.12},{"msku":"CS-MNGHBL-JP-FBA","name":"春山mini观火壁炉","qty":22,"orders":22,"net":107360,"cost":-43334.36,"platformFee":-16690,"profit":33086.3,"margin":36,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":3.04},{"msku":"LDL-XYCQZ-E-NEW","name":"轩辕充气隧道帐篷【黑色】","qty":1,"orders":1,"net":105000,"cost":-35738.6,"platformFee":-10811,"profit":46414.71,"margin":54.03,"settled":true,"img":"https://m.media-amazon.com/images/I/31066n+uewL._SL75_.jpg","pct":2.97},{"msku":"SL-TBZ-Y","name":"春山轻量化徒步桌","qty":18,"orders":17,"net":100440,"cost":-40595.06,"platformFee":-24679,"profit":80217.94,"margin":60.58,"settled":true,"img":"https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg","pct":2.84},{"msku":"SA-M5Q6-B89T","name":"幻影IGT-A套装","qty":6,"orders":6,"net":79794,"cost":-48701.54,"platformFee":-9954,"profit":16773.27,"margin":21.2,"settled":true,"img":"https://m.media-amazon.com/images/I/51qlS3anVGL._SL75_.jpg","pct":2.26},{"msku":"CS-HYSL-ZWJ-FBA","name":"春山幻影SOLO桌+SOLO置物架灯架","qty":5,"orders":5,"net":66995,"cost":-30840.36,"platformFee":-10748,"profit":17370.45,"margin":30.12,"settled":true,"img":"https://m.media-amazon.com/images/I/710qxW+VvYL._SL75_.jpg","pct":1.9},{"msku":"BEL-FSYLY-E-FBA","name":"扶桑碳纤维月亮椅【黑色】","qty":9,"orders":9,"net":58791,"cost":-24943.9,"platformFee":-7042,"profit":14470.28,"margin":38.29,"settled":true,"img":"https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg","pct":1.67},{"msku":"LDL-CQ4P-E-DP-FBA","name":"蓬莱4P庇护所充气帐篷拓展前厅【黑色】","qty":2,"orders":2,"net":55998,"cost":-8983.98,"platformFee":-3089,"profit":14418.53,"margin":58.74,"settled":true,"img":"https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg","pct":1.59},{"msku":"LDL-CQ4P-V-FBA","name":"蓬莱4P庇护所充气帐篷主帐【军绿色】","qty":1,"orders":1,"net":52999,"cost":-17965.64,"platformFee":-5457,"profit":22935.87,"margin":52.89,"settled":true,"img":"https://m.media-amazon.com/images/I/914NSr+a3VL._SL75_.jpg","pct":1.5},{"msku":"SP-0.5ZML","name":"春山0.5单元IGT桌面炉","qty":4,"orders":4,"net":37996,"cost":-17113.67,"platformFee":-3912,"profit":11773.72,"margin":37.88,"settled":true,"img":"https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg","pct":1.08},{"msku":"LDL-4P-NU","name":"蓬莱4P庇护所2.0【灰色】","qty":1,"orders":1,"net":29699,"cost":-28117.31,"platformFee":-6116,"profit":19170.69,"margin":39.45,"settled":true,"img":"https://m.media-amazon.com/images/I/61+qG4KskvL._SL75_.jpg","pct":0.84},{"msku":"BEL-GBY-E","name":"扶桑碳纤维高背月亮椅【黑色】","qty":2,"orders":2,"net":25000,"cost":-12094.71,"platformFee":-3812,"profit":6571.29,"margin":32.12,"settled":true,"img":"https://m.media-amazon.com/images/I/71xovh9aUfL._SL75_.jpg","pct":0.71},{"msku":"CS-HYSL-JP","name":"春山IGT幻影桌SOLO","qty":2,"orders":2,"net":21398,"cost":-20289.4,"platformFee":-6856,"profit":7421.34,"margin":20.17,"settled":true,"img":"https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg","pct":0.61},{"msku":"Q3-KTDP-51JY","name":"迷你柴火炉黑色","qty":6,"orders":6,"net":20994,"cost":-4654.49,"platformFee":-2665,"profit":6189.41,"margin":43.24,"settled":true,"img":"https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg","pct":0.59},{"msku":"SL-YH-Y-FBAA","name":"春山便携战术油壶【银色】","qty":7,"orders":7,"net":20860,"cost":-6397.89,"platformFee":-3678,"profit":6908.95,"margin":34.98,"settled":true,"img":"https://m.media-amazon.com/images/I/313VxxySO0L._SL75_.jpg","pct":0.59},{"msku":"LDL-CQZTZ-E","name":"伏羲拓展帐【黑色】","qty":1,"orders":1,"net":20800,"cost":-9947.38,"platformFee":-2142,"profit":6611.62,"margin":38.85,"settled":true,"img":"https://m.media-amazon.com/images/I/512eqlAK92L._SL75_.jpg","pct":0.59},{"msku":"LDL-CQZTZ-V","name":"伏羲拓展帐【军绿色】","qty":1,"orders":1,"net":20800,"cost":-9947.38,"platformFee":-2142,"profit":6611.62,"margin":38.85,"settled":true,"img":"https://m.media-amazon.com/images/I/51YnWY6UyGL._SL75_.jpg","pct":0.59},{"msku":"BEL-CFZ-E-ATZ","name":"金乌碳纤维长方桌【A套装】","qty":2,"orders":2,"net":19800,"cost":-9016.48,"platformFee":-3018,"profit":5767.52,"margin":35.6,"settled":true,"img":"https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg","pct":0.56},{"msku":"BEL-CFZ-E","name":"金乌碳纤维长方桌【黑色】","qty":2,"orders":2,"net":19000,"cost":-8403.62,"platformFee":-2896,"profit":5699.15,"margin":36.66,"settled":true,"img":"https://m.media-amazon.com/images/I/61KN4BkZytL._SL75_.jpg","pct":0.54},{"msku":"LDL-CQZTM-E-M","name":"伏羲拓展天幕【黑色】","qty":1,"orders":1,"net":17599,"cost":-4201.81,"platformFee":-1812,"profit":9809.19,"margin":68.12,"settled":true,"img":"https://m.media-amazon.com/images/I/51X+4N8pqKL._SL75_.jpg","pct":0.5},{"msku":"LDL-TZTM-V-FBA","name":"拓展天幕【军绿】","qty":1,"orders":1,"net":17390,"cost":-5153.6,"platformFee":-1790,"profit":8691.4,"margin":61.09,"settled":true,"img":"https://m.media-amazon.com/images/I/41p1PFRHjhL._SL75_.jpg","pct":0.49},{"msku":"LDL-TZTM-E-FBA","name":"拓展天幕【黑色】","qty":1,"orders":1,"net":17390,"cost":-5153.6,"platformFee":-1790,"profit":8691.39,"margin":61.09,"settled":true,"img":"https://m.media-amazon.com/images/I/41ipm5udqiL._SL75_.jpg","pct":0.49},{"msku":"LDL-XYCQZ-HJDBE","name":"轩辕充气帐篷黑胶顶布【黑色】","qty":1,"orders":1,"net":13500,"cost":-4074.13,"platformFee":-1390,"profit":6153.18,"margin":55.71,"settled":true,"img":"https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg","pct":0.38},{"msku":"CS-SGZDZ-FBA","name":"春山韶光IGT超轻折叠桌","qty":1,"orders":1,"net":12999,"cost":-7064.15,"platformFee":-1982,"profit":-3460.49,"margin":-32.54,"settled":true,"img":"https://m.media-amazon.com/images/I/51qPT2JhMAL._SL75_.jpg","pct":0.37},{"msku":"BEL-XKZ-E-DP","name":"星空桌【顶配】","qty":1,"orders":1,"net":11800,"cost":-4691.63,"platformFee":-1799,"profit":3500.35,"margin":36.26,"settled":true,"img":"https://m.media-amazon.com/images/I/517NLRvdWZL._SL75_.jpg","pct":0.33},{"msku":"LDL-CQZTZ-NZ","name":"伏羲拓展帐内帐","qty":1,"orders":1,"net":11800,"cost":-4793.78,"platformFee":-1215,"profit":4600.22,"margin":47.65,"settled":true,"img":"https://m.media-amazon.com/images/I/61ZCuu8LSFL._SL75_.jpg","pct":0.33},{"msku":"SL-FHT-Y","name":"Springhill 折り畳みコンロ 焚き火台 igtテーブル対応 ステンレス製 組み立て式 2WAY 焚火・BBQ対応 コンパクト収納 収納バッグ付き キャンプ アウトドア","qty":1,"orders":1,"net":10800,"cost":0,"platformFee":-1112,"profit":8598,"margin":97.31,"settled":true,"img":"https://m.media-amazon.com/images/I/61XKDfWR1SL._SL75_.jpg","pct":0.31},{"msku":"CS-CHL","name":"MINI-柴火炉银色","qty":3,"orders":3,"net":10497,"cost":-2432.29,"platformFee":-1599,"profit":3363.37,"margin":39.16,"settled":true,"img":"https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg","pct":0.3},{"msku":"LDL-CQ4P-DD","name":"蓬莱4P庇护所充气帐篷澡盆地垫","qty":2,"orders":2,"net":9960,"cost":-3974.31,"platformFee":-1026,"profit":3953.69,"margin":48.52,"settled":true,"img":"","pct":0.28},{"msku":"CS-MNFXL1.5","name":"迷你焚香炉1.5","qty":2,"orders":2,"net":7398,"cost":-1583.22,"platformFee":-1128,"profit":-401.64,"margin":-6.63,"settled":true,"img":"https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg","pct":0.21},{"msku":"CS-BT-Y-JP","name":"银色寒霜冰桶","qty":1,"orders":1,"net":6999,"cost":-2487.43,"platformFee":-1067,"profit":-4277.03,"margin":-74.68,"settled":true,"img":"https://m.media-amazon.com/images/I/517B49J8eML._SL75_.jpg","pct":0.2},{"msku":"45-0I7D-KTXM","name":"侧面板单块-幻影IGT配件","qty":2,"orders":1,"net":6798,"cost":-1991.8,"platformFee":-1036,"profit":1824.09,"margin":32.8,"settled":true,"img":"https://m.media-amazon.com/images/I/41K+SOuwoDL._SL75_.jpg","pct":0.19},{"msku":"LDL-QZ-LJJ-J","name":"昆仑+昆仑连接件【军绿色】","qty":1,"orders":1,"net":6680,"cost":-1757.33,"platformFee":-688,"profit":3560.67,"margin":65.14,"settled":true,"img":"https://m.media-amazon.com/images/I/519exPBJRTL._SL75_.jpg","pct":0.19},{"msku":"SL-YLY-H-FBA","name":"春山摇光月亮椅","qty":1,"orders":1,"net":6599,"cost":-2646.44,"platformFee":-1006,"profit":1647.63,"margin":30.52,"settled":true,"img":"https://m.media-amazon.com/images/I/31oZaYbmRpL._SL75_.jpg","pct":0.19},{"msku":"BEL-FSYLY-Z1","name":"扶桑碳纤维月亮椅【紫色】","qty":1,"orders":1,"net":6599,"cost":-3563.41,"platformFee":-1006,"profit":1363.59,"margin":25.26,"settled":true,"img":"https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg","pct":0.19},{"msku":"LDL-PL4P-DD-black","name":"澡盆地垫【黑色】","qty":1,"orders":1,"net":5815,"cost":-1987.15,"platformFee":-599,"profit":2641.85,"margin":55.54,"settled":true,"img":"https://m.media-amazon.com/images/I/41V81vKwGpL._SL75_.jpg","pct":0.16},{"msku":"SL-YGTBY-E","name":"摇光徒步椅【黑色】","qty":1,"orders":1,"net":5700,"cost":-1984.83,"platformFee":-869,"profit":2271.17,"margin":48.7,"settled":true,"img":"https://m.media-amazon.com/images/I/61-UP3TomML._SL75_.jpg","pct":0.16},{"msku":"CS-MNGHBL-JP","name":"春山mini观火壁炉","qty":1,"orders":1,"net":4880,"cost":-1969.74,"platformFee":-725,"profit":1692.26,"margin":42.39,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":0.14},{"msku":"BM-0ICY-DOP8","name":"昆仑主帐TPU门","qty":1,"orders":1,"net":4560,"cost":-3064.3,"platformFee":-938,"profit":4195.7,"margin":56.24,"settled":true,"img":"https://m.media-amazon.com/images/I/41Ij-zt9BrL._SL75_.jpg","pct":0.13},{"msku":"CS-HYZ-PJ-CMB","name":"侧面板单块-幻影IGT配件","qty":1,"orders":1,"net":3399,"cost":-995.9,"platformFee":-518,"profit":1542.1,"margin":55.45,"settled":true,"img":"https://m.media-amazon.com/images/I/41K+SOuwoDL._SL75_.jpg","pct":0.1},{"msku":"CS-HYSLPJ-JP","name":"春山IGT幻影桌SOLO置物架灯架","qty":1,"orders":1,"net":3160,"cost":-1374.29,"platformFee":-325,"profit":1141.71,"margin":44.15,"settled":true,"img":"https://m.media-amazon.com/images/I/61FEkZng-cL._SL75_.jpg","pct":0.09},{"msku":"LDL-QZTZ-WS","name":"Springhill 蓬萊4P 2.0 専用 専属アクセサリー 部品 拡張テントメッシュドア","qty":1,"orders":1,"net":2650,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.08},{"msku":"CS-HYSL-ZGT","name":"增高专用腿*4支","qty":1,"orders":1,"net":2520,"cost":-1067.86,"platformFee":-384,"profit":814.14,"margin":39.48,"settled":true,"img":"https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg","pct":0.07},{"msku":"SL-DBTT-H","name":"战术冰桶套3.8L【黑色】","qty":1,"orders":1,"net":2399,"cost":-546.21,"platformFee":-366,"profit":1244.79,"margin":63.41,"settled":true,"img":"https://m.media-amazon.com/images/I/615wzy0VxbL._SL75_.jpg","pct":0.07},{"msku":"BEL-SFZ-DJ","name":"金乌碳纤维四方桌灯架","qty":1,"orders":1,"net":1999,"cost":-329.64,"platformFee":-305,"profit":1162.36,"margin":71.09,"settled":true,"img":"https://m.media-amazon.com/images/I/41iGcljRdaL._SL75_.jpg","pct":0.06},{"msku":"CS-HYZ-PJ-CDGJ-FBA","name":"灯挂架-幻影IGT配件","qty":2,"orders":2,"net":1998,"cost":-464.29,"platformFee":-304,"profit":1027.71,"margin":62.9,"settled":true,"img":"https://m.media-amazon.com/images/I/41VG-2g0+ML._SL75_.jpg","pct":0.06},{"msku":"BH-QNQ-ZWJ","name":"拓展置物隔板【银色】","qty":1,"orders":1,"net":600,"cost":-138.13,"platformFee":-30,"profit":370.87,"margin":75.69,"settled":true,"img":"https://m.media-amazon.com/images/I/71VMKQfnnyL._SL75_.jpg","pct":0.02}],"settled":{"qty":309,"net":2897018,"salesAmt":3218921,"tax":321903,"gp":1208819.4,"margin":41.73,"skuCount":89,"refQty":14},"caliber":"order","orders":272},"amazonUS":{"skuCount":0,"qty":0,"refQty":0,"salesAmt":0,"tax":0,"net":0,"cost":0,"commission":0,"fbaDeliv":0,"storage":0,"ads":0,"other":0,"platExp":0,"gp":0,"margin":0,"skuDetail":[],"settled":{"qty":0,"net":0,"salesAmt":0,"tax":0,"gp":0,"margin":0,"skuCount":0,"refQty":0},"caliber":"order","orders":0},"settlement":{"独立站-日本":{"currency":"JPY","qty":37,"refundVol":0,"salesAmount":327402,"promoDisc":-39116,"net":288286,"productCost":-107262.26,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":181023.74,"margin":"62.79%"},"独立站-国际":{"currency":"USD","qty":2,"refundVol":0,"salesAmount":365.54,"promoDisc":0,"net":365.54,"productCost":-135.39,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":230.15,"margin":"62.96%"},"日本-乐天":{"currency":"JPY","qty":78,"orderCount":59,"cancelOrders":3,"cancelPending":0,"cancelAmount":170131,"salesAmount":800476,"tax":83515,"net":716961,"productCost":-333141.75,"commission":-32263.25,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-32263.25,"profit":351556,"margin":49.03,"feeEstimated":true,"feeNote":"佣金按4.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含","costCoveragePct":87.18,"unknownKeys":[{"key":"BEL-SFZ-DJ","qty":4},{"key":"LDL-XYCQZ-TPU-E","qty":3},{"key":"LDL-XYCQZ-TPU-V","qty":2},{"key":"LDL-XYCQZTM-V","qty":1}],"cashSettlement":624261,"cashOrders":56,"cashStatus":"proxy-注文確定口径，非真精算","cashGeneratedAt":"2026-10-02 10:27:18"},"韩国-Coupang":{"currency":"KRW","qty":29,"refundVol":0,"salesAmount":3066590,"promoDisc":0,"net":3066590,"productCost":-1149957.44,"commission":-331191.72,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-331191.72,"profit":1585440.84,"margin":"51.7%","feeEstimated":true,"feeNote":"佣金按10.8%估算(판매수수료运动户外档)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准","costCoveragePct":96.55,"unknownKeys":[{"key":"LDL-XYCQZ-TPU-V","qty":1}],"generatedAt":"2026-10-02 10:28:02"}}},"lastMonth":{"range":"2026-09-01 ~ 2026-09-30","amazonJP":{"skuCount":111,"qty":892,"refQty":23,"salesAmt":12530113,"tax":0,"net":12530113,"cost":-4778506.64,"commission":-1498162,"fbaDeliv":-159692,"storage":-90409,"ads":-218513,"other":-4900,"platExp":-1971676,"gp":4132448.36,"margin":41.1,"skuDetail":[{"msku":"QZ-P8BR-KGMU","name":"春山祝融取暖器","qty":180,"orders":180,"net":1979820,"cost":-664341.05,"platformFee":-295274,"profit":757445.85,"margin":47.8,"settled":true,"img":"https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg","pct":15.8},{"msku":"LDL-XYCQZ-E-FBA","name":"轩辕充气隧道帐篷【黑色顶配】","qty":9,"orders":9,"net":1185145,"cost":-464601.84,"platformFee":-122024,"profit":462809.87,"margin":47.73,"settled":true,"img":"https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg","pct":9.46},{"msku":"LDL-XYCQZ-V-FBA","name":"轩辕充气隧道帐篷【军绿色顶配】","qty":7,"orders":7,"net":914095,"cost":-321647.43,"platformFee":-94117,"profit":296498.5,"margin":39.64,"settled":true,"img":"https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg","pct":7.3},{"msku":"LDL-CQ4P-E-FBA","name":"蓬莱4P庇护所充气帐篷主帐【黑色】","qty":10,"orders":10,"net":557990,"cost":-161690.77,"platformFee":-51273,"profit":225511.4,"margin":55.35,"settled":true,"img":"https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg","pct":4.45},{"msku":"SP-PL4P-B-JP","name":"春山蓬莱4P庇护所2.0黑色","qty":16,"orders":16,"net":473584,"cost":-243890.72,"platformFee":-48768,"profit":107125.76,"margin":27.65,"settled":true,"img":"https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg","pct":3.78},{"msku":"NEW-ZRKSL-SNB","name":"祝融卡式炉（收纳包套装）","qty":38,"orders":38,"net":435820,"cost":-125513.88,"platformFee":-39014,"profit":167745.25,"margin":54.11,"settled":true,"img":"https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg","pct":3.48},{"msku":"SP-0.5ZML-FBA","name":"春山0.5单元IGT桌面炉","qty":40,"orders":40,"net":381596,"cost":-166858.3,"platformFee":-38397,"profit":86302.42,"margin":28.28,"settled":true,"img":"https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg","pct":3.05},{"msku":"BEL-CFZ-E+IGTB","name":"金乌碳纤维长方桌【黑色】A套餐+一单元IGT板","qty":32,"orders":31,"net":377600,"cost":-169000.99,"platformFee":-57568,"profit":112403.07,"margin":36.38,"settled":true,"img":"https://m.media-amazon.com/images/I/71G6djgr0FL._SL75_.jpg","pct":3.01},{"msku":"CS-CQQZ-B-FBA","name":"伏羲充气球帐【黑色】","qty":4,"orders":4,"net":374497,"cost":-153679.47,"platformFee":-38557,"profit":133801.44,"margin":43.67,"settled":true,"img":"https://m.media-amazon.com/images/I/41FULt5isbL._SL75_.jpg","pct":2.99},{"msku":"CS-CQQZ-AG-FBA1","name":"伏羲充气球帐【军绿色】","qty":4,"orders":4,"net":359996,"cost":-192099.34,"platformFee":-37064,"profit":85226.07,"margin":28.94,"settled":true,"img":"https://m.media-amazon.com/images/I/915C7+e6jiL._SL75_.jpg","pct":2.87},{"msku":"SL-LL2.0-QE-FBA","name":"琉璃观火灯炉2.0【枪灰色+黑胡桃木】","qty":18,"orders":18,"net":341982,"cost":-77074.2,"platformFee":-49249,"profit":162894.06,"margin":61.64,"settled":true,"img":"https://m.media-amazon.com/images/I/51nxhSw-h6L._SL75_.jpg","pct":2.73},{"msku":"SL-FXL3.0-Y","name":"Mini柴火炉3.0【银色】","qty":57,"orders":57,"net":330600,"cost":-124779.84,"platformFee":-34035,"profit":133813.16,"margin":49.47,"settled":true,"img":"https://m.media-amazon.com/images/I/61xkZRS7S1L._SL75_.jpg","pct":2.64},{"msku":"CS-HYSL-JP","name":"春山IGT幻影桌SOLO","qty":20,"orders":20,"net":222710,"cost":-91302.32,"platformFee":-30353,"profit":19076.81,"margin":11.71,"settled":true,"img":"https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg","pct":1.78},{"msku":"CS-HYSL-ZWJ-FBA","name":"春山幻影SOLO桌+SOLO置物架灯架","qty":15,"orders":15,"net":205385,"cost":-98689.15,"platformFee":-33326,"profit":42485.29,"margin":23.75,"settled":true,"img":"https://m.media-amazon.com/images/I/710qxW+VvYL._SL75_.jpg","pct":1.64},{"msku":"SA-M5Q6-B89T","name":"幻影IGT-A套装","qty":15,"orders":15,"net":203885,"cost":-104360.43,"platformFee":-20994,"profit":37692.32,"margin":22.6,"settled":true,"img":"https://m.media-amazon.com/images/I/51qlS3anVGL._SL75_.jpg","pct":1.63},{"msku":"CS-MNGHBL-JP-FBA","name":"春山mini观火壁炉","qty":40,"orders":40,"net":197409,"cost":-74850.26,"platformFee":-28530,"profit":46893.69,"margin":29.85,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":1.58},{"msku":"SP-PL4P-G-JP-FBM","name":"春山蓬莱4P庇护所2.0军绿色","qty":6,"orders":6,"net":177594,"cost":-86079.08,"platformFee":-18288,"profit":52424.02,"margin":36.08,"settled":true,"img":"https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg","pct":1.42},{"msku":"LDL-CQ4P-V-FBA","name":"蓬莱4P庇护所充气帐篷主帐【军绿色】","qty":3,"orders":3,"net":168997,"cost":-53896.92,"platformFee":-17400,"profit":65251.27,"margin":47.19,"settled":true,"img":"https://m.media-amazon.com/images/I/914NSr+a3VL._SL75_.jpg","pct":1.35},{"msku":"SL-TBZ-Y","name":"春山轻量化徒步桌","qty":30,"orders":29,"net":167400,"cost":-41994.89,"platformFee":-25237,"profit":83277.11,"margin":60.8,"settled":true,"img":"https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg","pct":1.34},{"msku":"LDL-CQ4P-E-DP-FBA","name":"蓬莱4P庇护所充气帐篷拓展前厅【黑色】","qty":6,"orders":6,"net":161994,"cost":-53903.89,"platformFee":-16680,"profit":73003.96,"margin":55.08,"settled":true,"img":"https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg","pct":1.29},{"msku":"BEL-FSYLY-E-FBA","name":"扶桑碳纤维月亮椅【黑色】","qty":24,"orders":23,"net":157776,"cost":-89085.34,"platformFee":-25058,"profit":29252.8,"margin":21.58,"settled":true,"img":"https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg","pct":1.26},{"msku":"SP-0.5ZML","name":"春山0.5单元IGT桌面炉","qty":15,"orders":15,"net":142485,"cost":-64176.27,"platformFee":-14670,"profit":46068.12,"margin":39.52,"settled":true,"img":"https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg","pct":1.14},{"msku":"LDL-TZTM-E-FBA","name":"拓展天幕【黑色】","qty":7,"orders":7,"net":121730,"cost":-36075.21,"platformFee":-12530,"profit":60839.77,"margin":61.09,"settled":true,"img":"https://m.media-amazon.com/images/I/41ipm5udqiL._SL75_.jpg","pct":0.97},{"msku":"LDL-CQ4P-E-FBM","name":"蓬莱4P庇护所充气帐篷主帐【黑色】","qty":2,"orders":2,"net":119998,"cost":-35931.28,"platformFee":-12354,"profit":59604.72,"margin":60.71,"settled":true,"img":"https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg","pct":0.96},{"msku":"LDL-CQZ-MV-FBA","name":"春山伏羲充气球帐棉布款军绿色","qty":1,"orders":1,"net":109999,"cost":-58300.7,"platformFee":-11325,"profit":22414.41,"margin":24.91,"settled":true,"img":"https://m.media-amazon.com/images/I/91Pd7ao4maL._SL75_.jpg","pct":0.88},{"msku":"LDL-CQZ-ME-FBA","name":"春山伏羲充气球帐棉布款黑色","qty":1,"orders":1,"net":109999,"cost":-58300.7,"platformFee":-11325,"profit":12252.71,"margin":13.61,"settled":true,"img":"https://m.media-amazon.com/images/I/81Y+1AKAt3L._SL75_.jpg","pct":0.88},{"msku":"LDL-XYCQZ-E-NEW","name":"轩辕充气隧道帐篷【黑色】","qty":1,"orders":1,"net":105000,"cost":-35738.6,"platformFee":-10811,"profit":45841.24,"margin":53.36,"settled":true,"img":"https://m.media-amazon.com/images/I/31066n+uewL._SL75_.jpg","pct":0.84},{"msku":"SL-BTJ-E","name":"冰桶架【黑色】","qty":9,"orders":9,"net":99000,"cost":-27516.05,"platformFee":-15093,"profit":16232.95,"margin":20.04,"settled":true,"img":"https://m.media-amazon.com/images/I/615wzy0VxbL._SL75_.jpg","pct":0.79},{"msku":"SL-LL2.0-MB-FBA","name":"琉璃观火灯炉2.0【米白色+白橡木】","qty":5,"orders":5,"net":94995,"cost":-22668.88,"platformFee":-14485,"profit":47528.78,"margin":61.18,"settled":true,"img":"https://m.media-amazon.com/images/I/518grJWw5iL._SL75_.jpg","pct":0.76},{"msku":"CS-SGZDZ-FBA","name":"春山韶光IGT超轻折叠桌","qty":7,"orders":7,"net":90993,"cost":-49449.04,"platformFee":-13874,"profit":-75.74,"margin":-0.1,"settled":true,"img":"https://m.media-amazon.com/images/I/51qPT2JhMAL._SL75_.jpg","pct":0.73},{"msku":"LDL-CQZTM-E","name":"伏羲拓展天幕【黑色】","qty":5,"orders":5,"net":87995,"cost":-21009.05,"platformFee":-9060,"profit":49045.95,"margin":68.12,"settled":true,"img":"https://m.media-amazon.com/images/I/51X+4N8pqKL._SL75_.jpg","pct":0.7},{"msku":"LDL-XYCQZTM-E","name":"轩辕充气隧道帐篷拓展天幕【黑色】","qty":4,"orders":4,"net":79200,"cost":-38053.08,"platformFee":-8156,"profit":24998.92,"margin":38.58,"settled":true,"img":"https://m.media-amazon.com/images/I/51oHHmynmLL._SL75_.jpg","pct":0.63},{"msku":"【进阶】black","name":"棉布昆仑Pro 3.0 （进阶） 黑色 含门厅雪裙","qty":1,"orders":1,"net":71800,"cost":-36785.57,"platformFee":-7393,"profit":20376.43,"margin":34.69,"settled":true,"img":"https://m.media-amazon.com/images/I/51FXf3v8sUL._SL75_.jpg","pct":0.57},{"msku":"LDL-PL4P-ME-1","name":"春山蓬莱4P庇护所棉布款黑色","qty":1,"orders":1,"net":69800,"cost":-20519.23,"platformFee":-7187,"profit":35050.77,"margin":61.37,"settled":true,"img":"https://m.media-amazon.com/images/I/51xZnkb-WsL._SL75_.jpg","pct":0.56},{"msku":"CS-MNGHBL-JP","name":"春山mini观火壁炉","qty":14,"orders":14,"net":68320,"cost":-23636.92,"platformFee":-8700,"profit":18313.08,"margin":38.23,"settled":true,"img":"https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg","pct":0.55},{"msku":"M183","name":"双人棉布蓬莱黑","qty":3,"orders":3,"net":67837,"cost":-25419.79,"platformFee":-7005,"profit":28764.21,"margin":51.83,"settled":true,"img":"https://m.media-amazon.com/images/I/51vuruFtPFL._SL75_.jpg","pct":0.54},{"msku":"SL-YH-Y-FBAA","name":"春山便携战术油壶【银色】","qty":21,"orders":21,"net":62880,"cost":-16794.47,"platformFee":-9580,"profit":18716.33,"margin":36.38,"settled":true,"img":"https://m.media-amazon.com/images/I/313VxxySO0L._SL75_.jpg","pct":0.5},{"msku":"LDL-CQZTZ-E","name":"伏羲拓展帐【黑色】","qty":3,"orders":3,"net":62400,"cost":-29842.14,"platformFee":-6426,"profit":19834.86,"margin":38.85,"settled":true,"img":"https://m.media-amazon.com/images/I/512eqlAK92L._SL75_.jpg","pct":0.5},{"msku":"BEL-SFZ-E-BTZ-FBA","name":"金乌碳纤维四方桌【B套装】","qty":4,"orders":4,"net":60360,"cost":-28860.17,"platformFee":-9204,"profit":5023.65,"margin":10.17,"settled":true,"img":"https://m.media-amazon.com/images/I/615lgkx2zsL._SL75_.jpg","pct":0.48},{"msku":"LDL-4P-NU","name":"蓬莱4P庇护所2.0【灰色】","qty":2,"orders":2,"net":59398,"cost":-28117.31,"platformFee":-6116,"profit":19170.69,"margin":39.45,"settled":true,"img":"https://m.media-amazon.com/images/I/61+qG4KskvL._SL75_.jpg","pct":0.47},{"msku":"Q3-KTDP-51JY","name":"迷你柴火炉黑色","qty":16,"orders":16,"net":55884,"cost":-14894.37,"platformFee":-8513,"profit":12096.93,"margin":26.46,"settled":true,"img":"https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg","pct":0.45},{"msku":"LDL-XYCQZ-HJDBE","name":"轩辕充气帐篷黑胶顶布【黑色】","qty":4,"orders":4,"net":54000,"cost":-16296.52,"platformFee":-5560,"profit":23861.84,"margin":54.01,"settled":true,"img":"https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg","pct":0.43},{"msku":"LDL-CQZTM-E-M","name":"伏羲拓展天幕【黑色】","qty":3,"orders":3,"net":52797,"cost":-12605.43,"platformFee":-5436,"profit":29427.57,"margin":68.12,"settled":true,"img":"https://m.media-amazon.com/images/I/51X+4N8pqKL._SL75_.jpg","pct":0.42},{"msku":"BEL-GBY-E","name":"扶桑碳纤维高背月亮椅【黑色】","qty":4,"orders":4,"net":50000,"cost":-24189.43,"platformFee":-7624,"profit":13142.57,"margin":32.12,"settled":true,"img":"https://m.media-amazon.com/images/I/71xovh9aUfL._SL75_.jpg","pct":0.4},{"msku":"YS-DBT-Y","name":"3.8L寒霜冰桶【银色】","qty":5,"orders":5,"net":47490,"cost":-14799.19,"platformFee":-7240,"profit":20659.81,"margin":53.17,"settled":true,"img":"https://m.media-amazon.com/images/I/51kw3iTu4-L._SL75_.jpg","pct":0.38},{"msku":"LDL-CQZTZ-V","name":"伏羲拓展帐【军绿色】","qty":2,"orders":2,"net":41600,"cost":-19894.76,"platformFee":-4284,"profit":13223.24,"margin":38.85,"settled":true,"img":"https://m.media-amazon.com/images/I/51YnWY6UyGL._SL75_.jpg","pct":0.33},{"msku":"LDL-QZTZ-H-black","name":"拓展帐【黑色】","qty":2,"orders":2,"net":39600,"cost":-22007.27,"platformFee":-4078,"profit":9518.73,"margin":29.38,"settled":true,"img":"https://m.media-amazon.com/images/I/61OsV24Y41L._SL75_.jpg","pct":0.32},{"msku":"LDL-XYCQZTM-V","name":"轩辕充气隧道帐篷拓展天幕【军绿色】","qty":2,"orders":2,"net":39600,"cost":-19026.54,"platformFee":-4078,"profit":12499.46,"margin":38.58,"settled":true,"img":"https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg","pct":0.32},{"msku":"CS-CHL","name":"MINI-柴火炉银色","qty":11,"orders":11,"net":38189,"cost":-9729.16,"platformFee":-5818,"profit":9684.12,"margin":30.99,"settled":true,"img":"https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg","pct":0.3},{"msku":"BEL-SFZ-E","name":"金乌碳纤维四方桌【黑色】","qty":5,"orders":5,"net":37995,"cost":-15553.66,"platformFee":-5795,"profit":12811.34,"margin":41.21,"settled":true,"img":"https://m.media-amazon.com/images/I/61+xt8H5uqL._SL75_.jpg","pct":0.3},{"msku":"LDL-CQZ-NZ","name":"伏羲充气球帐主帐半挂内帐","qty":3,"orders":3,"net":37800,"cost":-15286.7,"platformFee":-3891,"profit":14809.3,"margin":47.88,"settled":true,"img":"https://m.media-amazon.com/images/I/41h3v1q78lL._SL75_.jpg","pct":0.3},{"msku":"CS-BT-G","name":"灰色寒霜冰桶","qty":6,"orders":6,"net":37794,"cost":-15537.41,"platformFee":-5763,"profit":6823.28,"margin":22.06,"settled":true,"img":"https://m.media-amazon.com/images/I/61+V0MDcBqL._SL75_.jpg","pct":0.3},{"msku":"LDL-CQZTZ-NZ","name":"伏羲拓展帐内帐","qty":3,"orders":3,"net":35400,"cost":-14381.33,"platformFee":-3645,"profit":13800.67,"margin":47.65,"settled":true,"img":"https://m.media-amazon.com/images/I/61ZCuu8LSFL._SL75_.jpg","pct":0.28},{"msku":"BEL-XKZ-E","name":"星空桌【黑色】","qty":4,"orders":3,"net":35200,"cost":-13148.65,"platformFee":-4906,"profit":9765.95,"margin":33.91,"settled":true,"img":"https://m.media-amazon.com/images/I/51sXS29SY0L._SL75_.jpg","pct":0.28},{"msku":"LDL-XYCQZ-ZPDD","name":"轩辕充气隧道帐篷澡盆地垫","qty":6,"orders":6,"net":33750,"cost":-11003.64,"platformFee":-3474,"profit":15870.36,"margin":57.46,"settled":true,"img":"https://m.media-amazon.com/images/I/61GngX9tHbL._SL75_.jpg","pct":0.27},{"msku":"CS-BT-B-JP","name":"黑色寒霜冰桶","qty":6,"orders":6,"net":33594,"cost":-15230.98,"platformFee":-5124,"profit":5120.98,"margin":18.63,"settled":true,"img":"https://m.media-amazon.com/images/I/51sntQGnbXL._SL75_.jpg","pct":0.27},{"msku":"BH-ZRKSL-SNEW","name":"祝融卡式炉【银色】","qty":3,"orders":3,"net":31170,"cost":-9847.56,"platformFee":-3210,"profit":8486.29,"margin":33.28,"settled":true,"img":"https://m.media-amazon.com/images/I/71uMsOAK8NL._SL75_.jpg","pct":0.25},{"msku":"CS-MNFXL1.5","name":"迷你焚香炉1.5","qty":8,"orders":8,"net":30092,"cost":-6332.89,"platformFee":-4587,"profit":3214.86,"margin":13.05,"settled":true,"img":"https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg","pct":0.24},{"msku":"LDL-CQ4P-E-DP","name":"蓬莱4P庇护所充气帐篷拓展前厅【黑色】","qty":1,"orders":1,"net":29999,"cost":-8983.98,"platformFee":-3089,"profit":14899.02,"margin":60.7,"settled":true,"img":"https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg","pct":0.24},{"msku":"BEL-CFZ-E-ATZ","name":"金乌碳纤维长方桌【A套装】","qty":3,"orders":3,"net":29700,"cost":-9016.48,"platformFee":-3018,"profit":5767.52,"margin":35.6,"settled":true,"img":"https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg","pct":0.24},{"msku":"SP-PL4P-G-JP","name":"春山蓬莱4P庇护所2.0军绿色","qty":1,"orders":1,"net":29599,"cost":-14346.51,"platformFee":0,"profit":-18076.52,"margin":0,"settled":true,"img":"https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg","pct":0.24},{"msku":"LDL-PL4P-DD-black","name":"澡盆地垫【黑色】","qty":5,"orders":5,"net":29075,"cost":-11922.93,"platformFee":-3594,"profit":15852.07,"margin":55.54,"settled":true,"img":"https://m.media-amazon.com/images/I/41V81vKwGpL._SL75_.jpg","pct":0.23},{"msku":"YS-DBT-G","name":"3.8L寒霜冰桶【灰色】","qty":3,"orders":3,"net":28494,"cost":-9492.38,"platformFee":-4344,"profit":8887.62,"margin":38.12,"settled":true,"img":"https://m.media-amazon.com/images/I/51+lwNb81IL._SL75_.jpg","pct":0.23},{"msku":"BEL-FSYLY-Z1","name":"扶桑碳纤维月亮椅【紫色】","qty":4,"orders":4,"net":26396,"cost":-14253.66,"platformFee":-4024,"profit":5454.34,"margin":25.26,"settled":true,"img":"https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg","pct":0.21},{"msku":"LDL-CQ4P-V-DP-FBA","name":"蓬莱4P庇护所充气帐篷拓展前厅【军绿色】","qty":1,"orders":1,"net":25999,"cost":-8983.98,"platformFee":-2677,"profit":10818.86,"margin":50.86,"settled":true,"img":"https://m.media-amazon.com/images/I/51OWF5IMzxL._SL75_.jpg","pct":0.21},{"msku":"CS-BT-Y-JP","name":"银色寒霜冰桶","qty":4,"orders":4,"net":25196,"cost":-7462.28,"platformFee":-2775,"profit":-9304.43,"margin":-62.49,"settled":true,"img":"https://m.media-amazon.com/images/I/517B49J8eML._SL75_.jpg","pct":0.2},{"msku":"BEL-XKZ-E-DP","name":"星空桌【顶配】","qty":2,"orders":2,"net":23600,"cost":-14074.9,"platformFee":-5397,"profit":10423.7,"margin":35.99,"settled":true,"img":"https://m.media-amazon.com/images/I/517NLRvdWZL._SL75_.jpg","pct":0.19},{"msku":"CS-FXL-Y-FM","name":"迷你焚香炉2.0","qty":4,"orders":4,"net":21596,"cost":-8897.62,"platformFee":-3292,"profit":7226.38,"margin":40.9,"settled":true,"img":"https://m.media-amazon.com/images/I/61pEyu-JICL._SL75_.jpg","pct":0.17},{"msku":"LDL-CQ4P-DD","name":"蓬莱4P庇护所充气帐篷澡盆地垫","qty":4,"orders":4,"net":19920,"cost":-7948.62,"platformFee":-2052,"profit":7907.38,"margin":48.52,"settled":true,"img":"","pct":0.16},{"msku":"SL-YLY-WS-FBA","name":"春山摇光月亮椅【网纱款】","qty":3,"orders":3,"net":19197,"cost":-8705.41,"platformFee":-2927,"profit":3540.18,"margin":22.54,"settled":true,"img":"https://m.media-amazon.com/images/I/61pRT0D8SxL._SL75_.jpg","pct":0.15},{"msku":"BEL-CFZ-E","name":"金乌碳纤维长方桌【黑色】","qty":2,"orders":2,"net":19000,"cost":-8403.62,"platformFee":-2896,"profit":5699.15,"margin":36.66,"settled":true,"img":"https://m.media-amazon.com/images/I/61KN4BkZytL._SL75_.jpg","pct":0.15},{"msku":"SL-LL2.0-MB","name":"Springhill 琉璃2.0 オイルランタン アイロンストーブ型 焚き火 観火窓付き 加熱スタンド アルミ合金 軽量1.36kg キャンプ用ランタン キャンプ アウトドア 室内 卓上暖炉 調理 照明","qty":1,"orders":1,"net":18999,"cost":null,"platformFee":null,"profit":null,"margin":null,"settled":false,"img":"","pct":0.15},{"msku":"CS-HYSLPJ-JP","name":"春山IGT幻影桌SOLO置物架灯架","qty":6,"orders":6,"net":18960,"cost":-8245.76,"platformFee":-1950,"profit":6850.24,"margin":44.15,"settled":true,"img":"https://m.media-amazon.com/images/I/61FEkZng-cL._SL75_.jpg","pct":0.15},{"msku":"LDL-CQZCWJ-E","name":"Springhill 車連結用コネクター リアコネクター エアードームテント対応 軽量 コンパクト キャンプ アウトドア(ブラック)","qty":1,"orders":1,"net":18800,"cost":0,"platformFee":-1936,"profit":14967,"margin":97.3,"settled":true,"img":"https://m.media-amazon.com/images/I/51V1Di2OppL._SL75_.jpg","pct":0.15},{"msku":"BM-0ICY-DOP8","name":"昆仑主帐TPU门","qty":4,"orders":4,"net":18240,"cost":-6128.61,"platformFee":-1876,"profit":8391.39,"margin":56.24,"settled":true,"img":"https://m.media-amazon.com/images/I/41Ij-zt9BrL._SL75_.jpg","pct":0.15},{"msku":"LDL-CQZTM-V-M","name":"伏羲拓展天幕【军绿色】","qty":1,"orders":1,"net":17599,"cost":-4201.81,"platformFee":-1812,"profit":9809.19,"margin":68.12,"settled":true,"img":"https://m.media-amazon.com/images/I/51SzE-DxUiL._SL75_.jpg","pct":0.14},{"msku":"LDL-CQZTM-V","name":"伏羲拓展天幕【军绿色】","qty":1,"orders":1,"net":17599,"cost":-4201.81,"platformFee":-1812,"profit":9809.19,"margin":68.12,"settled":true,"img":"https://m.media-amazon.com/images/I/51SzE-DxUiL._SL75_.jpg","pct":0.14},{"msku":"LDL-TZTM-V-FBA","name":"拓展天幕【军绿】","qty":1,"orders":1,"net":17390,"cost":-5153.6,"platformFee":-1790,"profit":8691.4,"margin":61.09,"settled":true,"img":"https://m.media-amazon.com/images/I/41p1PFRHjhL._SL75_.jpg","pct":0.14},{"msku":"CS-BTT-2L","name":"新款战术冰桶套-1.9L","qty":11,"orders":11,"net":17050,"cost":-6741.93,"platformFee":-3068,"profit":1670.3,"margin":10.16,"settled":true,"img":"https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg","pct":0.14},{"msku":"SL-TBZ-Y-FBA","name":"春山轻量化徒步桌","qty":3,"orders":3,"net":16740,"cost":-2799.66,"platformFee":-1116,"profit":5482.34,"margin":60.03,"settled":true,"img":"https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg","pct":0.13},{"msku":"LDL-4PNZ-N-black","name":"蓬莱4P全挂内帐更新款","qty":2,"orders":2,"net":15560,"cost":-5037.53,"platformFee":-1602,"profit":7349.47,"margin":57.73,"settled":true,"img":"https://m.media-amazon.com/images/I/61mMrhPihmL._SL75_.jpg","pct":0.12},{"msku":"LDL-XYCQZ-HJDBV","name":"轩辕充气帐篷黑胶顶布【军绿色】","qty":1,"orders":1,"net":13500,"cost":-4074.13,"platformFee":-1390,"profit":5579.71,"margin":50.51,"settled":true,"img":"https://m.media-amazon.com/images/I/51RRuNwqV9L._SL75_.jpg","pct":0.11},{"msku":"SL-YLY-H-FBA","name":"春山摇光月亮椅","qty":2,"orders":2,"net":13198,"cost":-5292.89,"platformFee":-2012,"profit":2927.51,"margin":27.11,"settled":true,"img":"https://m.media-amazon.com/images/I/31oZaYbmRpL._SL75_.jpg","pct":0.11},{"msku":"LDL-CQZ-NZ-M","name":"伏羲充气球帐主帐半挂内帐","qty":1,"orders":1,"net":12800,"cost":-5095.57,"platformFee":-1318,"profit":5094.43,"margin":48.65,"settled":true,"img":"https://m.media-amazon.com/images/I/41h3v1q78lL._SL75_.jpg","pct":0.1},{"msku":"CS-HYSL-ZGT","name":"增高专用腿*4支","qty":5,"orders":5,"net":12600,"cost":-5339.32,"platformFee":-1920,"profit":4070.68,"margin":39.48,"settled":true,"img":"https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg","pct":0.1},{"msku":"LDL-CQ4P-NZ","name":"蓬莱4P庇护所充气帐篷内帐","qty":1,"orders":1,"net":12600,"cost":-3563.41,"platformFee":-1297,"profit":6468.59,"margin":62.74,"settled":true,"img":"https://m.media-amazon.com/images/I/416sNXHfrEL._SL75_.jpg","pct":0.1},{"msku":"BEL-GBY-Z","name":"扶桑碳纤维高背月亮椅【紫色】","qty":1,"orders":1,"net":12500,"cost":-12094.71,"platformFee":-3812,"profit":6571.29,"margin":32.12,"settled":true,"img":"https://m.media-amazon.com/images/I/716WE5i32jL._SL75_.jpg","pct":0.1},{"msku":"BEL-GBY-Z-FBA","name":"扶桑碳纤维高背月亮椅【紫色】","qty":1,"orders":1,"net":12500,"cost":-6047.36,"platformFee":-1250,"profit":3469.64,"margin":33.92,"settled":true,"img":"https://m.media-amazon.com/images/I/716WE5i32jL._SL75_.jpg","pct":0.1},{"msku":"SL-FHT-Y","name":"Springhill 折り畳みコンロ 焚き火台 igtテーブル対応 ステンレス製 組み立て式 2WAY 焚火・BBQ対応 コンパクト収納 収納バッグ付き キャンプ アウトドア","qty":1,"orders":1,"net":10800,"cost":0,"platformFee":-1112,"profit":8598,"margin":97.31,"settled":true,"img":"https://m.media-amazon.com/images/I/61XKDfWR1SL._SL75_.jpg","pct":0.09},{"msku":"CS-TMSL","name":"春山轻量化SOLO天幕","qty":1,"orders":1,"net":10535,"cost":-3110.73,"platformFee":-1085,"profit":5276.27,"margin":61.22,"settled":true,"img":"https://m.media-amazon.com/images/I/812cpP8Lv7L._SL75_.jpg","pct":0.08},{"msku":"45-0I7D-KTXM","name":"侧面板单块-幻影IGT配件","qty":3,"orders":2,"net":10197,"cost":-2987.7,"platformFee":-1554,"profit":2702.44,"margin":32.39,"settled":true,"img":"https://m.media-amazon.com/images/I/41K+SOuwoDL._SL75_.jpg","pct":0.08},{"msku":"TC-LLMN-Y","name":"Mini观火灯炉【银色】","qty":1,"orders":1,"net":9800,"cost":-2936.62,"platformFee":-1494,"profit":4380.38,"margin":54.63,"settled":true,"img":"https://m.media-amazon.com/images/I/6191OsTDp-L._SL75_.jpg","pct":0.08},{"msku":"CS-KL-WS","name":"昆仑主帐网纱门","qty":3,"orders":3,"net":8130,"cost":-2374.84,"platformFee":-837,"profit":4099.16,"margin":61.6,"settled":true,"img":"https://m.media-amazon.com/images/I/51AfOf78PfL._SL75_.jpg","pct":0.06},{"msku":"BEL-SFZ-DJ","name":"金乌碳纤维四方桌灯架","qty":4,"orders":4,"net":7996,"cost":-1318.58,"platformFee":-1220,"profit":4649.42,"margin":71.09,"settled":true,"img":"https://m.media-amazon.com/images/I/41iGcljRdaL._SL75_.jpg","pct":0.06},{"msku":"SL-DBTT-H","name":"战术冰桶套3.8L【黑色】","qty":3,"orders":3,"net":7197,"cost":-1638.64,"platformFee":-1098,"profit":3734.36,"margin":63.41,"settled":true,"img":"https://m.media-amazon.com/images/I/615wzy0VxbL._SL75_.jpg","pct":0.06},{"msku":"SL-XWHT-Y-JP-FBA","name":"春山玄武取暖器","qty":1,"orders":1,"net":6800,"cost":-1999.92,"platformFee":-1037,"profit":2601.64,"margin":46.76,"settled":true,"img":"https://m.media-amazon.com/images/I/71Oe0ZPhXSL._SL75_.jpg","pct":0.05},{"msku":"BEL-AZ-E","name":"Springhill カーボンファイバー ミニローテーブル アウトドアテーブル 超軽量 35×31.5cm 約440g ソロ〜グループ対応 コンパクト アルミ天板 登山 ピクニック","qty":1,"orders":1,"net":6800,"cost":0,"platformFee":-1037,"profit":5077,"margin":91.25,"settled":true,"img":"https://m.media-amazon.com/images/I/81Eh8nWSdnL._SL75_.jpg","pct":0.05},{"msku":"LDL-QZ-LJJ-H","name":"昆仑+昆仑连接件【黑色】","qty":1,"orders":1,"net":6680,"cost":-1757.33,"platformFee":-688,"profit":3560.67,"margin":65.14,"settled":true,"img":"https://m.media-amazon.com/images/I/51PropGas1L._SL75_.jpg","pct":0.05},{"msku":"LDL-QZ-LJJ-J","name":"昆仑+昆仑连接件【军绿色】","qty":1,"orders":1,"net":6680,"cost":-1757.33,"platformFee":-688,"profit":3560.67,"margin":65.14,"settled":true,"img":"https://m.media-amazon.com/images/I/519exPBJRTL._SL75_.jpg","pct":0.05},{"msku":"LDL-PL4PQZ-LJJ-H-black","name":"昆仑+昆仑连接件【黑色】","qty":1,"orders":1,"net":6630,"cost":-1757.33,"platformFee":-683,"profit":3520.67,"margin":64.91,"settled":true,"img":"https://m.media-amazon.com/images/I/61WOvFpQojL._SL75_.jpg","pct":0.05},{"msku":"LDL-PL4PQZ-LJJ-V-green","name":"昆仑+昆仑连接件【军绿色】","qty":1,"orders":1,"net":6630,"cost":-1757.33,"platformFee":-683,"profit":3520.67,"margin":64.91,"settled":true,"img":"https://m.media-amazon.com/images/I/61ubbKwtH-L._SL75_.jpg","pct":0.05},{"msku":"BEL-FSYLY-Z-FBA","name":"扶桑碳纤维月亮椅【紫色】","qty":1,"orders":1,"net":6599,"cost":-3563.41,"platformFee":-1006,"profit":1363.59,"margin":25.26,"settled":true,"img":"https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg","pct":0.05},{"msku":"SL-YGTBY-E","name":"摇光徒步椅【黑色】","qty":1,"orders":1,"net":5700,"cost":-1984.83,"platformFee":-869,"profit":2271.17,"margin":48.7,"settled":true,"img":"https://m.media-amazon.com/images/I/61-UP3TomML._SL75_.jpg","pct":0.05},{"msku":"LDL-DQZ-TZ-TPU-E","name":"拓展帐TPU门【黑色】","qty":1,"orders":1,"net":4850,"cost":-3848.95,"platformFee":-499,"profit":12.05,"margin":0.3,"settled":true,"img":"https://m.media-amazon.com/images/I/61JJJWs03NL._SL75_.jpg","pct":0.04},{"msku":"CS-HYZYS-FBM","name":"幻影配件一单元板","qty":1,"orders":1,"net":4299,"cost":-1174.65,"platformFee":-655,"profit":2035.35,"margin":57.87,"settled":true,"img":"https://m.media-amazon.com/images/I/61SrEwJyauL._SL75_.jpg","pct":0.03},{"msku":"CS-HYZ-PJ-CDGJ-FBA","name":"灯挂架-幻影IGT配件","qty":4,"orders":4,"net":3996,"cost":-928.58,"platformFee":-608,"profit":2055.42,"margin":62.9,"settled":true,"img":"https://m.media-amazon.com/images/I/41VG-2g0+ML._SL75_.jpg","pct":0.03},{"msku":"CS-HYZ-PJ-CMB","name":"侧面板单块-幻影IGT配件","qty":1,"orders":1,"net":3399,"cost":-995.9,"platformFee":-518,"profit":1542.1,"margin":55.45,"settled":true,"img":"https://m.media-amazon.com/images/I/41K+SOuwoDL._SL75_.jpg","pct":0.03},{"msku":"BH-QNQ-ZWJ","name":"拓展置物隔板【银色】","qty":5,"orders":5,"net":3000,"cost":-690.63,"platformFee":-150,"profit":1342.37,"margin":54.79,"settled":true,"img":"https://m.media-amazon.com/images/I/71VMKQfnnyL._SL75_.jpg","pct":0.02},{"msku":"CS-0.5MB","name":"0.5单元相思木板*2","qty":1,"orders":1,"net":2770,"cost":-812.5,"platformFee":-422,"profit":1255.5,"margin":55.41,"settled":true,"img":"https://m.media-amazon.com/images/I/61e47ely9LL._SL75_.jpg","pct":0.02},{"msku":"LDL-QZTZ-WS","name":"拓展帐网纱门","qty":1,"orders":1,"net":2650,"cost":-840.36,"platformFee":-273,"profit":1268.64,"margin":58.52,"settled":true,"img":"https://m.media-amazon.com/images/I/51faAGM28WL._SL75_.jpg","pct":0.02},{"msku":"CS-BTT-2L-FBM","name":"新款战术冰桶套-1.9L","qty":1,"orders":1,"net":1550,"cost":-518.61,"platformFee":-236,"profit":638.39,"margin":50.35,"settled":true,"img":"https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg","pct":0.01}],"settled":{"qty":878,"net":10054160,"salesAmt":11170591,"tax":1116431,"gp":4132448.36,"margin":41.1,"skuCount":126,"refQty":23},"caliber":"order","orders":887},"amazonUS":{"skuCount":0,"qty":0,"refQty":0,"salesAmt":0,"tax":0,"net":0,"cost":0,"commission":0,"fbaDeliv":0,"storage":0,"ads":0,"other":0,"platExp":0,"gp":0,"margin":0,"skuDetail":[],"settled":{"qty":0,"net":0,"salesAmt":0,"tax":0,"gp":0,"margin":0,"skuCount":0,"refQty":0},"caliber":"order","orders":0},"settlement":{"独立站-日本":{"currency":"JPY","qty":94,"refundVol":0,"salesAmount":1211739,"promoDisc":-117969,"net":1093770,"productCost":-386784.36,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":706985.64,"margin":"64.64%","skuDetail":[{"msku":"46474377035951","name":"","qty":15,"net":157320,"cost":-70587.95,"platformFee":0,"profit":86732.05,"margin":55.13,"pct":12.27,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/0_53c53553-11e8-48f4-829c-4e4f5f4a334c.jpg?v=1760001204"},{"msku":"46597961875631","name":"","qty":1,"net":77400,"cost":0,"platformFee":0,"profit":77400,"margin":100,"pct":10.95,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/2_8ba6b773-55a3-469b-8978-2cbdfce20c6a.jpg?v=1772267223"},{"msku":"47455317229743","name":"","qty":18,"net":93960,"cost":-39866.9,"platformFee":0,"profit":54093.1,"margin":57.57,"pct":7.65,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/9_b8aa463c-070c-4f4c-804b-2fc6935e1df5.jpg?v=1788769575"},{"msku":"50527587598511","name":"","qty":1,"net":68400,"cost":-24532.21,"platformFee":0,"profit":43867.79,"margin":64.13,"pct":6.2,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/2.0_4P.jpg?v=1790232442"},{"msku":"46393797804207","name":"","qty":1,"net":62820,"cost":-20760.2,"platformFee":0,"profit":42059.8,"margin":66.95,"pct":5.95,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/1_03908981-7be9-4fb3-8629-c33021dfef16.jpg?v=1765613662"},{"msku":"47111132446895","name":"","qty":1,"net":32425,"cost":0,"platformFee":0,"profit":32425,"margin":100,"pct":4.59,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/6_41e8257b-4dba-484a-8fc6-f65a89cbc10d.jpg?v=1782203941"},{"msku":"45455399354543","name":"","qty":4,"net":28489,"cost":0,"platformFee":0,"profit":28489,"margin":100,"pct":4.03,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/12_67a2d07e-6f26-422d-83cf-565b73a3f715.jpg?v=1770109283"},{"msku":"47410213028015","name":"","qty":4,"net":45520,"cost":-19400.3,"platformFee":0,"profit":26119.7,"margin":57.38,"pct":3.69,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/size_c7ae0c43-59c6-48c9-9897-58385b81a4ab.jpg?v=1787898650"},{"msku":"46678410592431","name":"","qty":2,"net":34199,"cost":-9174.04,"platformFee":0,"profit":25024.96,"margin":73.17,"pct":3.54,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/9_38ff916b-db24-4a61-b7c4-ddf64af9bb03.jpg?v=1773468650"},{"msku":"47410212962479","name":"","qty":2,"net":41420,"cost":-20128.39,"platformFee":0,"profit":21291.61,"margin":51.4,"pct":3.01,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/size.jpg?v=1787898647"},{"msku":"47404985483439","name":"","qty":2,"net":39100,"cost":-19249.98,"platformFee":0,"profit":19850.02,"margin":50.77,"pct":2.81,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/411ba4d52e83f09b10948fdec23946d2.jpg?v=1787815285"},{"msku":"47138317861039","name":"","qty":2,"net":25150,"cost":-8243.95,"platformFee":0,"profit":16906.05,"margin":67.22,"pct":2.39,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/793f2be0497180835439f35e2d5914ce.jpg?v=1783068449"},{"msku":"47127123394735","name":"","qty":2,"net":27901,"cost":-11085.88,"platformFee":0,"profit":16815.12,"margin":60.27,"pct":2.38,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/5824e546985e79c861dd7f50f453d528.jpg?v=1782803804"},{"msku":"46602925998255","name":"","qty":2,"net":23940,"cost":-7210.52,"platformFee":0,"profit":16729.48,"margin":69.88,"pct":2.37,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/13-1.jpg?v=1783665287"},{"msku":"46325894840495","name":"","qty":1,"net":26820,"cost":-11132.86,"platformFee":0,"profit":15687.14,"margin":58.49,"pct":2.22,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/1_398cde38-0545-4bed-bfd8-956ed0666431.jpg?v=1753165530"},{"msku":"47127123329199","name":"","qty":2,"net":24300,"cost":-9329.05,"platformFee":0,"profit":14970.95,"margin":61.61,"pct":2.12,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/TPU_d82f2cc0-0ad5-47c5-8045-6861958fd882.jpg?v=1782803759"},{"msku":"46413005848751","name":"","qty":1,"net":19089,"cost":-5155.41,"platformFee":0,"profit":13933.59,"margin":72.99,"pct":1.97,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/2_8275bc85-f222-484e-8945-f07a8296fd27.jpg?v=1766471238"},{"msku":"46678002827439","name":"","qty":1,"net":17599,"cost":-4251.15,"platformFee":0,"profit":13347.85,"margin":75.84,"pct":1.89,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/2_aab4a3de-5dc4-4fb1-9e7a-c394fed6790d.jpg?v=1773454369"},{"msku":"47385106612399","name":"","qty":2,"net":18620,"cost":-5942.22,"platformFee":0,"profit":12677.78,"margin":68.09,"pct":1.79,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/5_d0b0490d-05a1-4708-a9b1-14c04510524d.jpg?v=1787381341"},{"msku":"45455327461551","name":"","qty":2,"net":24975,"cost":-14078.13,"platformFee":0,"profit":10896.87,"margin":43.63,"pct":1.54,"img":"https://cdn.shopify.com/s/files/1/0702/6920/6703/files/a9ac9f12242079fc7b7236ae75dd192b.jpg?v=1766114092"}]},"泰国shopee":{"currency":"THB","qty":456,"refundVol":0,"salesAmount":856648,"promoDisc":-76202,"net":801354,"productCost":-411542.34,"commission":-170677,"delivery":-24407,"otherPlatformFee":-66033,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":-13043,"otherPromo":-11770,"incomeRefund":-15123,"platformFeeTotal":-285930,"profit":209773.66,"margin":"20.49%","cashPlatformAmount":636227,"cashAdjustment":-14911,"cashSettlement":621316,"cashOrders":454,"cashUnits":570,"cashStatus":"settled","cashRange":"2026-09-01 ~ 2026-09-29","cashReconcileDiff":0,"cashGeneratedAt":"2026-10-02 10:28:14","staticProductCost":-397975.95,"staticCoveragePct":100,"costSource":"report","unknownMskus":[],"gpFromCash":209773.66,"gpDiff":0,"feeNote":"2026-09-01~29账单回款+报表成本（9-30账单未出）；佣金等已含在报表口径"},"马来shopee":{"currency":"MYR","qty":167,"refundVol":0,"salesAmount":38668.9,"promoDisc":-529.82,"net":39232.28,"productCost":-22084.28,"commission":-6819.64,"delivery":-2216.25,"otherPlatformFee":-3698.63,"serviceFee":-73.44,"storage":0,"otherLogistics":0,"ads":0,"affiliate":-750.84,"otherPromo":0,"incomeRefund":-410.9,"platformFeeTotal":-13558.8,"profit":7549.36,"margin":"16.45%","cashPlatformAmount":29893.92,"cashAdjustment":-260.28,"cashSettlement":29633.64,"cashOrders":159,"cashUnits":249,"cashStatus":"settled","cashRange":"2026-09-01 ~ 2026-09-29","cashReconcileDiff":0,"cashGeneratedAt":"2026-10-02 10:28:14","staticProductCost":-22084.29,"staticCoveragePct":100,"costSource":"report","unknownMskus":[],"gpFromCash":7549.36,"gpDiff":0},"独立站-国际":{"currency":"USD","qty":7,"refundVol":0,"salesAmount":787.53,"promoDisc":0,"net":787.53,"productCost":-223.7,"commission":0,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":0,"profit":563.83,"margin":"71.60%","skuDetail":[{"msku":"LDL-PL4P-MV","name":"","qty":1,"net":339,"cost":-130.24,"platformFee":0,"profit":208.76,"margin":61.58,"pct":37.03,"img":"https://m.media-amazon.com/images/I/618T+KqXu7L._SL500_.jpg"},{"msku":"SL-ZML0.5-Y","name":"","qty":2,"net":181.94,"cost":0,"platformFee":0,"profit":181.94,"margin":100,"pct":32.27,"img":"https://cdn.shopify.com/s/files/1/0874/8751/2857/files/mini_d3971a64-7bd7-4b17-9d47-3d19f3e2dba3.jpg?v=1759980601"},{"msku":"CS-2DPL-E","name":"","qty":1,"net":132.59,"cost":-53.78,"platformFee":0,"profit":78.81,"margin":59.44,"pct":13.98,"img":"https://cdn.shopify.com/s/files/1/0874/8751/2857/files/5_59bfc6b4-a9ba-4a2d-8cc4-a717139faeab.jpg?v=1742551324"},{"msku":"BEL-CFZ-E-ATZ","name":"","qty":1,"net":81.46,"cost":-28.62,"platformFee":0,"profit":52.84,"margin":64.87,"pct":9.37,"img":"https://m.media-amazon.com/images/I/71FPBluOoNL._SL500_.jpg"},{"msku":"TC-CHLX-Y","name":"","qty":1,"net":26.54,"cost":-5.15,"platformFee":0,"profit":21.39,"margin":80.61,"pct":3.79,"img":"https://cdn.shopify.com/s/files/1/0874/8751/2857/files/d749e78770e6779348c0400c9f62739a.jpg?v=1742551456"},{"msku":"TC-CHLX-E","name":"","qty":1,"net":26,"cost":-5.91,"platformFee":0,"profit":20.09,"margin":77.27,"pct":3.56,"img":"https://cdn.shopify.com/s/files/1/0874/8751/2857/files/fb070d070321eedb6085c21399e32beb.jpg?v=1742551456"}]},"日本-乐天":{"currency":"JPY","qty":302,"orderCount":235,"cancelOrders":9,"cancelPending":0,"cancelAmount":342279,"salesAmount":6208756,"tax":601958,"net":5606798,"productCost":-2974942.6,"commission":-588713.79,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-588713.79,"profit":2043141.61,"margin":36.44,"feeEstimated":true,"feeNote":"佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含","costCoveragePct":86.09,"unknownKeys":[{"key":"LDL-XYCQZ-TPU-E","qty":11},{"key":"LDL-QZ-TPU-3","qty":7},{"key":"LDL-XYCQZ-TPU-V","qty":6},{"key":"LDL-PL4P-DD","qty":4},{"key":"BEL-XKZ-ZWJ-E","qty":3},{"key":"LDL-QZTZDD","qty":2},{"key":"LDL-QZTZNZ","qty":1},{"key":"CS-HYZ-PJ-0.5MBX2","qty":1},{"key":"LDL-QZTZ-TPU","qty":1},{"key":"LDL-QZ-HJDB-V","qty":1}],"cashSettlement":5599437,"cashOrders":224,"cashStatus":"proxy-注文確定口径，非真精算","cashGeneratedAt":"2026-10-02 14:18:54"},"韩国-Coupang":{"currency":"KRW","qty":189,"refundVol":0,"salesAmount":32021200,"promoDisc":0,"net":32021200,"productCost":-7984193.06,"commission":-4322862,"delivery":0,"otherPlatformFee":0,"serviceFee":0,"storage":0,"otherLogistics":0,"ads":0,"affiliate":0,"otherPromo":0,"incomeRefund":0,"platformFeeTotal":-4322862,"profit":19714144.94,"margin":"61.57%","feeEstimated":true,"feeNote":"佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准","costCoveragePct":82.54,"unknownKeys":[{"key":"LDL-XYCQZ-TPU-E","qty":7},{"key":"LDL-XYCQZ-TPU-V","qty":7},{"key":"CS-2DPL-K","qty":3},{"key":"LDL-PL4P-ME","qty":2},{"key":"LDL-PL4P-DD","qty":2},{"key":"95931374677","qty":2},{"key":"96091463064","qty":1},{"key":"LDL-PL4P-MV","qty":1},{"key":"95563032051","qty":1},{"key":"95563067364","qty":1}],"generatedAt":"2026-10-02 14:13:53"}}},"lastYearSep":{"range":"2025-09-01 ~ 2025-09-30","amazonJP":{"skuCount":43,"qty":223,"refQty":3,"salesAmt":2119987,"tax":210489,"net":1909498,"cost":-717505.33,"commission":-278952,"fbaDeliv":-83880,"storage":-28320,"ads":-123332,"other":-33423,"platExp":-547907,"gp":675329.72,"margin":35.37},"amazonUS":{"skuCount":20,"qty":56,"refQty":6,"salesAmt":3670.01,"tax":263.16,"net":3406.85,"cost":-884,"commission":-511.95,"fbaDeliv":-374.92,"storage":-49.31,"ads":-727.23,"other":-135.77,"platExp":-1799.18,"gp":456.6,"margin":13.4},"settlement":{}}}
+</script>
 
 <script>
-// 口令 MD5 = 春山户外2026（可改）
-const PWD_HASH = '8f7d3c2a1b9e4f5a6c7d8e9f0a1b2c3d'; // 占位，实际用下面简单比对
-const VALID_PWD = 'springhill2026'; // 实际口令
-const STORE_KEY = 'chunshan_auth';
-const EXPIRE_DAYS = 7;
+const DATA = JSON.parse(document.getElementById('DATA-JSON').textContent);
+const R = DATA.meta.jpyRate;
+const fmt = n => Number(n).toLocaleString('zh-CN',{maximumFractionDigits:2});
+const fmt0 = n => Number(Math.round(n)).toLocaleString('zh-CN');
+const CNY = j => j*R;
 
-function doLogin(){
-  const pwd = document.getElementById('pwd').value;
-  const remember = document.getElementById('remember').checked;
-  if(pwd === VALID_PWD){
-    if(remember){
-      const exp = Date.now() + EXPIRE_DAYS * 86400000;
-      localStorage.setItem(STORE_KEY, JSON.stringify({pwd, exp}));
-    }
-    showNav();
-  } else {
-    document.getElementById('errMsg').style.display = 'block';
-    setTimeout(()=>document.getElementById('errMsg').style.display='none', 3000);
+// —— 多币种 → JPY 折算（Shopee THB/MYR 并入总盘用） ——
+const FX = DATA.meta.fx || {};
+const toJpy = (ccy, v) => {
+  if (v == null) return null;
+  if (ccy === 'JPY') return v;
+  const cnyPerUnit = ccy === 'THB' ? FX.thbCny : ccy === 'MYR' ? FX.myrCny
+    : ccy === 'KRW' ? FX.krwCny : null;
+  if (cnyPerUnit == null) return null;
+  return v * cnyPerUnit / R;
+};
+// —— 头部信息按数据填充 ——
+document.getElementById('genAt').textContent  = DATA.meta.generatedAt;
+document.getElementById('jpyRate').textContent = R;
+document.getElementById('fxDate').textContent  = FX.fxDate || '';
+document.getElementById('thbRate').textContent = FX.thbCny != null ? FX.thbCny.toFixed(4) : '—';
+document.getElementById('myrRate').textContent = FX.myrCny != null ? FX.myrCny.toFixed(4) : '—';
+document.getElementById('krwRate').textContent = FX.krwCny != null ? (FX.krwCny*100).toFixed(4) : '—';
+// 上月汇总 tab 日期
+(function(){
+  const el = document.getElementById('tabD-lastMonth');
+  const r = DATA.lastMonth && DATA.lastMonth.range;
+  if(el && r){ el.textContent = r.replace(/^\d{4}-(\d{2}-\d{2}) ~ \d{4}-(\d{2}-\d{2})$/,'$1 ~ $2'); }
+})();
+
+// 平台颜色映射
+const COLORS = ['#ff7a3c','#5b9dd9','#4cc38a','#f5c66a','#b07cd6','#e5534b','#7eb8c9','#d6a06e'];
+const KNOW={'泰国shopee':'泰国-Shopee','马来shopee':'马来-Shopee','独立站-日本':'独立站-日本','独立站-国际':'独立站-国际','韩国-Coupang':'韩国-Coupang'};
+const ALL_PLATFORMS = ['日本-亚马逊','独立站-日本','独立站-国际','泰国-Shopee','马来-Shopee','日本-乐天','韩国-Coupang']; // 美国-亚马逊已关闭(2026-10-03)
+
+// 状态
+let curPeriod = 'today';
+let filterPlatforms = new Set(ALL_PLATFORMS);
+let curMetric = 'net'; // net | profit | margin
+let sortCol = 'profit';
+let sortDir = 'desc';
+
+// 单品成本索引（上月=全结算完整月）：msku → { unitCost: 单位成本(负,JPY), feeRate: 费用率(负) }
+// 下单口径毛利直接计算 = 下单净额 + 下单件数×单位成本 + 下单净额×单品费用率（非推算，成本真实）
+let _skuCostRef = null, _feeRateFallback = 0;
+function buildSkuCostRef(){
+  if(_skuCostRef) return;
+  _skuCostRef = {};
+  const lm = (DATA.lastMonth && DATA.lastMonth.amazonJP && DATA.lastMonth.amazonJP.skuDetail) || [];
+  let sn=0, sp=0, sc=0;
+  for(const s of lm){
+    if(!s.settled || !s.net || s.profit==null) continue;
+    sn+=s.net; sp+=s.profit; sc+=(s.cost||0);
+    if(s.qty && s.cost){ _skuCostRef[s.msku] = { unitCost: s.cost/s.qty, feeRate: (s.profit - s.net - s.cost)/s.net }; }
   }
+  _feeRateFallback = sn>0 ? (sp-sn-sc)/sn : 0;   // 店铺整体费用率（缺单品成本的新品用）
+}
+function estOrderProfitJP(a){
+  if(a.caliber!=='order' || !a.skuDetail || !a.skuDetail.length) return a.gp;
+  buildSkuCostRef();
+  const shopMargin = (a.settled && a.settled.net) ? a.settled.gp/a.settled.net : 0;
+  let sum = 0;
+  for(const x of a.skuDetail){
+    // 已结算且有真实毛利：取真实值；cost==0 且 profit==0 属无结算数据的异常行，落到成本直算
+    if(x.settled && x.profit!=null && !(x.profit===0 && !x.cost)){ sum += x.profit; continue; }
+    if(x.net==null) continue;
+    const ref = _skuCostRef[x.msku];
+    if(ref){ sum += x.net + (x.qty||0)*ref.unitCost + x.net*ref.feeRate; } // 成本直算
+    else { sum += x.net*shopMargin; }                                    // 新品无成本：店铺结算毛利率兜底
+  }
+  return +sum.toFixed(2);
 }
 
-function showNav(){
-  document.getElementById('loginView').classList.add('hidden');
-  document.getElementById('navView').classList.remove('hidden');
+// 平台行构建
+function amzRow(p, a, tagNote){
+  const c = a.currency||'JPY';
+  const isOrder = a.caliber==='order';
+  return {name:p, currency:c, qty:a.qty, orders:a.orders||null, refund:a.refQty,
+    net:a.net,
+    cost:a.cost, feeMain:a.commission, fbaD:a.fbaDeliv, storage:a.storage, ads:a.ads, other:a.other,
+    profit:a.gp, margin:a.margin,
+    note:tagNote || (isOrder?'下单口径（即时）·毛利为已结算部分':'含税'+fmt0(a.salesAmt)+'−税'+fmt0(a.tax)),
+    tagCls:a.qty===0?'mut':(isOrder?'ok':'ok'),
+    jpyNet:a.net, jpyProfit:a.gp,
+    // 结算口径自洽组：日亚用 settled 快照，其他（美亚）本身即结算口径
+    jpySettledNet: a.settled?a.settled.net:a.net,
+    jpySettledProfit: a.settled?a.settled.gp:a.gp,
+    // 下单口径预估毛利：已结算SKU真实毛利；未结算SKU用上月单品成本直算（净额 + 件数×单位成本 + 净额×费用率）
+    jpyEstOrderProfit: estOrderProfitJP(a)};
+}
+function stRows(settlement, knowMap){
+  const out=[];
+  for(const [name,s] of Object.entries(settlement)){
+    const known = knowMap[name]||name;
+    let tag='ok', note='结算口径', cash=null, cashOrders=null;
+    if(name.includes('独立站')){ tag='warn'; note='Shopify手续费未录入，利润率虚高3-5pp'; }
+    if(name==='日本-乐天'){ tag='cash'; note='⚡回款代理(注文確定) + ✓毛利(佣金10.5%估算，待精算書校准)'; cash=s.cashSettlement; cashOrders=s.cashOrders; }
+    if(name==='韩国-Coupang'){ tag='warn'; note='下单口径(含未付款，订单数缺失) + ✓毛利(佣金13.5%估算，待OPEN API/结算单校准)'; }
+    if(name.includes('shopee') && s.cashSettlement!=null){ tag='cash'; note='⚡回款 + ✓真实毛利'; cash=s.cashSettlement; cashOrders=s.cashOrders; }
+    out.push({name:known, currency:s.currency, qty:s.qty, refund:s.refundVol, net:s.net,
+      cost:s.productCost, feeMain:s.commission, fbaD:s.delivery, storage:s.storage+s.otherLogistics,
+      ads:s.ads, other:s.otherPlatformFee+s.serviceFee+s.affiliate+s.otherPromo,
+      profit:s.profit, margin:parseFloat(s.margin)||0, note, tagCls:tag, cash, cashOrders,
+      jpyNet:toJpy(s.currency,s.net), jpyProfit:toJpy(s.currency,s.profit),
+      jpyEstOrderProfit:toJpy(s.currency,s.profit)});
+  }
+  return out;
 }
 
-function checkAuth(){
-  try {
-    const raw = localStorage.getItem(STORE_KEY);
-    if(!raw) return false;
-    const {pwd, exp} = JSON.parse(raw);
-    if(Date.now() > exp){ localStorage.removeItem(STORE_KEY); return false; }
-    return pwd === VALID_PWD;
-  } catch(e){ return false; }
+function rowsOf(p){
+  // 美国-亚马逊店铺已关闭（2026-10-03 王泉斐确认），不再展示
+  const rows=[amzRow('日本-亚马逊',p.amazonJP)];
+  rows.push(...stRows(p.settlement,KNOW));
+  if(!(p.settlement && p.settlement['日本-乐天']))
+    rows.push({name:'日本-乐天',currency:'JPY',qty:null,net:null,profit:null,margin:null,cost:null,note:'领星不覆盖结算，需后台导出归集',tagCls:'bad'});
+  if(!(p.settlement && p.settlement['韩国-Coupang']))
+    rows.push({name:'韩国-Coupang',currency:'KRW',qty:null,net:null,profit:null,margin:null,cost:null,note:'领星不覆盖结算，需后台导出归集',tagCls:'bad'});
+  return rows;
 }
 
-// 回车提交
-document.getElementById('pwd').addEventListener('keydown', e=>{
-  if(e.key==='Enter') doLogin();
+function filteredRows(rows){
+  return rows.filter(r => filterPlatforms.has(r.name));
+}
+
+function totals(rows){
+  const t={qty:0,net:0,profit:0,orders:null, settledNet:0, settledProfit:0, orderProfit:0};
+  // JPY 本币行直接计；非JPY行用 jpyNet/jpyProfit（Shopee折算；USD独立站无折算则不计）
+  for(const r of rows){
+    const net = r.currency==='JPY' ? r.net : r.jpyNet;
+    const gp  = r.currency==='JPY' ? (r.profit) : r.jpyProfit;
+    if(net!=null){ t.qty+=r.qty||0; t.net+=net; t.profit+=gp||0; }
+    // 结算口径自洽：日亚用 settled 快照，其他平台本身即结算口径
+    const sNet = r.currency==='JPY' ? (r.jpySettledNet??r.net) : r.jpyNet;
+    const sGp  = r.currency==='JPY' ? (r.jpySettledProfit??r.profit) : r.jpyProfit;
+    if(sNet!=null){ t.settledNet+=sNet; t.settledProfit+=sGp||0; }
+    // 下单口径预估毛利：日亚=下单净额×日亚结算毛利率；其他平台=实际毛利（其口径即结算）
+    const estGp = r.currency==='JPY' ? (r.jpyEstOrderProfit??r.profit) : r.jpyEstOrderProfit;
+    if(net!=null && estGp!=null){ t.orderProfit+=estGp; }
+    if(r.orders!=null){ t.orders=(t.orders||0)+r.orders; } // 日亚下单订单量（其他平台订单口径不一，不并入）
+  }
+  t.margin=t.settledNet?+(t.settledProfit/t.settledNet*100).toFixed(2):0;
+  t.orderMargin=t.net?+(t.orderProfit/t.net*100).toFixed(2):0;
+  return t;
+}
+
+function pct(cur, prev){
+  if(prev==null||prev===0||cur==null) return null;
+  return +(((cur-prev)/Math.abs(prev))*100).toFixed(1);
+}
+const arrHTML = p => {
+  if(p==null) return '<span style="color:var(--sub)">—</span>';
+  const cls = p>=0?'pos':'neg';
+  const icon = p>=0?'▲':'▼';
+  return `<span class="${cls}">${icon} ${Math.abs(p)}%</span>`;
+};
+
+// ========== SVG 环形图 ==========
+function donutHTML(rows, metric){
+  // 统一折算 JPY 口径：JPY本币行取原值，Shopee取 jpyNet/jpyProfit
+  const valOf = r => metric==='net'
+    ? (r.currency==='JPY' ? r.net : r.jpyNet)
+    : (r.currency==='JPY' ? r.profit : r.jpyProfit);
+  const valid = rows.filter(r=>valOf(r)!=null);
+  if(!valid.length) return '<div style="color:var(--sub);font-size:12px;text-align:center;padding:40px 0">暂无可统计数据</div>';
+  const items = valid.map(r=>({
+    name:r.name, value: valOf(r),
+    color: COLORS[ALL_PLATFORMS.indexOf(r.name)%COLORS.length]
+  })).filter(i=>i.value>0).sort((a,b)=>b.value-a.value);
+  if(!items.length) return '<div style="color:var(--sub);font-size:12px;text-align:center;padding:40px 0">无正值数据</div>';
+  const total = items.reduce((s,i)=>s+i.value,0);
+  const R=70, r=42, cx=90, cy=90;
+  const len = 2*Math.PI*R;
+  let acc=0;
+  const segs = items.map((it,idx)=>{
+    const frac = it.value/total;
+    const off = -acc*len;
+    const dur = .8+idx*.15;
+    acc += frac;
+    return `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${it.color}" stroke-width="${R-r}" 
+      stroke-dasharray="${(frac*len).toFixed(2)} ${(len*(1-frac)).toFixed(2)}" 
+      stroke-dashoffset="${off.toFixed(2)}" 
+      transform="rotate(-90 ${cx} ${cy})" 
+      style="animation:drawDonut ${dur}s ease both; --len:${len}; --off:${off.toFixed(2)}"
+      data-name="${it.name}" data-val="${fmt0(it.value)}" data-pct="${(frac*100).toFixed(1)}"
+      class="donut-seg" />`;
+  }).join('');
+  const centerVal = metric==='net'?'净销售额':metric==='profit'?'毛利润':'';
+  const legend = items.map(it=>`<div class="li"><span class="dot" style="background:${it.color}"></span>${it.name} ${fmt0(it.value)} (${(it.value/total*100).toFixed(1)}%)</div>`).join('');
+  return `<div class="svg-box" style="position:relative">
+    <svg viewBox="0 0 180 180" width="180" height="180">${segs}
+      <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="var(--sub)" font-size="10">${centerVal}</text>
+      <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="var(--gold)" font-size="14" font-weight="700">${fmt0(total)}</text>
+      <text x="${cx}" y="${cy+26}" text-anchor="middle" fill="var(--sub)" font-size="9">JPY</text>
+    </svg>
+    <div class="chart-tip" id="donutTip"></div>
+    </div>
+    <div class="chart-legend">${legend}</div>`;
+}
+
+// ========== SVG 堆叠横向条 ==========
+function stackedHTML(rows, metric){
+  const valid = rows.filter(r=>r.profit!=null && r.currency==='JPY' && (metric==='net'?r.net:r.profit)!=null && (metric==='net'?r.net:r.profit)>0);
+  if(!valid.length) return '<div style="color:var(--sub);font-size:12px;text-align:center;padding:40px 0">暂无JPY口径数据</div>';
+  const items = valid.map(r=>({
+    name:r.name, value: metric==='net'? r.net : r.profit, margin: r.margin,
+    color: COLORS[ALL_PLATFORMS.indexOf(r.name)%COLORS.length]
+  })).sort((a,b)=>b.value-a.value);
+  const max = items[0].value;
+  const barH = 24, gap = 8, labelW = 90, valW = 90;
+  const svgH = items.length * (barH+gap) + 20;
+  const trackW = 320;
+  const bars = items.map((it,idx)=>{
+    const w = (it.value/max*trackW).toFixed(1);
+    const y = idx*(barH+gap)+10;
+    return `<g class="bar-grp" data-name="${it.name}" data-val="${fmt0(it.value)}" data-margin="${it.margin}%">
+      <text x="${labelW-8}" y="${y+barH/2+4}" text-anchor="end" fill="var(--txt)" font-size="11">${it.name}</text>
+      <rect x="${labelW}" y="${y}" width="${trackW}" height="${barH}" fill="#262930" rx="4"/>
+      <rect x="${labelW}" y="${y}" width="0" height="${barH}" fill="${it.color}" rx="4" style="animation:growBar 1s ease ${idx*.1}s both; --w:${w}px"/>
+      <text x="${labelW+trackW+8}" y="${y+barH/2+4}" fill="var(--sub)" font-size="11">${fmt0(it.value)} <tspan fill="${it.margin>=35?'var(--green)':it.margin>=20?'var(--gold)':'var(--red)'}">${it.margin}%</tspan></text>
+    </g>`;
+  }).join('');
+  return `<div class="svg-box"><svg viewBox="0 0 ${labelW+trackW+valW} ${svgH}" width="100%" height="${svgH}">${bars}</svg></div>`;
+}
+
+// ========== SVG 瀑布图（日亚费用拆解） ==========
+function waterfallHTML(d){
+  const a0 = d.amazonJP;
+  if(!a0 || a0.net==null) return '<div style="color:var(--sub);font-size:12px;text-align:center;padding:40px 0">日亚数据不可得</div>';
+  // 瀑布须口径自洽：净销售/成本/费用/毛利全部用已结算口径（下单口径仅有销售额，无费用拆分）
+  const a = a0.settled ? Object.assign({}, a0, {net:a0.settled.net, gp:a0.settled.gp}) : a0;
+  const steps = [
+    {label:'净销售额(结算)', value:a.net, type:'base'},
+    {label:'商品成本', value:a.cost, type:'cost'},
+    {label:'平台扣点', value:a.commission, type:'cost'},
+    {label:'FBA派送', value:a.fbaDeliv, type:'cost'},
+    {label:'FBA仓储', value:a.storage, type:'cost'},
+    {label:'广告费', value:a.ads, type:'cost'},
+    {label:'其他', value:a.other, type:'cost'},
+    {label:'毛利润(结算)', value:a.gp, type:'result'}
+  ];
+  const W=400, H=200, padL=70, padR=20, padT=20, padB=40;
+  const plotW = W-padL-padR, plotH = H-padT-padB;
+  const maxAbs = Math.max(...steps.map(s=>Math.abs(s.value)));
+  const scale = plotH/maxAbs;
+  const barW = plotW/steps.length*0.6;
+  const gap = plotW/steps.length;
+  let cumTop = a.net;
+  const bars = steps.map((s,idx)=>{
+    const x = padL + idx*gap + (gap-barW)/2;
+    if(s.type==='base'){
+      const h = Math.abs(s.value)*scale;
+      const y = padT+plotH-h;
+      return `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="var(--blue)" rx="3"/>
+        <text x="${x+barW/2}" y="${y-5}" text-anchor="middle" fill="var(--txt)" font-size="9">${fmt0(s.value)}</text>
+        <text x="${x+barW/2}" y="${H-padB+14}" text-anchor="middle" fill="var(--sub)" font-size="9">${s.label}</text>`;
+    } else if(s.type==='cost'){
+      const h = Math.abs(s.value)*scale;
+      const y = padT + (a.net - cumTop)*scale;
+      cumTop += s.value;
+      return `<rect x="${x}" y="${y}" width="${barW}" height="${Math.max(h,1)}" fill="var(--red)" rx="3" opacity=".85"/>
+        <text x="${x+barW/2}" y="${y-5}" text-anchor="middle" fill="var(--red)" font-size="9">${fmt0(s.value)}</text>
+        <text x="${x+barW/2}" y="${H-padB+14}" text-anchor="middle" fill="var(--sub)" font-size="9">${s.label}</text>
+        ${idx<steps.length-2?`<line x1="${x+barW}" y1="${y}" x2="${x+gap}" y2="${y}" stroke="var(--line)" stroke-dasharray="2,2"/>`:''}`;
+    } else {
+      const h = Math.abs(s.value)*scale;
+      const y = padT+plotH-h;
+      return `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="var(--green)" rx="3"/>
+        <text x="${x+barW/2}" y="${y-5}" text-anchor="middle" fill="var(--green)" font-size="9">${fmt0(s.value)}</text>
+        <text x="${x+barW/2}" y="${H-padB+14}" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="600">${s.label}</text>`;
+    }
+  }).join('');
+  return `<div class="svg-box"><svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}">${bars}</svg></div>
+    <div style="font-size:11px;color:var(--sub);margin-top:8px;text-align:center">日本亚马逊费用拆解 · 蓝色=净销售额 ｜ 红色=费用项 ｜ 绿色=毛利润</div>`;
+}
+
+// ========== KPI ==========
+function kpiHTML(t,label,prev,yoy){
+  const dNet=pct(t.net,prev&&prev.net), dGp=pct(t.profit,prev&&prev.profit), dQty=pct(t.qty,prev&&prev.qty);
+  const dEstGp=pct(t.orderProfit,prev&&prev.orderProfit);
+  const yoyNet=yoy&&pct(t.net,yoy.net), yoyGp=yoy&&pct(t.profit,yoy.gp), yoyQty=yoy&&pct(t.qty,yoy.qty);
+  return `<div class="kpis">
+    <div class="kpi"><div class="lb">净销售额（全渠道·JPY折算·下单口径）</div><div class="v cny" data-val="${t.net}" data-prefix="¥">¥0</div><div class="s">≈ ${fmt(CNY(t.net))} CNY ｜ 下单时间·剔除取消，即时</div>
+      <div class="s">环比 ${arrHTML(dNet)}${yoyNet!=null?` ｜ 同比 ${arrHTML(yoyNet)}`:''}</div></div>
+    <div class="kpi"><div class="lb">预估毛利（下单口径 · 未含头程）</div><div class="v gp" data-val="${t.orderProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--blue,#6ea8fe)">⚡ 下单净额 − 单品成本(上月领星单位成本×销量) − 费用率 · 预估 ${t.orderMargin}%</div>
+      <div class="s">环比 ${arrHTML(dEstGp)} ｜ 日亚成本直算非推算，乐天/Coupang等取实际毛利</div></div>
+    <div class="kpi"><div class="lb">销量（全渠道合计·下单口径）</div><div class="v" data-val="${t.qty}">0<span class="cur">件</span></div><div class="s">${t.orders!=null?`日亚 ${t.orders} 单 ｜ `:''}与领星后台排行榜一致</div>
+      <div class="s">环比 ${arrHTML(dQty)}${yoyQty!=null?` ｜ 同比 ${arrHTML(yoyQty)}`:''}</div></div>
+    <div class="kpi"><div class="lb">毛利润（已结算 · 未含头程）</div><div class="v gp" data-val="${t.settledProfit}" data-prefix="¥">¥0</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 结算口径，滞后约7-10天 · ≈${fmt(CNY(t.settledProfit))} CNY</div>
+      <div class="s">环比 ${arrHTML(dGp)}${yoyGp!=null?` ｜ 同比 ${arrHTML(yoyGp)}`:''}</div></div>
+    <div class="kpi"><div class="lb">毛利率（已结算口径）</div><div class="v mg" data-val="${t.margin}" data-suffix="%">0%</div><div class="s" style="color:var(--gold,#e5b567)">⏳ 结算毛利 ÷ 结算销售额 ¥${fmt0(t.settledNet)}（自洽）</div>
+      <div class="s">${prev&&prev.margin?`上期 ${prev.margin}% · 变动 ${(t.margin-prev.margin>=0?'+':'')+(t.margin-prev.margin).toFixed(2)}pp`:'真实利润需再扣头程运费'}</div></div>
+  </div>`;
+}
+
+// ========== 表格（带排序） ==========
+function tableHTML(rows){
+  const sorted = [...rows].sort((a,b)=>{
+    const get = r => sortCol==='name' ? r.name : (r[sortCol]==null?-Infinity:r[sortCol]);
+    const va=get(a), vb=get(b);
+    if(va===vb) return 0;
+    return sortDir==='asc' ? (va>vb?1:-1) : (va<vb?1:-1);
+  });
+  const sortCls = c => c===sortCol ? (sortDir==='asc'?'sort sort-asc':'sort sort-desc') : 'sort';
+  const tr = sorted.map(r=>{
+    const qty = r.qty==null?'—':r.qty;
+    const net = r.net==null?'—':fmt0(r.net);
+    const profit = r.profit==null?'—':`<span class="${r.profit<0?'neg':'pos'}" title="✓ 现金回款 − 真实商品成本">${r.cash!=null?'✓ ':''}${fmt0(r.profit)}</span>`;
+    const mg = r.margin==null?'—':`<span style="${r.margin>=35?'color:var(--green)':r.margin<20?'color:var(--red)':''}">${r.margin}%</span>`;
+    const tag = r.note?`<span class="tag ${r.tagCls}">${r.note}</span>`:'';
+    const feeDetail = (r.feeMain!=null&&r.net!=null)
+      ? `扣点${fmt0(r.feeMain)} / 派送${fmt0(r.fbaD||0)} / 仓储${fmt0(r.storage||0)} / 广告${fmt0(r.ads||0)} / 其他${fmt0(r.other||0)}`
+      : '—';
+    return `<tr>
+      <td class="pf">${r.name}${tag}</td>
+      <td>${qty}</td><td>${net}<span class="cur">${r.currency||''}</span>${r.cash!=null?`<div class="cashline" title="⚡ 平台实际打款现金（${r.cashOrders||''}单已结算）">⚡回款 ${fmt0(r.cash)}</div>`:''}</td>
+      <td>${r.cost!=null?fmt0(r.cost):'—'}</td>
+      <td style="font-size:11px;color:var(--sub);text-align:right">${feeDetail}</td>
+      <td>${profit}</td><td>${mg}</td></tr>`;
+  }).join('');
+  return `<div class="sec"><h2>平台利润明细（点击表头排序 · 费用已含FBA尾程派送/仓储/扣点/广告）</h2>
+  <div class="caliber-note"><b>双口径说明：</b><span class="tag cash">⚡ 结算回款</span>＝平台实际打款现金，结算当日可得；<span class="tag cash">✓ 真实毛利</span>＝回款 − 真实商品成本（成本取自领星，滞后7-10天；报表未出时由静态MSKU成本表先行估算）。Shopee 原币 THB/MYR 已按外管局中间价折算并入顶部总KPI、环形图与利润条形图。</div>
+  <div class="table-wrap"><table><thead><tr>
+    <th class="${sortCls('name')}" data-col="name">平台</th>
+    <th class="${sortCls('qty')}" data-col="qty">销量</th>
+    <th class="${sortCls('net')}" data-col="net">净销售额</th>
+    <th class="${sortCls('cost')}" data-col="cost">商品成本</th>
+    <th>平台费用明细（原币）</th>
+    <th class="${sortCls('profit')}" data-col="profit">毛利润</th>
+    <th class="${sortCls('margin')}" data-col="margin">毛利率</th>
+  </tr></thead><tbody>${tr}</tbody></table></div></div>`;
+}
+
+// ========== 条形图 ==========
+function barsHTML(rows){
+  // 统一 JPY 折算口径（JPY本币取jpyProfit，Shopee取折算值；无折算的USD行不计）
+  const valid = rows.filter(r=>(r.currency==='JPY'?r.jpyProfit:r.jpyProfit)>0)
+    .sort((a,b)=>b.jpyProfit-a.jpyProfit);
+  const max = valid[0]?valid[0].jpyProfit:1;
+  const items = valid.map(r=>`<div class="bar-row">
+    <div>${r.name}</div>
+    <div class="bar-track"><div class="bar-fill" data-w="${(r.jpyProfit/max*100).toFixed(1)}"></div></div>
+    <div class="bar-num">${fmt0(r.jpyProfit)} JPY</div></div>`).join('');
+  const loss = rows.filter(r=>r.jpyProfit!=null&&r.jpyProfit<0).map(r=>`<span class="tag bad">${r.name} ${fmt0(r.jpyProfit)} JPY</span>`).join(' ');
+  return `<div class="sec"><h2>利润贡献结构（JPY折算口径）</h2><div class="bars">${items}</div>
+  ${loss?`<div style="margin-top:12px;font-size:12px;color:var(--sub)">亏损项：${loss}</div>`:''}</div>`;
+}
+
+// ========== 筛选器 ==========
+function filtersHTML(rows){
+  const chips = ALL_PLATFORMS.map(p=>{
+    const r = rows.find(x=>x.name===p);
+    const hasData = r && r.net!=null;
+    const color = COLORS[ALL_PLATFORMS.indexOf(p)%COLORS.length];
+    const on = filterPlatforms.has(p);
+    return `<span class="chip ${on?'on':''}" data-p="${p}">
+      <span class="dot" style="background:${color}"></span>${p}${hasData?'':` <span style="opacity:.5">·无数据</span>`}
+    </span>`;
+  }).join('');
+  const metricBtns = [
+    {k:'net',l:'净销售额'},
+    {k:'profit',l:'毛利润'}
+  ].map(m=>`<button class="${curMetric===m.k?'on':''}" data-m="${m.k}">${m.l}</button>`).join('');
+  return `<div class="filters">
+    <div class="filter-group">
+      <span class="label">平台筛选：</span>
+      ${chips}
+    </div>
+    <div class="metric-switch">${metricBtns}</div>
+  </div>`;
+}
+
+// ========== 数字滚动动画 ==========
+function animateNum(el){
+  const target = parseFloat(el.dataset.val);
+  if(isNaN(target)){ return; }
+  const prefix = el.dataset.prefix||'';
+  const suffix = el.dataset.suffix||'';
+  const isInt = Number.isInteger(target);
+  const dur = 900;
+  const t0 = performance.now();
+  const curEl = el.querySelector('.cur');
+  const curHTML = curEl?curEl.outerHTML:'';
+  // 初始设为0
+  el.innerHTML = prefix+(isInt?'0':'0')+suffix+curHTML;
+  function step(t){
+    const p = Math.min((t-t0)/dur,1);
+    const e = 1-Math.pow(1-p,3);
+    const v = target*e;
+    const formatted = isInt ? fmt0(v) : fmt(v);
+    el.innerHTML = prefix+formatted+suffix+curHTML;
+    if(p<1) requestAnimationFrame(step);
+    else el.innerHTML = prefix+(isInt?fmt0(target):fmt(target))+suffix+curHTML;
+  }
+  requestAnimationFrame(step);
+}
+
+// ========== 渲染 ==========
+function render(p){
+  curPeriod = p;
+  const d = DATA[p];
+  const allRows = rowsOf(d);
+  const rows = filteredRows(allRows);
+  const t = totals(rows);
+  const prevMap = {today:'yesterday', week:'lastWeek', month:'lastMonth'};
+  const prev = prevMap[p] ? totals(filteredRows(rowsOf(DATA[prevMap[p]]))) : null;
+  let yoy = null;
+  if(p==='month' && DATA.lastYearSep && DATA.lastYearSep.amazonJP){
+    const ly = totals(filteredRows(rowsOf(DATA.lastYearSep)));
+    yoy = {net: ly.net, gp: ly.profit, qty: ly.qty};
+  }
+  const metricLabel = curMetric==='net'?'净销售额':'毛利润';
+  let html = `<div class="fade">${filtersHTML(allRows)}${kpiHTML(t,'今日',prev,yoy)}
+  <div class="chart-grid">
+    <div class="chart-card"><h3>平台占比（${metricLabel} · JPY口径）</h3>${donutHTML(rows,curMetric)}</div>
+    <div class="chart-card"><h3>${metricLabel}对比（含毛利率标注）</h3>${stackedHTML(rows,curMetric)}</div>
+    <div class="chart-card"><h3>日亚费用拆解瀑布图</h3>${waterfallHTML(d)}</div>
+  </div>
+  <div class="grid2">
+    <div>${tableHTML(rows)}</div>
+    <div>${barsHTML(rows)}
+    <div class="sec"><h2>口径说明</h2><div class="note">
+    · <b style="color:var(--blue,#6ea8fe)">净销售额/销量/订单量＝下单口径</b>（下单时间·剔除已取消·即时，与领星后台排行榜、内盘支付口径对齐）<br>
+    · <b style="color:var(--blue,#6ea8fe)">预估毛利（下单口径）＝已结算SKU真实毛利 + 未结算SKU成本直算</b>：净额 − 件数×上月单品成本 − 净额×上月单品费用率（非毛利率推算），乐天/Coupang等取实际毛利；为参考值，非最终利润<br>
+    · <b style="color:var(--gold,#e5b567)">毛利润/毛利率/成本/费用＝已结算口径</b>（平台收入+平台费用+商品成本），滞后约7-10天；<b>毛利率＝结算毛利÷结算销售额（自洽）</b>，不再除以当日下单销售额<br>
+    · 平台费用 = 扣点 + FBA派送 + FBA仓储 + 广告 + 其他<br>
+    · <b class="r">头程运费（中国→海外仓）暂未计入</b><br>
+    · Shopee为结算口径（滞后7-10天，月内账单未出时本月Tab显示占位）<br>
+    · 日本-乐天为RMS订单API口径（下单T+0 / 回款代理=注文確定），佣金按10.5%估算，月度精算書CSV校准<br>
+    · 韩国-Coupang为领星下单口径（含未付款），佣金按13.5%估算，待Coupang OPEN API/结算单校准<br>
+    · 环比：今日vs昨日 / 本周vs上周 / 本月vs上月；「上月汇总」为完整自然月，不显示环比<br>
+    · 同比：本月vs去年9月（仅日亚口径）<br>
+    · 点击表头排序 ｜ 点击平台芯片筛选 ｜ 切换指标查看不同视角</div></div></div>
+  </div>
+  ${skuDetailHTML(d)}</div>`;
+  document.getElementById('panel').innerHTML = html;
+  // 触发动画
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');
+    document.querySelectorAll('.kpi .v[data-val]').forEach(animateNum);
+    bindChartTips();
+    bindSort();
+    bindFilters();
+  });
+}
+
+// ========== SKU 利润构成区块 ==========
+let curSkuPlatform = null;
+function skuDetailHTML(d){
+  const candidates=[];
+  if(d.amazonJP && Array.isArray(d.amazonJP.skuDetail) && d.amazonJP.skuDetail.length)
+    candidates.push({name:'日本-亚马逊', list:d.amazonJP.skuDetail, total:d.amazonJP.gp, currency:'JPY'});
+  // 美国-亚马逊店铺已关闭（2026-10-03 王泉斐确认），SKU 明细不再展示
+  for(const [k,s] of Object.entries(d.settlement||{})){
+    if(Array.isArray(s.skuDetail) && s.skuDetail.length)
+      candidates.push({name:KNOW[k]||k, list:s.skuDetail, total:s.profit, currency:s.currency});
+  }
+  if(!candidates.length){
+    return '<div class="sec"><h2>SKU利润构成</h2><div style="color:var(--sub);padding:20px;text-align:center">本周口径暂无SKU明细，请切换"今日"或"本月"查看</div></div>';
+  }
+  // 默认选利润最高的
+  if(!curSkuPlatform || !candidates.find(c=>c.name===curSkuPlatform)){
+    curSkuPlatform = [...candidates].sort((a,b)=>b.total-a.total)[0].name;
+  }
+  const cur = candidates.find(c=>c.name===curSkuPlatform);
+  const list = cur.list.slice().sort((a,b)=>(b.profit||-Infinity)-(a.profit||-Infinity));
+  const top10 = list.slice(0,10);
+  const rest = list.slice(10);
+
+  const imgCell = r => r.img
+    ? `<div class="sku-ph"><img src="${r.img}" loading="lazy" referrerpolicy="no-referrer" alt="" onerror="skuImgErr(this)"></div>`
+    : `<div class="sku-ph">无图</div>`;
+  const money = v => v==null ? '<span style="color:var(--sub)">待结算</span>' : fmt0(v);
+  const pctOf = r => r.settled ? (r.margin!=null ? `<span style="${r.margin>=35?'color:var(--green)':r.margin<20&&r.margin>0?'color:var(--red)':''}">${r.margin}%</span>` : '—') : '<span style="color:var(--sub)">待结算</span>';
+  const rowHTML = (r,i,cls)=>`<tr${cls?` class="${cls}"`:''}>
+    <td class="pf"><div style="display:flex;align-items:center;gap:10px">
+      <div style="position:relative;flex-shrink:0"><span class="sku-rank">${i}</span>${imgCell(r)}</div>
+      <div style="min-width:0"><div style="font-family:monospace;font-size:12px;word-break:break-all">${r.msku}</div>${r.name?`<div style="font-size:11px;color:var(--sub);margin-top:2px;line-height:1.3">${r.name}</div>`:''}</div>
+    </div></td>
+    <td>${r.qty==null?'—':r.qty}</td>
+    <td style="font-weight:600;color:var(--blue,#6ea8fe)">${r.orders!=null?r.orders:'—'}</td>
+    <td>${fmt0(r.net)}<span class="cur">${cur.currency}</span></td>
+    <td>${money(r.cost)}</td>
+    <td>${money(r.platformFee)}</td>
+    <td class="${(r.profit||0)<0?'neg':'pos'}" style="font-weight:600">${money(r.profit)}</td>
+    <td>${pctOf(r)}</td>
+    <td style="min-width:120px">
+      <div class="bar-track" style="height:14px"><div class="bar-fill ${(r.profit||0)<0?'':'g'}" data-w="${Math.min(Math.abs(r.pct),100).toFixed(1)}"></div></div>
+      <div style="font-size:11px;color:var(--sub);margin-top:3px">${r.pct}%</div>
+    </td>
+  </tr>`;
+
+  const chips = candidates.map(c=>{
+    const color = COLORS[ALL_PLATFORMS.indexOf(c.name)%COLORS.length];
+    return `<span class="chip ${c.name===curSkuPlatform?'on':''}" data-skup="${c.name}">
+      <span class="dot" style="background:${color}"></span>${c.name} <span style="opacity:.7">(${c.list.length})</span>
+    </span>`;
+  }).join('');
+
+  return `<div class="sec"><h2>SKU销售/利润构成（按平台切换 · Top 10 按毛利降序 · 占比=该SKU净销售额/店铺净销售额）</h2>
+    <div class="filter-group" style="margin-bottom:14px;flex-wrap:wrap">${chips}</div>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>MSKU / 产品</th>
+        <th>销量(下单·件)</th>
+        <th>订单量(单)</th>
+        <th>净销售额(下单)</th>
+        <th>商品成本</th>
+        <th>平台费用</th>
+        <th>毛利润(结算)</th>
+        <th>毛利率(结算)</th>
+        <th style="text-align:right">销售额占比</th>
+      </tr></thead>
+      <tbody>
+        ${top10.map((r,i)=>rowHTML(r,i+1)).join('')}
+        ${rest.map((r,i)=>rowHTML(r,i+11,'sku-rest hidden')).join('')}
+      </tbody>
+    </table></div>
+    ${rest.length?`<div style="margin-top:10px;text-align:center">
+      <button id="skuToggle" style="background:var(--card2);border:1px solid var(--line);color:var(--sub);padding:8px 20px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:12px;transition:.2s">展开剩余 ${rest.length} 条 ▼</button>
+    </div>`:''}
+    <div style="margin-top:14px;font-size:12px;color:var(--sub);line-height:1.9">
+      · <b style="color:var(--blue,#6ea8fe)">销量/订单量/净销售额=下单口径（即时，与领星后台排行榜一致，剔除已取消）</b>；成本/费用/毛利=已结算口径（滞后7-10天）<br>
+      · 亚马逊下单指标走 asinDailyLists（type=1净销售额/2销量/3订单量），利润走 get_profit_report_msku；独立站/Shopee 走 finance_settlement_profit_list<br>
+      · 展示 Top 20 SKU（按毛利降序，未结算品沉底）｜ 占比 = 该 SKU 下单净销售额 / 店铺下单净销售额<br>
+      · 显示"待结算"= 当天已下单但尚未结算，毛利将在结算后体现（近几天属正常现象）<br>
+      · 产品主图来源：亚马逊主图 / Shopify CDN / Shopee CDN<br>
+      · <b class="r">头程运费未计入；独立站 Shopify 手续费未录入，利润率虚高 3-5pp</b><br>
+      · SKU构成用于经营决策"有的放矢"，把重心花在该花的地方
+    </div>
+  </div>`;
+}
+
+// 图片加载失败降级
+function skuImgErr(el){
+  const d = document.createElement('div');
+  d.className = 'sku-ph'; d.textContent = '无图';
+  el.parentNode.replaceWith(d);
+}
+
+// SKU 区块交互：启动时绑定一次的事件委托，panel 被整体重渲染也不失效，
+// 且不依赖 render 回调链（避免回调链前序步骤抛错导致按钮“死掉”）
+document.addEventListener('click', e => {
+  const chip = e.target.closest('[data-skup]');
+  if(chip){ curSkuPlatform = chip.dataset.skup; render(curPeriod); return; }
+  const btn = e.target.closest('#skuToggle');
+  if(btn){
+    const rows = document.querySelectorAll('tr.sku-rest');
+    if(!rows.length) return;
+    const hidden = rows[0].classList.contains('hidden');
+    rows.forEach(r=>r.classList.toggle('hidden', !hidden));
+    btn.textContent = hidden ? '收起 ▲' : `展开剩余 ${rows.length} 条 ▼`;
+  }
 });
 
-// 已记住则直接进导航
-if(checkAuth()) showNav();
+// ========== 图表 tooltip ==========
+function bindChartTips(){
+  const tip = document.getElementById('donutTip');
+  if(!tip) return;
+  document.querySelectorAll('.donut-seg').forEach(seg=>{
+    seg.addEventListener('mousemove', e=>{
+      tip.innerHTML = `<b style="color:${seg.getAttribute('stroke')}">${seg.dataset.name}</b><br>金额：${seg.dataset.val} JPY<br>占比：${seg.dataset.pct}%`;
+      tip.classList.add('on');
+      tip.style.left = (e.pageX+12)+'px';
+      tip.style.top = (e.pageY+12)+'px';
+    });
+    seg.addEventListener('mouseleave', ()=>tip.classList.remove('on'));
+  });
+}
+
+// ========== 表格排序 ==========
+function bindSort(){
+  document.querySelectorAll('th.sort').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      const col = th.dataset.col;
+      if(sortCol===col) sortDir = sortDir==='asc'?'desc':'asc';
+      else { sortCol=col; sortDir='desc'; }
+      render(curPeriod);
+    });
+  });
+}
+
+// ========== 筛选器 ==========
+function bindFilters(){
+  document.querySelectorAll('.chip[data-p]').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const p = chip.dataset.p;
+      if(filterPlatforms.has(p)) filterPlatforms.delete(p);
+      else filterPlatforms.add(p);
+      render(curPeriod);
+    });
+  });
+  document.querySelectorAll('.metric-switch button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      curMetric = btn.dataset.m;
+      render(curPeriod);
+    });
+  });
+}
+
+// ========== Tab 切换 ==========
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');
+  render(t.dataset.p);
+}));
+
+render('today');
 </script>
 </body>
 </html>
