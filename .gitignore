@@ -4,3 +4,6 @@ rakuten-raw/
 coupang-raw/
 calibration-inbound/
 secrets/
+
+node_modules/
+_tmall/

@@ -29,6 +29,16 @@ const COMMISSION_RATE = 0.108;
 const num = v => Number(v) || 0;
 const r2  = v => Math.round(num(v) * 100) / 100;
 
+// ---------- 参数解析（--key=value） ----------
+const argv = {};
+process.argv.slice(2).forEach(a => {
+  if (!a.startsWith('--')) return;
+  const body = a.slice(2);
+  const i = body.indexOf('=');
+  if (i < 0) argv[body] = true;
+  else argv[body.slice(0, i)] = body.slice(i + 1);
+});
+
 // ---------- 读取领星原始数据（取目录下最新一对） ----------
 function latestRaw(prefix) {
   const f = fs.readdirSync(RAWDIR).filter(x => x.startsWith(prefix) && x.endsWith('.json'))
@@ -118,12 +128,26 @@ for (const r of volRaw.statisticsList) {
 const products = [...byCode.values()];
 console.log('merged products: ' + products.length);
 
-// ---------- 三周期聚合 ----------
+// ---------- 三周期聚合（动态日期，与 build-crossborder.js 对齐：today=T-1, week=[T-7,T-1], month=[月初,T-1]） ----------
+const _now = new Date();
+const _pad = n => String(n).padStart(2, '0');
+const iso = d => `${d.getFullYear()}-${_pad(d.getMonth() + 1)}-${_pad(d.getDate())}`;
+const ANCHOR = argv.anchor ? new Date(argv.anchor + 'T12:00:00') : _now; // 历史补录锚点
+const T1 = new Date(ANCHOR); T1.setDate(T1.getDate() - 1);
+const MS = new Date(ANCHOR.getFullYear(), ANCHOR.getMonth(), 1);
+const WS = new Date(ANCHOR); WS.setDate(WS.getDate() - 7);
 const PERIODS = {
-  month: ['2026-09-01', '2026-09-29'],
-  week: ['2026-09-23', '2026-09-29'],
-  today: ['2026-09-29', '2026-09-29'],
+  month: [iso(MS), iso(T1)],
+  week: [iso(WS), iso(T1)],
+  today: [iso(T1), iso(T1)],
 };
+// 周期重定向（补录历史用，如 --map=month:lastMonth,week:lastWeek,today:yesterday）
+const MAP = {};
+(argv.map || '').split(',').forEach(x => { const [a, b] = x.split(':'); if (a && b) MAP[a] = b; });
+// 显式周期覆盖 --ranges=month:2026-09-01:2026-09-30,...（补录历史用，优先级最高）
+const RANGES = {};
+(argv.ranges || '').split(',').forEach(x => { const [p, s, e] = x.split(':'); if (p && s && e) RANGES[p] = [s, e]; });
+for (const [p, se] of Object.entries(RANGES)) PERIODS[p] = se;
 const stamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 const summary = [];
 
@@ -157,8 +181,9 @@ for (const [p, [s, e]] of Object.entries(PERIODS)) {
   const knownQty = qty - unknownQty.v;
   const coverage = qty ? r2(knownQty / qty * 100) : null;
 
-  if (!D[p].settlement) D[p].settlement = {};
-  D[p].settlement['韩国-Coupang'] = {
+  const dst = MAP[p] || p;
+  if (!D[dst].settlement) D[dst].settlement = {};
+  D[dst].settlement['韩国-Coupang'] = {
     currency: 'KRW',
     qty,
     refundVol: 0,

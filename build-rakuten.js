@@ -40,8 +40,23 @@ process.argv.slice(2).forEach(a => {
   if (i < 0) argv[body] = true;
   else argv[body.slice(0, i)] = body.slice(i + 1);
 });
-const START   = argv.start || '2026-09-01';
-const END     = argv.end   || '2026-09-29';
+// 动态日期（与 build-crossborder.js 周期口径对齐：today=T-1, week=[T-7,T-1], month=[月初,T-1]）
+const _now = new Date();
+const _pad = n => String(n).padStart(2, '0');
+const iso = d => `${d.getFullYear()}-${_pad(d.getMonth() + 1)}-${_pad(d.getDate())}`;
+const ANCHOR = argv.anchor ? new Date(argv.anchor + 'T12:00:00') : _now; // 历史补录锚点（以该日为"今天"算周期）
+const T1 = new Date(ANCHOR); T1.setDate(T1.getDate() - 1);              // T-1
+const MS = new Date(ANCHOR.getFullYear(), ANCHOR.getMonth(), 1);          // 本月月初
+const WS = new Date(ANCHOR); WS.setDate(WS.getDate() - 7);              // T-7
+const RANGE_START = (WS < MS ? WS : MS);                              // 拉数下限：月初与T-7取更早
+const START   = argv.start || iso(RANGE_START);
+const END     = argv.end   || iso(T1);
+// 周期重定向（补录历史用，如 --map=month:lastMonth,week:lastWeek,today:yesterday）
+const MAP = {};
+(argv.map || '').split(',').forEach(x => { const [a, b] = x.split(':'); if (a && b) MAP[a] = b; });
+// 显式周期覆盖 --ranges=month:2026-09-01:2026-09-30,week:...:...,today:...:...（补录历史用，优先级最高）
+const RANGES = {};
+(argv.ranges || '').split(',').forEach(x => { const [p, s, e] = x.split(':'); if (p && s && e) RANGES[p] = [s, e]; });
 const PULLONLY = !!argv.pullOnly;
 const PERIODS = (argv.periods || 'today,week,month').split(',');
 
@@ -252,9 +267,9 @@ function orderLines(o) {
   const bucketOf = {};
   for (const p of PERIODS) {
     if (!D[p]) { console.warn('[skip] period missing: ' + p); continue; }
-    const [s, e] = p === 'month' ? ['2026-09-01', '2026-09-29']
-      : p === 'week' ? ['2026-09-23', '2026-09-29']
-      : ['2026-09-29', '2026-09-29'];
+    const [s, e] = RANGES[p] || (p === 'month' ? [iso(MS), iso(T1)]
+      : p === 'week' ? [iso(WS), iso(T1)]
+      : [iso(T1), iso(T1)]);
     bucketOf[p] = { s, e, agg: newAgg() };
   }
   const inRange = (d, s, e) => d && d.slice(0, 10) >= s && d.slice(0, 10) <= e;
@@ -292,7 +307,8 @@ function orderLines(o) {
   const stamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
   const summary = [];
   for (const p of Object.keys(bucketOf)) {
-    if (!D[p].settlement) D[p].settlement = {};
+    const dst = MAP[p] || p;
+    if (!D[dst].settlement) D[dst].settlement = {};
     const a = bucketOf[p].agg;
     const net = a.salesAmount - a.tax;
     const commission = -r2(net * COMMISSION_RATE);
@@ -306,7 +322,7 @@ function orderLines(o) {
     const knownQty = totalQty - a.unknownQty;
     const coverage = totalQty ? r2(knownQty / totalQty * 100) : null;
 
-    D[p].settlement['日本-乐天'] = {
+    D[dst].settlement['日本-乐天'] = {
       currency: 'JPY',
       qty: a.qty,
       orderCount: a.orderCount,
