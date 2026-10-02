@@ -24,7 +24,7 @@ const path = require('path');
 
 const RAWDIR = path.join(__dirname, 'coupang-raw');
 const DATAP  = 'f:/ai agent/operation_data.json';
-const COMMISSION_RATE = 0.108;
+const COMMISSION_RATE = 0.135;
 
 const num = v => Number(v) || 0;
 const r2  = v => Math.round(num(v) * 100) / 100;
@@ -205,7 +205,7 @@ for (const [p, [s, e]] of Object.entries(PERIODS)) {
     profit,
     margin: margin + '%',
     feeEstimated: true,
-    feeNote: '佣金按10.8%估算(판매수수료运动户外档)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准',
+    feeNote: '佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准',
     costCoveragePct: coverage,
     unknownKeys: uk,
     generatedAt: stamp,

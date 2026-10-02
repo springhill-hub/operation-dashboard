@@ -65,7 +65,7 @@ const RAWDIR  = path.join(__dirname, 'rakuten-raw');
 const DATAP   = argv.dataPath ? path.resolve(argv.dataPath) : 'f:/ai agent/operation_data.json';
 const HOST    = 'api.rms.rakuten.co.jp';
 const PROXY   = process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://127.0.0.1:7892';
-const COMMISSION_RATE = 0.045;
+const COMMISSION_RATE = 0.105;
 
 const num = v => Number(v) || 0;
 const r2  = v => Math.round(num(v) * 100) / 100;
@@ -154,11 +154,12 @@ async function pullOrders(start, end) {
 // ---------- 日亚 JPY 单位成本表 ----------
 function jpyCostTable(D) {
   const map = {};
-  for (const p of ['month', 'week', 'today']) {
+  // lastMonth 优先：全结算完整月成本最全；month/today 下单口径改造后含 cost=null/0 的行需跳过
+  for (const p of ['lastMonth', 'month', 'week', 'today']) {
     const a = D[p] && D[p].amazonJP;
     if (!a || !Array.isArray(a.skuDetail)) continue;
     for (const r of a.skuDetail) {
-      if (!r.msku || !r.qty) continue;
+      if (!r.msku || !r.qty || !r.cost) continue;   // 跳过 cost 为 null/0（无成本信息）
       const u = num(r.cost) / num(r.qty);
       if (map[r.msku] == null) map[r.msku] = u;
     }
@@ -347,7 +348,7 @@ function orderLines(o) {
       profit,
       margin,
       feeEstimated: true,
-      feeNote: '佣金按4.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含',
+      feeNote: '佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含',
       costCoveragePct: coverage,
       unknownKeys,
       cashSettlement: r2(a.cashNet),
