@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>春山户外 · 品牌资产</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2333;--line:#30363d;--txt:#e6edf3;--sub:#8b949e;--fire:#ff7a3c;--gold:#f5c66a;--green:#4cc38a;--red:#e5534b;--blue:#6ea8fe;--purple:#bc8cff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+.sys-nav{display:flex;align-items:center;gap:12px;padding:8px 20px;background:#161b22;border-bottom:1px solid var(--line);font-size:13px;position:sticky;top:0;z-index:999;flex-wrap:wrap}
+.sys-nav a{color:var(--sub);text-decoration:none;padding:6px 14px;border-radius:6px;transition:.2s}
+.sys-nav a:hover{color:var(--txt);background:var(--card2)}
+.sys-nav a.on{color:var(--fire);background:rgba(255,122,60,.1)}
+.sys-nav .sp{flex:1}.sys-nav .brand{font-weight:700;color:var(--fire)}
+header{margin-bottom:24px}
+h1{font-size:22px;letter-spacing:1px}
+h1 small{display:block;font-size:11px;color:var(--sub);letter-spacing:3px;font-weight:400;margin-top:3px}
+.date-badge{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--sub);margin-top:8px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.sec h2{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec h2::before{content:"";width:3px;height:14px;background:var(--fire);border-radius:2px}
+.sec h2 .tag{font-size:11px;color:var(--sub);margin-left:auto;font-weight:400}
+/* 愿景锚点 */
+.anchor{background:linear-gradient(135deg,rgba(255,122,60,.12),rgba(245,198,106,.06));border:1px solid rgba(255,122,60,.4);border-radius:12px;padding:24px;margin-bottom:16px}
+.anchor .vision{font-size:20px;font-weight:700;line-height:1.5}
+.anchor .vision em{color:var(--fire);font-style:normal}
+.anchor .rule{margin-top:12px;font-size:14px;color:var(--gold);line-height:1.7}
+.anchor .meta{margin-top:10px;font-size:12px;color:var(--sub)}
+/* 事实基线 */
+.facts{font-size:13px;line-height:1.9;color:var(--txt)}
+.facts li{margin-left:18px;margin-bottom:4px}
+.facts .warn{color:var(--red)}
+.facts .dim{color:var(--sub)}
+/* 账户卡片 */
+.acct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.acct{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:16px}
+.acct .no{font-size:11px;color:var(--fire);font-weight:700;letter-spacing:1px}
+.acct h3{font-size:15px;margin:6px 0 8px}
+.acct .sp-way{font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:8px}
+.acct .now{font-size:12px;color:var(--gold);line-height:1.6;margin-bottom:8px}
+.acct .move{font-size:12px;color:var(--green);line-height:1.6}
+.acct .lbl{font-weight:600}
+/* 种子品 */
+.seed{display:flex;gap:16px;align-items:flex-start;background:var(--card2);border:1px solid rgba(255,122,60,.3);border-radius:10px;padding:18px}
+.seed .flame{font-size:34px;line-height:1}
+.seed p{font-size:13px;line-height:1.8;margin-bottom:6px}
+.seed .hyp{color:var(--sub);font-size:12px}
+/* checklist */
+.phase-title{font-size:12px;color:var(--fire);font-weight:700;margin:14px 0 6px;letter-spacing:1px}
+.phase-title:first-child{margin-top:0}
+.check-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-bottom:1px solid #262930;font-size:13.5px}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--fire);cursor:pointer}
+.check-item label{flex:1;cursor:pointer;line-height:1.5}
+.check-item.done label{text-decoration:line-through;color:var(--sub)}
+.check-item .owner{font-size:11px;color:var(--blue);background:rgba(110,168,254,.12);padding:2px 8px;border-radius:4px;white-space:nowrap}
+.check-item .pri{font-size:10px;padding:2px 6px;border-radius:4px}
+.check-item .pri.hi{background:rgba(248,81,73,.2);color:var(--red)}
+.check-item .pri.md{background:rgba(210,153,34,.2);color:var(--gold)}
+.check-item .pri.lo{background:var(--card2);color:var(--sub);border:1px solid var(--line)}
+/* 不做清单 */
+.dont{font-size:13.5px;line-height:2}
+.dont li{margin-left:18px}
+.dont li::marker{color:var(--red)}
+/* 动作日志 */
+.log-form{display:grid;grid-template-columns:130px 1fr;gap:10px;margin-bottom:12px}
+.log-form input,.log-form select,.log-form textarea{background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--txt);padding:9px 11px;font-size:13px;outline:none;font-family:inherit;width:100%}
+.log-form textarea{min-height:64px;resize:vertical}
+.log-form label{font-size:12px;color:var(--sub);align-self:center}
+.log-row-full{grid-column:1/3}
+button.act{background:var(--fire);border:none;border-radius:6px;color:#fff;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer}
+button.sec-btn{background:var(--green);border:none;border-radius:6px;color:#fff;padding:9px 16px;font-size:13px;cursor:pointer}
+button.ghost{background:var(--card2);border:1px solid var(--line);border-radius:6px;color:var(--sub);padding:8px 12px;font-size:12px;cursor:pointer}
+.log-item{background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:8px;padding:14px;margin-bottom:10px}
+.log-item.done-crit{border-left-color:var(--green)}
+.log-item.pending{border-left-color:var(--gold)}
+.log-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.log-date{font-size:12px;color:var(--sub);font-family:'SF Mono',monospace}
+.log-acct{font-size:11px;padding:2px 8px;border-radius:4px;background:rgba(188,140,255,.15);color:var(--purple)}
+.log-status{font-size:11px;padding:2px 8px;border-radius:4px;margin-left:auto}
+.log-status.pending{background:rgba(245,198,106,.15);color:var(--gold)}
+.log-status.done{background:rgba(76,195,138,.15);color:var(--green)}
+.log-action{font-size:13.5px;line-height:1.6}
+.log-expect{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.6}
+.log-crit{font-size:12.5px;color:var(--green);background:rgba(76,195,138,.08);border-radius:6px;padding:8px 10px;margin-top:8px;line-height:1.7;white-space:pre-wrap}
+.log-ops{margin-top:8px;display:flex;gap:8px}
+.log-ops textarea{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--txt);padding:7px 10px;font-size:12px;min-height:44px;font-family:inherit}
+.note{font-size:12px;color:var(--sub);line-height:1.8;padding:12px;background:var(--card2);border-radius:8px;margin-top:12px}
+.empty{font-size:13px;color:var(--sub);padding:16px;text-align:center}
+@media(max-width:640px){.log-form{grid-template-columns:1fr}.log-row-full{grid-column:auto}.seed{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="sys-nav">
+  <span class="brand">春山户外 · 智能经营中枢</span>
+  <a href="portal.html">门户</a>
+  <a href="dashboard.html">外盘</a>
+  <a href="domestic.html">内盘</a>
+  <a href="inventory.html">库存</a>
+  <a href="daily.html">简报</a>
+  <a href="weekly.html">周策划</a>
+  <a href="brand.html" class="on">品牌</a>
+  <div class="sp"></div>
+  <a href="#" onclick="localStorage.removeItem('chunshan_auth');location.href='portal.html'" style="font-size:12px">退出</a>
+</div>
+
+<div class="wrap">
+<header>
+  <h1>品牌资产<small>BRAND EQUITY · 向 Snow Peak 长去</small></h1>
+  <div class="date-badge">方向确立 2026-10-03 ｜ 慢慢来，先有方向再谈未来</div>
+</header>
+
+<!-- 愿景锚点 -->
+<div class="anchor">
+  <div class="vision">春山的目标：成为像<em>日本 Snow Peak（雪峰）</em>一样的公司。</div>
+  <div class="rule">Critic 每日一问：<b>这件事，是在给"春山"两个字存钱，还是只是在赚一笔钱？</b></div>
+  <div class="meta">从此所有战略决策的 reward function 从该锚点向下传导；GMV/毛利率降级为"活下去的约束"，不再是终局目标。品牌资产每天在无声计息——扩张可以慢，信任积累不能拖。</div>
+</div>
+
+<!-- Snow Peak 事实基线 -->
+<div class="sec">
+  <h2>Snow Peak 事实基线 <span class="tag">2026-10-03 联网核实</span></h2>
+  <ul class="facts">
+    <li>1958 年创立于新潟县燕三条，硬核登山装备起家；使命「人間性の回復」，哲学=野遊び</li>
+    <li>五层模式：①Snow Peak Way 品牌社区 ②终身保修·经典SKU数十年不换代 ③直营店+自营营地+餐饮 ④装备→服饰→家居延展 ⑤家族三代长期主义组织</li>
+    <li class="warn">周期真相：FY2023 露营退潮，销售额 -16.4% 至 257 亿日元，归母净利仅 100 万日元（-99.9%）；2024 年私有化退市；FY2025 销售额约 241 亿日元（≈11亿人民币）——慢、重、周期底部利润可归零</li>
+    <li class="warn">竞争预警：2026年6月 Snow Peak 签约比音勒芬主导中国大陆运营，目标10年50亿、2026年底11+直营店</li>
+    <li class="dim">春山的现实题：中国卖家在日本做高端，文化势能逆势；100% 平台用户、无自有用户关系——独立站是品牌主战场而非补充渠道</li>
+  </ul>
+</div>
+
+<!-- 四个资产账户 -->
+<div class="sec">
+  <h2>四个品牌资产账户</h2>
+  <div class="acct-grid">
+    <div class="acct">
+      <div class="no">账户 ①</div>
+      <h3>产品资产</h3>
+      <div class="sp-way"><span class="lbl">雪峰：</span>经典品几十年不换代、可维修、可传家</div>
+      <div class="now"><span class="lbl">现状：</span>有主推/维护/清仓三层，缺"常青层"</div>
+      <div class="move"><span class="lbl">动作：</span>选定种子常青品并冻结清仓选项；新品强制模块化、为维修而设计</div>
+    </div>
+    <div class="acct">
+      <div class="no">账户 ②</div>
+      <h3>承诺资产</h3>
+      <div class="sp-way"><span class="lbl">雪峰：</span>终身保修，忠诚在维修工厂里诞生</div>
+      <div class="now"><span class="lbl">现状：</span>零件体系在规划，无公开承诺</div>
+      <div class="move"><span class="lbl">动作：</span>先跑通维修SOP+成本模型，再公开喊保修年限——顺序反了就是炎上素材</div>
+    </div>
+    <div class="acct">
+      <div class="no">账户 ③</div>
+      <h3>关系资产</h3>
+      <div class="sp-way"><span class="lbl">雪峰：</span>用户全在自己手里（直营/营地 DTC）</div>
+      <div class="now"><span class="lbl">现状：</span>100% 平台用户，亚马逊买家不是你的人</div>
+      <div class="move"><span class="lbl">动作：</span>延保注册做钩子，包装日文卡→独立站注册→平台用户转直连</div>
+    </div>
+    <div class="acct">
+      <div class="no">账户 ④</div>
+      <h3>叙事资产</h3>
+      <div class="sp-way"><span class="lbl">雪峰：</span>燕三条、山井家族、68年正统</div>
+      <div class="now"><span class="lbl">现状：</span>"中国制造"在日本高端区间信任为负</div>
+      <div class="move"><span class="lbl">动作：</span>不编历史，用具体的人破墙——打样/风洞/防水测试纪录、产品编号刻字、制造者署名</div>
+    </div>
+  </div>
+</div>
+
+<!-- 种子常青品 -->
+<div class="sec">
+  <h2>春山的"钛杯"假设 <span class="tag">假设·待王泉斐拍板</span></h2>
+  <div class="seed">
+    <div class="flame">🔥</div>
+    <div>
+      <p><b>候选：祝融卡式炉 / 观火灯炉。</b>钛杯的本质是「高频入口 × 耐用传家 × 强视觉符号」——火是露营的情绪中心与夜晚视觉焦点，天然品牌图腾；金属工艺感强、入门价几百元、可用十年。产品线命名「祝融」本身已经对了。</p>
+      <p class="hyp">帐篷（轩辕/昆仑）是门面不是入口：高客单、低频、有季节性。此为 Critic 假设而非结论，待真实复购与用户内容数据验证。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 0-6个月行动清单 -->
+<div class="sec">
+  <h2>0–6 个月行动清单 <span class="tag">模板 GitHub 同步 · 勾选本地持久化</span></h2>
+  <div id="actionList">加载中...</div>
+  <div class="note">原则：只做这三件事——①维修跑通 ②触点标准化 ③延保漏斗，全部复用现有计划，不新增编制、不花品牌广告费。勾选状态保存在本机浏览器，不按日重置。</div>
+</div>
+
+<!-- 不做清单 -->
+<div class="sec">
+  <h2>明确不做清单 <span class="tag">防止资产被提前透支</span></h2>
+  <ul class="dont">
+    <li>不投纯形象广告，不开日本直营店/自营营地（承诺资产没建好前，重资产只会放大问题）</li>
+    <li>不做与户外无关的流量联名</li>
+    <li>售后没跑通前，绝不在页面写"终身保修"</li>
+    <li>不为短期清仓伤害常青品价格体系（雪峰也打折，但经典款价格从不崩）</li>
+    <li>平台铺货可以继续赚现金流，但不把它自我感动为"在成为 Snow Peak"</li>
+  </ul>
+</div>
+
+<!-- 动作日志：给AI指正 -->
+<div class="sec">
+  <h2>动作日志 · 寄给 Critic 指正 <span class="tag">你写动作，我判存钱/取钱</span></h2>
+  <div class="log-form">
+    <label>日期</label>
+    <input type="date" id="logDate">
+    <label>对应账户</label>
+    <select id="logAcct">
+      <option>产品资产</option>
+      <option>承诺资产</option>
+      <option>关系资产</option>
+      <option>叙事资产</option>
+      <option>其他经营动作</option>
+    </select>
+    <label>我做了什么</label>
+    <textarea id="logAction" placeholder="例：给祝融老用户群发了配件8折券 / 决定轩辕双11打7折清库存 / 在日亚页面加了3年保修字样……"></textarea>
+    <label>我赌它存入什么</label>
+    <input type="text" id="logExpect" placeholder="可选：我认为这个动作在存什么（复购？信任？还是纯冲销量？）">
+    <div class="log-row-full" style="display:flex;gap:10px">
+      <button class="act" onclick="addLog()">➕ 记入日志</button>
+      <button class="sec-btn" onclick="copyForCritic()">📋 复制待指正动作给 AI</button>
+    </div>
+  </div>
+  <div id="logList"></div>
+  <div class="note">用法：做了与品牌相关的动作就随手记一条 → 点「复制待指正动作给 AI」发给我 → 我以 Snow Peak 锚点逐条判"存钱/取钱/中性"并给依据 → 你把我的结论回填到该条，闭环。数据存本机浏览器，清缓存会丢，重要结论我会同步进长期记忆。</div>
+</div>
+
+</div>
+
+<script>
+// ---------- 行动清单：远程模板 + localStorage（不按日重置） ----------
+const AC_KEY = 'chunshan_brand_actions';
+function loadActions(){
+  fetch('brand-actions.json?v='+Date.now())
+    .then(r=>r.json())
+    .then(remote=>{
+      const local = JSON.parse(localStorage.getItem(AC_KEY) || '{}');
+      const merged = remote.map(t=>({...t, done: local[t.id] || false}));
+      localStorage.setItem(AC_KEY, JSON.stringify(Object.fromEntries(merged.map(t=>[t.id,t.done]))));
+      renderActions(merged);
+    })
+    .catch(()=>{ document.getElementById('actionList').innerHTML='<div class="empty">行动模板加载失败</div>'; });
+}
+function renderActions(tasks){
+  const el = document.getElementById('actionList');
+  let html = '', lastPhase = '';
+  tasks.forEach((t,i)=>{
+    if(t.phase !== lastPhase){ html += `<div class="phase-title">${t.phase}</div>`; lastPhase = t.phase; }
+    html += `<div class="check-item ${t.done?'done':''}">
+      <input type="checkbox" ${t.done?'checked':''} onchange="toggleAction('${t.id}',this.checked)">
+      <label>${t.text}</label>
+      <span class="owner">${t.owner||''}</span>
+      <span class="pri ${t.pri}">${t.pri==='hi'?'高':t.pri==='md'?'中':'低'}</span>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+function toggleAction(id,checked){
+  const local = JSON.parse(localStorage.getItem(AC_KEY) || '{}');
+  local[id] = checked;
+  localStorage.setItem(AC_KEY, JSON.stringify(local));
+  loadActions();
+}
+loadActions();
+
+// ---------- 动作日志 ----------
+const LOG_KEY = 'chunshan_brand_log';
+let logs = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+document.getElementById('logDate').value = new Date().toISOString().slice(0,10);
+
+function addLog(){
+  const action = document.getElementById('logAction').value.trim();
+  if(!action){ alert('先写动作内容'); return; }
+  logs.unshift({
+    id: 'log_'+Date.now(),
+    date: document.getElementById('logDate').value,
+    acct: document.getElementById('logAcct').value,
+    action,
+    expect: document.getElementById('logExpect').value.trim(),
+    crit: '',
+    ts: Date.now()
+  });
+  saveLogs();
+  document.getElementById('logAction').value='';
+  document.getElementById('logExpect').value='';
+}
+function saveLogs(){
+  localStorage.setItem(LOG_KEY, JSON.stringify(logs));
+  renderLogs();
+}
+function delLog(id){
+  if(!confirm('删除这条记录？')) return;
+  logs = logs.filter(l=>l.id!==id);
+  saveLogs();
+}
+function saveCrit(id){
+  const v = document.getElementById('crit_'+id).value.trim();
+  const l = logs.find(x=>x.id===id);
+  if(l){ l.crit = v; saveLogs(); }
+}
+function renderLogs(){
+  const el = document.getElementById('logList');
+  if(!logs.length){ el.innerHTML = '<div class="empty">还没有动作记录。做了与品牌相关的事，就记一条。</div>'; return; }
+  el.innerHTML = logs.map(l=>`
+    <div class="log-item ${l.crit?'done-crit':'pending'}">
+      <div class="log-head">
+        <span class="log-date">${l.date}</span>
+        <span class="log-acct">${l.acct}</span>
+        <span class="log-status ${l.crit?'done':'pending'}">${l.crit?'已指正':'待指正'}</span>
+      </div>
+      <div class="log-action">${escapeHtml(l.action)}</div>
+      ${l.expect?`<div class="log-expect">我的假设：${escapeHtml(l.expect)}</div>`:''}
+      ${l.crit?`<div class="log-crit">Critic：${escapeHtml(l.crit)}</div>`:''}
+      <div class="log-ops">
+        <textarea id="crit_${l.id}" placeholder="${l.crit?'':''}">${l.crit?escapeHtml(l.crit):''}</textarea>
+        <button class="ghost" onclick="saveCrit('${l.id}')">存指正</button>
+        <button class="ghost" onclick="delLog('${l.id}')">删</button>
+      </div>
+    </div>`).join('');
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function copyForCritic(){
+  const pending = logs.filter(l=>!l.crit);
+  if(!pending.length){ alert('没有待指正的新动作'); return; }
+  const body = pending.map((l,i)=>`${i+1}. [${l.date}｜${l.acct}] ${l.action}${l.expect?`\n   我的假设：${l.expect}`:''}`).join('\n\n');
+  const full = `【春山户外 · 品牌资产动作，请 Critic 指正】\n愿景锚点：成为像日本 Snow Peak 一样的公司。\n请逐条判定每个动作是在给"春山"存钱 / 取钱 / 中性，给依据与修正建议；如该动作有更优替代做法也请指出。\n\n${body}`;
+  navigator.clipboard.writeText(full).then(()=>alert('已复制 '+pending.length+' 条待指正动作，粘贴给我即可'));
+}
+renderLogs();
+</script>
+</body>
+</html>
