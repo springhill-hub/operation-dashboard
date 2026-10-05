@@ -120,6 +120,20 @@ button.ghost{background:var(--card2);border:1px solid var(--line);border-radius:
   <div class="meta">从此所有战略决策的 reward function 从该锚点向下传导；GMV/毛利率降级为"活下去的约束"，不再是终局目标。品牌资产每天在无声计息——扩张可以慢，信任积累不能拖。</div>
 </div>
 
+<!-- 品牌口径 v3.1 -->
+<div class="sec">
+  <h2>春山品牌口径 v3.1 <span class="tag">2026-10-05 王泉斐定稿</span></h2>
+  <ul class="facts">
+    <li><b>宣传口号：</b>走～去山里　<small>（日：行こう、山へ。／与 GOOOUT 互文，口号与 logo 分离呈现）</small></li>
+    <li><b>心智定位：</b>好看、好用、值　<small>（广告版：好看得敢带上山，值这个价不心疼带走；对客禁用"便宜/买得起"）</small></li>
+    <li><b>产品定位：</b>山系工业风　｜　<b>设计理念（对内）：</b>以有序，致无界</li>
+    <li><b>使命：</b>造好装备，让每个人都能轻松走进自然</li>
+    <li><b>愿景：</b>让自然融入生活</li>
+    <li><b>理念：</b>自知、自在，向内求（自然不是逃口，是生活的底色）</li>
+    <li class="dim">内容栏目《进山的人》｜社区暗号 #山里见｜信任状：东西稳、价稳、人稳。唯一上位口径见《春山户外品牌屋 v3.1》</li>
+  </ul>
+</div>
+
 <!-- Snow Peak 事实基线 -->
 <div class="sec">
   <h2>Snow Peak 事实基线 <span class="tag">2026-10-03 联网核实</span></h2>
@@ -349,7 +363,7 @@ function copyForCritic(){
   const pending = logs.filter(l=>!l.crit);
   if(!pending.length){ alert('没有待指正的新动作'); return; }
   const body = pending.map((l,i)=>`${i+1}. [${l.date}｜${l.acct}] ${l.action}${l.expect?`\n   我的假设：${l.expect}`:''}`).join('\n\n');
-  const full = `【春山户外 · 品牌资产动作，请 Critic 指正】\n愿景锚点：成为像日本 Snow Peak 一样的公司。\n请逐条判定每个动作是在给"春山"存钱 / 取钱 / 中性，给依据与修正建议；如该动作有更优替代做法也请指出。\n\n${body}`;
+  const full = `【春山户外 · 品牌资产动作，请 Critic 指正】\n品牌口径 v3.1：口号"走～去山里"；心智"好看、好用、值"；产品定位山系工业风；使命"造好装备，让每个人都能轻松走进自然"；愿景"让自然融入生活"。长期对标 Snow Peak。\n请逐条判定每个动作是在给"春山"存钱 / 取钱 / 中性，是否符合品牌口径，给依据与修正建议；如该动作有更优替代做法也请指出。\n\n${body}`;
   navigator.clipboard.writeText(full).then(()=>alert('已复制 '+pending.length+' 条待指正动作，粘贴给我即可'));
 }
 renderLogs();
