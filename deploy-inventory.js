@@ -59,7 +59,14 @@ try {
 } catch (e) {
   const today = new Date().toISOString().slice(0, 10);
   sh(`git commit -m "库存看板刷新 ${today}"`);
-  sh('git pull --rebase origin main');
+  // 服务器工作区可能有其他脚本的未提交改动，rebase失败时自动stash
+  try {
+    sh('git pull --rebase origin main');
+  } catch (e) {
+    sh('git stash push -m "deploy-inventory-auto"');
+    sh('git pull --rebase origin main');
+    try { sh('git stash pop'); } catch (e2) { console.log('  [WARN] stash pop冲突，已保留在stash中'); }
+  }
   sh('git push origin main');
   console.log('[GIT] 已提交并推送 origin main');
 }
