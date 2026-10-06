@@ -54,8 +54,9 @@ const LarkDocUrl = 'https://scnnkf4b8hxl.feishu.cn/docx/HLvidGwVroPZRxxjngdclO2S
 
 const GIT_FILES = ['index.html', 'widget.html', 'dashboard.html', 'deploy-dashboard.js',
   'daily-refresh.sh', 'portal.html', 'build-crossborder.js', 'build-shopee.js',
-  'build-msku-cost.js', 'build-rakuten.js', 'build-coupang.js', 'msku-cost.json', '.gitignore',
-  'operation_data.json'];
+  'build-msku-cost.js', 'build-rakuten.js', 'build-coupang.js',
+  'pull-coupang.js', 'pull-shopee.js',
+  'msku-cost.json', '.gitignore', 'operation_data.json'];
 
 const step = m => console.log(`\n[STEP] ${m}`);
 const ok = m => console.log(`  [OK] ${m}`);
