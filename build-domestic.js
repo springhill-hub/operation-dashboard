@@ -16,10 +16,11 @@
  * ============================================================ */
 const fs = require('fs');
 const path = require('path');
-const { callApi } = require(path.join('f:', 'ai agent', 'jst_api.js'));
+const ROOT = process.env.CS_ROOT || 'f:/ai agent';
+const { callApi } = require(path.join(ROOT, 'jst_api.js'));
 
 const DAYS = Number((process.argv.find(a => a.startsWith('--days=')) || '--days=60').split('=')[1]) || 60;
-const OUT  = (process.argv.find(a => a.startsWith('--out=')) || '').split('=')[1] || 'f:/ai agent/domestic_data.json';
+const OUT  = (process.argv.find(a => a.startsWith('--out=')) || '').split('=')[1] || path.join(ROOT, 'domestic_data.json');
 const PAGE = 200;
 
 const r2 = v => Math.round((Number(v) || 0) * 100) / 100;
@@ -199,36 +200,48 @@ function periodAgg(orders, dateFrom, dateTo) {
 
   // 勾稽：today+…各周期渠道GMV合计 vs totals.gmv
   // ---- 天猫兜底：生意参谋商品排行导出（奇门接口恢复前），货号=SKU，支付口径 ----
-  // 注入 month（月初回看上月整月时）与 lastMonth（整月）两个周期，保证全月可见
+  // 整月导出：注入 lastMonth（及月初回看的 month）；月至今MTD片段：coverage.partial=true，
+  // 只要文件覆盖区间落在周期区间内即注入当月 month，并在 tmallCoverage/meta 标注截止日，防与聚水潭周期口径混淆。
   for (const pk of ['month', 'lastMonth']) {
     const P = data[pk];
     const mKey = P.dateFrom.slice(0, 7);                              // 周期所在月（如 2026-09）
-    const tmallPath = `f:/ai agent/tmall_sales_${mKey}.json`;
-    const monthSpan = P.dateFrom <= `${mKey}-01` && P.dateTo >= `${mKey}-28`; // 周期基本覆盖该整月
+    const tmallPath = path.join(ROOT, `tmall_sales_${mKey}.json`);
     const chExisting = P.channels['天猫/淘宝'];
     const qimenBack = chExisting && chExisting.gmv > 0;                 // 聚水潭已能拉到天猫单 = 奇门恢复，防双算
     if (qimenBack) {
       console.log(`tmall fallback skipped [${pk}]: 聚水潭已含天猫/淘宝订单（奇门已恢复）`);
       continue;
     }
-    if (!(monthSpan && fs.existsSync(tmallPath))) {
-      console.log(`tmall fallback [${pk}]: 无 ${mKey} 导出文件或周期不匹配，跳过`);
+    if (!fs.existsSync(tmallPath)) {
+      console.log(`tmall fallback [${pk}]: 无 ${mKey} 导出文件，跳过`);
       continue;
     }
     const td = JSON.parse(fs.readFileSync(tmallPath, 'utf8'));
+    // 文件覆盖区间：新文件带 coverage（MTD片段）；历史无 coverage 文件按整月处理
+    const mEnd = fmtD(new Date(Number(mKey.slice(0, 4)), Number(mKey.slice(5, 7)), 0));
+    const cov = td.coverage || { dateFrom: `${mKey}-01`, dateTo: mEnd, partial: false };
+    const within = cov.dateFrom >= P.dateFrom && cov.dateTo <= P.dateTo; // 文件区间必须落在周期内
+    if (!within) {
+      console.log(`tmall fallback [${pk}]: 文件覆盖 ${cov.dateFrom}~${cov.dateTo} 不在周期 ${P.dateFrom}~${P.dateTo} 内，跳过`);
+      continue;
+    }
     const t = P.totals;
     const pay = r2(td.totalPayAmt || 0), refund = r2(td.totalRefundAmt || 0), buyers = td.totalBuyers || 0;
     // 净支付口径（2026-10-01 王泉斐确认）：gmv/net 存净支付 = 支付金额 − 成功退款金额；
     // 前端"支付GMV"= gmv+refund 恰等于生意参谋支付金额，"净销售额"= gmv 即净支付，退款率=refund/支付金额
     const gmv = r2(pay - refund);
+    const mtdTag = cov.partial ? `MTD ${cov.dateFrom.slice(5)}~${cov.dateTo.slice(5)}` : '整月';
     P.channels['天猫/淘宝'] = { orders: buyers, gmv, refund, net: gmv };
-    P.shops.push({ shopId: 'sycm-tmall', shop: '天猫gooutspringhill（生意参谋汇总）', channel: '天猫/淘宝', orders: buyers, gmv, refund });
+    P.shops.push({ shopId: 'sycm-tmall', shop: `天猫gooutspringhill（生意参谋${mtdTag}）`, channel: '天猫/淘宝', orders: buyers, gmv, refund });
+    P.tmallCoverage = cov;
     t.gmv = r2(t.gmv + gmv); t.net = r2(t.net + gmv); t.refund = r2(t.refund + refund);
     t.orders += buyers;
     t.aov = t.orders ? r2(t.net / t.orders) : 0;
-    data.meta.tmallFallback = `天猫/淘宝：生意参谋商品排行导出兜底（净支付口径：支付¥${pay}−成功退款¥${refund}=净支付¥${gmv}；件数=${td.totalPayQty}；买家数=${buyers}为商品维度购买人次加总偏高估；成功退款金额为统计期内退款成功口径）；奇门恢复后自动停用`;
-    data.meta.gaps = '京东/微店/拼多多已在聚水潭授权但订单未进入OpenAPI；天猫/淘宝因奇门接口未恢复，走生意参谋导出兜底（净支付口径=支付−退款，月度T+1同步；聚水潭各渠道净销售额未含退货退款，两口径并存已标注）；部分退款(items.refund_qty)与平台佣金未含';
-    console.log(`tmall fallback injected [${pk}]: month=${mKey} pay=${pay} refund=${refund} netPay=${gmv} buyers=${buyers}`);
+    const rangeNote = cov.partial && cov.dateTo < P.dateTo
+      ? `；注意天猫数据仅至${cov.dateTo}（${cov.days}天MTD），周期内其他聚水潭渠道截至${P.dateTo}` : '';
+    data.meta.tmallFallback = `天猫/淘宝：生意参谋商品排行导出兜底（${mtdTag}；净支付口径：支付¥${pay}−成功退款¥${refund}=净支付¥${gmv}；件数=${td.totalPayQty}；买家数=${buyers}为商品维度购买人次加总偏高估；成功退款金额为统计期内退款成功口径${rangeNote}）；整月导出后MTD自动被覆盖；奇门恢复后停用`;
+    data.meta.gaps = '京东/微店/拼多多已在聚水潭授权但订单未进入OpenAPI；天猫/淘宝因奇门接口未恢复，走生意参谋导出兜底（净支付口径=支付−退款；整月T+1同步，月中可MTD更新；聚水潭各渠道净销售额未含退货退款，两口径并存已标注）；部分退款(items.refund_qty)与平台佣金未含';
+    console.log(`tmall fallback injected [${pk}]: ${mtdTag} ${cov.dateFrom}~${cov.dateTo} pay=${pay} refund=${refund} netPay=${gmv} buyers=${buyers}`);
   }
   let ok = true;
   for (const p of ['today', 'yesterday', 'week', 'lastWeek', 'month', 'lastMonth']) {

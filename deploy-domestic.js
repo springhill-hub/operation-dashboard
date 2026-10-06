@@ -20,13 +20,15 @@ const SKIP_GIT = args.has('--skipGit');
 const SKIP_LARK = args.has('--skipLark');
 const REBUILD = args.has('--rebuild');
 
-const ROOT = 'f:/ai agent';
+const ROOT = process.env.CS_ROOT || 'f:/ai agent';
 const DEPLOY = path.join(ROOT, 'deploy');
 const SRC_HTML = path.join(ROOT, '国内经营看板.html');
 const DATA_JSON = path.join(ROOT, 'domestic_data.json');
 const WIDGET = path.join(DEPLOY, 'domestic-widget.html');
 const PAGES = path.join(DEPLOY, 'domestic.html');
-const LARK_CLI = 'C:/Users/DCKJ/.trae-cn/plugins/trae-remote-official/lark/1.0.5/bin/lark-cli.exe';
+const LARK_CLI = process.env.LARK_CLI_BIN || (process.platform === 'win32'
+  ? 'C:/Users/DCKJ/.trae-cn/plugins/trae-remote-official/lark/1.0.5/bin/lark-cli.exe'
+  : 'lark-cli');
 
 // 飞书独立文档（2026-09-29 由 docs +create 创建）
 const LARK_DOC_ID = process.env.DOMESTIC_LARK_DOC_ID || 'AtYWd4f2aoX8rZx40GHcDmiqnG0';

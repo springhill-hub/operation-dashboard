@@ -1,7 +1,9 @@
 /* 将 domestic_data.json 内嵌到 国内经营看板.html 的 DATA-JSON 块（v2：不依赖尾部紧邻） */
 const fs = require('fs');
-const HTMLP = 'f:/ai agent/国内经营看板.html';
-const DATAP = 'f:/ai agent/domestic_data.json';
+const path = require('path');
+const ROOT = process.env.CS_ROOT || 'f:/ai agent';
+const HTMLP = path.join(ROOT, '国内经营看板.html');
+const DATAP = path.join(ROOT, 'domestic_data.json');
 const html = fs.readFileSync(HTMLP, 'utf8');
 const compact = JSON.stringify(JSON.parse(fs.readFileSync(DATAP, 'utf8')));
 const openTag = '<script id="DATA-JSON" type="application/json">';
