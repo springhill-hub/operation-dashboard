@@ -36,6 +36,9 @@ const ALIAS = {
   'BEL-HYSL-E': 'CS-HYSL-JP',         // 幻影IGT桌SOLO（Shopee编码 BEL-HYSL-E）
   'TC-MNBL-Y': 'CS-MNGHBL-JP',        // mini观火壁炉
   'CS-HYZ-PJ-0.5MBX2': 'CS-0.5MB',    // 幻影IGT 0.5单元相思木板*2
+  // —— 独立站-日本 Shopify 变体 local_sku → 日亚主表（2026-10-06 依领星变体中文名+主表同编码确认）
+  'LDL-PL4P-DD': 'LDL-PL4P-DD-BLACK', // 蓬莱澡盆地布黑（主表仅颜色款）
+  'LDL-QZ-ME-3': 'LDL-QZ-ME-3-BLACK', // 昆仑棉布款3.0黑（主表仅-black款）
 };
 
 // Coupang 平台商品ID（领星未映射内部SKU的数字ID行）→ 日亚MSKU

@@ -44,13 +44,86 @@ const PERIODS = {
 };
 
 // key 必须与看板 KNOW 映射一致；feeRate 仅用于独立站估算（领星店铺 rate 字段）
-// skuDetail: shopee=静态成本表可做SKU级(费用待结算)；shopify=领星无商品映射仅整店一行，不出SKU明细
+// skuDetail: shopee=静态成本表可做SKU级(费用待结算)；shopifyJp=Shopify账单明细+在线变体local_sku映射；shopifyIntl=platform_v2已映射MSKU
 const STORES = [
   { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
-  { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
-  { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true,  skuDetail: 'none'  },
+  { id: '1105685284207605760', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
+  { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true,  skuDetail: 'shopifyJp' },
   { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true, skuDetail: 'order' },
 ];
+
+// ===== 独立站-日本：Shopify 账单明细（行级）+ 在线变体 local_sku 映射 =====
+// 领星 platform_v2 对 Shopify 只有整店聚合行；platform_shopify_bill_statement_list 给行级订单
+// 行上 mskuId 实为 Shopify variant_id，经 platform_shopify_variant_list 的 local_sku 反查内部SKU
+let _jpVariants = null;
+async function jpVariantMap(sid) {
+  if (_jpVariants) return _jpVariants;
+  const map = new Map();
+  for (let offset = 0; ; offset += 1000) {
+    const r = await callTool('action', { toolId: 'platform_shopify_variant_list',
+      params: { store_ids: [String(sid)], length: 1000, offset } });
+    const dd = r.data && (r.data.data || r.data);
+    const list = (dd && (dd.list || dd.records)) || [];
+    for (const v of list) {
+      if (v.variant_id) map.set(String(v.variant_id), v);
+    }
+    if (list.length < 1000) break;
+  }
+  _jpVariants = map;
+  return map;
+}
+
+async function pullShopifyJp(sid, start, end) {
+  const vmap = await jpVariantMap(sid);
+  // 行聚合 key(localSku) -> 行；订单计数按 orderId+localSku 去重
+  const rows = new Map();
+  const orderSet = new Set();
+  let billNet = 0, billQty = 0;
+  const flat = [];
+  for (let offset = 0; ; offset += 200) {
+    const r = await callTool('action', { toolId: 'platform_shopify_bill_statement_list',
+      params: { sids: [String(sid)], offset, length: 200, startDate: start, endDate: end, timeType: 2 } });
+    const d = r.data && r.data.data;
+    if (!d) throw new Error('shopify bill 返回异常: ' + JSON.stringify(r).slice(0, 160));
+    const list = Array.isArray(d.list) ? d.list : [];
+    for (const o of list) {
+      flat.push(o);
+      if (Array.isArray(o.children)) flat.push(...o.children);
+    }
+    if (list.length < 200) break;   // list 按 master 订单行分页
+  }
+  const ensure = (code, v) => {
+    if (!rows.has(code)) rows.set(code, {
+      msku: code,
+      name: (v && ((v.title || v.local_name || '') + '')) || '',
+      img: (v && (v.picture_url || v.parent_picture_url)) || '',
+      qty: 0, orders: 0, net: 0, _orders: new Set(),
+    });
+    return rows.get(code);
+  };
+  for (const x of flat) {
+    const isRefund = /退/.test(x.transactionType || '');
+    const sign = isRefund ? -1 : 1;
+    const q = num(isRefund ? (x.refundQuantity ?? x.orderedQuantity) : x.orderedQuantity);
+    // 订单行金额用 itemAmount（折扣前，与 platform_v2 店铺 net 同口径）；退款行只有折扣后负数
+    const amt = isRefund ? num(x.itemSubtotalAfterDiscount) : num(x.itemAmount);
+    billQty += sign * q;
+    billNet += sign * amt;
+    const v = vmap.get(String(x.mskuId));
+    // 变体在领星存在但未填 local_sku：出占位行（编码前缀★未映射），保证净额勾稽并提示补映射
+    const code = (v && (v.local_sku || v.msku)) || ('★未映射-' + x.mskuId);
+    const row = ensure(code, v || { title: x.mskuName || '' });
+    row.qty += sign * q;
+    row.net += sign * amt;
+    if (x.orderId && !isRefund) {
+      const k = x.orderId + '|' + code;
+      if (!row._orders.has(k)) { row._orders.add(k); row.orders++; }
+      orderSet.add(x.orderId);
+    }
+  }
+  const out = [...rows.values()].map(r => ({ ...r, _orders: undefined }));
+  return { rows: out, billNet: r2(billNet), billQty: r2(billQty), orderCount: orderSet.size, variantCount: vmap.size };
+}
 
 // 统一日亚 JPY 成本库（同货同成本，THB/MYR 按外管中间价折算；cost-lib）
 const DATA0 = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
@@ -148,6 +221,8 @@ async function pullStore(store, start, end) {
     if (!D[p].settlement) D[p].settlement = {};
     for (const store of STORES) {
       const m = await pullStore(store, s, e);
+      // 独立站-日本：Shopify 账单行级明细（platform_v2 仅整店聚合，给不出 SKU）
+      const jpBill = store.skuDetail === 'shopifyJp' ? await pullShopifyJp(store.id, s, e) : null;
       const cur = D[p].settlement[store.key] || { currency: store.ccy };
       cur.currency = store.ccy;
       // —— 下单三指标（Shopee 与回款字段并存） ——
@@ -159,33 +234,30 @@ async function pullStore(store, start, end) {
       cur.generatedAt = stamp;
 
       if (store.estCost) {
-        // 独立站-日本：优先单品成本（日亚同币单位成本）；未匹配部分按日亚当月综合成本率估算
-        // （Shopify 未做领星SKU映射时 msku 为空，全部走成本率）
+        // 独立站-日本：Shopify账单行级明细 × 日亚统一成本库（JPY同币直取）；
+        // 个别未匹配编码的净额按日亚当月综合成本率兜底
         const am = D.month && D.month.amazonJP;
         const blendedRate = am && num(am.net) ? num(am.cost) / num(am.net) : -0.35;
-        let productCost = 0, matchedQty = 0, totalQty = 0, unmatchedNet = 0;
-        for (const [msku, q] of Object.entries(m.qtyByMsku)) {
-          totalQty += q;
-          const c = costMap[normKey(msku)];
-          if (c != null) { productCost += q * c; matchedQty += q; }
+        let productCost = 0, matchedNet = 0;
+        if (jpBill) {
+          for (const x of jpBill.rows) {
+            if (x.net <= 0) continue;
+            const unit = JPY_COST[normKey(x.msku)];   // JPY 负值
+            if (unit != null) { productCost += x.qty * unit; matchedNet += x.net; }
+          }
         }
-        if (matchedQty < totalQty || totalQty === 0) {
-          // 未匹配销量按整体净额比例摊成本：未匹配净额 = net ×（未匹配件数占比）
-          const unmatchedRatio = totalQty ? (totalQty - matchedQty) / totalQty : 1;
-          unmatchedNet = r2(m.net * unmatchedRatio);
-          productCost += unmatchedNet * blendedRate;
-        }
+        const unmatchedNet = m.net - matchedNet;
+        if (unmatchedNet > 0) productCost += unmatchedNet * blendedRate;
         cur.productCost = r2(productCost);
         cur.commission = r2(-m.net * store.feeRate);
         cur.platformFeeTotal = cur.commission;
         cur.profit = r2(m.net + productCost + cur.commission);
         cur.margin = m.net ? r2(cur.profit / m.net * 100) + '%' : '0%';
         cur.feeEstimated = true;
-        cur.feeNote = store.key + '下单口径；手续费按' + (store.feeRate * 100)
-          + '%估算(支付/订阅费未含)；成本：单品匹配'
-          + (totalQty ? r2(matchedQty / totalQty * 100) : 0)
-          + '%，余按日亚当月综合成本率' + r2(-blendedRate * 100) + '%估算';
-        cur.costCoveragePct = totalQty ? r2(matchedQty / totalQty * 100) : null;
+        cur.feeNote = store.key + '下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按' + (store.feeRate * 100)
+          + '%估算(支付/订阅费未含)；单品成本覆盖' + r2(matchedNet / (m.net || 1) * 100)
+          + '%净额，余按日亚当月综合成本率' + r2(-blendedRate * 100) + '%估算';
+        cur.costCoveragePct = m.net ? r2(matchedNet / m.net * 100) : null;
       } else if (store.amountOnly) {
         // 国际站：仅展示本币下单金额，成本/费用无映射来源，清空旧快照利润避免误读
         cur.productCost = null;
@@ -214,6 +286,30 @@ async function pullStore(store, start, end) {
           })
           .sort((a, b) => b.net - a.net);
         cur.skuDetail = rows;
+      } else if (store.skuDetail === 'shopifyJp') {
+        // 独立站-日本：Shopify账单行 × local_sku映射 × 日亚统一JPY成本；手续费6%估算到行
+        const feeRate = store.feeRate;
+        const rows = jpBill.rows
+          .filter(x => x.qty > 0 || x.net > 0)
+          .map(x => {
+            const unit = JPY_COST[normKey(x.msku)];   // JPY 负值或 null
+            const cost = unit != null ? r2(x.qty * unit) : null;
+            const platformFee = r2(-x.net * feeRate);
+            const profit = cost != null ? r2(x.net + cost + platformFee) : null;
+            const marginNum = profit != null && x.net ? r2(profit / x.net * 100) : null;
+            return {
+              msku: x.msku, name: x.name, img: x.img,
+              qty: r2(x.qty), orders: r2(x.orders), net: r2(x.net),
+              settledNet: r2(x.net), cost, platformFee,
+              profit, margin: marginNum, settled: true, feeEstimated: true,
+              pct: m.net ? r2(x.net / m.net * 100) : 0,
+            };
+          })
+          .sort((a, b) => b.net - a.net);
+        cur.skuDetail = rows;
+        if (Math.abs(jpBill.billNet - m.net) > 2) {
+          console.log('  [WARN] ' + p + ' 独立站-日本 账单净额 ' + jpBill.billNet + ' 与统计净额 ' + m.net + ' 不一致');
+        }
       } else if (store.skuDetail === 'order') {
         // 独立站-国际：领星已映射MSKU出下单口径明细；成本/费用待Shopify账单，留空显示待结算
         const rows = [...m.skus.values()]
@@ -235,7 +331,7 @@ async function pullStore(store, start, end) {
       D[p].settlement[store.key] = cur;
       console.log(p + ' | ' + store.key + ' | qty=' + m.qty + ' orders=' + m.orders + ' net=' + m.net + ' ' + store.ccy
         + (store.estCost ? ' GP=' + cur.profit + '(' + cur.margin + ')' : '')
-        + (store.skuDetail === 'shopee' || store.skuDetail === 'order' ? ' | skuRows=' + cur.skuDetail.length : ''));
+        + (['shopee','order','shopifyJp'].includes(store.skuDetail) ? ' | skuRows=' + cur.skuDetail.length : ''));
     }
   }
   fs.writeFileSync(DATA_PATH, JSON.stringify(D, null, 2), 'utf8');
