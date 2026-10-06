@@ -11,3 +11,4 @@ daily-refresh.log
 daily-refresh.cron.log
 inventory-push.json
 inventory-snap/
+inventory-push.cron.log
