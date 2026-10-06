@@ -496,16 +496,16 @@
       },
       "日本-乐天": {
         "currency": "JPY",
-        "qty": 13,
-        "orderCount": 12,
+        "qty": 18,
+        "orderCount": 11,
         "cancelOrders": 0,
         "cancelPending": 0,
         "cancelAmount": 0,
-        "salesAmount": 222104,
-        "tax": 21112,
-        "net": 200992,
-        "productCost": -90884.22,
-        "commission": -21104.16,
+        "salesAmount": 248239,
+        "tax": 23128,
+        "net": 225111,
+        "productCost": -99035.21,
+        "commission": -23636.66,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -515,22 +515,30 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -21104.16,
-        "profit": 89003.62,
-        "margin": 44.28,
+        "platformFeeTotal": -23636.66,
+        "profit": 102439.13,
+        "margin": 45.51,
         "feeEstimated": true,
         "feeNote": "佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含",
-        "costCoveragePct": 92.31,
+        "costCoveragePct": 83.33,
         "unknownKeys": [
           {
-            "key": "CS-HYZ-PJ-0.5MBX2",
+            "key": "LDL-QZTZDD",
+            "qty": 1
+          },
+          {
+            "key": "LDL-MQZ-MTXQ-J",
+            "qty": 1
+          },
+          {
+            "key": "LDL-XYCQZ-TPU-V",
             "qty": 1
           }
         ],
-        "cashSettlement": 78007,
-        "cashOrders": 9,
+        "cashSettlement": 228666,
+        "cashOrders": 12,
         "cashStatus": "proxy-注文確定口径，非真精算",
-        "cashGeneratedAt": "2026-10-02 14:18:54"
+        "cashGeneratedAt": "2026-10-06 12:49:23"
       },
       "韩国-Coupang": {
         "currency": "KRW",
@@ -1629,16 +1637,16 @@
       },
       "日本-乐天": {
         "currency": "JPY",
-        "qty": 48,
-        "orderCount": 47,
-        "cancelOrders": 2,
+        "qty": 60,
+        "orderCount": 52,
+        "cancelOrders": 1,
         "cancelPending": 0,
-        "cancelAmount": 15460,
-        "salesAmount": 665761,
-        "tax": 63795,
-        "net": 601966,
-        "productCost": -252219.92,
-        "commission": -63206.43,
+        "cancelAmount": 3480,
+        "salesAmount": 1234681,
+        "tax": 116304,
+        "net": 1118377,
+        "productCost": -493608.89,
+        "commission": -117429.59,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -1648,30 +1656,42 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -63206.43,
-        "profit": 286539.65,
-        "margin": 47.6,
+        "platformFeeTotal": -117429.59,
+        "profit": 507338.52,
+        "margin": 45.36,
         "feeEstimated": true,
         "feeNote": "佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含",
-        "costCoveragePct": 93.75,
+        "costCoveragePct": 88.33,
         "unknownKeys": [
           {
-            "key": "CS-HYZ-PJ-0.5MBX2",
-            "qty": 1
+            "key": "LDL-XYCQZ-TPU-V",
+            "qty": 2
           },
           {
             "key": "LDL-QZTZDD",
             "qty": 1
           },
           {
+            "key": "LDL-MQZ-MTXQ-J",
+            "qty": 1
+          },
+          {
+            "key": "CS-BT-HS-H",
+            "qty": 1
+          },
+          {
             "key": "LDL-QZTZNZ",
+            "qty": 1
+          },
+          {
+            "key": "CS-HYZ-PJ-0.5MBX2",
             "qty": 1
           }
         ],
-        "cashSettlement": 471620,
-        "cashOrders": 40,
+        "cashSettlement": 1104925,
+        "cashOrders": 49,
         "cashStatus": "proxy-注文確定口径，非真精算",
-        "cashGeneratedAt": "2026-10-02 14:18:54"
+        "cashGeneratedAt": "2026-10-06 12:49:23"
       },
       "韩国-Coupang": {
         "currency": "KRW",
@@ -2562,16 +2582,16 @@
     "settlement": {
       "日本-乐天": {
         "currency": "JPY",
-        "qty": 13,
-        "orderCount": 12,
+        "qty": 51,
+        "orderCount": 42,
         "cancelOrders": 0,
         "cancelPending": 0,
         "cancelAmount": 0,
-        "salesAmount": 222104,
-        "tax": 21112,
-        "net": 200992,
-        "productCost": -90884.22,
-        "commission": -21104.16,
+        "salesAmount": 976657,
+        "tax": 91765,
+        "net": 884892,
+        "productCost": -403111.66,
+        "commission": -92913.66,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -2581,22 +2601,42 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -21104.16,
-        "profit": 89003.62,
-        "margin": 44.28,
+        "platformFeeTotal": -92913.66,
+        "profit": 388866.68,
+        "margin": 43.95,
         "feeEstimated": true,
         "feeNote": "佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含",
-        "costCoveragePct": 92.31,
+        "costCoveragePct": 86.27,
         "unknownKeys": [
+          {
+            "key": "LDL-XYCQZ-TPU-V",
+            "qty": 2
+          },
+          {
+            "key": "LDL-QZTZDD",
+            "qty": 1
+          },
+          {
+            "key": "LDL-MQZ-MTXQ-J",
+            "qty": 1
+          },
+          {
+            "key": "CS-BT-HS-H",
+            "qty": 1
+          },
+          {
+            "key": "LDL-QZTZNZ",
+            "qty": 1
+          },
           {
             "key": "CS-HYZ-PJ-0.5MBX2",
             "qty": 1
           }
         ],
-        "cashSettlement": 78007,
-        "cashOrders": 9,
+        "cashSettlement": 878801,
+        "cashOrders": 42,
         "cashStatus": "proxy-注文確定口径，非真精算",
-        "cashGeneratedAt": "2026-10-02 14:18:54"
+        "cashGeneratedAt": "2026-10-06 12:49:23"
       },
       "韩国-Coupang": {
         "currency": "KRW",
