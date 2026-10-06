@@ -140,6 +140,17 @@ else
   record_failure "[2.8] pull-platform-orders" "$(echo "$outP" | tail -5 | tr '\n' ' ')"
 fi
 
+# ---------- [2.9] SKU健康总表（聚水潭实时库存+内外盘销量+断货判定，失败不阻断） ----------
+log "[2.9] SKU健康 build-sku-health + deploy-inventory --push"
+outH="$(node build-sku-health.js 2>&1 && node deploy-inventory.js --push 2>&1)"
+if [ $? -eq 0 ]; then
+  log "  [OK] SKU健康总表刷新完成：$(echo "$outH" | grep -E '状态分布' | head -1)"
+else
+  log "$outH" | tail -20 | sed 's/^/  /' >> "$LOG_FILE"
+  log "  [ERR] SKU健康失败（沿用旧数据，不阻断部署）"
+  record_failure "[2.9] SKU健康 build/deploy" "$(echo "$outH" | tail -5 | tr '\n' ' ')"
+fi
+
 # ---------- [3/3] 外盘部署（仅当数据文件5分钟内被刷新） ----------
 log "[3/3] 外盘 deploy-dashboard.js（内嵌+git+飞书）"
 if [ ! -f "$DATA_FILE" ]; then

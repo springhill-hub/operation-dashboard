@@ -204,6 +204,28 @@ function orderLines(o) {
   }
   const orders = data.orders;
 
+  // —— 脱敏日粒度SKU销量聚合（供云端SKU健康总表消费；无个人信息，随仓库提交）——
+  {
+    const aggP = path.join(__dirname, 'rakuten-sku-daily.json');
+    let agg = {};
+    if (fs.existsSync(aggP)) { try { agg = JSON.parse(fs.readFileSync(aggP, 'utf8')); } catch (e) { agg = {}; } }
+    for (const o of orders) {
+      if (o.orderProgress === 900) continue; // 已取消
+      const dt = (o.orderDatetime || '').slice(0, 10);
+      if (!dt) continue;
+      for (const l of orderLines(o)) {
+        const code = l.keys[0];
+        if (!code) continue;
+        if (!agg[dt]) agg[dt] = {};
+        agg[dt][code] = (agg[dt][code] || 0) + l.qty;
+      }
+    }
+    const cutoff = iso(new Date(ANCHOR.getTime() - 45 * 86400000));
+    for (const d of Object.keys(agg)) if (d < cutoff) delete agg[d];
+    fs.writeFileSync(aggP, JSON.stringify(agg), 'utf8');
+    console.log('sku-daily aggregate: ' + aggP + ' days=' + Object.keys(agg).length);
+  }
+
   // —— SKU 盘点 ——
   const skuSet = new Set();
   for (const o of orders) for (const l of orderLines(o)) l.keys.forEach(k => skuSet.add(k));
