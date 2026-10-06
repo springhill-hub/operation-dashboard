@@ -40,8 +40,10 @@ process.argv.slice(2).forEach(a => {
 });
 const PERIOD  = argv.period || 'month';                 // today | week | month
 const RAWDIR  = argv.rawDir ? path.resolve(argv.rawDir) : path.join(__dirname, 'shopee-raw');
-const DATAP   = argv.dataPath ? path.resolve(argv.dataPath) : 'f:/ai agent/operation_data.json';
+const DATAP   = argv.dataPath ? path.resolve(argv.dataPath)
+  : (process.env.CS_ROOT ? path.join(process.env.CS_ROOT, 'operation_data.json') : 'f:/ai agent/operation_data.json');
 const COSTP   = path.join(__dirname, 'msku-cost.json');
+const { normKey, loadJpyCostMap, toCcy } = require(path.join(__dirname, 'cost-lib.js'));
 const today   = new Date();
 const START   = argv.start || today.toISOString().slice(0, 8) + '01';
 const END     = argv.end   || today.toISOString().slice(0, 10);
@@ -133,8 +135,17 @@ const adj = loadRaw(path.join(RAWDIR, 'adjustment.json'));
 const adjBySite = {};
 for (const it of adj.list) adjBySite[it.site] = (adjBySite[it.site] || 0) + num(it.amount);
 
+// 统一成本库：日亚 JPY 单位成本 → 店铺币种（同货同成本）；msku-cost.json 原币表作次级兜底
+const DATA_FORCOST = JSON.parse(fs.readFileSync(DATAP, 'utf8'));
+const jpyCost = loadJpyCostMap(DATA_FORCOST);
 let costTable = null;
 if (fs.existsSync(COSTP)) costTable = JSON.parse(fs.readFileSync(COSTP, 'utf8')).unitCost;
+function staticUnit(ccy, m) {
+  const j = jpyCost[normKey(m)];
+  if (j != null) return toCcy(j, ccy, DATA_FORCOST);   // 本币负值
+  if (costTable && costTable[ccy] && costTable[ccy][m] != null) return num(costTable[ccy][m]);
+  return null;
+}
 
 const stamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 const summary = [];
@@ -158,16 +169,16 @@ for (const cfg of SITES) {
     for (const [m, q] of Object.entries(mskuQtyOf(row))) qtyByMsku[m] = (qtyByMsku[m] || 0) + q;
   }
 
-  // —— 静态成本估算 ——
+  // —— 静态成本估算（统一日亚成本库折算，原币结算表兜底） ——
   let staticCost = null, knownQty = 0, unknownMskus = [];
-  if (costTable && costTable[cfg.ccy]) {
-    const tab = costTable[cfg.ccy];
-    let sum = 0;
+  {
+    let sum = 0, hasAny = false;
     for (const [m, q] of Object.entries(qtyByMsku)) {
-      if (tab[m] != null) { sum += q * num(tab[m]); knownQty += q; }
+      const u = staticUnit(cfg.ccy, m);
+      if (u != null) { sum += q * u; knownQty += q; hasAny = true; }
       else unknownMskus.push({ msku: m, qty: q });
     }
-    staticCost = r2(sum);
+    if (hasAny) staticCost = r2(sum);
   }
   const totalUnits = Object.values(qtyByMsku).reduce((s, q) => s + q, 0);
   const coverage = totalUnits ? r2(knownQty / totalUnits * 100) : null;

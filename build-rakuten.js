@@ -27,6 +27,7 @@
  * ============================================================ */
 const fs = require('fs');
 const path = require('path');
+const { normKey, loadJpyCostMap } = require(path.join(__dirname, 'cost-lib.js'));
 const https = require('https');
 // 云服务器（阿里云）不支持 IPv6，乐天 RMS 若解析到 v6 会 ENETUNREACH，强制 IPv4 优先
 try { require('dns').setDefaultResultOrder('ipv4first'); } catch (e) {}
@@ -159,33 +160,7 @@ async function pullOrders(start, end) {
   return { orderNumbers: allNums, orders };
 }
 
-// ---------- 日亚 JPY 单位成本表 ----------
-function jpyCostTable(D) {
-  const map = {};
-  // lastMonth 优先：全结算完整月成本最全；month/today 下单口径改造后含 cost=null/0 的行需跳过
-  for (const p of ['lastMonth', 'month', 'week', 'today']) {
-    const a = D[p] && D[p].amazonJP;
-    if (!a || !Array.isArray(a.skuDetail)) continue;
-    for (const r of a.skuDetail) {
-      if (!r.msku || !r.qty || !r.cost) continue;   // 跳过 cost 为 null/0（无成本信息）
-      const u = num(r.cost) / num(r.qty);
-      if (map[r.msku] == null) map[r.msku] = u;
-    }
-  }
-  return map;
-}
-
-const norm = s => String(s || '').toUpperCase();
-const STRIP = ['-FBA1', '-FBA', '-FBM', '-NEW', '-ATZ', '-DP', '-JP'];
-function normKey(s) {
-  let k = norm(s).replace(/\+/g, '-');
-  let prev;
-  do {
-    prev = k;
-    for (const suf of STRIP) if (k.endsWith(suf)) k = k.slice(0, -suf.length);
-  } while (k !== prev);
-  return k;
-}
+// 归一化键 normKey 由 cost-lib.js 提供（与 build-coupang / pull-platform-orders 共用）
 
 // ---------- 单订单：行明细（用于聚合） ----------
 function orderLines(o) {
@@ -237,45 +212,9 @@ function orderLines(o) {
   if (PULLONLY) return;
 
   const D = JSON.parse(fs.readFileSync(DATAP, 'utf8'));
-  const rawCostMap = jpyCostTable(D);
-  // 归一化成本键（冲突时保留首个）；日亚 JPY 成本优先
-  const costMap = {};
-  for (const [k, v] of Object.entries(rawCostMap)) {
-    const nk = normKey(k);
-    if (costMap[nk] == null) costMap[nk] = v;
-  }
-  // —— 跨市场折算成本（Shopee THB/MYR → JPY），同一物理产品 ——
-  // 已验证(2026-09)：MYR LDL-CQ4P-E 折算¥18,216 ≈ 日亚¥18,176
-  const R = num(D.meta.jpyRate);
-  const fx = D.meta.fx || {};
-  const shopeeCost = JSON.parse(fs.readFileSync(path.join(__dirname, 'msku-cost.json'), 'utf8')).unitCost || {};
-  const toJpyCost = (ccy, v) => {
-    const cnyPer = ccy === 'THB' ? num(fx.thbCny) : num(fx.myrCny);
-    if (!cnyPer || !R) return null;
-    return -Math.abs(num(v)) * cnyPer / R;
-  };
-  let crossAdded = 0;
-  for (const ccy of ['THB', 'MYR']) {
-    for (const [k, v] of Object.entries(shopeeCost[ccy] || {})) {
-      const nk = normKey(k);
-      if (costMap[nk] == null) {
-        const jv = toJpyCost(ccy, v);
-        if (jv != null) { costMap[nk] = r2(jv); crossAdded++; }
-      }
-    }
-  }
-  // —— 显式别名（编码差异，人工维护） ——
-  const ALIAS = {
-    'BEL-CFZ-IGTB': 'BEL-CFZ-E-IGTB',   // 日亚马甲 BEL-CFZ-E+IGTB
-    'LDL-CQ4P-E2.0': 'LDL-CQ4P-E',
-  };
-  for (const [from, to] of Object.entries(ALIAS)) {
-    if (costMap[normKey(from)] == null && costMap[normKey(to)] != null) {
-      costMap[normKey(from)] = costMap[normKey(to)];
-    }
-  }
-  console.log('JPY unit-cost keys: ' + Object.keys(rawCostMap).length +
-    ' native + ' + crossAdded + ' cross-market converted');
+  // 统一日亚 JPY 单位成本库（主表+近期+Shopee折算+别名，cost-lib）
+  const costMap = loadJpyCostMap(D);
+  console.log('JPY unit-cost keys: ' + Object.keys(costMap).length + '（统一成本库）');
 
   // —— 聚合桶 ——
   const bucketOf = {};

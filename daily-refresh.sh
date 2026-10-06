@@ -93,6 +93,16 @@ log "  [OK] 领星数据拉取完成"
 #     本流程开头的 git pull 已将其同步进来；佣金按 10.5% 估算、成本参考日亚单位成本。
 
 # ---------- [2.6] 韩国 Coupang（领星MCP，失败不阻断部署） ----------
+# ---------- [2.55] 日亚 MSKU 成本主表（统一成本库，失败沿用旧表不阻断） ----------
+log "[2.55] 日亚MSKU成本主表 pull-msku-cost"
+outMC="$(node pull-msku-cost.js 2>&1)"
+if [ $? -eq 0 ]; then
+  log "  [OK] 成本主表已刷新"
+else
+  log "  [ERR] 成本主表刷新失败（沿用 jp-msku-cost.json 旧表）"
+  record_failure "[2.55] pull-msku-cost" "$(echo "$outMC" | tail -3 | tr '\n' ' ')"
+fi
+
 log "[2.6] 韩国Coupang pull-coupang + build-coupang"
 outC="$(node pull-coupang.js 2>&1 && node build-coupang.js 2>&1)"
 if [ $? -eq 0 ]; then

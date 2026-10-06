@@ -21,6 +21,7 @@
  * ============================================================ */
 const fs = require('fs');
 const path = require('path');
+const { normKey, loadJpyCostMap, toCcy, COUPANG_PID_ALIAS } = require(path.join(__dirname, 'cost-lib.js'));
 
 const RAWDIR = path.join(__dirname, 'coupang-raw');
 const DATAP  = process.env.CS_ROOT ? path.join(process.env.CS_ROOT, 'operation_data.json') : 'f:/ai agent/operation_data.json';
@@ -50,65 +51,13 @@ function latestRaw(prefix) {
 const salesRaw = latestRaw('sales_');
 const volRaw   = latestRaw('volume_');
 
-// ---------- 成本表（JPY 单位成本，与 build-rakuten 同构） ----------
+// ---------- 成本表（统一日亚 JPY 单位成本，cost-lib；KRW 按外管中间价折算） ----------
 const D = JSON.parse(fs.readFileSync(DATAP, 'utf8'));
-const R = num(D.meta.jpyRate);
-const fx = D.meta.fx || {};
-const krwCny = num(fx.krwCny);
-
-function jpyCostTable() {
-  const map = {};
-  for (const p of ['month', 'week', 'today']) {
-    const a = D[p] && D[p].amazonJP;
-    if (!a || !Array.isArray(a.skuDetail)) continue;
-    for (const r of a.skuDetail) {
-      if (!r.msku || !r.qty) continue;
-      if (map[r.msku] == null) map[r.msku] = num(r.cost) / num(r.qty);
-    }
-  }
-  return map;
-}
-const norm = s => String(s || '').toUpperCase();
-const STRIP = ['-FBA1', '-FBA', '-FBM', '-NEW', '-ATZ', '-DP', '-JP'];
-function normKey(s) {
-  let k = norm(s).replace(/\+/g, '-');
-  let prev;
-  do {
-    prev = k;
-    for (const suf of STRIP) if (k.endsWith(suf)) k = k.slice(0, -suf.length);
-  } while (k !== prev);
-  return k;
-}
-const costMap = {};
-for (const [k, v] of Object.entries(jpyCostTable())) {
-  const nk = normKey(k);
-  if (costMap[nk] == null) costMap[nk] = v;
-}
-const shopeeCost = JSON.parse(fs.readFileSync(path.join(__dirname, 'msku-cost.json'), 'utf8')).unitCost || {};
-let crossAdded = 0;
-for (const ccy of ['THB', 'MYR']) {
-  const cnyPer = ccy === 'THB' ? num(fx.thbCny) : num(fx.myrCny);
-  for (const [k, v] of Object.entries(shopeeCost[ccy] || {})) {
-    const nk = normKey(k);
-    if (costMap[nk] == null && cnyPer && R) {
-      costMap[nk] = -Math.abs(num(v)) * cnyPer / R;
-      crossAdded++;
-    }
-  }
-}
-const ALIAS = {
-  'BEL-CFZ-IGTB': 'BEL-CFZ-E-IGTB',
-  'LDL-CQ4P-E2.0': 'LDL-CQ4P-E',
-};
-for (const [from, to] of Object.entries(ALIAS)) {
-  if (costMap[normKey(from)] == null && costMap[normKey(to)] != null)
-    costMap[normKey(from)] = costMap[normKey(to)];
-}
-console.log('JPY cost keys: ' + Object.keys(jpyCostTable()).length +
-  ' native + ' + crossAdded + ' cross-market; JPY/KRW rate=' + (R / krwCny).toFixed(4));
+const costMap = loadJpyCostMap(D);
+console.log('JPY unit-cost keys: ' + Object.keys(costMap).length + '（统一成本库：日亚主表+近期+Shopee折算）');
 
 // ---------- 合并 SKU 行（sales × volume） ----------
-// 以内部编码 sku[0] 为主键；数字 platformProductId 兜底
+// 以内部编码 sku[0] 为主键；空SKU数字商品ID先查人工确认别名，再以 pid 兜底
 const byCode = new Map();
 function bucket(code, pid, name, pic) {
   const key = code || pid;
@@ -117,13 +66,19 @@ function bucket(code, pid, name, pic) {
   if (pic && !b.pic) b.pic = pic;
   return b;
 }
+function rowCode(r) {
+  const c = r.sku && r.sku[0];
+  if (c) return c;
+  const pid = r.platformProductId && r.platformProductId[0];
+  return COUPANG_PID_ALIAS[pid] || '';
+}
 for (const r of salesRaw.statisticsList) {
-  const b = bucket(r.sku[0], r.platformProductId[0], r.productName[0], r.picUrl);
+  const b = bucket(rowCode(r), r.platformProductId[0], r.productName[0], r.picUrl);
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d] = b.daily[d] || {};
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d].sales = num(v);
 }
 for (const r of volRaw.statisticsList) {
-  const b = bucket(r.sku[0], r.platformProductId[0], r.productName[0], r.picUrl);
+  const b = bucket(rowCode(r), r.platformProductId[0], r.productName[0], r.picUrl);
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d] = b.daily[d] || {};
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d].units = num(v);
 }
@@ -160,8 +115,8 @@ for (const [p, [s, e]] of Object.entries(PERIODS)) {
   const skuRows = [];
   for (const prod of products) {
     const nk = normKey(prod.code);
-    const unitCostJpy = costMap[nk];
-    const unitCostKrw = unitCostJpy != null ? unitCostJpy * (R / krwCny) : null;
+    const unitCostJpy = prod.code ? costMap[nk] : null;
+    const unitCostKrw = unitCostJpy != null ? toCcy(unitCostJpy, 'KRW', D) : null;
     let pUnits = 0, pSales = 0, pCost = 0, pKnown = false;
     for (const [d, dv] of Object.entries(prod.daily)) {
       if (d < s || d > e) continue;

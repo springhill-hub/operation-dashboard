@@ -17,6 +17,7 @@
 const fs = require('fs');
 const path = require('path');
 const { callTool } = require(path.join(__dirname, '..', 'lx_api.js'));
+const { normKey, loadJpyCostMap, toCcy } = require(path.join(__dirname, 'cost-lib.js'));
 
 const ROOT = process.env.CS_ROOT || 'f:/ai agent';
 const DATA_PATH = process.env.CS_ROOT
@@ -51,11 +52,13 @@ const STORES = [
   { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true, skuDetail: 'none' },
 ];
 
-// Shopee 静态单位成本表（本币，负值；build-msku-cost.js 生成）
-let SHOPEE_COST = null;
-try {
-  SHOPEE_COST = JSON.parse(fs.readFileSync(path.join(__dirname, 'msku-cost.json'), 'utf8')).unitCost || {};
-} catch (e) { SHOPEE_COST = {}; }
+// 统一日亚 JPY 成本库（同货同成本，THB/MYR 按外管中间价折算；cost-lib）
+const DATA0 = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+const JPY_COST = loadJpyCostMap(DATA0);
+function shopeeUnit(ccy, msku) {
+  const j = JPY_COST[normKey(msku)];
+  return j != null ? toCcy(j, ccy, DATA0) : null;  // 本币负值
+}
 
 const num = v => Number(v) || 0;
 const r2 = v => Math.round(num(v) * 100) / 100;
@@ -126,34 +129,14 @@ async function pullStore(store, start, end) {
   return out;
 }
 
-// 日亚 JPY 单位成本表（与 build-rakuten/coupang 同构）
-function jpyCostTable(D) {
-  const map = {};
-  for (const p of ['month', 'week', 'today']) {
-    const a = D[p] && D[p].amazonJP;
-    if (!a || !Array.isArray(a.skuDetail)) continue;
-    for (const r of a.skuDetail) {
-      if (!r.msku || !r.qty) continue;
-      if (map[r.msku] == null) map[r.msku] = num(r.cost) / num(r.qty);
-    }
-  }
-  return map;
-}
-const STRIP = ['-FBA1','-FBA','-FBM','-NEW','-ATZ','-DP','-JP'];
-function normKey(s) {
-  let k = String(s || '').toUpperCase().replace(/\+/g, '-'), prev;
-  do { prev = k; for (const suf of STRIP) if (k.endsWith(suf)) k = k.slice(0, -suf.length); } while (k !== prev);
-  return k;
-}
+// 成本/归一化统一走 cost-lib（顶部已加载 JPY_COST / normKey）
 
 (async () => {
   console.log('====================================================');
   console.log(' Multi-platform order pull | T1=' + iso(T1));
   console.log('====================================================');
   const D = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
-  const costRaw = jpyCostTable(D);
-  const costMap = {};
-  for (const [k, v] of Object.entries(costRaw)) { const nk = normKey(k); if (costMap[nk] == null) costMap[nk] = v; }
+  const costMap = JPY_COST;   // 统一日亚成本库（cost-lib）
   const stamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
   for (const [p, [s, e]] of Object.entries(PERIODS)) {
@@ -211,15 +194,11 @@ function normKey(s) {
 
       // —— SKU 明细（看板"SKU销售/利润构成"按平台切换） ——
       if (store.skuDetail === 'shopee') {
-        // Shopee：下单口径销量/订单/净额 + 静态单位成本；平台费/毛利随双周账单结算，出账前"待结算"
-        const costTab = SHOPEE_COST[store.ccy] || {};
-        const costNorm = {};
-        for (const [k, v] of Object.entries(costTab)) if (costNorm[normKey(k)] == null) costNorm[normKey(k)] = v;
+        // Shopee：下单口径销量/订单/净额 + 统一日亚单位成本(本币折算)；平台费/毛利随双周账单结算
         const rows = [...m.skus.values()]
           .filter(x => x.qty > 0 || x.net > 0)
           .map(x => {
-            let unit = costTab[x.msku] != null ? num(costTab[x.msku]) : null;
-            if (unit == null && costNorm[normKey(x.msku)] != null) unit = num(costNorm[normKey(x.msku)]);
+            const unit = shopeeUnit(store.ccy, x.msku);  // 本币负值或 null
             const cost = unit != null ? r2(x.qty * unit) : null;
             return {
               msku: x.msku, name: x.name, img: x.img,

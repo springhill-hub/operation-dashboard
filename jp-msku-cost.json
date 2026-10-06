@@ -1,0 +1,801 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-10-06 14:45:27",
+  "range": [
+    "2026-01-01",
+    "2026-10-05"
+  ],
+  "source": "lingxing get_profit_report_msku sid=3118(日亚) cgUnitPrice；JPY单位采购成本(正值,未含头程)",
+  "mskuCount": 197,
+  "zeroCostMsku": 15,
+  "unitCostJpy": {
+    "QZ-P8BR-KGMU": {
+      "unit": 3737.35,
+      "qty": 820
+    },
+    "BH-QNQ-E-FBM": {
+      "unit": 3802.78,
+      "qty": 302
+    },
+    "CS-MNGHBL-JP-FBA": {
+      "unit": 1949.18,
+      "qty": 243
+    },
+    "CS-HYSL-JP": {
+      "unit": 5082.36,
+      "qty": 195
+    },
+    "Q3-KTDP-51JY": {
+      "unit": 925.64,
+      "qty": 191
+    },
+    "SP-0.5ZML-FBA": {
+      "unit": 4299.23,
+      "qty": 170
+    },
+    "NEW-ZRKSL-SNB": {
+      "unit": 3879.59,
+      "qty": 167
+    },
+    "SL-YH-Y-FBA": {
+      "unit": 803.32,
+      "qty": 167
+    },
+    "CS-BTT-2L-FBM": {
+      "unit": 526.65,
+      "qty": 145
+    },
+    "SA-M5Q6-B89T": {
+      "unit": 6980.7,
+      "qty": 139
+    },
+    "SL-YH-Y-FBM": {
+      "unit": 794.45,
+      "qty": 132
+    },
+    "CS-HYSL-JP-FBA": {
+      "unit": 5024.58,
+      "qty": 113
+    },
+    "Q3-KTDP-51JY-FBM": {
+      "unit": 909.5,
+      "qty": 111
+    },
+    "SP-0.5ZML": {
+      "unit": 4222.06,
+      "qty": 110
+    },
+    "SP-PL4P-B-JP": {
+      "unit": 14327.25,
+      "qty": 108
+    },
+    "CS-BTT-2L": {
+      "unit": 522.62,
+      "qty": 107
+    },
+    "CS-MNGHBL-JP": {
+      "unit": 1932,
+      "qty": 99
+    },
+    "CS-CHL": {
+      "unit": 803.92,
+      "qty": 92
+    },
+    "CS-HYSLPJ-JP": {
+      "unit": 1370.63,
+      "qty": 90
+    },
+    "SL-ZRKSL-SNB": {
+      "unit": 3922.04,
+      "qty": 90
+    },
+    "BH-QNQ-ZWJ": {
+      "unit": 135.91,
+      "qty": 89
+    },
+    "CS-BT-Y-JP": {
+      "unit": 2490.31,
+      "qty": 87
+    },
+    "CS-HYSL-ZGT": {
+      "unit": 1066.6,
+      "qty": 86
+    },
+    "CS-BT-B-JP": {
+      "unit": 2553.99,
+      "qty": 81
+    },
+    "BEL-FSYLY-E-FBA": {
+      "unit": 3615.79,
+      "qty": 73
+    },
+    "CS-HYSL-ZWJ-FBA": {
+      "unit": 6190.13,
+      "qty": 73
+    },
+    "CS-SGZDZ-FBA": {
+      "unit": 7076.26,
+      "qty": 72
+    },
+    "CS-BT-G": {
+      "unit": 2605.32,
+      "qty": 68
+    },
+    "CS-MNFXL1.5": {
+      "unit": 787.9,
+      "qty": 66
+    },
+    "SP-PL4P-G-JP": {
+      "unit": 14339.6,
+      "qty": 62
+    },
+    "LDL-CQ4P-E-FBA": {
+      "unit": 18080.39,
+      "qty": 59
+    },
+    "SL-FXL3.0-Y": {
+      "unit": 2189.12,
+      "qty": 57
+    },
+    "CS-CHL-FBM": {
+      "unit": 788.42,
+      "qty": 54
+    },
+    "LDL-PL4P-DD-black": {
+      "unit": 1994.16,
+      "qty": 53
+    },
+    "BM-0ICY-DOP8": {
+      "unit": 1530.91,
+      "qty": 48
+    },
+    "CS-CQQZ-B-FBA": {
+      "unit": 38365.21,
+      "qty": 48
+    },
+    "CS-KL-WS": {
+      "unit": 802.62,
+      "qty": 47
+    },
+    "SL-LL2.0-QE": {
+      "unit": 4538.87,
+      "qty": 47
+    },
+    "LDL-CQZTM-E": {
+      "unit": 4252.17,
+      "qty": 42
+    },
+    "CS-HYSL-ZWJ": {
+      "unit": 6134.65,
+      "qty": 41
+    },
+    "LDL-CQ4P-DD": {
+      "unit": 2015.66,
+      "qty": 41
+    },
+    "BEL-FSYLY-E": {
+      "unit": 3586.58,
+      "qty": 38
+    },
+    "SP-PL4P-G-JP-FBM": {
+      "unit": 14010.19,
+      "qty": 38
+    },
+    "CS-HYZYS": {
+      "unit": 1159.97,
+      "qty": 37
+    },
+    "LDL-CQ4P-NZ": {
+      "unit": 3613.78,
+      "qty": 37
+    },
+    "BEL-CFZ-E+IGTB": {
+      "unit": 5283.02,
+      "qty": 35
+    },
+    "LDL-CQ4P-E-FBM": {
+      "unit": 18053.24,
+      "qty": 34
+    },
+    "SL-YH-Y-FBAA": {
+      "unit": 803.39,
+      "qty": 34
+    },
+    "CS-TZTM-B-JP": {
+      "unit": 5239.31,
+      "qty": 32
+    },
+    "45-0I7D-KTXM": {
+      "unit": 1003.67,
+      "qty": 31
+    },
+    "LDL-CQ4P-E-DP-FBA": {
+      "unit": 9159.8,
+      "qty": 31
+    },
+    "9Q-212O-XEP3": {
+      "unit": 228.55,
+      "qty": 30
+    },
+    "LDL-CQ4P-E-DP": {
+      "unit": 8971.49,
+      "qty": 30
+    },
+    "LDL-CQZ-ME-FBA": {
+      "unit": 58381.66,
+      "qty": 30
+    },
+    "SL-TBZ-Y": {
+      "unit": 1399.83,
+      "qty": 30
+    },
+    "TC-HYSL-E-FBM": {
+      "unit": 6907.42,
+      "qty": 30
+    },
+    "CS-FXL-Y": {
+      "unit": 2220.97,
+      "qty": 29
+    },
+    "CS-CQQZ-AG-FBA1": {
+      "unit": 38563.2,
+      "qty": 28
+    },
+    "CS-HYZ-PJ-CDGJ-FBA": {
+      "unit": 235.87,
+      "qty": 28
+    },
+    "SL-LL2.0-QE-FBA": {
+      "unit": 4568.23,
+      "qty": 28
+    },
+    "CS-SKL-JP": {
+      "unit": 962.77,
+      "qty": 27
+    },
+    "LDL-CQZ-MWS": {
+      "unit": 935.15,
+      "qty": 25
+    },
+    "SP-PL4P-B-JP-FBM": {
+      "unit": 14343.64,
+      "qty": 25
+    },
+    "CS-TZTM-G-JP": {
+      "unit": 5198.04,
+      "qty": 24
+    },
+    "BEL-FSYLY-Z-FBA": {
+      "unit": 3625.31,
+      "qty": 23
+    },
+    "BH-ZRQN": {
+      "unit": 3650.49,
+      "qty": 22
+    },
+    "LDL-CQ4P-V-FBA": {
+      "unit": 18070.04,
+      "qty": 21
+    },
+    "LDL-CQZ-NZ": {
+      "unit": 5201.13,
+      "qty": 21
+    },
+    "LDL-CQZ-ME-FBM": {
+      "unit": 57795.08,
+      "qty": 20
+    },
+    "LDL-PL4PQZ-LJJ-H-black": {
+      "unit": 6062.23,
+      "qty": 19
+    },
+    "CS-BT-Y-JP-FBM": {
+      "unit": 2535.76,
+      "qty": 18
+    },
+    "LDL-QZTZ-H-black": {
+      "unit": 11021.71,
+      "qty": 18
+    },
+    "LDL-XYCQZ-E-FBA": {
+      "unit": 35964.56,
+      "qty": 18
+    },
+    "CS-HYZYS-FBM": {
+      "unit": 1193.69,
+      "qty": 17
+    },
+    "CS-0.5MB": {
+      "unit": 818.01,
+      "qty": 16
+    },
+    "CS-HYZ-PJ-CMB": {
+      "unit": 980.98,
+      "qty": 16
+    },
+    "LDL-4PNZ-N-black": {
+      "unit": 2541.88,
+      "qty": 16
+    },
+    "LDL-QZ-LJJ-H": {
+      "unit": 1757.78,
+      "qty": 16
+    },
+    "BEL-SFZ-DJ": {
+      "unit": 333.07,
+      "qty": 15
+    },
+    "BEL-SFZ-E": {
+      "unit": 3143.8,
+      "qty": 15
+    },
+    "BEL-SFZ-E-BTZ-FBA": {
+      "unit": 7333.24,
+      "qty": 15
+    },
+    "CS-SGZDZ": {
+      "unit": 7024.84,
+      "qty": 15
+    },
+    "LDL-ZSSF-E-FBA": {
+      "unit": 7396.15,
+      "qty": 15
+    },
+    "SL-ZQHT-Y-JP-FBA": {
+      "unit": 1942.58,
+      "qty": 15
+    },
+    "CS-YHL-Y": {
+      "unit": 2503.57,
+      "qty": 14
+    },
+    "LDL-PL4PQZ-LJJ-V-green": {
+      "unit": 1762.38,
+      "qty": 14
+    },
+    "SL-LL2.0-MB": {
+      "unit": 4535.3,
+      "qty": 14
+    },
+    "LDL-CQ4P-V-DP": {
+      "unit": 8963.01,
+      "qty": 12
+    },
+    "LDL-QZ-LJJ-J": {
+      "unit": 1765.52,
+      "qty": 12
+    },
+    "LDL-XYCQZ-ZPDD": {
+      "unit": 1847.06,
+      "qty": 12
+    },
+    "CS-HYZDB": {
+      "unit": 1400.08,
+      "qty": 11
+    },
+    "IR-5D74-URZ5": {
+      "unit": 9374.89,
+      "qty": 11
+    },
+    "LDL-TZTM-E-FBA": {
+      "unit": 5173.6,
+      "qty": 11
+    },
+    "LDL-XYCQZ-HJDBE": {
+      "unit": 4140.73,
+      "qty": 11
+    },
+    "90-0SPI-ANN4": {
+      "unit": 27480.89,
+      "qty": 10
+    },
+    "BH-ZRKSL-SNEW": {
+      "unit": 3347.85,
+      "qty": 10
+    },
+    "BH-ZRKSL-Y": {
+      "unit": 3384.87,
+      "qty": 10
+    },
+    "CS-BT-HS-G-FBM1": {
+      "unit": 2620.53,
+      "qty": 10
+    },
+    "CS-HYZ-PJ-XC-TZ": {
+      "unit": 1469.1,
+      "qty": 10
+    },
+    "LDL-PL4P-ME-1": {
+      "unit": 20897.8,
+      "qty": 10
+    },
+    "LDL-PL4P-ME-FBA1": {
+      "unit": 20826.55,
+      "qty": 10
+    },
+    "LDL-XYCQZ-V-FBA": {
+      "unit": 35940.28,
+      "qty": 10
+    },
+    "【顶配】全配置セットblack": {
+      "unit": 21355.95,
+      "qty": 10
+    },
+    "BEL-FSYLY-Z1": {
+      "unit": 3591.46,
+      "qty": 9
+    },
+    "LDL-CQZ-MV-FBA": {
+      "unit": 58048.31,
+      "qty": 9
+    },
+    "LDL-CQZTM-V": {
+      "unit": 4254.81,
+      "qty": 9
+    },
+    "SL-BTJ-E": {
+      "unit": 3057.34,
+      "qty": 9
+    },
+    "SL-XWHT-Y-JP-FBA": {
+      "unit": 1979.36,
+      "qty": 9
+    },
+    "SL-YLY-WS-FBA": {
+      "unit": 2939.11,
+      "qty": 9
+    },
+    "CS-CQQZ-B": {
+      "unit": 37123.72,
+      "qty": 8
+    },
+    "CS-FXL-Y-FM": {
+      "unit": 2218.46,
+      "qty": 8
+    },
+    "CS-SKJ-JP": {
+      "unit": 395.66,
+      "qty": 8
+    },
+    "LDL-PL4P-MV": {
+      "unit": 20616.68,
+      "qty": 8
+    },
+    "BEL-SFZ-E-BTZ": {
+      "unit": 7236.19,
+      "qty": 7
+    },
+    "CS-MNFXL1.5-FBM": {
+      "unit": 782.56,
+      "qty": 7
+    },
+    "LDL-CQ4P-V": {
+      "unit": 17974.75,
+      "qty": 7
+    },
+    "LDL-CQ4P-V-DP-FBA": {
+      "unit": 9206.49,
+      "qty": 7
+    },
+    "LDL-CQZTM-E-M": {
+      "unit": 4252,
+      "qty": 7
+    },
+    "SL-LL2.0-MB-FBA": {
+      "unit": 4561.71,
+      "qty": 7
+    },
+    "SL-YLY-H-FBA": {
+      "unit": 2600.21,
+      "qty": 7
+    },
+    "YS-DBT-G": {
+      "unit": 3189.26,
+      "qty": 7
+    },
+    "YS-DBT-Y": {
+      "unit": 2972.93,
+      "qty": 7
+    },
+    "CS-TMSL": {
+      "unit": 3139.82,
+      "qty": 6
+    },
+    "CS-YHL-Y-FBM": {
+      "unit": 2569.6,
+      "qty": 6
+    },
+    "LA-66LP-H384": {
+      "unit": 3650.49,
+      "qty": 6
+    },
+    "LDL-CQZ-MV-FBM": {
+      "unit": 57359.34,
+      "qty": 6
+    },
+    "SL-LL2.0-QQ": {
+      "unit": 4791.09,
+      "qty": 6
+    },
+    "ZK-BLBV-Y9NG": {
+      "unit": 202.94,
+      "qty": 6
+    },
+    "BEL-CFZ-E-ATZ": {
+      "unit": 4507.64,
+      "qty": 5
+    },
+    "BEL-GBY-E": {
+      "unit": 6047.09,
+      "qty": 5
+    },
+    "CS-CQQZ-AG-FBM": {
+      "unit": 38977.7,
+      "qty": 5
+    },
+    "CS-KLP-G": {
+      "unit": 26760.83,
+      "qty": 5
+    },
+    "CS-PG-S-JP": {
+      "unit": 9255.32,
+      "qty": 5
+    },
+    "CS-YLJJL-JP": {
+      "unit": 1360.87,
+      "qty": 5
+    },
+    "LDL-QZTZ-WS": {
+      "unit": 846.35,
+      "qty": 5
+    },
+    "LDL-TZTM-V-FBA": {
+      "unit": 5222.71,
+      "qty": 5
+    },
+    "SL-DBTT-H": {
+      "unit": 548.82,
+      "qty": 5
+    },
+    "SL-TBZ-Y-FBA": {
+      "unit": 1399.64,
+      "qty": 5
+    },
+    "TC-BZBL-Y": {
+      "unit": 4915.35,
+      "qty": 5
+    },
+    "BEL-XKZ-E": {
+      "unit": 3287.16,
+      "qty": 4
+    },
+    "CS-BT-HS-H-FBM": {
+      "unit": 2539.53,
+      "qty": 4
+    },
+    "LDL-CQZTZ-E": {
+      "unit": 9946.83,
+      "qty": 4
+    },
+    "LDL-PL4P-PPDD-black": {
+      "unit": 1297.7,
+      "qty": 4
+    },
+    "LDL-QZ-ME-3-black-FBA": {
+      "unit": 35320.15,
+      "qty": 4
+    },
+    "LDL-XYCQZ-HJDBV": {
+      "unit": 4130.24,
+      "qty": 4
+    },
+    "LDL-XYCQZTM-E": {
+      "unit": 9513.27,
+      "qty": 4
+    },
+    "LDL-ZSSF-E": {
+      "unit": 7262.34,
+      "qty": 4
+    },
+    "M183": {
+      "unit": 8389.35,
+      "qty": 4
+    },
+    "SL-YH-Y-A": {
+      "unit": 824.67,
+      "qty": 4
+    },
+    "9X-XS4A-U97R-FBA": {
+      "unit": 332.97,
+      "qty": 3
+    },
+    "BEL-XKZ-E-DP": {
+      "unit": 4691.63,
+      "qty": 3
+    },
+    "CS-MGZJ-S": {
+      "unit": 341.42,
+      "qty": 3
+    },
+    "LDL-4P-NU": {
+      "unit": 14057.62,
+      "qty": 3
+    },
+    "LDL-CQZ-NZ-M": {
+      "unit": 5201.48,
+      "qty": 3
+    },
+    "LDL-CQZTZ-NZ": {
+      "unit": 4793.78,
+      "qty": 3
+    },
+    "LDL-QZ-K-5": {
+      "unit": 27609.19,
+      "qty": 3
+    },
+    "LDL-XYCQZ-V-NEW": {
+      "unit": 36249.82,
+      "qty": 3
+    },
+    "Z7-JC05-DGXX": {
+      "unit": 197.11,
+      "qty": 3
+    },
+    "BEL-CFZ-E": {
+      "unit": 4201.81,
+      "qty": 2
+    },
+    "BEL-FSYLY-Z": {
+      "unit": 3565.22,
+      "qty": 2
+    },
+    "BEL-GBY-Z": {
+      "unit": 6047.36,
+      "qty": 2
+    },
+    "BEL-SFZ-ZMB*4": {
+      "unit": 3986.63,
+      "qty": 2
+    },
+    "CH-LLDZ": {
+      "unit": 1165.09,
+      "qty": 2
+    },
+    "CS-HYZDB-1": {
+      "unit": 1442.87,
+      "qty": 2
+    },
+    "CS-SKL1-JP-FBA": {
+      "unit": 3032.09,
+      "qty": 2
+    },
+    "CS-TZTM-K-JP": {
+      "unit": 5235.25,
+      "qty": 2
+    },
+    "LDL-CQZ-MTPU": {
+      "unit": 2105.9,
+      "qty": 2
+    },
+    "LDL-CQZTZ-V": {
+      "unit": 9947.38,
+      "qty": 2
+    },
+    "LDL-PL4P-ME-FBA": {
+      "unit": 19844.22,
+      "qty": 2
+    },
+    "LDL-QZ-MJ-3": {
+      "unit": 34439.45,
+      "qty": 2
+    },
+    "LDL-XYCQZ-E-NEW": {
+      "unit": 36295.75,
+      "qty": 2
+    },
+    "LDL-XYCQZ-NZ": {
+      "unit": 5596.76,
+      "qty": 2
+    },
+    "LDL-XYCQZ-TPU-E": {
+      "unit": 4754.13,
+      "qty": 2
+    },
+    "LDL-XYCQZ-TPU-V": {
+      "unit": 4709.82,
+      "qty": 2
+    },
+    "LDL-XYCQZTM-V": {
+      "unit": 9513.27,
+      "qty": 2
+    },
+    "M182": {
+      "unit": 6393.86,
+      "qty": 2
+    },
+    "SL-MGDZ-E": {
+      "unit": 1152.59,
+      "qty": 2
+    },
+    "SP-MNXFL": {
+      "unit": 1105.73,
+      "qty": 2
+    },
+    "TC-LLMN-Y": {
+      "unit": 2936.3,
+      "qty": 2
+    },
+    "Z7-JC05-DGXX-FBM": {
+      "unit": 207.52,
+      "qty": 2
+    },
+    "【进阶】black": {
+      "unit": 37359.04,
+      "qty": 2
+    },
+    "【顶配】全配置セットgreen": {
+      "unit": 42285.54,
+      "qty": 2
+    },
+    "BEL-GBY-Z-FBA": {
+      "unit": 6047.36,
+      "qty": 1
+    },
+    "CS-CQQZ-AG": {
+      "unit": 37155.99,
+      "qty": 1
+    },
+    "CS-GHT-S": {
+      "unit": 1330.42,
+      "qty": 1
+    },
+    "CS-JJL-S": {
+      "unit": 1362.76,
+      "qty": 1
+    },
+    "LDL-CQZTM-V-M": {
+      "unit": 4201.81,
+      "qty": 1
+    },
+    "LDL-DQZ-TZ-TPU-E": {
+      "unit": 3848.95,
+      "qty": 1
+    },
+    "LDL-QZ-HJDB-K": {
+      "unit": 4233.25,
+      "qty": 1
+    },
+    "LDL-QZ-MJ-3-FBA": {
+      "unit": 34439.45,
+      "qty": 1
+    },
+    "LDL-QZTZ-J-green": {
+      "unit": 11007.04,
+      "qty": 1
+    },
+    "M181": {
+      "unit": 6489.44,
+      "qty": 1
+    },
+    "SL-LL2.0-MC-FBA": {
+      "unit": 4791.56,
+      "qty": 1
+    },
+    "SL-LL2.0-QQ-FBA": {
+      "unit": 4938.46,
+      "qty": 1
+    },
+    "SL-XWHT-Y-JP-FBM": {
+      "unit": 1934.13,
+      "qty": 1
+    },
+    "SL-YGTBY-E": {
+      "unit": 1984.83,
+      "qty": 1
+    },
+    "SP-GHCL": {
+      "unit": 2611.02,
+      "qty": 1
+    }
+  }
+}
