@@ -662,9 +662,9 @@ function skuDetailHTML(d){
     <td>${r.qty==null?'—':r.qty}</td>
     <td style="font-weight:600;color:var(--blue,#6ea8fe)">${r.orders!=null?r.orders:'—'}</td>
     <td>${fmt0(r.net)}<span class="cur">${cur.currency}</span></td>
+    <td>${r.settledNet==null?'<span style="color:var(--sub)">待结算</span>':fmt0(r.settledNet)+'<span class="cur">'+cur.currency+'</span>'}</td>
     <td>${money(r.cost)}</td>
     <td>${money(r.platformFee)}</td>
-    <td>${r.settledNet==null?'<span style="color:var(--sub)">待结算</span>':fmt0(r.settledNet)+'<span class="cur">'+cur.currency+'</span>'}</td>
     <td class="${(r.profit||0)<0?'neg':'pos'}" style="font-weight:600">${money(r.profit)}</td>
     <td>${pctOf(r)}</td>
     <td style="min-width:120px">
@@ -688,9 +688,9 @@ function skuDetailHTML(d){
         <th>销量(下单·件)</th>
         <th>订单量(单)</th>
         <th>净销售额(下单)</th>
+        <th>结算净销售额</th>
         <th>商品成本</th>
         <th>平台费用</th>
-        <th>结算净销售额</th>
         <th>毛利润(结算)</th>
         <th>毛利率(结算)</th>
         <th style="text-align:right">销售额占比</th>
