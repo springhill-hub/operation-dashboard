@@ -54,7 +54,8 @@ const LarkDocUrl = 'https://scnnkf4b8hxl.feishu.cn/docx/HLvidGwVroPZRxxjngdclO2S
 
 const GIT_FILES = ['index.html', 'widget.html', 'dashboard.html', 'deploy-dashboard.js',
   'daily-refresh.sh', 'portal.html', 'build-crossborder.js', 'build-shopee.js',
-  'build-msku-cost.js', 'build-rakuten.js', 'build-coupang.js', 'msku-cost.json', '.gitignore'];
+  'build-msku-cost.js', 'build-rakuten.js', 'build-coupang.js', 'msku-cost.json', '.gitignore',
+  'operation_data.json'];
 
 const step = m => console.log(`\n[STEP] ${m}`);
 const ok = m => console.log(`  [OK] ${m}`);
@@ -166,6 +167,8 @@ if (SKIP_GIT) {
   step('3/4 [跳过] git push（--skipGit）');
 } else {
   step('3/4 git 提交并推送 GitHub Pages');
+  // operation_data.json 工作副本在 ROOT，纳入仓库供 GitHub Actions 读取（乐天成本参考）
+  fs.copyFileSync(DataJson, path.join(DEPLOY, 'operation_data.json'));
   run('git', ['add', ...GIT_FILES]);
   const staged = run('git', ['diff', '--cached', '--name-only'], true);
   if (!staged) {

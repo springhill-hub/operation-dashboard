@@ -1,0 +1,35 @@
+# 日本乐天 RMS 数据每日刷新（海外节点执行，规避国内网络阻断）
+# 每天 00:10 UTC = 北京时间 08:10，先于服务器 08:30 的部署流程
+# 聚合结果（无个人隐私数据）提交进 operation_data.json，由服务器 git pull 后部署
+name: rakuten-daily
+on:
+  schedule:
+    - cron: '10 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 写入乐天RMS凭证（来自仓库Secret，不落盘到git）
+        run: |
+          mkdir -p secrets
+          printf '%s' "$RAKUTEN_JSON" > secrets/rakuten.json
+          chmod 600 secrets/rakuten.json
+        env:
+          RAKUTEN_JSON: ${{ secrets.RAKUTEN_JSON }}
+      - name: 拉取并聚合乐天订单
+        run: CS_ROOT="$GITHUB_WORKSPACE" node build-rakuten.js
+      - name: 提交聚合结果
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add operation_data.json
+          git diff --cached --quiet && echo "无变化，跳过提交" && exit 0
+          git commit -m "乐天数据刷新 $(date -u +%F)"
+          git push

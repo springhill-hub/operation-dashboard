@@ -72,6 +72,8 @@ log "[2/3] git pull（同步Actions乐天数据）"
 git pull --ff-only origin main >>"$LOG_FILE" 2>&1 \
   && log "  [OK] 仓库同步完成" \
   || log "  [WARN] git pull失败（沿用本地数据继续，详见日志）"
+# 把仓库版（含Actions乐天数据）回灌为工作副本，再跑领星刷新（会保留乐天settlement）
+[ -f "$DEPLOY_DIR/operation_data.json" ] && cp "$DEPLOY_DIR/operation_data.json" "$DATA_FILE"
 
 log "[2/3] 外盘 build-crossborder.js（领星MCP拉数）"
 out2="$(node build-crossborder.js 2>&1)"
