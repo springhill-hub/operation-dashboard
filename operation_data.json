@@ -495,7 +495,7 @@
         ],
         "orderCount": 2,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19",
+        "generatedAt": "2026-10-06 13:34:09",
         "feeEstimated": true,
         "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
         "costCoveragePct": null
@@ -580,7 +580,7 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-06 13:27:15"
+        "generatedAt": "2026-10-06 13:34:04"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -593,7 +593,7 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-05 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:27:16",
+        "cashGeneratedAt": "2026-10-06 13:34:05",
         "staticProductCost": 0,
         "staticCoveragePct": null,
         "costSource": "report",
@@ -605,7 +605,7 @@
         "salesAmount": 24072,
         "net": 24072,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -618,7 +618,7 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-05 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:27:16",
+        "cashGeneratedAt": "2026-10-06 13:34:05",
         "staticProductCost": 0,
         "staticCoveragePct": null,
         "costSource": "report",
@@ -630,7 +630,7 @@
         "salesAmount": 4280.8,
         "net": 4280.8,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       },
       "独立站-国际": {
         "currency": "USD",
@@ -639,7 +639,7 @@
         "salesAmount": 0,
         "net": 0,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       }
     }
   },
@@ -1675,7 +1675,7 @@
         "margin": "63.74%",
         "orderCount": 25,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19",
+        "generatedAt": "2026-10-06 13:34:09",
         "feeEstimated": true,
         "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
         "costCoveragePct": null
@@ -1703,7 +1703,7 @@
         "margin": "82.62%",
         "orderCount": 4,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       },
       "日本-乐天": {
         "currency": "JPY",
@@ -1817,7 +1817,7 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-06 13:27:15"
+        "generatedAt": "2026-10-06 13:34:04"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -1830,7 +1830,7 @@
         "cashStatus": "settled",
         "cashRange": "2026-09-29 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:27:18",
+        "cashGeneratedAt": "2026-10-06 13:34:07",
         "staticProductCost": -59695.7,
         "staticCoveragePct": 85.98,
         "costSource": "report",
@@ -1875,7 +1875,7 @@
         "salesAmount": 293535,
         "net": 293535,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -1888,7 +1888,7 @@
         "cashStatus": "settled",
         "cashRange": "2026-09-29 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:27:18",
+        "cashGeneratedAt": "2026-10-06 13:34:07",
         "staticProductCost": -2547.64,
         "staticCoveragePct": 96.34,
         "costSource": "report",
@@ -1913,7 +1913,7 @@
         "salesAmount": 21911.7,
         "net": 21911.7,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       }
     }
   },
@@ -2553,7 +2553,7 @@
         },
         {
           "msku": "CS-MNFXL1.5",
-          "name": "迷你焚���炉1.5",
+          "name": "迷你焚香炉1.5",
           "qty": 2,
           "orders": 2,
           "net": 7398,
@@ -2858,7 +2858,7 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-06 13:27:15"
+        "generatedAt": "2026-10-06 13:34:04"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -2871,7 +2871,7 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-01 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:27:19",
+        "cashGeneratedAt": "2026-10-06 13:34:08",
         "staticProductCost": 0,
         "staticCoveragePct": null,
         "costSource": "report",
@@ -2883,7 +2883,7 @@
         "salesAmount": 176047,
         "net": 176047,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -2896,7 +2896,7 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-01 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:27:19",
+        "cashGeneratedAt": "2026-10-06 13:34:08",
         "staticProductCost": 0,
         "staticCoveragePct": null,
         "costSource": "report",
@@ -2908,7 +2908,7 @@
         "salesAmount": 15607.7,
         "net": 15607.7,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       },
       "独立站-日本": {
         "currency": "JPY",
@@ -2917,7 +2917,7 @@
         "salesAmount": 748732,
         "net": 748732,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19",
+        "generatedAt": "2026-10-06 13:34:09",
         "productCost": -226566.81,
         "commission": -44923.92,
         "platformFeeTotal": -44923.92,
@@ -2934,7 +2934,7 @@
         "salesAmount": 197,
         "net": 197,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:27:19"
+        "generatedAt": "2026-10-06 13:34:09"
       }
     }
   },
@@ -4022,7 +4022,7 @@
         },
         {
           "msku": "BEL-CFZ-E",
-          "name": "金乌碳纤维长方桌【黑色���",
+          "name": "金乌碳纤维长方桌【黑色】",
           "qty": 1,
           "orders": 1,
           "net": 9500,
