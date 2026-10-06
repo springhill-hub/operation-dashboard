@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   春山户外经营看板 · 每日刷新部署脚本
 .DESCRIPTION
@@ -186,25 +186,77 @@ if ($SkipLark) {
   if (-not (Test-Path $LarkCli)) {
     Stop-OnError 'Step4-lark-cli' "lark-cli 不存在：$LarkCli"
   }
+  # 4.0 凭据预检：定时任务（Task Scheduler）不继承 TRAE 注入的 LARKSUITE_CLI_* 环境变量，
+  #     缺凭据时 lark-cli 返回 config/not_configured（2026-10-03~10-06 Step4 连续失败根因）
+  if (-not $env:LARKSUITE_CLI_USER_ACCESS_TOKEN) {
+    Write-Info "环境变量 LARKSUITE_CLI_USER_ACCESS_TOKEN 缺失（Windows定时任务的正常现象），将尝试 lark-cli 本地持久化凭据"
+  }
   $prevEAP = $ErrorActionPreference
   $ErrorActionPreference = 'Continue'
   try {
     Push-Location $DeployDir
-    # 4.1 动态获取当前 html5-block id（block_replace 每次生成新 id，硬编码会失效）
-    Write-Info "fetch 文档定位当前 html5-block id"
-    $fetchOut = & $LarkCli docs +fetch --doc $LarkDocId --detail with-ids --as user 2>&1
-    # fetch 输出为转义JSON，id 引号可能形如 id=\"...\"，正则兼容转义/非转义
-    $mm = [regex]::Match(($fetchOut -join ' '), '<html5-block[^>]*id=\\?"([A-Za-z0-9]+)\\?"')
-    if (-not $mm.Success) { throw "文档中未找到 html5-block，可能需先在飞书手工创建该块" }
-    $curBlockId = $mm.Groups[1].Value
-    Write-Info "当前 html5-block id=$curBlockId"
-    # 4.2 已有 data-ref 的块必须带 --reference-map，content 用 path 引用新 widget
-    $content = "<html5-block path='@./widget.html'/>"
-    $output = & $LarkCli docs +update --doc $LarkDocId --command block_replace --block-id $curBlockId --content $content --reference-map "@./reference-map.json" --as user 2>&1
-    if ($LASTEXITCODE -ne 0) {
-      throw "lark-cli 失败 (exit $LASTEXITCODE)：$output"
+
+    # 解析 lark-cli JSON 输出中的错误；凭据缺失时给出可执行的修复指引，而不是误报"未找到block"
+    function Get-LarkCliError {
+      param([string[]]$Lines)
+      $txt = ($Lines -join "`n")
+      if ($txt -notmatch '"ok"\s*:\s*false') { return $null }
+      $sub = [regex]::Match($txt, '"subtype"\s*:\s*"([^"]+)"').Groups[1].Value
+      $msg = [regex]::Match($txt, '"message"\s*:\s*"([^"]+)"').Groups[1].Value
+      if ($sub -eq 'not_configured') {
+        return "飞书凭据未配置（config/not_configured）。当前进程无 TRAE 注入的 LARKSUITE_CLI_USER_ACCESS_TOKEN，且本机未做 lark-cli 持久化授权。修复二选一：① 在普通 PowerShell（不依赖TRAE）执行 `"$LarkCli`" config init --new 并浏览器完成授权，凭据落盘后定时任务即可自动刷新；② 每日在 TRAE 内手动触发部署。"
+      }
+      return "lark-cli 返回错误($sub)：$msg"
     }
-    Write-OK "飞书文档 html5-block 已更新"
+
+    # 4.1 + 4.2 整体最多尝试3轮（网络抖动/限流可重试；not_configured 不重试）
+    $maxAttempts = 3
+    $done = $false
+    for ($attempt = 1; $attempt -le $maxAttempts -and -not $done; $attempt++) {
+      try {
+        if ($attempt -gt 1) { Write-Info "第 $attempt 次重试（等待15s）"; Start-Sleep -Seconds 15 }
+        # 4.1 动态获取当前 html5-block id（block_replace 每次生成新 id，硬编码会失效）
+        Write-Info "fetch 文档定位当前 html5-block id"
+        $fetchOut = & $LarkCli docs +fetch --doc $LarkDocId --detail with-ids --as user 2>&1
+        $cliErr = Get-LarkCliError $fetchOut
+        if ($cliErr) { throw $cliErr }
+        # fetch 输出为转义JSON，id 引号可能形如 id=\"...\"，正则兼容转义/非转义
+        $mm = [regex]::Match(($fetchOut -join ' '), '<html5-block[^>]*id=\\?"([A-Za-z0-9]+)\\?"')
+        if (-not $mm.Success) { throw "fetch 成功但未在文档中匹配到 html5-block（文档结构可能被改动），请人工检查飞书文档" }
+        $curBlockId = $mm.Groups[1].Value
+        Write-Info "当前 html5-block id=$curBlockId"
+        # 4.2 已有 data-ref 的块必须带 --reference-map，content 用 path 引用新 widget
+        $content = "<html5-block path='@./widget.html'/>"
+        $output = & $LarkCli docs +update --doc $LarkDocId --command block_replace --block-id $curBlockId --content $content --reference-map "@./reference-map.json" --as user 2>&1
+        $cliErr = Get-LarkCliError $output
+        if ($LASTEXITCODE -ne 0 -or $cliErr) {
+          throw ("lark-cli block_replace 失败 (exit $LASTEXITCODE)：" + $(if ($cliErr) { $cliErr } else { ($output -join ' ') }))
+        }
+        Write-OK "飞书文档 html5-block 已更新"
+        $done = $true
+      } catch {
+        if ($_.Exception.Message -match 'not_configured') { throw }   # 凭据问题重试无意义
+        if ($attempt -eq $maxAttempts) { throw "Step4 重试 $maxAttempts 次仍失败：$($_.Exception.Message)" }
+        Write-Info "本轮失败：$($_.Exception.Message)"
+      }
+    }
+
+    # 4.3 回验：重新 fetch 下载 block 资源，确认内嵌数据日期确为本次部署日期（防止"假成功"）
+    Write-Info "回验 block 内数据日期..."
+    $verifyOut = & $LarkCli docs +fetch --doc $LarkDocId --detail with-ids --as user 2>&1
+    $vErr = Get-LarkCliError $verifyOut
+    if ($vErr) { throw "回验fetch失败：$vErr" }
+    $vTxt = $verifyOut -join "`n"
+    $resRel = [regex]::Match($vTxt, '"path"\s*:\s*"(@doc-fetch-resources/[^"]+)"').Groups[1].Value
+    if (-not $resRel) { throw "回验失败：reference_map 中未找到 html5 资源路径" }
+    $resPath = Join-Path $DeployDir ($resRel -replace '^@', '')
+    if (-not (Test-Path $resPath)) { throw "回验失败：资源文件未落盘 $resPath" }
+    $resHtml = Get-Content $resPath -Raw -Encoding UTF8
+    $vDate = [regex]::Match($resHtml, '"today"\s*:\s*\{[^}]*?"date"\s*:\s*"([^"]+)"').Groups[1].Value
+    if ($vDate -ne $todayDate) {
+      throw "回验失败：block 内 today=$vDate，期望 $todayDate（block_replace 可能未生效或CDN缓存，需人工排查）"
+    }
+    Write-OK "回验通过：飞书 block 内 today=$vDate（与 operation_data.json 一致）"
   } catch {
     Pop-Location
     $ErrorActionPreference = $prevEAP
