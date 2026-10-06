@@ -9,3 +9,5 @@ node_modules/
 _tmall/
 daily-refresh.log
 daily-refresh.cron.log
+inventory-push.json
+inventory-snap/

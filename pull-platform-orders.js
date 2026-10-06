@@ -49,7 +49,7 @@ const STORES = [
   { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
   { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
   { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true,  skuDetail: 'none'  },
-  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true, skuDetail: 'none' },
+  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true, skuDetail: 'order' },
 ];
 
 // 统一日亚 JPY 成本库（同货同成本，THB/MYR 按外管中间价折算；cost-lib）
@@ -122,6 +122,10 @@ async function pullStore(store, start, end) {
         });
       }
       const sk = out.skus.get(code);
+      // 不同 resultType 返回的品名/图片完整度不同，逐次补全空字段
+      if (!sk.name) sk.name = (Array.isArray(x.productName) ? x.productName[0] : '')
+        || (Array.isArray(x.platformProductTitle) ? x.platformProductTitle[0] : '') || '';
+      if (!sk.img && x.picUrl) sk.img = x.picUrl;
       sk[field] += v;
     }
   }
@@ -210,6 +214,19 @@ async function pullStore(store, start, end) {
           })
           .sort((a, b) => b.net - a.net);
         cur.skuDetail = rows;
+      } else if (store.skuDetail === 'order') {
+        // 独立站-国际：领星已映射MSKU出下单口径明细；成本/费用待Shopify账单，留空显示待结算
+        const rows = [...m.skus.values()]
+          .filter(x => x.qty > 0 || x.net > 0)
+          .map(x => ({
+            msku: x.msku, name: x.name, img: x.img,
+            qty: r2(x.qty), orders: r2(x.orders), net: r2(x.net),
+            settledNet: null, cost: null, platformFee: null,
+            profit: null, margin: null, settled: false,
+            pct: m.net ? r2(x.net / m.net * 100) : 0,
+          }))
+          .sort((a, b) => b.net - a.net);
+        cur.skuDetail = rows;
       } else if (store.skuDetail === 'none') {
         // Shopify 领星无商品映射（仅整店一行），清空手工旧明细避免过期误读；恢复条件：领星做SKU映射
         cur.skuDetail = [];
@@ -218,7 +235,7 @@ async function pullStore(store, start, end) {
       D[p].settlement[store.key] = cur;
       console.log(p + ' | ' + store.key + ' | qty=' + m.qty + ' orders=' + m.orders + ' net=' + m.net + ' ' + store.ccy
         + (store.estCost ? ' GP=' + cur.profit + '(' + cur.margin + ')' : '')
-        + (store.skuDetail === 'shopee' ? ' | skuRows=' + cur.skuDetail.length : ''));
+        + (store.skuDetail === 'shopee' || store.skuDetail === 'order' ? ' | skuRows=' + cur.skuDetail.length : ''));
     }
   }
   fs.writeFileSync(DATA_PATH, JSON.stringify(D, null, 2), 'utf8');

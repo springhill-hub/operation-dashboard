@@ -362,7 +362,7 @@
         "skuDetail": [],
         "orderCount": 2,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "feeEstimated": true,
         "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
         "costCoveragePct": null
@@ -772,7 +772,7 @@
         "salesAmount": 24072,
         "net": 24072,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "skuDetail": [
           {
             "msku": "BEL-TXW-TMGE",
@@ -874,7 +874,7 @@
         "salesAmount": 4280.8,
         "net": 4280.8,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "skuDetail": [
           {
             "msku": "LDL-ZSSF-E",
@@ -975,7 +975,7 @@
         "salesAmount": 0,
         "net": 0,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "productCost": null,
         "commission": null,
         "platformFeeTotal": null,
@@ -2018,7 +2018,7 @@
         "margin": "63.74%",
         "orderCount": 25,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "feeEstimated": true,
         "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
         "costCoveragePct": null,
@@ -2047,9 +2047,40 @@
         "margin": null,
         "orderCount": 4,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射",
-        "skuDetail": []
+        "skuDetail": [
+          {
+            "msku": "TC-MNBL-Y",
+            "name": "春山mini观火壁炉",
+            "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/2_293cf14e-e60b-4b62-971a-7255d9d42e9a.jpg?v=1759977141",
+            "qty": 3,
+            "orders": 3,
+            "net": 197,
+            "settledNet": null,
+            "cost": null,
+            "platformFee": null,
+            "profit": null,
+            "margin": null,
+            "settled": false,
+            "pct": 76.95
+          },
+          {
+            "msku": "SL-FXL3.0-Y",
+            "name": "Gooutspringhill Mini Fire Stove3.0 Pre-order (shipping late October) - Silver",
+            "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/02_23c8eaa9-64a1-4d02-bc50-c6092467c485.jpg?v=1788773840",
+            "qty": 1,
+            "orders": 1,
+            "net": 59,
+            "settledNet": null,
+            "cost": null,
+            "platformFee": null,
+            "profit": null,
+            "margin": null,
+            "settled": false,
+            "pct": 23.05
+          }
+        ]
       },
       "日本-乐天": {
         "currency": "JPY",
@@ -2887,7 +2918,7 @@
         "salesAmount": 293535,
         "net": 293535,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "skuDetail": [
           {
             "msku": "BH-ZRKSL-Y",
@@ -3294,7 +3325,7 @@
         "salesAmount": 21911.7,
         "net": 21911.7,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "skuDetail": [
           {
             "msku": "LDL-ZSSF-E",
@@ -5101,7 +5132,7 @@
         "salesAmount": 176047,
         "net": 176047,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "skuDetail": [
           {
             "msku": "BH-ZRKSL-Y",
@@ -5413,7 +5444,7 @@
         "salesAmount": 15607.7,
         "net": 15607.7,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "skuDetail": [
           {
             "msku": "YS-DBT-Y",
@@ -5619,7 +5650,7 @@
         "salesAmount": 748732,
         "net": 748732,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "productCost": -226566.81,
         "commission": -44923.92,
         "platformFeeTotal": -44923.92,
@@ -5637,14 +5668,45 @@
         "salesAmount": 197,
         "net": 197,
         "caliber": "order",
-        "generatedAt": "2026-10-06 14:45:32",
+        "generatedAt": "2026-10-06 15:40:05",
         "productCost": null,
         "commission": null,
         "platformFeeTotal": null,
         "profit": null,
         "margin": null,
         "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射",
-        "skuDetail": []
+        "skuDetail": [
+          {
+            "msku": "TC-MNBL-Y",
+            "name": "春山mini观火壁炉",
+            "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/2_293cf14e-e60b-4b62-971a-7255d9d42e9a.jpg?v=1759977141",
+            "qty": 2,
+            "orders": 2,
+            "net": 138,
+            "settledNet": null,
+            "cost": null,
+            "platformFee": null,
+            "profit": null,
+            "margin": null,
+            "settled": false,
+            "pct": 70.05
+          },
+          {
+            "msku": "SL-FXL3.0-Y",
+            "name": "Gooutspringhill Mini Fire Stove3.0 Pre-order (shipping late October) - Silver",
+            "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/02_23c8eaa9-64a1-4d02-bc50-c6092467c485.jpg?v=1788773840",
+            "qty": 1,
+            "orders": 1,
+            "net": 59,
+            "settledNet": null,
+            "cost": null,
+            "platformFee": null,
+            "profit": null,
+            "margin": null,
+            "settled": false,
+            "pct": 29.95
+          }
+        ]
       }
     }
   },
