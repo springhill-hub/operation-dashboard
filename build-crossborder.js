@@ -64,7 +64,8 @@ process.argv.slice(2).forEach(a => {
 const PERIODS = (argv.periods || 'today,yesterday,week,lastWeek,month,lastMonth').split(',');
 const DRY_RUN = !!argv.dryRun;
 const SKIP_META = !!argv.skipMeta;
-const DATA_PATH = argv.dataPath ? path.resolve(argv.dataPath) : 'f:/ai agent/operation_data.json';
+const ROOT = process.env.CS_ROOT || 'f:/ai agent';
+const DATA_PATH = argv.dataPath ? path.resolve(argv.dataPath) : path.join(ROOT, 'operation_data.json');
 
 // ---------- 领星 REST API（下单口径销量，需IP白名单） ----------
 const LX_APP_ID = 'ak_M7HmqeOuHZaKM';
