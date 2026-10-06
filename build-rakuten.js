@@ -10,7 +10,7 @@
  *      月度真精算書（每月约20日出）无 API，后续 CSV 导入覆盖校准。
  *
  * 费用：
- *   commission = net × 4.5%（システム利用料，估算，待精算書校准）
+ *   commission = net × 10.5%（システム利用料等，估算，待精算書校准）
  *   其余乐天费用（ポイント原資負担・R-Card・固定费等）首版未含。
  *
  * 成本：复用现有口径 = Σ 数量 × 单位成本（JPY），
@@ -28,6 +28,8 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+// 云服务器（阿里云）不支持 IPv6，乐天 RMS 若解析到 v6 会 ENETUNREACH，强制 IPv4 优先
+try { require('dns').setDefaultResultOrder('ipv4first'); } catch (e) {}
 const http = require('http');
 const tls = require('tls');
 
@@ -62,9 +64,13 @@ const PERIODS = (argv.periods || 'today,week,month').split(',');
 
 const SECRETP = path.join(__dirname, 'secrets', 'rakuten.json');
 const RAWDIR  = path.join(__dirname, 'rakuten-raw');
-const DATAP   = argv.dataPath ? path.resolve(argv.dataPath) : 'f:/ai agent/operation_data.json';
+const DATAP   = argv.dataPath ? path.resolve(argv.dataPath)
+  : path.join(process.env.CS_ROOT || 'f:/ai agent', 'operation_data.json');
 const HOST    = 'api.rms.rakuten.co.jp';
-const PROXY   = process.env.HTTPS_PROXY || process.env.HTTP_PROXY || 'http://127.0.0.1:7892';
+// 服务器无本地代理时不走代理直连；有 HTTPS_PROXY 环境变量才用
+const PROXY   = process.env.HTTPS_PROXY || process.env.HTTP_PROXY || (process.platform === 'win32' ? 'http://127.0.0.1:7892' : '');
+// 国内服务器 DNS 污染时，用已知 IPv4 直连（配合 servername=HOST 保持 SNI/证书正确）
+const HOST_IP = process.env.RAKUTEN_HOST_IP || '';
 const COMMISSION_RATE = 0.105;
 
 const num = v => Number(v) || 0;
@@ -72,7 +78,7 @@ const r2  = v => Math.round(num(v) * 100) / 100;
 
 // ---------- RMS 传输层（代理 CONNECT 隧道 + TLS） ----------
 const cred = JSON.parse(fs.readFileSync(SECRETP, 'utf8'));
-const proxyUrl = new URL(PROXY);
+const proxyUrl = PROXY ? new URL(PROXY) : null;
 
 function tunnel() {
   return new Promise((resolve, reject) => {
@@ -94,11 +100,13 @@ function tunnel() {
 function post(apiPath, payload) {
   return new Promise(async (resolve, reject) => {
     let socket;
-    try { socket = await tunnel(); } catch (e) { reject(e); return; }
+    if (proxyUrl) {
+      try { socket = await tunnel(); } catch (e) { reject(e); return; }
+    }
     const body = JSON.stringify(payload);
     const req = https.request({
-      createConnection: () => socket,
-      hostname: HOST, path: apiPath, method: 'POST',
+      ...(socket ? { createConnection: () => socket } : {}),
+      hostname: HOST_IP || HOST, servername: HOST, path: apiPath, method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'Authorization': 'ESA ' + Buffer.from(cred.serviceSecret + ':' + cred.licenseKey).toString('base64'),

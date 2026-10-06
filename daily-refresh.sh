@@ -67,6 +67,12 @@ else
 fi
 
 # ---------- [2/3] 外盘拉数 ----------
+# 先同步 GitHub Actions 在海外跑好的乐天数据（乐天真直连被墙，由Actions每日08:10聚合提交）
+log "[2/3] git pull（同步Actions乐天数据）"
+git pull --ff-only origin main >>"$LOG_FILE" 2>&1 \
+  && log "  [OK] 仓库同步完成" \
+  || log "  [WARN] git pull失败（沿用本地数据继续，详见日志）"
+
 log "[2/3] 外盘 build-crossborder.js（领星MCP拉数）"
 out2="$(node build-crossborder.js 2>&1)"
 if [ $? -ne 0 ]; then
@@ -80,6 +86,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 log "  [OK] 领星数据拉取完成"
+
+# 注：日本乐天由 GitHub Actions（海外节点）每日 08:10 聚合并提交 operation_data.json，
+#     本流程开头的 git pull 已将其同步进来；佣金按 10.5% 估算、成本参考日亚单位成本。
 
 # ---------- [3/3] 外盘部署（仅当数据文件5分钟内被刷新） ----------
 log "[3/3] 外盘 deploy-dashboard.js（内嵌+git+飞书）"
