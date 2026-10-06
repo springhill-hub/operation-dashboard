@@ -93,16 +93,6 @@ log "  [OK] 领星数据拉取完成"
 #     本流程开头的 git pull 已将其同步进来；佣金按 10.5% 估算、成本参考日亚单位成本。
 
 # ---------- [2.6] 韩国 Coupang（领星MCP，失败不阻断部署） ----------
-# ---------- [2.55] 日亚 MSKU 成本主表（统一成本库，失败沿用旧表不阻断） ----------
-log "[2.55] 日亚MSKU成本主表 pull-msku-cost"
-outMC="$(node pull-msku-cost.js 2>&1)"
-if [ $? -eq 0 ]; then
-  log "  [OK] 成本主表已刷新"
-else
-  log "  [ERR] 成本主表刷新失败（沿用 jp-msku-cost.json 旧表）"
-  record_failure "[2.55] pull-msku-cost" "$(echo "$outMC" | tail -3 | tr '\n' ' ')"
-fi
-
 log "[2.6] 韩国Coupang pull-coupang + build-coupang"
 outC="$(node pull-coupang.js 2>&1 && node build-coupang.js 2>&1)"
 if [ $? -eq 0 ]; then
@@ -168,6 +158,19 @@ else
     fi
   else
     log "  [SKIP] operation_data.json 未被本流程更新（${age_sec}s 前修改），跳过外盘部署防旧数据覆盖"
+  fi
+fi
+
+# ---------- [4/4] 周一专属：周报备数（此时 JSON week 恰为上周一~周日完整周） ----------
+# 失败只 WARN、不阻断日报；weekly-data.json 会由脚本自行 git commit/push 供 Pages 消费
+if [ "$(date +%u)" = "1" ]; then
+  log "[4/4] 周一专属 weekly-data-prep（周报备数+Pages推送）"
+  outW="$(node weekly-data-prep.js 2>&1)"
+  if [ $? -eq 0 ]; then
+    log "  [OK] 周报备数完成：$(echo "$outW" | tail -3 | tr '\n' ' ')"
+  else
+    log "$outW" | tail -15 | sed 's/^/  /' >> "$LOG_FILE"
+    log "  [WARN] 周报备数失败（不影响日报；可手动补跑：node weekly-data-prep.js）"
   fi
 fi
 
