@@ -495,7 +495,7 @@
         ],
         "orderCount": 2,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09",
+        "generatedAt": "2026-10-06 13:36:15",
         "feeEstimated": true,
         "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
         "costCoveragePct": null
@@ -605,7 +605,7 @@
         "salesAmount": 24072,
         "net": 24072,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -630,7 +630,7 @@
         "salesAmount": 4280.8,
         "net": 4280.8,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15"
       },
       "独立站-国际": {
         "currency": "USD",
@@ -639,7 +639,13 @@
         "salesAmount": 0,
         "net": 0,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15",
+        "productCost": null,
+        "commission": null,
+        "platformFeeTotal": null,
+        "profit": null,
+        "margin": null,
+        "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射"
       }
     }
   },
@@ -1675,7 +1681,7 @@
         "margin": "63.74%",
         "orderCount": 25,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09",
+        "generatedAt": "2026-10-06 13:36:15",
         "feeEstimated": true,
         "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
         "costCoveragePct": null
@@ -1687,8 +1693,8 @@
         "salesAmount": 256,
         "promoDisc": 0,
         "net": 256,
-        "productCost": -34.52,
-        "commission": 0,
+        "productCost": null,
+        "commission": null,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -1698,12 +1704,13 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": 0,
-        "profit": 164.1,
-        "margin": "82.62%",
+        "platformFeeTotal": null,
+        "profit": null,
+        "margin": null,
         "orderCount": 4,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15",
+        "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射"
       },
       "日本-乐天": {
         "currency": "JPY",
@@ -1875,7 +1882,7 @@
         "salesAmount": 293535,
         "net": 293535,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -1913,7 +1920,7 @@
         "salesAmount": 21911.7,
         "net": 21911.7,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15"
       }
     }
   },
@@ -2883,7 +2890,7 @@
         "salesAmount": 176047,
         "net": 176047,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -2908,7 +2915,7 @@
         "salesAmount": 15607.7,
         "net": 15607.7,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15"
       },
       "独立站-日本": {
         "currency": "JPY",
@@ -2917,7 +2924,7 @@
         "salesAmount": 748732,
         "net": 748732,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09",
+        "generatedAt": "2026-10-06 13:36:15",
         "productCost": -226566.81,
         "commission": -44923.92,
         "platformFeeTotal": -44923.92,
@@ -2934,7 +2941,13 @@
         "salesAmount": 197,
         "net": 197,
         "caliber": "order",
-        "generatedAt": "2026-10-06 13:34:09"
+        "generatedAt": "2026-10-06 13:36:15",
+        "productCost": null,
+        "commission": null,
+        "platformFeeTotal": null,
+        "profit": null,
+        "margin": null,
+        "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射"
       }
     }
   },

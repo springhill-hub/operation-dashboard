@@ -47,7 +47,7 @@ const STORES = [
   { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false },
   { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false },
   { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true  },
-  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false },
+  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true },
 ];
 
 const num = v => Number(v) || 0;
@@ -179,6 +179,14 @@ function normKey(s) {
           + (totalQty ? r2(matchedQty / totalQty * 100) : 0)
           + '%，余按日亚当月综合成本率' + r2(-blendedRate * 100) + '%估算';
         cur.costCoveragePct = totalQty ? r2(matchedQty / totalQty * 100) : null;
+      } else if (store.amountOnly) {
+        // 国际站：仅展示本币下单金额，成本/费用无映射来源，清空旧快照利润避免误读
+        cur.productCost = null;
+        cur.commission = null;
+        cur.platformFeeTotal = null;
+        cur.profit = null;
+        cur.margin = null;
+        cur.feeNote = '下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射';
       }
       D[p].settlement[store.key] = cur;
       console.log(p + ' | ' + store.key + ' | qty=' + m.qty + ' orders=' + m.orders + ' net=' + m.net + ' ' + store.ccy
