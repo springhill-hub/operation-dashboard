@@ -112,7 +112,11 @@ const sh = (cmd, allowFail) => {
     info('创建独立飞书文档后，设置环境变量 $env:DOMESTIC_LARK_DOC_ID="docId" 再跑本脚本');
   } else {
     step('4/4 更新飞书独立文档 html5-block');
-    if (!fs.existsSync(LARK_CLI)) { console.error('lark-cli 不存在'); process.exit(1); }
+    // 跨平台可执行检测：Windows 查完整路径文件是否存在；Linux/macOS 用 command -v 查 PATH
+    const cliExists = process.platform === 'win32'
+      ? fs.existsSync(LARK_CLI)
+      : (() => { try { execSync(`command -v "${LARK_CLI}"`, { stdio: 'ignore' }); return true; } catch { return false; } })();
+    if (!cliExists) { console.error('lark-cli 不存在（PATH 中未找到）'); process.exit(1); }
     // 动态定位 html5-block id
     const fetchOut = sh(`"${LARK_CLI}" docs +fetch --doc ${LARK_DOC_ID} --detail with-ids --as user`, true);
     const m = `${fetchOut}`.match(/<html5-block[^>]*id=\\?"([A-Za-z0-9]+)\\?"/);
