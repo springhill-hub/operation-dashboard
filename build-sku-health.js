@@ -96,7 +96,7 @@ const STATUS_LABEL = {
   OK: ['健康', 'norm'], HIGH: ['库存偏高', 'gry'], DEAD: ['滞销', 'gry'],
 };
 // 非卖品/杂项链接：不计库存、不计销量
-const NON_SKU = /邮费|补差价|补差链接|处理品|放心购|快递.*消毒|test/i;
+const NON_SKU = /邮费|补差价|补差链接|处理品|放心购|快递.*消毒|test|^WL-|CS-WL-/i;
 function judge(stock, pipeline, s7, s30, degraded) {
   if (s30 <= 0 && s7 <= 0) {
     if (pipeline > 0) return degraded ? 'SKIP' : 'DEAD';
