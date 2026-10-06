@@ -3,7 +3,8 @@
  * ------------------------------------------------------------
  * 数据源：领星 ERP MCP HTTP 端点（X-Mcp-Key 鉴权，无需 IP 白名单）
  * 拉取：get_profit_report_msku（MSKU 利润报表，结算口径）
- * 拉取：asinDailyLists（REST API，下单口径销量，需 IP 白名单）
+ * 拉取：platform_v2_page_list（销量统计列表v2，下单口径，2026-10-06 起替代 REST）
+ * 兜底：asinDailyLists（REST API，下单口径，需 IP 白名单；仅 MCP 故障时启用）
  *
  * 6 个周期：
  *   today      T-1          （昨日单日，对应"今日"看板）
@@ -49,7 +50,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const https = require('https');
-const { getProfitReport } = require('../lx_api.js');
+const { getProfitReport, callTool } = require('../lx_api.js');
 
 // ---------- 参数 ----------
 const argv = {};
@@ -137,44 +138,126 @@ async function lxCallApi(method, apiPath, bizParams) {
     return lxRequest('POST', apiPath, query, bizParams);
 }
 
-// 拉单日单店 MSKU 下单量：返回 { msku: qty }
-async function fetchOrderQtyOneDay(sid, dateStr) {
-    const r = await lxCallApi('POST', '/erp/sc/data/sales_report/asinDailyLists', {
-        sid, event_date: dateStr, asin_type: 2, type: 2, offset: 0, length: 1000
-    });
-    if (r.code !== 0) throw new Error(`asinDailyLists ${dateStr} sid=${sid}: code=${r.code} ${r.message || ''}`);
+// 拉单日单店 MSKU 下单口径三指标：返回 { msku: {qty,net,orders,name} }
+//   type=1 净销售额(不含税/不含运费，扣折扣) / type=2 销量(件) / type=3 订单量(单)
+//   口径：下单时间，剔除已取消，含未发货/未付款（领星销量统计官方口径）
+async function fetchOrderMetricsOneDay(sid, dateStr) {
     const map = {};
-    for (const x of (r.data || [])) {
-        if (!x.seller_sku) continue;
-        const q = Number(x.map_value) || 0;
-        map[x.seller_sku] = (map[x.seller_sku] || 0) + q;
+    for (const type of [1, 2, 3]) {
+        const r = await lxCallApi('POST', '/erp/sc/data/sales_report/asinDailyLists', {
+            sid, event_date: dateStr, asin_type: 2, type, offset: 0, length: 1000
+        });
+        if (r.code !== 0) throw new Error(`asinDailyLists ${dateStr} sid=${sid} type=${type}: code=${r.code} ${r.message || ''}`);
+        for (const x of (r.data || [])) {
+            if (!x.seller_sku) continue;
+            const v = Number(x.map_value) || 0;
+            if (!map[x.seller_sku]) map[x.seller_sku] = { qty: 0, net: 0, orders: 0, name: '' };
+            const row = map[x.seller_sku];
+            if (type === 1) row.net += v;
+            else if (type === 2) row.qty += v;
+            else row.orders += v;
+            if (!row.name && x.product_name) row.name = x.product_name;
+        }
     }
     return map;
 }
 
-// 拉日期范围内的下单量：{ storeKey: { msku: qty } }，storeKey=amazonJP/amazonUS
-async function fetchOrderQtyRange(startDate, endDate) {
+// 拉日期范围内的下单口径三指标：{ storeKey: {byMsku, qty, net, orders} }
+async function fetchOrderMetricsRange(startDate, endDate) {
     // 店铺sid映射（与店铺名前缀对应）
     const SIDS = [
         { sid: 3118, key: 'amazonJP' },
         // 美国亚马逊已停用
         // { sid: 3116, key: 'amazonUS' },
     ];
-    const result = { amazonJP: {}, amazonUS: {} };
+    const result = {
+        amazonJP: { byMsku: {}, qty: 0, net: 0, orders: 0 },
+        amazonUS: { byMsku: {}, qty: 0, net: 0, orders: 0 },
+    };
     // 逐日循环
     let d = startDate;
     while (d <= endDate) {
         for (const { sid, key } of SIDS) {
-            const map = await fetchOrderQtyOneDay(sid, d);
-            for (const [msku, q] of Object.entries(map)) {
-                result[key][msku] = (result[key][msku] || 0) + q;
+            const map = await fetchOrderMetricsOneDay(sid, d);
+            const slot = result[key];
+            for (const [msku, m] of Object.entries(map)) {
+                if (!slot.byMsku[msku]) slot.byMsku[msku] = { qty: 0, net: 0, orders: 0, name: '' };
+                const ex = slot.byMsku[msku];
+                ex.qty += m.qty; ex.net += m.net; ex.orders += m.orders;
+                if (!ex.name && m.name) ex.name = m.name;
+                slot.qty += m.qty; slot.net += m.net; slot.orders += m.orders;
             }
         }
         d = dateAdd(d, 1);
     }
+    for (const key of Object.keys(result)) {
+        result[key].net = r2(result[key].net);
+    }
     return result;
 }
 
+// ---------- 下单口径三指标（MCP 销量统计v2，无需IP白名单） ----------
+// 返回结构与 fetchOrderMetricsRange 完全同构：{ amazonJP: { byMsku, qty, net, orders }, amazonUS: {...} }
+// MCP platform_v2_page_list：dataType "3"=MSKU，dateUnit "4"=按日，
+//   resultType 1=销量 / 2=订单量 / 3=销售额；区间一次拉取，按行内 dateCollect[日期] 汇总
+// 2026-10-06 与 REST asinDailyLists 同日（10-02 日亚）实证一致：31件/31单/472123 JPY
+async function fetchOrderMetricsRangeMcp(startDate, endDate) {
+    const SIDS = [
+        { sid: '3118', key: 'amazonJP' },
+        // 美国亚马逊已停用
+        // { sid: '3116', key: 'amazonUS' },
+    ];
+    const result = {
+        amazonJP: { byMsku: {}, qty: 0, net: 0, orders: 0 },
+        amazonUS: { byMsku: {}, qty: 0, net: 0, orders: 0 },
+    };
+    const days = [];
+    for (let d = startDate; d <= endDate; d = dateAdd(d, 1)) days.push(d);
+
+    for (const { sid, key } of SIDS) {
+        const slot = result[key];
+        for (const [rt, metric] of [['1', 'qty'], ['2', 'orders'], ['3', 'net']]) {
+            let pageNum = 1;
+            const pageSize = 200;
+            let fetched = 0;
+            let totalRows = Infinity;
+            while (fetched < totalRows) {
+                const r = await callTool('action', {
+                    toolId: 'platform_v2_page_list',
+                    params: {
+                        sids: [String(sid)], searchType: 3, dataType: '3',
+                        start: startDate, end: endDate, dateUnit: '4',
+                        resultType: rt, pageNum, pageSize, currencyCode: '',
+                    },
+                });
+                const dd = r && r.data && r.data.data ? r.data.data : null;
+                if (!dd || !Array.isArray(dd.statisticsList)) {
+                    throw new Error(`platform_v2_page_list sid=${sid} rt=${rt} p${pageNum}: ` + JSON.stringify(r).slice(0, 200));
+                }
+                totalRows = num(dd.count) || 0;
+                const rows = dd.statisticsList;
+                for (const x of rows) {
+                    const msku = Array.isArray(x.msku) ? x.msku[0] : x.msku;
+                    if (!msku || msku === '-') continue;
+                    const name = Array.isArray(x.productName) ? (x.productName[0] || '') : (x.productName || '');
+                    let v = 0;
+                    for (const day of days) v += num(x.dateCollect && x.dateCollect[day]);
+                    if (!slot.byMsku[msku]) slot.byMsku[msku] = { qty: 0, net: 0, orders: 0, name: '' };
+                    slot.byMsku[msku][metric] += v;
+                    if (!slot.byMsku[msku].name && name) slot.byMsku[msku].name = name;
+                    slot[metric] += v;
+                }
+                fetched += rows.length;
+                pageNum++;
+                if (!rows.length) break;
+            }
+        }
+    }
+    for (const key of Object.keys(result)) {
+        result[key].net = r2(result[key].net);
+    }
+    return result;
+}
 const num = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
 const r2 = v => Math.round(num(v) * 100) / 100;
 
@@ -389,36 +472,70 @@ function aggregatePlatform(records) {
             console.log(`  ${key}: skuCount=${agg.skuCount} qty=${agg.qty} net=${agg.net} gp=${agg.gp} margin=${agg.margin}%`);
         }
 
-        // ===== 下单口径销量（REST API，逐日聚合），合并到 skuDetail.orderQty =====
+        // ===== 下单口径三指标：销量/净销售额/订单数切为下单口径主KPI；毛利/成本保留结算口径 =====
+        // 主链路 MCP 销量统计v2（无需IP白名单）；MCP 故障时回退 REST（需IP白名单）
         try {
             const t1 = Date.now();
-            const orderQty = await fetchOrderQtyRange(start, end);
-            for (const key of ['amazonJP', 'amazonUS']) {
-                const agg = P[key];
-                if (!agg) continue;
-                const map = orderQty[key] || {};
-                // 合并到已有 skuDetail
-                const seen = new Set();
-                for (const s of agg.skuDetail) {
-                    s.orderQty = map[s.msku] || 0;
-                    seen.add(s.msku);
-                }
-                // 有下单但无结算的 SKU（未结算订单），补一行只有 orderQty 的记录
-                for (const [msku, q] of Object.entries(map)) {
-                    if (!seen.has(msku)) {
-                        agg.skuDetail.push({
-                            msku, name: '', qty: 0, net: 0, cost: 0, platformFee: 0,
-                            profit: 0, margin: 0, img: '', pct: 0, orderQty: q
-                        });
-                    }
-                }
-                const totalOrderQty = Object.values(map).reduce((a, b) => a + b, 0);
-                console.log(`  ${key} 下单口径: 总下单量=${totalOrderQty}（${Object.keys(map).length}个MSKU）`);
+            let metrics;
+            let metricsSrc = 'MCP';
+            try {
+                metrics = await fetchOrderMetricsRangeMcp(start, end);
+            } catch (eMcp) {
+                console.log('  [降级] MCP销量统计失败，回退REST: ' + eMcp.message);
+                metrics = await fetchOrderMetricsRange(start, end);
+                metricsSrc = 'REST';
             }
-            console.log(`  下单量拉取耗时 ${((Date.now() - t1) / 1000).toFixed(1)}s`);
+            for (const key of ['amazonJP', 'amazonUS']) {
+                if (!P[key]) continue;
+                const agg = P[key];                                  // 结算口径（含完整利润/费用）
+                const m = metrics[key] || { byMsku: {}, qty: 0, net: 0, orders: 0 };
+
+                // 结算口径快照（毛利卡用，滞后7-10天）
+                const settled = {
+                    qty: agg.qty, net: agg.net, salesAmt: agg.salesAmt, tax: agg.tax,
+                    gp: agg.gp, margin: agg.margin, skuCount: agg.skuCount, refQty: agg.refQty
+                };
+                // 结算 SKU 索引（取利润/成本/图片）
+                const sIdx = {};
+                for (const s of agg.skuDetail) sIdx[s.msku] = s;
+
+                // 按下单口径重建 skuDetail（主表=当天真实卖出的品）
+                const orderNet = m.net;
+                const detail = Object.entries(m.byMsku).map(([msku, x]) => {
+                    const sr = sIdx[msku];
+                    const net = r2(x.net);
+                    return {
+                        msku,
+                        name: (sr && sr.name) || x.name || '',
+                        qty: x.qty,
+                        orders: x.orders,
+                        net,
+                        cost: sr ? sr.cost : null,
+                        platformFee: sr ? sr.platformFee : null,
+                        profit: sr ? sr.profit : null,          // 未结算=null，前端显示"待结算"
+                        margin: sr ? sr.margin : null,          // 行毛利率沿用结算口径
+                        settled: !!sr,
+                        img: sr ? sr.img : '',
+                        pct: orderNet > 0 ? r2(net / orderNet * 100) : 0,
+                    };
+                }).sort((a, b) => b.net - a.net);
+
+                // 顶层：销量/净销售额/订单数切下单口径；gp/margin/费用保留结算口径
+                agg.settled = settled;
+                agg.caliber = 'order';
+                agg.qty = m.qty;
+                agg.orders = m.orders;
+                agg.net = orderNet;
+                agg.salesAmt = orderNet;
+                agg.tax = 0;
+                agg.skuCount = Object.keys(m.byMsku).length;
+                agg.skuDetail = detail;
+                console.log(`  ${key} 下单口径[${metricsSrc}]: ${m.orders}单/${m.qty}件/净${orderNet}（已结算GP ${settled.gp} @${settled.margin}%）`);
+            }
+            console.log(`  下单指标拉取耗时 ${((Date.now() - t1) / 1000).toFixed(1)}s（来源: ${metricsSrc}）`);
         } catch (e) {
-            // REST失败（如IP白名单失效）不阻断主流程
-            console.log('  [警告] 下单口径拉取失败: ' + e.message);
+            // MCP与REST均失败时不阻断主流程，保留结算口径
+            console.log('  [警告] 下单口径拉取失败（MCP+REST均不可用），保留结算口径: ' + e.message);
         }
 
         // 其他平台（Rakuten/Shopee/Coupang）保留 settlement 子对象，由各 build-*.js 维护

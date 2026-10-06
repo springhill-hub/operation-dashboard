@@ -700,7 +700,7 @@ function skuDetailHTML(d){
     </div>`:''}
     <div style="margin-top:14px;font-size:12px;color:var(--sub);line-height:1.9">
       · <b style="color:var(--blue,#6ea8fe)">销量/订单量/净销售额=下单口径（即时，与领星后台排行榜一致，剔除已取消）</b>；成本/费用/毛利=已结算口径（滞后7-10天）<br>
-      · 亚马逊下单指标走 asinDailyLists（type=1净销售额/2销量/3订单量），利润走 get_profit_report_msku；独立站/Shopee 走 finance_settlement_profit_list<br>
+      · 亚马逊下单指标走领星MCP销量统计v2（platform_v2_page_list，无需IP白名单；REST asinDailyLists 仅作兜底），利润走 get_profit_report_msku；独立站/Shopee 走 finance_settlement_profit_list<br>
       · 展示 Top 20 SKU（按毛利降序，未结算品沉底）｜ 占比 = 该 SKU 下单净销售额 / 店铺下单净销售额<br>
       · 显示"待结算"= 当天已下单但尚未结算，毛利将在结算后体现（近几天属正常现象）<br>
       · 产品主图来源：亚马逊主图 / Shopify CDN / Shopee CDN<br>
