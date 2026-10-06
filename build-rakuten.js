@@ -193,9 +193,14 @@ function orderLines(o) {
   for (const pkg of o.PackageModelList || []) {
     for (const it of pkg.ItemModelList || []) {
       const skus = (it.SkuModelList || []).map(s => s.merchantDefinedSkuId || s.variantId);
+      // 行金额：RMS真实字段 price/priceTaxIncl（含税单价），兼容其他版本命名；取不到则按件数摊订单净额
+      const unit = num(it.priceTaxIncl) || num(it.price) || num(it.unitPrice) || num(it.itemPrice) || 0;
+      const amount = unit ? unit * num(it.units) : num(it.itemsPrice) || 0;
       lines.push({
         keys: [...new Set([...skus, it.manageNumber, it.itemNumber].filter(Boolean))],
         qty: num(it.units),
+        name: it.itemName || '',
+        amount,
       });
     }
   }
@@ -296,6 +301,28 @@ function orderLines(o) {
       a.qty += lines.reduce((x, l) => x + l.qty, 0);
       a.salesAmount += num(o.requestPrice);
       a.tax += tax;
+      // —— SKU 级：净额按行金额权重分摊（无行金额则按件数），成本按匹配单位成本 ——
+      const oNet = num(o.requestPrice) - tax;
+      const weights = lines.map(l => (l.amount > 0 ? l.amount : l.qty));
+      const wSum = weights.reduce((x, y) => x + y, 0);
+      lines.forEach((l, i) => {
+        const hit = l.keys.map(normKey).find(k => costMap[k] != null);
+        const code = l.keys[0] || 'UNKNOWN';
+        if (!a.skuMap[code]) a.skuMap[code] = { name: l.name || '', qty: 0, net: 0, cost: null, orders: 0 };
+        const sk = a.skuMap[code];
+        if (!sk.name && l.name) sk.name = l.name;
+        sk.qty += l.qty;
+        sk.net += wSum ? oNet * weights[i] / wSum : 0;
+        if (hit) sk.cost = (sk.cost || 0) + l.qty * costMap[hit];
+      });
+      // 同一订单内同编码只计1单
+      const seenInOrder = new Set();
+      for (const l of lines) {
+        const code = l.keys[0] || 'UNKNOWN';
+        if (seenInOrder.has(code)) continue;
+        seenInOrder.add(code);
+        a.skuMap[code].orders++;
+      }
       for (const l of lines) {
         const hit = l.keys.map(normKey).find(k => costMap[k] != null);
         if (hit) a.productCost += l.qty * costMap[hit];
@@ -331,6 +358,27 @@ function orderLines(o) {
     const knownQty = totalQty - a.unknownQty;
     const coverage = totalQty ? r2(knownQty / totalQty * 100) : null;
 
+    // —— SKU 明细（看板按平台切换；估算口径与店铺级一致：佣金10.5%） ——
+    const skuDetail = Object.entries(a.skuMap)
+      .filter(([, v]) => v.qty > 0 || v.net > 0)
+      .map(([code, v]) => {
+        const sNet = r2(v.net);
+        const sCost = v.cost != null ? r2(v.cost) : null;
+        const sFee = -r2(sNet * COMMISSION_RATE);
+        const sProfit = sCost != null ? r2(sNet + sCost + sFee) : null;
+        return {
+          msku: code, name: v.name || '', img: '',
+          qty: r2(v.qty), orders: v.orders || 0,
+          net: sNet, settledNet: sNet,
+          cost: sCost, platformFee: sFee,
+          profit: sProfit,
+          margin: sProfit != null && sNet ? r2(sProfit / sNet * 100) : null,
+          settled: true,
+          pct: net ? r2(sNet / net * 100) : 0,
+        };
+      })
+      .sort((x, y) => (y.profit != null ? y.profit : -Infinity) - (x.profit != null ? x.profit : -Infinity) || y.net - x.net);
+
     D[dst].settlement['日本-乐天'] = {
       currency: 'JPY',
       qty: a.qty,
@@ -363,6 +411,7 @@ function orderLines(o) {
       cashOrders: a.cashOrders,
       cashStatus: 'proxy-注文確定口径，非真精算',
       cashGeneratedAt: stamp,
+      skuDetail,
     };
     summary.push({ period: p, orders: a.orderCount, qty: a.qty, sales: r2(a.salesAmount),
       net: r2(net), cost: productCost, commission, profit, margin,
@@ -382,5 +431,5 @@ function orderLines(o) {
 function newAgg() {
   return { orderCount: 0, qty: 0, salesAmount: 0, tax: 0, productCost: 0,
     cancelOrders: 0, cancelPending: 0, cancelAmount: 0,
-    cashOrders: 0, cashNet: 0, unknownKeys: {}, unknownQty: 0 };
+    cashOrders: 0, cashNet: 0, unknownKeys: {}, unknownQty: 0, skuMap: {} };
 }

@@ -43,12 +43,19 @@ const PERIODS = {
 };
 
 // key 必须与看板 KNOW 映射一致；feeRate 仅用于独立站估算（领星店铺 rate 字段）
+// skuDetail: shopee=静态成本表可做SKU级(费用待结算)；shopify=领星无商品映射仅整店一行，不出SKU明细
 const STORES = [
-  { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false },
-  { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false },
-  { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true  },
-  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true },
+  { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
+  { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
+  { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true,  skuDetail: 'none'  },
+  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true, skuDetail: 'none' },
 ];
+
+// Shopee 静态单位成本表（本币，负值；build-msku-cost.js 生成）
+let SHOPEE_COST = null;
+try {
+  SHOPEE_COST = JSON.parse(fs.readFileSync(path.join(__dirname, 'msku-cost.json'), 'utf8')).unitCost || {};
+} catch (e) { SHOPEE_COST = {}; }
 
 const num = v => Number(v) || 0;
 const r2 = v => Math.round(num(v) * 100) / 100;
@@ -80,26 +87,39 @@ async function pullOne(sid, resultType, start, end) {
   return { rows, total, ccy };
 }
 
-// 三指标按行内 dateCollect 汇总，并返回 SKU→件数（用于独立站成本匹配）
+// 三指标按行内 dateCollect 汇总；同时按内部SKU(sku[0])累计 qty/orders/net + 品名/图片
 async function pullStore(store, start, end) {
   const days = [];
   for (let d = new Date(start + 'T00:00:00'); d <= new Date(end + 'T00:00:00'); d.setDate(d.getDate() + 1))
     days.push(iso(d));
   const sumIn = x => { let v = 0; for (const day of days) v += num(x.dateCollect && x.dateCollect[day]); return v; };
-  const out = { qty: 0, orders: 0, net: 0, qtyByMsku: {} };
+  const out = { qty: 0, orders: 0, net: 0, qtyByMsku: {}, skus: new Map() };
+  const rowKey = x => {
+    const c = Array.isArray(x.sku) ? x.sku[0] : x.sku;
+    if (c && c !== '-') return c;
+    const m = Array.isArray(x.msku) ? x.msku[0] : x.msku;
+    return m && m !== '-' ? m : null;
+  };
   for (const [rt, field] of [['1','qty'], ['2','orders'], ['3','net']]) {
     const { rows, ccy } = await pullOne(store.id, rt, start, end);
     if (ccy) out.ccy = ccy;
     for (const x of rows) {
       const v = sumIn(x);
-      if (field === 'net') out.net += v;
-      else {
-        out[field] += v;
-        if (field === 'qty') {
-          const msku = Array.isArray(x.msku) ? x.msku[0] : x.msku;
-          if (msku && msku !== '-') out.qtyByMsku[msku] = (out.qtyByMsku[msku] || 0) + v;
-        }
+      if (field === 'net') out.net += v; else out[field] += v;
+      const code = rowKey(x);
+      if (field === 'qty' && code) out.qtyByMsku[code] = (out.qtyByMsku[code] || 0) + v;
+      if (!code) continue; // Shopify 未映射行只有整店聚合，不出 SKU 明细
+      if (!out.skus.has(code)) {
+        out.skus.set(code, {
+          msku: code,
+          name: (Array.isArray(x.productName) ? x.productName[0] : '')
+            || (Array.isArray(x.platformProductTitle) ? x.platformProductTitle[0] : '') || '',
+          img: x.picUrl || '',
+          qty: 0, orders: 0, net: 0,
+        });
       }
+      const sk = out.skus.get(code);
+      sk[field] += v;
     }
   }
   out.qty = r2(out.qty); out.orders = r2(out.orders); out.net = r2(out.net);
@@ -188,9 +208,38 @@ function normKey(s) {
         cur.margin = null;
         cur.feeNote = '下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射';
       }
+
+      // —— SKU 明细（看板"SKU销售/利润构成"按平台切换） ——
+      if (store.skuDetail === 'shopee') {
+        // Shopee：下单口径销量/订单/净额 + 静态单位成本；平台费/毛利随双周账单结算，出账前"待结算"
+        const costTab = SHOPEE_COST[store.ccy] || {};
+        const costNorm = {};
+        for (const [k, v] of Object.entries(costTab)) if (costNorm[normKey(k)] == null) costNorm[normKey(k)] = v;
+        const rows = [...m.skus.values()]
+          .filter(x => x.qty > 0 || x.net > 0)
+          .map(x => {
+            let unit = costTab[x.msku] != null ? num(costTab[x.msku]) : null;
+            if (unit == null && costNorm[normKey(x.msku)] != null) unit = num(costNorm[normKey(x.msku)]);
+            const cost = unit != null ? r2(x.qty * unit) : null;
+            return {
+              msku: x.msku, name: x.name, img: x.img,
+              qty: r2(x.qty), orders: r2(x.orders), net: r2(x.net),
+              settledNet: null, cost, platformFee: null,
+              profit: null, margin: null, settled: false,
+              pct: m.net ? r2(x.net / m.net * 100) : 0,
+            };
+          })
+          .sort((a, b) => b.net - a.net);
+        cur.skuDetail = rows;
+      } else if (store.skuDetail === 'none') {
+        // Shopify 领星无商品映射（仅整店一行），清空手工旧明细避免过期误读；恢复条件：领星做SKU映射
+        cur.skuDetail = [];
+      }
+
       D[p].settlement[store.key] = cur;
       console.log(p + ' | ' + store.key + ' | qty=' + m.qty + ' orders=' + m.orders + ' net=' + m.net + ' ' + store.ccy
-        + (store.estCost ? ' GP=' + cur.profit + '(' + cur.margin + ')' : ''));
+        + (store.estCost ? ' GP=' + cur.profit + '(' + cur.margin + ')' : '')
+        + (store.skuDetail === 'shopee' ? ' | skuRows=' + cur.skuDetail.length : ''));
     }
   }
   fs.writeFileSync(DATA_PATH, JSON.stringify(D, null, 2), 'utf8');

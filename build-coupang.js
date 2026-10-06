@@ -110,18 +110,20 @@ console.log('JPY cost keys: ' + Object.keys(jpyCostTable()).length +
 // ---------- 合并 SKU 行（sales × volume） ----------
 // 以内部编码 sku[0] 为主键；数字 platformProductId 兜底
 const byCode = new Map();
-function bucket(code, pid, name) {
+function bucket(code, pid, name, pic) {
   const key = code || pid;
-  if (!byCode.has(key)) byCode.set(key, { code: code || '', pid: pid || '', name: name || '', daily: {} });
-  return byCode.get(key);
+  if (!byCode.has(key)) byCode.set(key, { code: code || '', pid: pid || '', name: name || '', pic: pic || '', daily: {} });
+  const b = byCode.get(key);
+  if (pic && !b.pic) b.pic = pic;
+  return b;
 }
 for (const r of salesRaw.statisticsList) {
-  const b = bucket(r.sku[0], r.platformProductId[0], r.productName[0]);
+  const b = bucket(r.sku[0], r.platformProductId[0], r.productName[0], r.picUrl);
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d] = b.daily[d] || {};
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d].sales = num(v);
 }
 for (const r of volRaw.statisticsList) {
-  const b = bucket(r.sku[0], r.platformProductId[0], r.productName[0]);
+  const b = bucket(r.sku[0], r.platformProductId[0], r.productName[0], r.picUrl);
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d] = b.daily[d] || {};
   for (const [d, v] of Object.entries(r.dateCollect || {})) b.daily[d].units = num(v);
 }
@@ -155,19 +157,41 @@ for (const [p, [s, e]] of Object.entries(PERIODS)) {
   if (!D[p]) { console.warn('[skip] ' + p); continue; }
   let qty = 0, salesAmount = 0, productCost = 0;
   const unknownKeys = {}, unknownQty = { v: 0 };
+  const skuRows = [];
   for (const prod of products) {
     const nk = normKey(prod.code);
     const unitCostJpy = costMap[nk];
     const unitCostKrw = unitCostJpy != null ? unitCostJpy * (R / krwCny) : null;
+    let pUnits = 0, pSales = 0, pCost = 0, pKnown = false;
     for (const [d, dv] of Object.entries(prod.daily)) {
       if (d < s || d > e) continue;
       const u = num(dv.units);
-      salesAmount += num(dv.sales);
+      const sv = num(dv.sales);
+      salesAmount += sv;
+      pSales += sv;
       qty += u;
+      pUnits += u;
       if (u > 0) {
-        if (unitCostKrw != null) productCost += u * unitCostKrw;
+        if (unitCostKrw != null) { productCost += u * unitCostKrw; pCost += u * unitCostKrw; pKnown = true; }
         else { unknownKeys[prod.code || prod.pid] = (unknownKeys[prod.code || prod.pid] || 0) + u; unknownQty.v += u; }
       }
+    }
+    if (pUnits > 0 || pSales > 0) {
+      const pCommission = -r2(pSales * COMMISSION_RATE);
+      const pCostR = pKnown ? r2(pCost) : null;
+      const pProfit = pCostR != null ? r2(pSales + pCostR + pCommission) : null;
+      skuRows.push({
+        msku: prod.code || prod.pid,
+        name: prod.name || '',
+        img: prod.pic || '',
+        qty: r2(pUnits), orders: null,
+        net: r2(pSales), settledNet: r2(pSales),
+        cost: pCostR, platformFee: pCommission,
+        profit: pProfit,
+        margin: pProfit != null && pSales ? r2(pProfit / pSales * 100) : null,
+        settled: true,
+        pct: 0, // 店铺净额汇总后回填
+      });
     }
   }
 
@@ -183,6 +207,8 @@ for (const [p, [s, e]] of Object.entries(PERIODS)) {
 
   const dst = MAP[p] || p;
   if (!D[dst].settlement) D[dst].settlement = {};
+  for (const row of skuRows) row.pct = net ? r2(row.net / net * 100) : 0;
+  skuRows.sort((a, b) => (b.profit != null ? b.profit : -Infinity) - (a.profit != null ? a.profit : -Infinity) || b.net - a.net);
   D[dst].settlement['韩国-Coupang'] = {
     currency: 'KRW',
     qty,
@@ -208,6 +234,7 @@ for (const [p, [s, e]] of Object.entries(PERIODS)) {
     feeNote: '佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准',
     costCoveragePct: coverage,
     unknownKeys: uk,
+    skuDetail: skuRows,
     generatedAt: stamp,
   };
   summary.push({ period: p, qty, sales: r2(salesAmount), cost: productCost, commission, profit, margin, coverage });
