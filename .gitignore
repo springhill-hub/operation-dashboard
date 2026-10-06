@@ -7,3 +7,5 @@ secrets/
 
 node_modules/
 _tmall/
+daily-refresh.log
+daily-refresh.cron.log
