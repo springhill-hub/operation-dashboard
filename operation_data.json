@@ -544,11 +544,11 @@
         "currency": "KRW",
         "qty": 7,
         "refundVol": 0,
-        "salesAmount": 933680,
+        "salesAmount": 728160,
         "promoDisc": 0,
-        "net": 933680,
-        "productCost": -150671.59,
-        "commission": -126046.8,
+        "net": 728160,
+        "productCost": -142547.24,
+        "commission": -98301.6,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -558,27 +558,61 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -126046.8,
-        "profit": 656961.61,
-        "margin": "70.36%",
+        "platformFeeTotal": -98301.6,
+        "profit": 487311.16,
+        "margin": "66.92%",
         "feeEstimated": true,
         "feeNote": "佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准",
-        "costCoveragePct": 57.14,
+        "costCoveragePct": 71.43,
         "unknownKeys": [
           {
-            "key": "96052997205",
+            "key": "96092498484",
             "qty": 1
           },
           {
-            "key": "96103407408",
-            "qty": 1
-          },
-          {
-            "key": "96103821797",
+            "key": "95841485579",
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-02 14:13:53"
+        "generatedAt": "2026-10-06 13:10:26"
+      },
+      "泰国shopee": {
+        "currency": "THB",
+        "productCost": 0,
+        "cashPlatformAmount": 0,
+        "cashAdjustment": 0,
+        "cashSettlement": 0,
+        "cashOrders": 0,
+        "cashUnits": 0,
+        "cashStatus": "settled",
+        "cashRange": "2026-10-05 ~ 2026-10-05",
+        "cashReconcileDiff": 0,
+        "cashGeneratedAt": "2026-10-06 13:10:27",
+        "staticProductCost": 0,
+        "staticCoveragePct": null,
+        "costSource": "static",
+        "unknownMskus": [],
+        "gpFromCash": 0,
+        "gpDiff": null
+      },
+      "马来shopee": {
+        "currency": "MYR",
+        "productCost": 0,
+        "cashPlatformAmount": 0,
+        "cashAdjustment": 0,
+        "cashSettlement": 0,
+        "cashOrders": 0,
+        "cashUnits": 0,
+        "cashStatus": "settled",
+        "cashRange": "2026-10-05 ~ 2026-10-05",
+        "cashReconcileDiff": 0,
+        "cashGeneratedAt": "2026-10-06 13:10:27",
+        "staticProductCost": 0,
+        "staticCoveragePct": null,
+        "costSource": "static",
+        "unknownMskus": [],
+        "gpFromCash": 0,
+        "gpDiff": null
       }
     }
   },
@@ -1695,13 +1729,13 @@
       },
       "韩国-Coupang": {
         "currency": "KRW",
-        "qty": 53,
+        "qty": 39,
         "refundVol": 0,
-        "salesAmount": 8000580,
+        "salesAmount": 6071350,
         "promoDisc": 0,
-        "net": 8000580,
-        "productCost": -2506849.07,
-        "commission": -1080078.3,
+        "net": 6071350,
+        "productCost": -1907921.87,
+        "commission": -819632.25,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -1711,27 +1745,27 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -1080078.3,
-        "profit": 4413652.63,
-        "margin": "55.17%",
+        "platformFeeTotal": -819632.25,
+        "profit": 3343795.88,
+        "margin": "55.07%",
         "feeEstimated": true,
         "feeNote": "佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准",
-        "costCoveragePct": 84.91,
+        "costCoveragePct": 82.05,
         "unknownKeys": [
           {
-            "key": "CS-2DPL-K",
-            "qty": 2
-          },
-          {
-            "key": "LDL-XYCQZ-TPU-E",
+            "key": "96092498484",
             "qty": 1
           },
           {
-            "key": "96091463064",
+            "key": "95841485579",
             "qty": 1
           },
           {
-            "key": "LDL-XYCQZ-TPU-V",
+            "key": "CS-2PL-WZ-E",
+            "qty": 1
+          },
+          {
+            "key": "LDL-XYCQZ-HJDBV",
             "qty": 1
           },
           {
@@ -1747,7 +1781,91 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-02 14:13:53"
+        "generatedAt": "2026-10-06 13:10:26"
+      },
+      "泰国shopee": {
+        "currency": "THB",
+        "productCost": -59695.7,
+        "cashPlatformAmount": 94046,
+        "cashAdjustment": 1299,
+        "cashSettlement": 95345,
+        "cashOrders": 85,
+        "cashUnits": 107,
+        "cashStatus": "settled",
+        "cashRange": "2026-09-29 ~ 2026-10-05",
+        "cashReconcileDiff": 0,
+        "cashGeneratedAt": "2026-10-06 13:10:29",
+        "staticProductCost": -59695.7,
+        "staticCoveragePct": 85.98,
+        "costSource": "static",
+        "unknownMskus": [
+          {
+            "msku": "BEL-SFZ-DJ",
+            "qty": 5
+          },
+          {
+            "msku": "BEL-SFZZJ-E",
+            "qty": 3
+          },
+          {
+            "msku": "BEL-TXWTMG-SND",
+            "qty": 2
+          },
+          {
+            "msku": "BEL-XKZ-ZWJ-E",
+            "qty": 1
+          },
+          {
+            "msku": "SL-ZML0.5-BL",
+            "qty": 1
+          },
+          {
+            "msku": "CS-2PL-WZ-E",
+            "qty": 1
+          },
+          {
+            "msku": "SL-ZSTMG-E",
+            "qty": 1
+          },
+          {
+            "msku": "BEL-FXQ-E*4",
+            "qty": 1
+          }
+        ],
+        "gpFromCash": 35649.3,
+        "gpDiff": null
+      },
+      "马来shopee": {
+        "currency": "MYR",
+        "productCost": -2547.64,
+        "cashPlatformAmount": 3146.21,
+        "cashAdjustment": 0,
+        "cashSettlement": 3146.21,
+        "cashOrders": 79,
+        "cashUnits": 82,
+        "cashStatus": "settled",
+        "cashRange": "2026-09-29 ~ 2026-10-05",
+        "cashReconcileDiff": 0,
+        "cashGeneratedAt": "2026-10-06 13:10:29",
+        "staticProductCost": -2547.64,
+        "staticCoveragePct": 96.34,
+        "costSource": "static",
+        "unknownMskus": [
+          {
+            "msku": "BEL-SFZ-E-ATZ",
+            "qty": 1
+          },
+          {
+            "msku": "BEL-XKZ-E",
+            "qty": 1
+          },
+          {
+            "msku": "BEL-XKZ-ZWJ-E",
+            "qty": 1
+          }
+        ],
+        "gpFromCash": 598.57,
+        "gpDiff": null
       }
     }
   },
@@ -2640,13 +2758,13 @@
       },
       "韩国-Coupang": {
         "currency": "KRW",
-        "qty": 7,
+        "qty": 27,
         "refundVol": 0,
-        "salesAmount": 933680,
+        "salesAmount": 3271240,
         "promoDisc": 0,
-        "net": 933680,
-        "productCost": -150671.59,
-        "commission": -126046.8,
+        "net": 3271240,
+        "productCost": -853221.59,
+        "commission": -441617.4,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -2656,13 +2774,29 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -126046.8,
-        "profit": 656961.61,
-        "margin": "70.36%",
+        "platformFeeTotal": -441617.4,
+        "profit": 1976401.01,
+        "margin": "60.42%",
         "feeEstimated": true,
         "feeNote": "佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准",
-        "costCoveragePct": 57.14,
+        "costCoveragePct": 74.07,
         "unknownKeys": [
+          {
+            "key": "96092498484",
+            "qty": 1
+          },
+          {
+            "key": "95841485579",
+            "qty": 1
+          },
+          {
+            "key": "CS-2PL-WZ-E",
+            "qty": 1
+          },
+          {
+            "key": "LDL-XYCQZ-HJDBV",
+            "qty": 1
+          },
           {
             "key": "96052997205",
             "qty": 1
@@ -2676,7 +2810,45 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-02 14:12:57"
+        "generatedAt": "2026-10-06 13:10:26"
+      },
+      "泰国shopee": {
+        "currency": "THB",
+        "productCost": 0,
+        "cashPlatformAmount": 0,
+        "cashAdjustment": 0,
+        "cashSettlement": 0,
+        "cashOrders": 0,
+        "cashUnits": 0,
+        "cashStatus": "settled",
+        "cashRange": "2026-10-01 ~ 2026-10-05",
+        "cashReconcileDiff": 0,
+        "cashGeneratedAt": "2026-10-06 13:10:30",
+        "staticProductCost": 0,
+        "staticCoveragePct": null,
+        "costSource": "static",
+        "unknownMskus": [],
+        "gpFromCash": 0,
+        "gpDiff": null
+      },
+      "马来shopee": {
+        "currency": "MYR",
+        "productCost": 0,
+        "cashPlatformAmount": 0,
+        "cashAdjustment": 0,
+        "cashSettlement": 0,
+        "cashOrders": 0,
+        "cashUnits": 0,
+        "cashStatus": "settled",
+        "cashRange": "2026-10-01 ~ 2026-10-05",
+        "cashReconcileDiff": 0,
+        "cashGeneratedAt": "2026-10-06 13:10:30",
+        "staticProductCost": 0,
+        "staticCoveragePct": null,
+        "costSource": "static",
+        "unknownMskus": [],
+        "gpFromCash": 0,
+        "gpDiff": null
       }
     }
   },
@@ -3764,7 +3936,7 @@
         },
         {
           "msku": "BEL-CFZ-E",
-          "name": "金乌碳纤维长方桌【黑色���",
+          "name": "金乌碳纤维长方桌【黑色】",
           "qty": 1,
           "orders": 1,
           "net": 9500,

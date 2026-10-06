@@ -92,6 +92,43 @@ log "  [OK] 领星数据拉取完成"
 # 注：日本乐天由 GitHub Actions（海外节点）每日 08:10 聚合并提交 operation_data.json，
 #     本流程开头的 git pull 已将其同步进来；佣金按 10.5% 估算、成本参考日亚单位成本。
 
+# ---------- [2.6] 韩国 Coupang（领星MCP，失败不阻断部署） ----------
+log "[2.6] 韩国Coupang pull-coupang + build-coupang"
+outC="$(node pull-coupang.js 2>&1 && node build-coupang.js 2>&1)"
+if [ $? -eq 0 ]; then
+  log "  [OK] Coupang聚合完成：$(echo "$outC" | grep -E 'today \|' | head -1)"
+else
+  log "$outC" | tail -20 | sed 's/^/  /' >> "$LOG_FILE"
+  log "  [ERR] Coupang失败（沿用旧数据，不阻断部署）"
+  record_failure "[2.6] 韩国Coupang pull/build" "$(echo "$outC" | tail -5 | tr '\n' ' ')"
+fi
+
+# ---------- [2.7] Shopee TH/MY（领星MCP回款口径，三周期，失败不阻断） ----------
+log "[2.7] Shopee TH/MY pull+build（today/week/month）"
+T1_D=$(date -d "yesterday" +%F)
+WS_D=$(date -d "7 days ago" +%F)
+MS_D=$(date +%Y-%m-01)
+SH_OK=1
+for P in today week month; do
+  case "$P" in
+    today) S_D="$T1_D";;
+    week)  S_D="$WS_D";;
+    month) S_D="$MS_D";;
+  esac
+  outSP="$(node pull-shopee.js --period="$P" --start="$S_D" --end="$T1_D" 2>&1 \
+    && node build-shopee.js --period="$P" --start="$S_D" --end="$T1_D" \
+       --rawDir="$DEPLOY_DIR/shopee-raw/$P" --dataPath="$DATA_FILE" 2>&1)"
+  if [ $? -eq 0 ]; then
+    log "  [OK] Shopee $P ($S_D~$T1_D)"
+  else
+    log "$outSP" | tail -15 | sed 's/^/  /' >> "$LOG_FILE"
+    log "  [ERR] Shopee $P 失败（沿用旧数据）"
+    record_failure "[2.7] Shopee $P pull/build" "$(echo "$outSP" | tail -5 | tr '\n' ' ')"
+    SH_OK=0
+  fi
+done
+[ "$SH_OK" -eq 0 ] || log "  [OK] Shopee三周期聚合完成"
+
 # ---------- [3/3] 外盘部署（仅当数据文件5分钟内被刷新） ----------
 log "[3/3] 外盘 deploy-dashboard.js（内嵌+git+飞书）"
 if [ ! -f "$DATA_FILE" ]; then

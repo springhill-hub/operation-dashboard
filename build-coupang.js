@@ -23,7 +23,7 @@ const fs = require('fs');
 const path = require('path');
 
 const RAWDIR = path.join(__dirname, 'coupang-raw');
-const DATAP  = 'f:/ai agent/operation_data.json';
+const DATAP  = process.env.CS_ROOT ? path.join(process.env.CS_ROOT, 'operation_data.json') : 'f:/ai agent/operation_data.json';
 const COMMISSION_RATE = 0.135;
 
 const num = v => Number(v) || 0;
