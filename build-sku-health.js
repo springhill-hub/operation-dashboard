@@ -25,7 +25,7 @@ const { callTool } = require(path.join(__dirname, '..', 'lx_api.js'));
 
 const APP_ID = 'ak_M7HmqeOuHZaKM';
 const APP_SECRET = 'iDyoq2lp49+ksuSqmpMQiQ==';
-const ROOT = process.env.CS_ROOT || 'f:/ai agent';
+const ROOT = process.env.CS_ROOT || (process.platform === 'win32' ? 'f:/ai agent' : '/opt/chunshan');
 const DATA_PATH = path.join(ROOT, 'inventory_data.json');
 
 // ---------- 领星 REST ----------

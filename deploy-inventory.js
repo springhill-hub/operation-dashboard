@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const ROOT = process.env.CS_ROOT || 'f:/ai agent';
+const ROOT = process.env.CS_ROOT || (process.platform === 'win32' ? 'f:/ai agent' : '/opt/chunshan');
 const DEPLOY_DIR = path.join(ROOT, 'deploy');
 const DATA_JSON = path.join(ROOT, 'inventory_data.json');
 const LOCAL_SRC = path.join(ROOT, '库存看板.html');
