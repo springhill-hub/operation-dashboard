@@ -340,13 +340,13 @@
     "settlement": {
       "独立站-日本": {
         "currency": "JPY",
-        "qty": 16,
+        "qty": 2,
         "refundVol": 0,
-        "salesAmount": 218969,
+        "salesAmount": 34650,
         "promoDisc": -23664,
-        "net": 195305,
-        "productCost": -71002.26,
-        "commission": 0,
+        "net": 34650,
+        "productCost": -10485.11,
+        "commission": -2079,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -356,9 +356,9 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": 0,
-        "profit": 124302.74,
-        "margin": "63.65%",
+        "platformFeeTotal": -2079,
+        "profit": 22085.89,
+        "margin": "63.74%",
         "skuDetail": [
           {
             "msku": "50527587598511",
@@ -492,7 +492,13 @@
             "pct": 0.82,
             "img": "https://cdn.shopify.com/s/files/1/0702/6920/6703/files/2_3b81ad22-be8c-4205-8c30-4af44b5bf095.jpg?v=1769831702"
           }
-        ]
+        ],
+        "orderCount": 2,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19",
+        "feeEstimated": true,
+        "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
+        "costCoveragePct": null
       },
       "日本-乐天": {
         "currency": "JPY",
@@ -574,7 +580,7 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-06 13:10:26"
+        "generatedAt": "2026-10-06 13:27:15"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -587,13 +593,19 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-05 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:10:27",
+        "cashGeneratedAt": "2026-10-06 13:27:16",
         "staticProductCost": 0,
         "staticCoveragePct": null,
-        "costSource": "static",
+        "costSource": "report",
         "unknownMskus": [],
         "gpFromCash": 0,
-        "gpDiff": null
+        "gpDiff": null,
+        "qty": 6,
+        "orderCount": 5,
+        "salesAmount": 24072,
+        "net": 24072,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -606,13 +618,28 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-05 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:10:27",
+        "cashGeneratedAt": "2026-10-06 13:27:16",
         "staticProductCost": 0,
         "staticCoveragePct": null,
-        "costSource": "static",
+        "costSource": "report",
         "unknownMskus": [],
         "gpFromCash": 0,
-        "gpDiff": null
+        "gpDiff": null,
+        "qty": 6,
+        "orderCount": 6,
+        "salesAmount": 4280.8,
+        "net": 4280.8,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
+      },
+      "独立站-国际": {
+        "currency": "USD",
+        "qty": 0,
+        "orderCount": 0,
+        "salesAmount": 0,
+        "net": 0,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
       }
     }
   },
@@ -1627,13 +1654,13 @@
     "settlement": {
       "独立站-日本": {
         "currency": "JPY",
-        "qty": 29,
+        "qty": 43,
         "refundVol": 0,
-        "salesAmount": 451720,
+        "salesAmount": 1000712,
         "promoDisc": -44179,
-        "net": 407541,
-        "productCost": -143921.54,
-        "commission": 0,
+        "net": 1000712,
+        "productCost": -302816.12,
+        "commission": -60042.72,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -1643,17 +1670,23 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": 0,
-        "profit": 263619.46,
-        "margin": "64.69%"
+        "platformFeeTotal": -60042.72,
+        "profit": 637853.16,
+        "margin": "63.74%",
+        "orderCount": 25,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19",
+        "feeEstimated": true,
+        "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
+        "costCoveragePct": null
       },
       "独立站-国际": {
         "currency": "USD",
-        "qty": 3,
+        "qty": 4,
         "refundVol": 0,
-        "salesAmount": 198.62,
+        "salesAmount": 256,
         "promoDisc": 0,
-        "net": 198.62,
+        "net": 256,
         "productCost": -34.52,
         "commission": 0,
         "delivery": 0,
@@ -1667,7 +1700,10 @@
         "incomeRefund": 0,
         "platformFeeTotal": 0,
         "profit": 164.1,
-        "margin": "82.62%"
+        "margin": "82.62%",
+        "orderCount": 4,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
       },
       "日本-乐天": {
         "currency": "JPY",
@@ -1781,7 +1817,7 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-06 13:10:26"
+        "generatedAt": "2026-10-06 13:27:15"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -1794,10 +1830,10 @@
         "cashStatus": "settled",
         "cashRange": "2026-09-29 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:10:29",
+        "cashGeneratedAt": "2026-10-06 13:27:18",
         "staticProductCost": -59695.7,
         "staticCoveragePct": 85.98,
-        "costSource": "static",
+        "costSource": "report",
         "unknownMskus": [
           {
             "msku": "BEL-SFZ-DJ",
@@ -1833,7 +1869,13 @@
           }
         ],
         "gpFromCash": 35649.3,
-        "gpDiff": null
+        "gpDiff": null,
+        "qty": 64,
+        "orderCount": 54,
+        "salesAmount": 293535,
+        "net": 293535,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -1846,10 +1888,10 @@
         "cashStatus": "settled",
         "cashRange": "2026-09-29 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:10:29",
+        "cashGeneratedAt": "2026-10-06 13:27:18",
         "staticProductCost": -2547.64,
         "staticCoveragePct": 96.34,
-        "costSource": "static",
+        "costSource": "report",
         "unknownMskus": [
           {
             "msku": "BEL-SFZ-E-ATZ",
@@ -1865,7 +1907,13 @@
           }
         ],
         "gpFromCash": 598.57,
-        "gpDiff": null
+        "gpDiff": null,
+        "qty": 35,
+        "orderCount": 34,
+        "salesAmount": 21911.7,
+        "net": 21911.7,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
       }
     }
   },
@@ -2505,7 +2553,7 @@
         },
         {
           "msku": "CS-MNFXL1.5",
-          "name": "迷你焚香炉1.5",
+          "name": "迷你焚���炉1.5",
           "qty": 2,
           "orders": 2,
           "net": 7398,
@@ -2810,7 +2858,7 @@
             "qty": 1
           }
         ],
-        "generatedAt": "2026-10-06 13:10:26"
+        "generatedAt": "2026-10-06 13:27:15"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -2823,13 +2871,19 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-01 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:10:30",
+        "cashGeneratedAt": "2026-10-06 13:27:19",
         "staticProductCost": 0,
         "staticCoveragePct": null,
-        "costSource": "static",
+        "costSource": "report",
         "unknownMskus": [],
         "gpFromCash": 0,
-        "gpDiff": null
+        "gpDiff": null,
+        "qty": 41,
+        "orderCount": 37,
+        "salesAmount": 176047,
+        "net": 176047,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -2842,13 +2896,45 @@
         "cashStatus": "settled",
         "cashRange": "2026-10-01 ~ 2026-10-05",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 13:10:30",
+        "cashGeneratedAt": "2026-10-06 13:27:19",
         "staticProductCost": 0,
         "staticCoveragePct": null,
-        "costSource": "static",
+        "costSource": "report",
         "unknownMskus": [],
         "gpFromCash": 0,
-        "gpDiff": null
+        "gpDiff": null,
+        "qty": 29,
+        "orderCount": 28,
+        "salesAmount": 15607.7,
+        "net": 15607.7,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
+      },
+      "独立站-日本": {
+        "currency": "JPY",
+        "qty": 33,
+        "orderCount": 18,
+        "salesAmount": 748732,
+        "net": 748732,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19",
+        "productCost": -226566.81,
+        "commission": -44923.92,
+        "platformFeeTotal": -44923.92,
+        "profit": 477241.27,
+        "margin": "63.74%",
+        "feeEstimated": true,
+        "feeNote": "独立站-日本下单口径；手续费按6%估算(支付/订阅费未含)；成本：单品匹配0%，余按日亚当月综合成本率30.26%估算",
+        "costCoveragePct": null
+      },
+      "独立站-国际": {
+        "currency": "USD",
+        "qty": 3,
+        "orderCount": 3,
+        "salesAmount": 197,
+        "net": 197,
+        "caliber": "order",
+        "generatedAt": "2026-10-06 13:27:19"
       }
     }
   },
@@ -3936,7 +4022,7 @@
         },
         {
           "msku": "BEL-CFZ-E",
-          "name": "金乌碳纤维长方桌【黑色】",
+          "name": "金乌碳纤维长方桌【黑色���",
           "qty": 1,
           "orders": 1,
           "net": 9500,

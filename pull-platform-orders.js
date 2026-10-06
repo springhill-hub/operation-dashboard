@@ -1,0 +1,190 @@
+/* ============================================================
+ * 春山户外 · 多平台下单口径拉数（固化版 v1.0 · 2026-10-06）
+ * ------------------------------------------------------------
+ * 与日亚同款：领星 MCP platform_v2_page_list（X-Mcp-Key，无需IP白名单）
+ *   resultType 1=销量(件) 2=订单量(单) 3=销售额(本币)
+ *
+ * 覆盖店铺（store_id 来自 get_multi_platform_shop_list）：
+ *   泰国shopee / 马来shopee / 独立站-日本 / 独立站-国际
+ *
+ * 写入 DATA[period].settlement[key] 下单口径字段（与回款口径并存）：
+ *   qty/orderCount/salesAmount/net（=下单成交金额）+ generatedAt/caliber
+ *   Shopee 回款字段(cashSettlement等，build-shopee.js 维护)保持不动；
+ *   独立站成本参考日亚单位成本（JPY同币直取；Shopee仅写下单三指标）。
+ *
+ * 运行：node pull-platform-orders.js [--anchor=YYYY-MM-DD]
+ * ============================================================ */
+const fs = require('fs');
+const path = require('path');
+const { callTool } = require(path.join(__dirname, '..', 'lx_api.js'));
+
+const ROOT = process.env.CS_ROOT || 'f:/ai agent';
+const DATA_PATH = process.env.CS_ROOT
+  ? path.join(process.env.CS_ROOT, 'operation_data.json')
+  : 'f:/ai agent/operation_data.json';
+
+const argv = {};
+process.argv.slice(2).forEach(a => {
+  if (!a.startsWith('--')) return;
+  const i = a.indexOf('=');
+  argv[a.slice(2, i < 0 ? undefined : i)] = i < 0 ? true : a.slice(i + 1);
+});
+
+const pad = n => String(n).padStart(2, '0');
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const ANCHOR = argv.anchor ? new Date(argv.anchor + 'T12:00:00') : new Date();
+const T1 = new Date(ANCHOR); T1.setDate(T1.getDate() - 1);
+const MS = new Date(ANCHOR.getFullYear(), ANCHOR.getMonth(), 1);
+const WS = new Date(ANCHOR); WS.setDate(WS.getDate() - 7);
+const PERIODS = {
+  today: [iso(T1), iso(T1)],
+  week:  [iso(WS), iso(T1)],
+  month: [iso(MS), iso(T1)],
+};
+
+// key 必须与看板 KNOW 映射一致；feeRate 仅用于独立站估算（领星店铺 rate 字段）
+const STORES = [
+  { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false },
+  { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false },
+  { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true  },
+  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false },
+];
+
+const num = v => Number(v) || 0;
+const r2 = v => Math.round(num(v) * 100) / 100;
+
+async function pullOne(sid, resultType, start, end) {
+  let pageNum = 1, fetched = 0, totalRows = Infinity;
+  const rows = [];
+  let total = null, ccy = '';
+  while (fetched < totalRows) {
+    const r = await callTool('action', {
+      toolId: 'platform_v2_page_list',
+      params: {
+        sids: [String(sid)], searchType: 3, dataType: '3',
+        start, end, dateUnit: '4',
+        resultType: String(resultType), pageNum, pageSize: 200, currencyCode: '',
+      },
+    });
+    const dd = r && r.data && r.data.data ? r.data.data : null;
+    if (!dd) {
+      throw new Error('rt=' + resultType + ' sid=' + sid + ': ' + JSON.stringify(r).slice(0, 160));
+    }
+    if (total == null) { totalRows = num(dd.count) || 0; total = dd.totalList; ccy = (dd.totalList && dd.totalList.currencyCode) || ''; }
+    const list = Array.isArray(dd.statisticsList) ? dd.statisticsList : [];
+    rows.push(...list);
+    fetched += list.length;
+    pageNum++;
+    if (!list.length) break;
+  }
+  return { rows, total, ccy };
+}
+
+// 三指标按行内 dateCollect 汇总，并返回 SKU→件数（用于独立站成本匹配）
+async function pullStore(store, start, end) {
+  const days = [];
+  for (let d = new Date(start + 'T00:00:00'); d <= new Date(end + 'T00:00:00'); d.setDate(d.getDate() + 1))
+    days.push(iso(d));
+  const sumIn = x => { let v = 0; for (const day of days) v += num(x.dateCollect && x.dateCollect[day]); return v; };
+  const out = { qty: 0, orders: 0, net: 0, qtyByMsku: {} };
+  for (const [rt, field] of [['1','qty'], ['2','orders'], ['3','net']]) {
+    const { rows, ccy } = await pullOne(store.id, rt, start, end);
+    if (ccy) out.ccy = ccy;
+    for (const x of rows) {
+      const v = sumIn(x);
+      if (field === 'net') out.net += v;
+      else {
+        out[field] += v;
+        if (field === 'qty') {
+          const msku = Array.isArray(x.msku) ? x.msku[0] : x.msku;
+          if (msku && msku !== '-') out.qtyByMsku[msku] = (out.qtyByMsku[msku] || 0) + v;
+        }
+      }
+    }
+  }
+  out.qty = r2(out.qty); out.orders = r2(out.orders); out.net = r2(out.net);
+  return out;
+}
+
+// 日亚 JPY 单位成本表（与 build-rakuten/coupang 同构）
+function jpyCostTable(D) {
+  const map = {};
+  for (const p of ['month', 'week', 'today']) {
+    const a = D[p] && D[p].amazonJP;
+    if (!a || !Array.isArray(a.skuDetail)) continue;
+    for (const r of a.skuDetail) {
+      if (!r.msku || !r.qty) continue;
+      if (map[r.msku] == null) map[r.msku] = num(r.cost) / num(r.qty);
+    }
+  }
+  return map;
+}
+const STRIP = ['-FBA1','-FBA','-FBM','-NEW','-ATZ','-DP','-JP'];
+function normKey(s) {
+  let k = String(s || '').toUpperCase().replace(/\+/g, '-'), prev;
+  do { prev = k; for (const suf of STRIP) if (k.endsWith(suf)) k = k.slice(0, -suf.length); } while (k !== prev);
+  return k;
+}
+
+(async () => {
+  console.log('====================================================');
+  console.log(' Multi-platform order pull | T1=' + iso(T1));
+  console.log('====================================================');
+  const D = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+  const costRaw = jpyCostTable(D);
+  const costMap = {};
+  for (const [k, v] of Object.entries(costRaw)) { const nk = normKey(k); if (costMap[nk] == null) costMap[nk] = v; }
+  const stamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+  for (const [p, [s, e]] of Object.entries(PERIODS)) {
+    if (!D[p]) continue;
+    if (!D[p].settlement) D[p].settlement = {};
+    for (const store of STORES) {
+      const m = await pullStore(store, s, e);
+      const cur = D[p].settlement[store.key] || { currency: store.ccy };
+      cur.currency = store.ccy;
+      // —— 下单三指标（Shopee 与回款字段并存） ——
+      cur.qty = m.qty;
+      cur.orderCount = m.orders;
+      cur.salesAmount = m.net;
+      cur.net = m.net;
+      cur.caliber = 'order';
+      cur.generatedAt = stamp;
+
+      if (store.estCost) {
+        // 独立站-日本：优先单品成本（日亚同币单位成本）；未匹配部分按日亚当月综合成本率估算
+        // （Shopify 未做领星SKU映射时 msku 为空，全部走成本率）
+        const am = D.month && D.month.amazonJP;
+        const blendedRate = am && num(am.net) ? num(am.cost) / num(am.net) : -0.35;
+        let productCost = 0, matchedQty = 0, totalQty = 0, unmatchedNet = 0;
+        for (const [msku, q] of Object.entries(m.qtyByMsku)) {
+          totalQty += q;
+          const c = costMap[normKey(msku)];
+          if (c != null) { productCost += q * c; matchedQty += q; }
+        }
+        if (matchedQty < totalQty || totalQty === 0) {
+          // 未匹配销量按整体净额比例摊成本：未匹配净额 = net ×（未匹配件数占比）
+          const unmatchedRatio = totalQty ? (totalQty - matchedQty) / totalQty : 1;
+          unmatchedNet = r2(m.net * unmatchedRatio);
+          productCost += unmatchedNet * blendedRate;
+        }
+        cur.productCost = r2(productCost);
+        cur.commission = r2(-m.net * store.feeRate);
+        cur.platformFeeTotal = cur.commission;
+        cur.profit = r2(m.net + productCost + cur.commission);
+        cur.margin = m.net ? r2(cur.profit / m.net * 100) + '%' : '0%';
+        cur.feeEstimated = true;
+        cur.feeNote = store.key + '下单口径；手续费按' + (store.feeRate * 100)
+          + '%估算(支付/订阅费未含)；成本：单品匹配'
+          + (totalQty ? r2(matchedQty / totalQty * 100) : 0)
+          + '%，余按日亚当月综合成本率' + r2(-blendedRate * 100) + '%估算';
+        cur.costCoveragePct = totalQty ? r2(matchedQty / totalQty * 100) : null;
+      }
+      D[p].settlement[store.key] = cur;
+      console.log(p + ' | ' + store.key + ' | qty=' + m.qty + ' orders=' + m.orders + ' net=' + m.net + ' ' + store.ccy
+        + (store.estCost ? ' GP=' + cur.profit + '(' + cur.margin + ')' : ''));
+    }
+  }
+  fs.writeFileSync(DATA_PATH, JSON.stringify(D, null, 2), 'utf8');
+  console.log('written: ' + DATA_PATH);
+})().catch(e => { console.error('FATAL', e.message); process.exit(1); });
