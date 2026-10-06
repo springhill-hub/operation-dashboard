@@ -515,6 +515,10 @@ function aggregatePlatform(records) {
                         platformFee: sr ? sr.platformFee : null,
                         profit: sr ? sr.profit : null,          // 未结算=null，前端显示"待结算"
                         margin: sr ? sr.margin : null,          // 行毛利率沿用结算口径
+                        // 结算侧净销售额（与左侧当天下单净销额是两批订单，勿混算）
+                        // 优先用结算行net；结算行net为0但有毛利率时按 毛利/毛利率 反推
+                        settledNet: sr ? (sr.net > 0 ? r2(sr.net)
+                            : (sr.profit && sr.margin ? r2(sr.profit / (sr.margin / 100)) : 0)) : null,
                         settled: !!sr,
                         img: sr ? sr.img : '',
                         pct: orderNet > 0 ? r2(net / orderNet * 100) : 0,
