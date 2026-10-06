@@ -22,6 +22,7 @@
 [CmdletBinding()]
 param(
   [string]$Date = (Get-Date -Format 'yyyy-MM-dd'),
+  [string]$CommitMessage = '',
   [switch]$SkipGit,
   [switch]$SkipLark
 )
@@ -35,6 +36,7 @@ $SourceHtml  = 'f:\ai agent\经营看板.html'
 $DataJson    = 'f:\ai agent\operation_data.json'
 $WidgetHtml  = Join-Path $DeployDir 'widget.html'
 $IndexHtml   = Join-Path $DeployDir 'index.html'
+$DashboardHtml = Join-Path $DeployDir 'dashboard.html'
 $LarkCli     = 'C:\Users\DCKJ\.trae-cn\plugins\trae-remote-official\lark\1.0.5\bin\lark-cli.exe'
 
 # 飞书文档配置
@@ -81,8 +83,8 @@ $genAt = ($rawJson | ConvertFrom-Json).meta.generatedAt
 Write-OK "JSON有效，generatedAt=$genAt"
 Write-Info "数据文件：$DataJson"
 
-# ---------- Step 2: 内嵌JSON到HTML，生成 widget.html + index.html ----------
-Write-Step "2/4 内嵌JSON到HTML（生成 widget.html + index.html）"
+# ---------- Step 2: 内嵌JSON到HTML，生成 widget.html + index.html + dashboard.html ----------
+Write-Step "2/4 内嵌JSON到HTML（生成 widget.html + index.html + dashboard.html）"
 if (-not (Test-Path $SourceHtml)) {
   Stop-OnError 'Step2-HTML模板' "源文件不存在：$SourceHtml"
 }
@@ -139,6 +141,32 @@ $indexContent = $indexContent -replace '(?m)^<meta name="description" content="[
 [System.IO.File]::WriteAllText($IndexHtml, $indexContent, $utf8NoBom)
 Write-OK "index.html 已生成（GitHub Pages版，去meta）"
 
+# 同步内嵌到 dashboard.html（外盘页：同一双口径模板的带系统导航栏副本，仅壳相差导航栏）
+# 历史教训：该文件此前只在 git add 清单中、却从不重新内嵌，导致线上外盘页永久停在最后一次手工内嵌版本。
+# 复用上面相同的字符串定位逻辑与同一 $compactJson，只替换 DATA-JSON 块与3个 tab 日期，完整保留导航栏壳。
+if (-not (Test-Path $DashboardHtml)) {
+  Stop-OnError 'Step2-HTML模板' "文件不存在：$DashboardHtml"
+}
+$dashTemplate = Get-Content $DashboardHtml -Raw -Encoding UTF8
+$dashStartIdx = $dashTemplate.IndexOf($startTag)
+if ($dashStartIdx -lt 0) {
+  Stop-OnError 'Step2-dashboard替换' 'dashboard.html 未找到 DATA-JSON script 开始标签'
+}
+$dashEndIdx = $dashTemplate.IndexOf($endTag, $dashStartIdx)
+if ($dashEndIdx -lt 0) {
+  Stop-OnError 'Step2-dashboard替换' 'dashboard.html 未找到 DATA-JSON script 结束标签'
+}
+$dashContentStart = $dashStartIdx + $startTag.Length
+$dashHtml = $dashTemplate.Substring(0, $dashContentStart) + "`n" + $compactJson + "`n" + $dashTemplate.Substring($dashEndIdx)
+Write-Info "dashboard.html DATA-JSON 替换完成（位置 $dashStartIdx ~ $dashEndIdx），导航栏壳保留"
+
+# 同步3个 tab 日期（与根模板同一组正则；上月汇总tab读 lastMonth.range 无需改）
+$dashHtml = $dashHtml -replace '(<div class="d" id="tabD-today">)[^<]*(</div>)', "`${1}$todayDate`${2}"
+$dashHtml = $dashHtml -replace '(<div class="d" id="tabD-week">)[^<]*(</div>)', "`${1}$weekShort`${2}"
+$dashHtml = $dashHtml -replace '(<div class="d" id="tabD-month">)[^<]*(</div>)', "`${1}$monthShort`${2}"
+[System.IO.File]::WriteAllText($DashboardHtml, $dashHtml, $utf8NoBom)
+Write-OK "dashboard.html 已内嵌最新数据（保留导航栏壳）tab: today=$todayDate week=$weekShort month=$monthShort"
+
 # ---------- Step 3: git push ----------
 if ($SkipGit) {
   Write-Step "3/4 [跳过] git push（-SkipGit）"
@@ -150,8 +178,8 @@ if ($SkipGit) {
   $ErrorActionPreference = 'Continue'
   try {
     Push-Location $DeployDir
-    Write-Info "git add index.html widget.html + 固化脚本/成本表"
-    $null = & git add index.html widget.html dashboard.html portal.html build-shopee.js build-msku-cost.js build-rakuten.js build-coupang.js msku-cost.json .gitignore 2>&1
+    Write-Info "git add index.html widget.html dashboard.html + 部署脚本 + 固化脚本/成本表"
+    $null = & git add index.html widget.html dashboard.html deploy-dashboard.ps1 portal.html build-shopee.js build-msku-cost.js build-rakuten.js build-coupang.js msku-cost.json .gitignore 2>&1
     if ($LASTEXITCODE -ne 0) { throw "git add 失败 (exit $LASTEXITCODE)" }
 
     # 检查已暂存的变更（仅staged，避免untracked文件触发误commit）
@@ -159,7 +187,8 @@ if ($SkipGit) {
     if (-not $staged) {
       Write-OK "数据无变化，跳过 commit/push"
     } else {
-      $commitMsg = "每日刷新 $Date"
+      # 默认日常提交消息；可用 -CommitMessage 覆盖（如修复类部署）
+      $commitMsg = if ($CommitMessage) { $CommitMessage } else { "每日刷新 $Date" }
       Write-Info "git commit -m `"$commitMsg`""
       $null = & git commit -m $commitMsg 2>&1
       if ($LASTEXITCODE -ne 0) { throw "git commit 失败 (exit $LASTEXITCODE)" }
