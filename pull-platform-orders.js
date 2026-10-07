@@ -47,7 +47,7 @@ const PERIODS = {
 // skuDetail: shopee=静态成本表可做SKU级(费用待结算)；shopifyJp=Shopify账单明细+在线变体local_sku映射；shopifyIntl=platform_v2已映射MSKU
 const STORES = [
   { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
-  { id: '1105685284207605760', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
+  { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
   { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true,  skuDetail: 'shopifyJp' },
   { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true, skuDetail: 'order' },
 ];
