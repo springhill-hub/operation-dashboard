@@ -423,11 +423,13 @@
           }
         ],
         "orderCount": 1,
-        "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "caliber": "bill",
+        "generatedAt": "2026-10-07 08:18:20",
         "feeEstimated": true,
-        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖0%净额，余按日亚当月综合成本率29.47%估算",
-        "costCoveragePct": 0
+        "feeNote": "独立站-日本账单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖0%净额，余按日亚当月综合成本率29.47%估算",
+        "costCoveragePct": 0,
+        "settledNet": 39999,
+        "settledNote": "净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行"
       },
       "日本-乐天": {
         "currency": "JPY",
@@ -746,7 +748,7 @@
         "salesAmount": 35743,
         "net": 35743,
         "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "generatedAt": "2026-10-07 08:18:20",
         "skuDetail": [
           {
             "msku": "BEL-CFZ-E",
@@ -868,7 +870,12 @@
             "settled": false,
             "pct": 0.84
           }
-        ]
+        ],
+        "settledNet": null,
+        "settledSales": 0,
+        "settledRefund": 0,
+        "settledCoverTo": "2026-09-29",
+        "settledNote": "已回款净额=打款账单实收（销售额−退款−取消后的真实现金，按打款日归集；订单日口径滞后10-14天无法近端计算）"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -893,7 +900,7 @@
         "salesAmount": 14409,
         "net": 14409,
         "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "generatedAt": "2026-10-07 08:18:20",
         "skuDetail": [
           {
             "msku": "LDL-QZ-H-5",
@@ -1030,7 +1037,12 @@
             "settled": false,
             "pct": 0.31
           }
-        ]
+        ],
+        "settledNet": null,
+        "settledSales": 0,
+        "settledRefund": 0,
+        "settledCoverTo": "2026-09-30",
+        "settledNote": "已回款净额=打款账单实收（销售额−退款−取消后的真实现金，按打款日归集；订单日口径滞后10-14天无法近端计算）"
       },
       "独立站-国际": {
         "currency": "USD",
@@ -1038,15 +1050,17 @@
         "orderCount": 0,
         "salesAmount": 0,
         "net": 0,
-        "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "caliber": "bill",
+        "generatedAt": "2026-10-07 08:18:20",
         "productCost": null,
         "commission": null,
         "platformFeeTotal": null,
         "profit": null,
         "margin": null,
-        "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射",
-        "skuDetail": []
+        "feeNote": "账单口径（销售额−退款，含退款负行）；手续费按3%估算于SKU行；成本待结算",
+        "skuDetail": [],
+        "settledNet": 0,
+        "settledNote": "净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行"
       }
     }
   },
@@ -2021,10 +2035,10 @@
         "profit": 482216.07,
         "margin": "60.16%",
         "orderCount": 20,
-        "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "caliber": "bill",
+        "generatedAt": "2026-10-07 08:18:20",
         "feeEstimated": true,
-        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.92%净额，余按日亚当月综合成本率29.47%估算",
+        "feeNote": "独立站-日本账单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.92%净额，余按日亚当月综合成本率29.47%估算",
         "costCoveragePct": 74.92,
         "skuDetail": [
           {
@@ -2475,7 +2489,9 @@
             "feeEstimated": true,
             "pct": 0.19
           }
-        ]
+        ],
+        "settledNet": 801531,
+        "settledNote": "净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行"
       },
       "独立站-国际": {
         "currency": "USD",
@@ -2498,42 +2514,46 @@
         "platformFeeTotal": null,
         "profit": null,
         "margin": null,
-        "orderCount": 3,
-        "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
-        "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射",
+        "orderCount": 2,
+        "caliber": "bill",
+        "generatedAt": "2026-10-07 08:18:20",
+        "feeNote": "账单口径（销售额−退款，含退款负行）；手续费按3%估算于SKU行；成本待结算",
         "skuDetail": [
           {
             "msku": "TC-MNBL-Y",
-            "name": "春山mini观火壁炉",
+            "name": "Springhill Mini Fireplace",
             "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/2_293cf14e-e60b-4b62-971a-7255d9d42e9a.jpg?v=1759977141",
             "qty": 2,
             "orders": 2,
             "net": 138,
-            "settledNet": null,
+            "settledNet": 138,
             "cost": null,
-            "platformFee": null,
+            "platformFee": -4.14,
             "profit": null,
             "margin": null,
-            "settled": false,
+            "settled": true,
+            "feeEstimated": true,
             "pct": 70.05
           },
           {
             "msku": "SL-FXL3.0-Y",
-            "name": "Gooutspringhill Mini Fire Stove3.0 Pre-order (shipping late October) - Silver",
+            "name": "Gooutspringhill Mini Fire Stove3.0 Pre-order (shipping late October)",
             "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/02_23c8eaa9-64a1-4d02-bc50-c6092467c485.jpg?v=1788773840",
             "qty": 1,
             "orders": 1,
             "net": 59,
-            "settledNet": null,
+            "settledNet": 59,
             "cost": null,
-            "platformFee": null,
+            "platformFee": -1.77,
             "profit": null,
             "margin": null,
-            "settled": false,
+            "settled": true,
+            "feeEstimated": true,
             "pct": 29.95
           }
-        ]
+        ],
+        "settledNet": 197,
+        "settledNote": "净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行"
       },
       "日本-乐天": {
         "currency": "JPY",
@@ -3406,7 +3426,7 @@
         "salesAmount": 239084,
         "net": 239084,
         "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "generatedAt": "2026-10-07 08:18:20",
         "skuDetail": [
           {
             "msku": "BH-ZRKSL-Y",
@@ -3828,7 +3848,12 @@
             "settled": false,
             "pct": 0.13
           }
-        ]
+        ],
+        "settledNet": null,
+        "settledSales": 0,
+        "settledRefund": 0,
+        "settledCoverTo": "2026-09-29",
+        "settledNote": "已回款净额=打款账单实收（销售额−退款−取消后的真实现金，按打款日归集；订单日口径滞后10-14天无法近端计算）"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -3858,7 +3883,7 @@
         "salesAmount": 32388.7,
         "net": 32388.7,
         "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "generatedAt": "2026-10-07 08:18:20",
         "skuDetail": [
           {
             "msku": "YS-DBT-Y",
@@ -4145,7 +4170,12 @@
             "settled": false,
             "pct": 0.14
           }
-        ]
+        ],
+        "settledNet": 3146.21,
+        "settledSales": 0,
+        "settledRefund": 0,
+        "settledCoverTo": "2026-09-30",
+        "settledNote": "已回款净额=打款账单实收（销售额−退款−取消后的真实现金，按打款日归集；订单日口径滞后10-14天无法近端计算）"
       }
     }
   },
@@ -5894,7 +5924,7 @@
         "salesAmount": 198190,
         "net": 198190,
         "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "generatedAt": "2026-10-07 08:18:20",
         "skuDetail": [
           {
             "msku": "SL-YLY-WS",
@@ -6256,7 +6286,12 @@
             "settled": false,
             "pct": 0.15
           }
-        ]
+        ],
+        "settledNet": null,
+        "settledSales": 0,
+        "settledRefund": 0,
+        "settledCoverTo": "2026-09-29",
+        "settledNote": "已回款净额=打款账单实收（销售额−退款−取消后的真实现金，按打款日归集；订单日口径滞后10-14天无法近端计算）"
       },
       "马来shopee": {
         "currency": "MYR",
@@ -6281,7 +6316,7 @@
         "salesAmount": 30016.7,
         "net": 30016.7,
         "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "generatedAt": "2026-10-07 08:18:20",
         "skuDetail": [
           {
             "msku": "LDL-QZ-H-5",
@@ -6553,7 +6588,12 @@
             "settled": false,
             "pct": 0.15
           }
-        ]
+        ],
+        "settledNet": null,
+        "settledSales": 0,
+        "settledRefund": 0,
+        "settledCoverTo": "2026-09-30",
+        "settledNote": "已回款净额=打款账单实收（销售额−退款−取消后的真实现金，按打款日归集；订单日口径滞后10-14天无法近端计算）"
       },
       "独立站-日本": {
         "currency": "JPY",
@@ -6561,15 +6601,15 @@
         "orderCount": 19,
         "salesAmount": 788731,
         "net": 788731,
-        "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "caliber": "bill",
+        "generatedAt": "2026-10-07 08:18:20",
         "productCost": -266630.01,
         "commission": -47323.86,
         "platformFeeTotal": -47323.86,
         "profit": 474777.13,
         "margin": "60.2%",
         "feeEstimated": true,
-        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.51%净额，余按日亚当月综合成本率29.47%估算",
+        "feeNote": "独立站-日本账单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.51%净额，余按日亚当月综合成本率29.47%估算",
         "costCoveragePct": 74.51,
         "skuDetail": [
           {
@@ -7020,54 +7060,60 @@
             "feeEstimated": true,
             "pct": 0.19
           }
-        ]
+        ],
+        "settledNet": 788731,
+        "settledNote": "净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行"
       },
       "独立站-国际": {
         "currency": "USD",
         "qty": 3,
-        "orderCount": 3,
+        "orderCount": 2,
         "salesAmount": 197,
         "net": 197,
-        "caliber": "order",
-        "generatedAt": "2026-10-07 06:51:46",
+        "caliber": "bill",
+        "generatedAt": "2026-10-07 08:18:20",
         "productCost": null,
         "commission": null,
         "platformFeeTotal": null,
         "profit": null,
         "margin": null,
-        "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射",
+        "feeNote": "账单口径（销售额−退款，含退款负行）；手续费按3%估算于SKU行；成本待结算",
         "skuDetail": [
           {
             "msku": "TC-MNBL-Y",
-            "name": "春山mini观火壁炉",
+            "name": "Springhill Mini Fireplace",
             "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/2_293cf14e-e60b-4b62-971a-7255d9d42e9a.jpg?v=1759977141",
             "qty": 2,
             "orders": 2,
             "net": 138,
-            "settledNet": null,
+            "settledNet": 138,
             "cost": null,
-            "platformFee": null,
+            "platformFee": -4.14,
             "profit": null,
             "margin": null,
-            "settled": false,
+            "settled": true,
+            "feeEstimated": true,
             "pct": 70.05
           },
           {
             "msku": "SL-FXL3.0-Y",
-            "name": "Gooutspringhill Mini Fire Stove3.0 Pre-order (shipping late October) - Silver",
+            "name": "Gooutspringhill Mini Fire Stove3.0 Pre-order (shipping late October)",
             "img": "https://cdn.shopify.com/s/files/1/0874/8751/2857/files/02_23c8eaa9-64a1-4d02-bc50-c6092467c485.jpg?v=1788773840",
             "qty": 1,
             "orders": 1,
             "net": 59,
-            "settledNet": null,
+            "settledNet": 59,
             "cost": null,
-            "platformFee": null,
+            "platformFee": -1.77,
             "profit": null,
             "margin": null,
-            "settled": false,
+            "settled": true,
+            "feeEstimated": true,
             "pct": 29.95
           }
-        ]
+        ],
+        "settledNet": 197,
+        "settledNote": "净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行"
       }
     }
   },

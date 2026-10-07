@@ -44,20 +44,24 @@ const PERIODS = {
 };
 
 // key 必须与看板 KNOW 映射一致；feeRate 仅用于独立站估算（领星店铺 rate 字段）
-// skuDetail: shopee=静态成本表可做SKU级(费用待结算)；shopifyJp=Shopify账单明细+在线变体local_sku映射；shopifyIntl=platform_v2已映射MSKU
+// skuDetail: shopee=下单口径SKU+账单已结算净额；shopifyJp=Shopify账单明细+变体映射；shopifyIntl=国际店账单明细
+// 统一口径（2026-10-07 王泉斐拍板）：净销售额=销售额−退款−取消。
+//   独立站两店 net 直接取Shopify账单（含退款负行）；Shopee/Coupang 领星无实时退款数据，net 保留下单口径+settledNet 补充。
 const STORES = [
-  { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
-  { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee' },
+  { id: '110568528420653568', key: '泰国shopee',    ccy: 'THB', feeRate: 0,    estCost: false, skuDetail: 'shopee', settleSite: 'TH' },
+  { id: '110568528420760576', key: '马来shopee',    ccy: 'MYR', feeRate: 0,    estCost: false, skuDetail: 'shopee', settleSite: 'MY' },
   { id: '110666537349581824', key: '独立站-日本',   ccy: 'JPY', feeRate: 0.06, estCost: true,  skuDetail: 'shopifyJp' },
-  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, amountOnly: true, skuDetail: 'order' },
+  { id: '110719720300987904', key: '独立站-国际',   ccy: 'USD', feeRate: 0.03, estCost: false, skuDetail: 'shopifyIntl' },
 ];
 
-// ===== 独立站-日本：Shopify 账单明细（行级）+ 在线变体 local_sku 映射 =====
+// ===== Shopify 账单明细（行级，独立站-日本/国际共用）+ 在线变体 local_sku 映射 =====
 // 领星 platform_v2 对 Shopify 只有整店聚合行；platform_shopify_bill_statement_list 给行级订单
 // 行上 mskuId 实为 Shopify variant_id，经 platform_shopify_variant_list 的 local_sku 反查内部SKU
-let _jpVariants = null;
+// 账单口径天然符合统一口径：net=销售额−退款（退款行为负），取消单（未支付）无账单行
+let _jpVariants = null;   // 按店铺id缓存：{ sid: Map }
 async function jpVariantMap(sid) {
-  if (_jpVariants) return _jpVariants;
+  if (_jpVariants && _jpVariants[sid]) return _jpVariants[sid];
+  _jpVariants = _jpVariants || {};
   const map = new Map();
   for (let offset = 0; ; offset += 1000) {
     const r = await callTool('action', { toolId: 'platform_shopify_variant_list',
@@ -69,7 +73,7 @@ async function jpVariantMap(sid) {
     }
     if (list.length < 1000) break;
   }
-  _jpVariants = map;
+  _jpVariants[sid] = map;
   return map;
 }
 
@@ -123,6 +127,49 @@ async function pullShopifyJp(sid, start, end) {
   }
   const out = [...rows.values()].map(r => ({ ...r, _orders: undefined }));
   return { rows: out, billNet: r2(billNet), billQty: r2(billQty), orderCount: orderSet.size, variantCount: vmap.size };
+}
+
+// ===== Shopee 已回款净额（真实现金口径）=====
+// 数据源 finance_shopee_income_list（打款账单）：
+//   每行=一笔已打款订单的结算明细，amount=卖家实收（退款单为负行）；
+//   取消/未付款单不产生账单行 → 金额天然=销售额−退款−取消后的真实现金。
+// 归集维度=打款日（payoutTime）。【重要边界】账单按订单日覆盖滞后约10-14天，
+//   无法支撑"订单日净额"的近端周期（T-1/T-7永远空窗）；故本字段口径=该周期内实际打款入账，
+//   间歇性非打款日为空属正常（与回款字段同特性）。订单级净销售额彻底解=Shopee OPEN API（待开通）。
+let _shopeeIncome = {};   // site -> { dayNet: Map, coverFrom, coverTo }
+async function pullShopeeSettled(site, start, end) {
+  if (!_shopeeIncome[site]) {
+    const S = new Date(iso(T1) + 'T00:00:00'); S.setDate(S.getDate() - 35);   // income_list 保留期约36天，超窗返回空
+    const sStart = iso(S);
+    const rows = [];
+    for (let offset = 0; ; offset += 200) {
+      const r = await callTool('action', { toolId: 'finance_shopee_income_list',
+        params: { sites: [site], startDate: sStart, endDate: iso(T1), length: 200, offset, expandChildren: true } });
+      const dd = r && r.data && (r.data.data || r.data);
+      const recs = (dd && (dd.list || dd.records)) || [];
+      rows.push(...recs);
+      if (recs.length < 200) break;
+    }
+    const dayNet = new Map();
+    let coverFrom = null, coverTo = null;
+    for (const x of rows) {
+      const day = String(x.payoutTime || '').slice(0, 10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
+      if (!coverFrom || day < coverFrom) coverFrom = day;
+      if (!coverTo || day > coverTo) coverTo = day;
+      dayNet.set(day, (dayNet.get(day) || 0) + num(x.amount));
+    }
+    _shopeeIncome[site] = { dayNet, coverFrom, coverTo };
+    console.log('  [shopee-settle] ' + site + ' 账单行=' + rows.length + ' 打款日覆盖=' + coverFrom + '~' + coverTo);
+  }
+  const c = _shopeeIncome[site];
+  let net = 0, hit = false;
+  for (let d = new Date(start + 'T00:00:00'); d <= new Date(end + 'T00:00:00'); d.setDate(d.getDate() + 1)) {
+    const day = iso(d);
+    if (c.dayNet.has(day)) hit = true;
+    net += c.dayNet.get(day) || 0;
+  }
+  return { net: hit ? r2(net) : null, coverTo: c.coverTo, coverFrom: c.coverFrom };
 }
 
 // 统一日亚 JPY 成本库（同货同成本，THB/MYR 按外管中间价折算；cost-lib）
@@ -221,8 +268,9 @@ async function pullStore(store, start, end) {
     if (!D[p].settlement) D[p].settlement = {};
     for (const store of STORES) {
       const m = await pullStore(store, s, e);
-      // 独立站-日本：Shopify 账单行级明细（platform_v2 仅整店聚合，给不出 SKU）
-      const jpBill = store.skuDetail === 'shopifyJp' ? await pullShopifyJp(store.id, s, e) : null;
+      // 独立站两店：Shopify 账单行级明细（platform_v2 仅整店聚合，给不出 SKU/退款）
+      const jpBill = (store.skuDetail === 'shopifyJp' || store.skuDetail === 'shopifyIntl')
+        ? await pullShopifyJp(store.id, s, e) : null;
       const cur = D[p].settlement[store.key] || { currency: store.ccy };
       cur.currency = store.ccy;
       // —— 下单三指标（Shopee 与回款字段并存） ——
@@ -232,6 +280,14 @@ async function pullStore(store, start, end) {
       cur.net = m.net;
       cur.caliber = 'order';
       cur.generatedAt = stamp;
+
+      // —— Shopee 已回款净额（真实现金=销售额−退款−取消后的入账，按打款日归集） ——
+      if (store.settleSite) {
+        const st = await pullShopeeSettled(store.settleSite, s, e);
+        cur.settledNet = st.net;             // 非打款窗口 → null（不造数）
+        cur.settledCoverTo = st.coverTo;
+        cur.settledNote = '已回款净额=打款账单实收（销售额−退款−取消后的真实现金，按打款日归集；订单日口径滞后10-14天无法近端计算）';
+      }
 
       if (store.estCost) {
         // 独立站-日本：Shopify账单行级明细 × 日亚统一成本库（JPY同币直取）；
@@ -246,26 +302,43 @@ async function pullStore(store, start, end) {
             if (unit != null) { productCost += x.qty * unit; matchedNet += x.net; }
           }
         }
-        const unmatchedNet = m.net - matchedNet;
+        // —— 统一口径：独立站 net=账单净额（销售额−退款），件数/订单同账单 ——
+        if (jpBill) {
+          cur.qty = jpBill.billQty;
+          cur.orderCount = jpBill.orderCount;
+          cur.net = jpBill.billNet;
+          cur.salesAmount = jpBill.billNet;
+          cur.caliber = 'bill';
+          cur.settledNet = jpBill.billNet;
+          cur.settledNote = '净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行';
+        }
+        const unmatchedNet = cur.net - matchedNet;
         if (unmatchedNet > 0) productCost += unmatchedNet * blendedRate;
         cur.productCost = r2(productCost);
-        cur.commission = r2(-m.net * store.feeRate);
+        cur.commission = r2(-cur.net * store.feeRate);
         cur.platformFeeTotal = cur.commission;
-        cur.profit = r2(m.net + productCost + cur.commission);
-        cur.margin = m.net ? r2(cur.profit / m.net * 100) + '%' : '0%';
+        cur.profit = r2(cur.net + productCost + cur.commission);
+        cur.margin = cur.net ? r2(cur.profit / cur.net * 100) + '%' : '0%';
         cur.feeEstimated = true;
-        cur.feeNote = store.key + '下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按' + (store.feeRate * 100)
-          + '%估算(支付/订阅费未含)；单品成本覆盖' + r2(matchedNet / (m.net || 1) * 100)
+        cur.feeNote = store.key + '账单口径（Shopify账单行级明细×日亚统一成本库）；手续费按' + (store.feeRate * 100)
+          + '%估算(支付/订阅费未含)；单品成本覆盖' + r2(matchedNet / (cur.net || 1) * 100)
           + '%净额，余按日亚当月综合成本率' + r2(-blendedRate * 100) + '%估算';
-        cur.costCoveragePct = m.net ? r2(matchedNet / m.net * 100) : null;
-      } else if (store.amountOnly) {
-        // 国际站：仅展示本币下单金额，成本/费用无映射来源，清空旧快照利润避免误读
+        cur.costCoveragePct = cur.net ? r2(matchedNet / cur.net * 100) : null;
+      } else if (store.skuDetail === 'shopifyIntl' && jpBill) {
+        // 独立站-国际：统一口径 net=账单净额（销售额−退款）；USD 无成本库，费用行级估算
+        cur.qty = jpBill.billQty;
+        cur.orderCount = jpBill.orderCount;
+        cur.net = jpBill.billNet;
+        cur.salesAmount = jpBill.billNet;
+        cur.caliber = 'bill';
+        cur.settledNet = jpBill.billNet;
+        cur.settledNote = '净销售额=销售额−退款（Shopify账单行级）；取消/未付款单无账单行';
         cur.productCost = null;
         cur.commission = null;
         cur.platformFeeTotal = null;
         cur.profit = null;
         cur.margin = null;
-        cur.feeNote = '下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射';
+        cur.feeNote = '账单口径（销售额−退款，含退款负行）；手续费按3%估算于SKU行；成本待结算';
       }
 
       // —— SKU 明细（看板"SKU销售/利润构成"按平台切换） ——
@@ -302,24 +375,22 @@ async function pullStore(store, start, end) {
               qty: r2(x.qty), orders: r2(x.orders), net: r2(x.net),
               settledNet: r2(x.net), cost, platformFee,
               profit, margin: marginNum, settled: true, feeEstimated: true,
-              pct: m.net ? r2(x.net / m.net * 100) : 0,
+              pct: jpBill.billNet ? r2(x.net / jpBill.billNet * 100) : 0,
             };
           })
           .sort((a, b) => b.net - a.net);
         cur.skuDetail = rows;
-        if (Math.abs(jpBill.billNet - m.net) > 2) {
-          console.log('  [WARN] ' + p + ' 独立站-日本 账单净额 ' + jpBill.billNet + ' 与统计净额 ' + m.net + ' 不一致');
-        }
-      } else if (store.skuDetail === 'order') {
-        // 独立站-国际：领星已映射MSKU出下单口径明细；成本/费用待Shopify账单，留空显示待结算
-        const rows = [...m.skus.values()]
+      } else if (store.skuDetail === 'shopifyIntl') {
+        // 独立站-国际：Shopify账单行级明细（销售额−退款）；变体local_sku映射，未映射出占位编码
+        const feeRate = store.feeRate;
+        const rows = (jpBill ? jpBill.rows : [])
           .filter(x => x.qty > 0 || x.net > 0)
           .map(x => ({
             msku: x.msku, name: x.name, img: x.img,
             qty: r2(x.qty), orders: r2(x.orders), net: r2(x.net),
-            settledNet: null, cost: null, platformFee: null,
-            profit: null, margin: null, settled: false,
-            pct: m.net ? r2(x.net / m.net * 100) : 0,
+            settledNet: r2(x.net), cost: null, platformFee: r2(-x.net * feeRate),
+            profit: null, margin: null, settled: true, feeEstimated: true,
+            pct: (jpBill && jpBill.billNet) ? r2(x.net / jpBill.billNet * 100) : 0,
           }))
           .sort((a, b) => b.net - a.net);
         cur.skuDetail = rows;
@@ -329,9 +400,10 @@ async function pullStore(store, start, end) {
       }
 
       D[p].settlement[store.key] = cur;
-      console.log(p + ' | ' + store.key + ' | qty=' + m.qty + ' orders=' + m.orders + ' net=' + m.net + ' ' + store.ccy
+      console.log(p + ' | ' + store.key + ' | qty=' + cur.qty + ' orders=' + cur.orderCount + ' net=' + cur.net + ' ' + store.ccy
+        + (cur.settledNet != null ? ' settled=' + cur.settledNet : '')
         + (store.estCost ? ' GP=' + cur.profit + '(' + cur.margin + ')' : '')
-        + (['shopee','order','shopifyJp'].includes(store.skuDetail) ? ' | skuRows=' + cur.skuDetail.length : ''));
+        + (cur.skuDetail && cur.skuDetail.length ? ' | skuRows=' + cur.skuDetail.length : ''));
     }
   }
   fs.writeFileSync(DATA_PATH, JSON.stringify(D, null, 2), 'utf8');
