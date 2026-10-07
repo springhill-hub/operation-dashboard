@@ -209,6 +209,10 @@ function orderLines(o) {
     const aggP = path.join(__dirname, 'rakuten-sku-daily.json');
     let agg = {};
     if (fs.existsSync(aggP)) { try { agg = JSON.parse(fs.readFileSync(aggP, 'utf8')); } catch (e) { agg = {}; } }
+    // 本次拉取窗口为全量订单：先清空窗口内日期再累加，防止跨日窗口重叠导致重复计数（2026-10-07）
+    for (const d of Object.keys(agg)) {
+      if (d >= START && d <= END) delete agg[d];
+    }
     for (const o of orders) {
       if (o.orderProgress === 900) continue; // 已取消
       const dt = (o.orderDatetime || '').slice(0, 10);
