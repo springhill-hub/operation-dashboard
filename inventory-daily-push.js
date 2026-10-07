@@ -75,6 +75,8 @@ function loadConfig() {
         },
         negativeStockAlert: true,
         purchaseAlert: true,
+        // 群消息分块开关（报告始终全量落盘，便于随时查看和启用）
+        pushSections: { alert: true, purchase: true, increase: true },
     };
     try {
         return Object.assign(defaults, JSON.parse(fs.readFileSync(CFG_FILE, 'utf8')));
@@ -438,11 +440,13 @@ function postJson(url, body) {
         return lines.join('\n');
     }
 
-    let text;
+    let text;       // 全量文本（报告落盘用）
+    let pushText;   // 群消息文本（按 pushSections 过滤后）
     let suppressPush = false;
 
     if (!hasBaseline || BASELINE_ONLY) {
         text = `📦 库存播报基线已建立（${dateLabel}）\n状态库共 ${Object.keys(state).length} 个 仓库×SKU 组合，下期开始播报断货预警/采购动态/净增加。`;
+        pushText = text;
         suppressPush = true;
         console.log('[基线] 首次运行或指定 --baseline，仅建基线不播报');
     } else {
@@ -453,21 +457,26 @@ function postJson(url, body) {
         if (!alertBlock && !purchaseBlock && !hasIncrease) {
             text = `📦 库存健康播报 · ${dateLabel}\n今日无断货预警、无采购动态、无库存净增加（窗口内变动 ${changes.length} 条）。`;
             if (cfg.silentWhenEmpty) suppressPush = true;
+            pushText = text;
         } else {
-            const parts = [`📦 库存健康播报 · ${dateLabel}`];
-            if (alertBlock) parts.push(alertBlock);
-            if (purchaseBlock) parts.push(purchaseBlock);
+            const parts = [{ type: 'head', text: `📦 库存健康播报 · ${dateLabel}` }];
+            if (alertBlock) parts.push({ type: 'alert', text: alertBlock });
+            if (purchaseBlock) parts.push({ type: 'purchase', text: purchaseBlock });
             if (hasIncrease) {
                 const pTotal = productItems.reduce((s, x) => s + x.delta, 0);
                 const mTotal = materialItems.reduce((s, x) => s + x.delta, 0);
-                parts.push(`📦 库存净增加：成品 ${productItems.length}个SKU/+${pTotal}件，辅料 ${materialItems.length}个SKU/+${mTotal}件`);
+                parts.push({ type: 'increase', text: `📦 库存净增加：成品 ${productItems.length}个SKU/+${pTotal}件，辅料 ${materialItems.length}个SKU/+${mTotal}件` });
                 const incBlocks = [
                     renderGroup('成品到货', '🏕', productItems, cfg),
                     renderGroup('辅料到货', '🧵', materialItems, cfg),
                 ].filter(Boolean);
-                parts.push(...incBlocks);
+                incBlocks.forEach(b => parts.push({ type: 'increase', text: b }));
             }
-            text = parts.join('\n\n');
+            // 报告=全量；群消息按 pushSections 过滤
+            text = parts.map(p => p.text).join('\n\n');
+            const ps = cfg.pushSections || {};
+            const allow = { head: true, alert: ps.alert !== false, purchase: ps.purchase !== false, increase: ps.increase !== false };
+            pushText = parts.filter(p => allow[p.type]).map(p => p.text).join('\n\n');
         }
     }
 
@@ -485,7 +494,7 @@ function postJson(url, body) {
 
     if (cfg.pushMode === 'webhook') {
         if (!cfg.webhookUrl) { console.log('[推送] webhookUrl 为空，跳过'); return; }
-        const body = { msg_type: 'text', content: { text } };
+        const body = { msg_type: 'text', content: { text: pushText } };
         let url = cfg.webhookUrl;
         if (cfg.secret) {
             const ts = Math.floor(now.getTime() / 1000).toString();
@@ -501,7 +510,8 @@ function postJson(url, body) {
 
     // 默认：lark 机器人
     if (!cfg.chatId) { console.log('[推送] chatId 为空，跳过（报告已落盘）'); return; }
-    sendViaLark(cfg.chatId, text);
+    if (pushText !== text) console.log('[过滤] 断货/采购块已按 pushSections 关闭，仅播报开启的板块');
+    sendViaLark(cfg.chatId, pushText);
 })().catch(e => {
     console.error('[致命错误]', e);
     process.exit(1);
