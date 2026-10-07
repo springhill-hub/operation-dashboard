@@ -137,7 +137,7 @@ function judge(stock, pipeline, s7, s30, degraded) {
     if (!sku) return null;
     if (!R.has(sku)) R.set(sku, {
       sku, name: name || '', img: '',
-      jst: 0, jstAvail: 0, cross: 0, fba: 0, ov: 0, inTransit: 0,
+      jst: 0, jstAvail: 0, cross: 0, fba: 0, ov: 0, ovRest: 0, ovCp: 0, inTransit: 0,
       in7: 0, in30: 0, out7: 0, out30: 0,
     });
     const o = R.get(sku);
@@ -202,14 +202,14 @@ function judge(stock, pipeline, s7, s30, degraded) {
     }
     for (const [sku, v] of whMap) {
       const o = row(sku, v.name);
-      o.ov += v.qty;
+      o.ovRest += v.qty;
       o.inTransit += v.tr;
     }
     console.log('  海外仓SKU: ' + whMap.size + '，行总数: ' + R.size);
   } catch (e) {
     console.log('  [WARN] 海外仓REST失败，回退上一轮数据: ' + e.message);
     coverage.notes.push('海外仓/在途为上一轮缓存（领星REST IP未白名单或失败：' + e.message.slice(0, 80) + '）；如需实时请在领星白名单加本机IP');
-    for (const [sku, p] of PREV) { const o = row(sku, p.name); if (o) { o.ov = num(p.ov); o.inTransit += num(p.inTransit); } }
+    for (const [sku, p] of PREV) { const o = row(sku, p.name); if (o) { o.ovRest = num(p.ovRest != null ? p.ovRest : p.ov); o.inTransit += num(p.inTransit); } }
   }
 
   // ===== 3. 跨境本地仓库存（REST；IP未白名单时回退上一轮） =====
@@ -239,6 +239,38 @@ function judge(stock, pipeline, s7, s30, degraded) {
     coverage.notes.push('跨境备货仓为上一轮缓存（领星REST IP未白名单或失败）');
     for (const [sku, p] of PREV) { const o = row(sku, p.name); if (o) { o.cross = num(p.cross); } }
   }
+
+  // ===== 3.5 Coupang平台仓库存（MCP，无IP限制，REST海外仓不含此仓） =====
+  console.log('\n[3.5] Coupang平台仓库存 MCP');
+  try {
+    let offset = 0, added = 0;
+    while (true) {
+      const r = await callTool('action', {
+        toolId: 'platform_warehouse_coupang_stock',
+        params: { storeIdList: ['110719712118729216'], length: 200, offset },
+      });
+      const sp = (((r.data || {}).data || {}).stockPage) || {};
+      const recs = sp.records || [];
+      for (const x of recs) {
+        if (!x.sku) continue; // 未映射本地SKU的行跳过
+        const o = row(x.sku, x.productName || '');
+        if (!o) continue;
+        o.ovCp += num(x.totalOrderableQuantity);
+        if (x.picUrl && !o.img) o.img = x.picUrl;
+        added++;
+      }
+      const total = num(sp.total);
+      if (recs.length < 200 || offset + recs.length >= total) break;
+      offset += recs.length;
+    }
+    console.log('  Coupang平台仓有效行: ' + added);
+  } catch (e) {
+    console.log('  [WARN] Coupang平台仓拉取失败: ' + e.message);
+    coverage.notes.push('Coupang平台仓库存本次拉取失败：' + e.message.slice(0, 80));
+  }
+
+  // 海外仓合计 = REST海外仓(Shopee泰国等三方仓) + Coupang平台仓（两源独立，不会重复计）
+  for (const o of R.values()) o.ov = o.ovRest + o.ovCp;
 
   // ===== 4. 聚水潭国内库存（IP白名单，失败降级快照） =====
   console.log('\n[4] 聚水潭库存');
