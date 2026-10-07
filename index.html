@@ -278,7 +278,7 @@ function stRows(settlement, knowMap){
     if(name==='韩国-Coupang'){ tag='warn'; note='下单口径(含未付款) + ✓毛利(佣金13.5%估算，待OPEN API/结算单校准)'; }
     if(name.includes('shopee')){
       tag='ok';
-      note='下单口径(T-1即时)' + (s.cashSettlement!=null && s.cashSettlement>0 ? ' + ⚡回款'+s.cashRange : '(非打款日回款为0，正常)');
+      note='下单口径·含未付款/取消(T-1即时，非领星业绩页净额口径)' + (s.cashSettlement!=null && s.cashSettlement>0 ? ' + ⚡回款'+s.cashRange : '(非打款日回款为0，正常)');
       cash=s.cashSettlement; cashOrders=s.cashOrders;
     }
     const spGP = s.profit!=null ? s.profit : (s.gpFromCash!=null ? s.gpFromCash : null);
@@ -612,7 +612,7 @@ function render(p){
     · 平台费用 = 扣点 + FBA派送 + FBA仓储 + 广告 + 其他<br>
     · <b class="r">头程运费（中国→海外仓）暂未计入</b><br>
     · <b>跨渠道商品成本统一</b>：乐天/Coupang/Shopee/独立站的商品成本均以日亚MSKU单位采购成本为基准（同货同成本，领星年初至全量成本主表，每日刷新），按外管局中间价折算店铺币种；编码后缀(-FBA/-FBM/-JP等)与已确认别名自动归一，个别未建档SKU成本留空待补映射<br>
-    · Shopee：销量/订单/净销售额为下单口径（T-1即时，含未付款，与领星排行榜一致）；⚡回款列为账单打款口径（Shopee双周打款，非打款日为0属正常），回款口径成本/毛利随打款单更新<br>
+    · Shopee：销量/订单/净销售额为<b>下单口径</b>（T-1即时，含未付款/取消单）——注意与领星ERP业绩页「净销售额」（剔除取消后成交）<b>口径不同</b>：Shopee泰/马取消率高（订单数口径泰约70%/马约68%），领星业绩页净额通常明显小于本板数值；业绩页净额暂无领星接口，无法自动化并入看板。⚡回款列为账单打款口径（Shopee双周打款，非打款日为0属正常），回款口径成本/毛利随打款单更新<br>
     · 日本-乐天为RMS订单API口径（下单T+0 / 回款代理=注文確定），佣金按10.5%估算，月度精算書CSV校准<br>
     · 韩国-Coupang为领星下单口径（含未付款），佣金按13.5%估算，待Coupang OPEN API/结算单校准<br>
     · 独立站（Shopify）为领星下单口径（T-1即时）：日本站SKU明细取自Shopify账单行级订单×领星在线变体映射（2026-10-06起），商品成本套日亚统一成本库（JPY同币），手续费按6%估算；国际站仅展示已映射MSKU的本币金额，均待Shopify账单校准<br>
