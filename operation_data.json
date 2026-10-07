@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-10-06",
+    "generatedAt": "2026-10-07",
     "jpyRate": 0.0427,
     "fx": {
       "fxDate": "2026-09-29",
@@ -20,45 +20,60 @@
     "noteYoY": "同比仅日亚口径（去年9月Shopee/独立站结算数据领星不可得）"
   },
   "today": {
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "amazonJP": {
-      "skuCount": 17,
-      "qty": 28,
+      "skuCount": 20,
+      "qty": 47,
       "refQty": 1,
-      "salesAmt": 597483,
+      "salesAmt": 880335,
       "tax": 0,
-      "net": 597483,
-      "cost": -127598.37,
-      "commission": -38583,
-      "fbaDeliv": -6008,
+      "net": 880335,
+      "cost": -237607.23,
+      "commission": -88763,
+      "fbaDeliv": -2890,
       "storage": 0,
       "ads": 0,
       "other": 0,
-      "platExp": -44591,
-      "gp": 135483.63,
-      "margin": 48.31,
+      "platExp": -91653,
+      "gp": 392094.77,
+      "margin": 63.77,
       "skuDetail": [
+        {
+          "msku": "QZ-P8BR-KGMU",
+          "name": "春山祝融取暖器",
+          "qty": 18,
+          "orders": 18,
+          "net": 197982,
+          "cost": -49059.78,
+          "platformFee": -21801,
+          "profit": 57696.22,
+          "margin": 49.32,
+          "settledNet": 116987,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg",
+          "pct": 22.49
+        },
         {
           "msku": "LDL-XYCQZ-E-FBA",
           "name": "轩辕充气隧道帐篷【黑色顶配】",
-          "qty": 2,
-          "orders": 2,
-          "net": 259998,
-          "cost": -35730.69,
-          "platformFee": -13385,
-          "profit": 67765.31,
+          "qty": 1,
+          "orders": 1,
+          "net": 129999,
+          "cost": -107192.07,
+          "platformFee": -40155,
+          "profit": 203295.93,
           "margin": 63.71,
-          "settledNet": 106363,
+          "settledNet": 319089,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg",
-          "pct": 43.52
+          "pct": 14.77
         },
         {
           "msku": "LDL-CQ4P-E-FBA",
           "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 59999,
+          "qty": 2,
+          "orders": 2,
+          "net": 119998,
           "cost": 0,
           "platformFee": 0,
           "profit": 0,
@@ -66,14 +81,29 @@
           "settledNet": 0,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg",
-          "pct": 10.04
+          "pct": 13.63
+        },
+        {
+          "msku": "LDL-XYCQZ-V-NEW",
+          "name": "轩辕充气隧道帐篷【军绿色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 105000,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": 0,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61P6uVub0xL._SL75_.jpg",
+          "pct": 11.93
         },
         {
           "msku": "LDL-CQ4P-E-DP-FBA",
           "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
-          "qty": 2,
-          "orders": 2,
-          "net": 51998,
+          "qty": 3,
+          "orders": 3,
+          "net": 77997,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -81,37 +111,52 @@
           "settledNet": null,
           "settled": false,
           "img": "",
-          "pct": 8.7
+          "pct": 8.86
         },
         {
-          "msku": "QZ-P8BR-KGMU",
-          "name": "春山祝融取暖器",
+          "msku": "NEW-ZRKSL-SNB",
+          "name": "祝融卡式炉（收纳包套装）",
           "qty": 4,
           "orders": 4,
-          "net": 43996,
+          "net": 45560,
+          "cost": -7605.22,
+          "platformFee": -2346,
+          "profit": 10530.78,
+          "margin": 56.5,
+          "settledNet": 18640,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg",
+          "pct": 5.18
+        },
+        {
+          "msku": "LDL-4P-NU",
+          "name": "蓬莱4P庇护所2.0【灰色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 29699,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 3.37
+        },
+        {
+          "msku": "SP-PL4P-B-JP",
+          "name": "春山蓬莱4P庇护所2.0黑色",
+          "qty": 1,
+          "orders": 1,
+          "net": 29599,
           "cost": 0,
           "platformFee": 0,
           "profit": 0,
           "margin": 0,
           "settledNet": 0,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg",
-          "pct": 7.36
-        },
-        {
-          "msku": "NEW-ZRKSL-SNB",
-          "name": "祝融卡式炉（收纳包套装）",
-          "qty": 3,
-          "orders": 3,
-          "net": 34170,
-          "cost": -3802.61,
-          "platformFee": -1173,
-          "profit": 5265.39,
-          "margin": 56.5,
-          "settledNet": 9320,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg",
-          "pct": 5.72
+          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
+          "pct": 3.36
         },
         {
           "msku": "SP-PL4P-G-JP",
@@ -119,66 +164,36 @@
           "qty": 1,
           "orders": 1,
           "net": 29599,
-          "cost": -14343.34,
-          "platformFee": -3048,
-          "profit": 8439.66,
-          "margin": 34.85,
-          "settledNet": 24217,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": 0,
+          "margin": 0,
+          "settledNet": 0,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg",
-          "pct": 4.95
-        },
-        {
-          "msku": "M183",
-          "name": "",
-          "qty": 1,
-          "orders": 1,
-          "net": 23999,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 4.02
+          "pct": 3.36
         },
         {
           "msku": "SP-0.5ZML",
           "name": "春山0.5单元IGT桌面炉",
-          "qty": 2,
-          "orders": 2,
-          "net": 18998,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
+          "qty": 3,
+          "orders": 3,
+          "net": 28497,
+          "cost": -17109.88,
+          "platformFee": -3912,
+          "profit": 13138.12,
+          "margin": 42.27,
+          "settledNet": 31084,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
-          "pct": 3.18
+          "pct": 3.24
         },
         {
-          "msku": "LDL-XYCQZ-HJDBE",
-          "name": "轩辕充气帐篷黑胶顶布【黑色】",
+          "msku": "SL-LL2.0-QE",
+          "name": "琉璃观火灯炉2.0【枪灰色+黑胡桃木】",
           "qty": 1,
           "orders": 1,
-          "net": 13500,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg",
-          "pct": 2.26
-        },
-        {
-          "msku": "BEL-GBY-E-FBA",
-          "name": "扶桑碳纤维高背月亮椅【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 12500,
+          "net": 18999,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -186,37 +201,52 @@
           "settledNet": null,
           "settled": false,
           "img": "",
-          "pct": 2.09
+          "pct": 2.16
         },
         {
-          "msku": "BEL-CFZ-E-ATZ",
-          "name": "金乌碳纤维长方桌【A套装】",
+          "msku": "LDL-XYCQZ-TPU-V",
+          "name": "春山轩辕充气隧道帐篷TPU门【军绿色】",
           "qty": 1,
           "orders": 1,
-          "net": 9900,
-          "cost": -4507.24,
-          "platformFee": -1509,
-          "profit": 2884.76,
-          "margin": 35.61,
-          "settledNet": 8100,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg",
-          "pct": 1.66
+          "net": 13500,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 1.53
         },
         {
-          "msku": "CS-MNGHBL-JP",
-          "name": "春山mini观火壁炉",
-          "qty": 2,
-          "orders": 2,
-          "net": 9760,
+          "msku": "BH-ZRKSL-SNEW",
+          "name": "祝融卡式炉【银色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 10390,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 1.18
+        },
+        {
+          "msku": "BEL-XKZ-E",
+          "name": "星空桌【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 8800,
           "cost": 0,
           "platformFee": 0,
           "profit": 0,
           "margin": 0,
           "settledNet": 0,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
-          "pct": 1.63
+          "img": "https://m.media-amazon.com/images/I/51sXS29SY0L._SL75_.jpg",
+          "pct": 1
         },
         {
           "msku": "Q3-KTDP-51JY",
@@ -224,21 +254,21 @@
           "qty": 2,
           "orders": 2,
           "net": 7998,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
+          "cost": -2792.08,
+          "platformFee": -1830,
+          "profit": 4902.92,
+          "margin": 49.96,
+          "settledNet": 9813,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
-          "pct": 1.34
+          "pct": 0.91
         },
         {
-          "msku": "LDL-PL4PQZ-LJJ-V-green",
-          "name": "昆仑+昆仑连接件【军绿色】",
+          "msku": "BEL-FSYLY-Z-FBA",
+          "name": "扶桑碳纤维月亮椅【紫色】",
           "qty": 1,
           "orders": 1,
-          "net": 6630,
+          "net": 6599,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -246,66 +276,81 @@
           "settledNet": null,
           "settled": false,
           "img": "",
-          "pct": 1.11
+          "pct": 0.75
         },
         {
-          "msku": "CS-FXL-Y-FM",
-          "name": "迷你焚香炉2.0",
-          "qty": 1,
-          "orders": 1,
-          "net": 5399,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 0.9
-        },
-        {
-          "msku": "CS-HYSL-ZGT",
-          "name": "增高专用腿*4支",
+          "msku": "SL-YH-Y-FBAA",
+          "name": "春山便携战术油壶【银色】",
           "qty": 2,
-          "orders": 1,
-          "net": 5040,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 0.84
+          "orders": 2,
+          "net": 5960,
+          "cost": -799.56,
+          "platformFee": -454,
+          "profit": 1425.44,
+          "margin": 58.47,
+          "settledNet": 2438,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61-AUMHmgAL._SL75_.jpg",
+          "pct": 0.68
         },
         {
-          "msku": "CS-CHL",
-          "name": "MINI-柴火炉银色",
+          "msku": "SL-TBZ-Y-FBA",
+          "name": "春山轻量化徒步桌",
           "qty": 1,
           "orders": 1,
-          "net": 3999,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
+          "net": 5580,
+          "cost": -1399.52,
+          "platformFee": -558,
+          "profit": 2741.48,
+          "margin": 60.04,
+          "settledNet": 4566,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg",
-          "pct": 0.67
+          "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
+          "pct": 0.63
+        },
+        {
+          "msku": "CS-MNGHBL-JP",
+          "name": "春山mini观火壁炉",
+          "qty": 1,
+          "orders": 1,
+          "net": 4880,
+          "cost": -7877.23,
+          "platformFee": -2900,
+          "profit": 6770.77,
+          "margin": 42.4,
+          "settledNet": 15968,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
+          "pct": 0.55
+        },
+        {
+          "msku": "CS-MNFXL1.5",
+          "name": "迷你焚香炉1.5",
+          "qty": 1,
+          "orders": 1,
+          "net": 3699,
+          "cost": -791.44,
+          "platformFee": -564,
+          "profit": 1550.56,
+          "margin": 51.22,
+          "settledNet": 3027,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg",
+          "pct": 0.42
         }
       ],
       "settled": {
-        "qty": 17,
-        "net": 280430,
-        "salesAmt": 311590,
-        "tax": 31160,
-        "gp": 135483.63,
-        "margin": 48.31,
-        "skuCount": 41,
+        "qty": 47,
+        "net": 614833,
+        "salesAmt": 683155,
+        "tax": 68322,
+        "gp": 392094.77,
+        "margin": 63.77,
+        "skuCount": 44,
         "refQty": 1
       },
       "caliber": "order",
-      "orders": 27
+      "orders": 47
     },
     "amazonUS": {
       "skuCount": 0,
@@ -345,7 +390,7 @@
         "salesAmount": 39999,
         "promoDisc": -23664,
         "net": 39999,
-        "productCost": -12103.72,
+        "productCost": -11787.43,
         "commission": -2399.94,
         "delivery": 0,
         "otherPlatformFee": 0,
@@ -357,8 +402,8 @@
         "otherPromo": 0,
         "incomeRefund": 0,
         "platformFeeTotal": -2399.94,
-        "profit": 25495.34,
-        "margin": "63.74%",
+        "profit": 25811.63,
+        "margin": "64.53%",
         "skuDetail": [
           {
             "msku": "LDL-CQ4PTZM-V2.0",
@@ -379,9 +424,9 @@
         ],
         "orderCount": 1,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "feeEstimated": true,
-        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖0%净额，余按日亚当月综合成本率30.26%估算",
+        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖0%净额，余按日亚当月综合成本率29.47%估算",
         "costCoveragePct": 0
       },
       "日本-乐天": {
@@ -640,13 +685,13 @@
       },
       "韩国-Coupang": {
         "currency": "KRW",
-        "qty": 7,
+        "qty": 9,
         "refundVol": 0,
-        "salesAmount": 728160,
+        "salesAmount": 1280890,
         "promoDisc": 0,
-        "net": 728160,
-        "productCost": -142547.24,
-        "commission": -98301.6,
+        "net": 1280890,
+        "productCost": -479823.68,
+        "commission": -172920.15,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -656,23 +701,49 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -98301.6,
-        "profit": 487311.16,
-        "margin": "66.92%",
+        "platformFeeTotal": -172920.15,
+        "profit": 628146.17,
+        "margin": "49.04%",
         "feeEstimated": true,
         "feeNote": "佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准",
-        "costCoveragePct": 71.43,
+        "costCoveragePct": 88.89,
         "unknownKeys": [
           {
-            "key": "96092498484",
-            "qty": 1
-          },
-          {
-            "key": "95841485579",
+            "key": "96109721963",
             "qty": 1
           }
         ],
         "skuDetail": [
+          {
+            "msku": "LDL-CQ4P-V",
+            "name": "蓬莱4P庇护所充气帐篷主帐【军绿色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260227/00f97aca3a6546b888fedb8779bc1560.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 402000,
+            "settledNet": 402000,
+            "cost": -155971.44,
+            "platformFee": -54270,
+            "profit": 191758.56,
+            "margin": 47.7,
+            "settled": true,
+            "pct": 31.38
+          },
+          {
+            "msku": "LDL-CQ4P-E",
+            "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260227/5f567245ae164cf891bda438ab0907cb.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 402000,
+            "settledNet": 402000,
+            "cost": -156060.77,
+            "platformFee": -54270,
+            "profit": 191669.23,
+            "margin": 47.68,
+            "settled": true,
+            "pct": 31.38
+          },
           {
             "msku": "LDL-CQ4PTZ-E",
             "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
@@ -686,7 +757,7 @@
             "profit": 85215.58,
             "margin": 43.48,
             "settled": true,
-            "pct": 26.92
+            "pct": 15.3
           },
           {
             "msku": "SL-ZML0.5-Y",
@@ -701,70 +772,85 @@
             "profit": 38614.83,
             "margin": 44.49,
             "settled": true,
-            "pct": 11.92
+            "pct": 6.78
+          },
+          {
+            "msku": "LDL-XYCQZ-ZPDD",
+            "name": "轩辕充气隧道帐篷澡盆地垫",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260710/0ad053d5b38b4706ac6aa2d055b98316.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 44000,
+            "settledNet": 44000,
+            "cost": -15942.89,
+            "platformFee": -5940,
+            "profit": 22117.11,
+            "margin": 50.27,
+            "settled": true,
+            "pct": 3.44
+          },
+          {
+            "msku": "LDL-PL4P-DD",
+            "name": "澡盆地垫【黑色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20251213/cd2e4f23a6444283832394427604d96c.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 40880,
+            "settledNet": 40880,
+            "cost": -17212.58,
+            "platformFee": -5518.8,
+            "profit": 18148.62,
+            "margin": 44.39,
+            "settled": true,
+            "pct": 3.19
           },
           {
             "msku": "TC-CHLX-Y",
             "name": "MINI-柴火炉银色",
             "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20241213/f80d0ac942ac48bb8213cb388edaa49a.jpg",
-            "qty": 2,
-            "orders": null,
-            "net": 47400,
-            "settledNet": 47400,
-            "cost": -13821.12,
-            "platformFee": -6399,
-            "profit": 27179.88,
-            "margin": 57.34,
-            "settled": true,
-            "pct": 6.51
-          },
-          {
-            "msku": "TC-CHLX-E",
-            "name": "迷你柴火炉黑色",
-            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20241213/fa672a23fdbb4844b0c7affda625ca77.jpg",
             "qty": 1,
             "orders": null,
             "net": 23700,
             "settledNet": 23700,
-            "cost": -7934.53,
+            "cost": -6910.56,
             "platformFee": -3199.5,
-            "profit": 12565.97,
-            "margin": 53.02,
+            "profit": 13589.94,
+            "margin": 57.34,
             "settled": true,
-            "pct": 3.25
+            "pct": 1.85
           },
           {
-            "msku": "96092498484",
+            "msku": "SL-YH-Y",
+            "name": "春山便携战术油壶【银色】",
+            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20260407/2d084339cdf74d84b03eda67a3e21f0b.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 19350,
+            "settledNet": 19350,
+            "cost": -6933.85,
+            "platformFee": -2612.25,
+            "profit": 9803.9,
+            "margin": 50.67,
+            "settled": true,
+            "pct": 1.51
+          },
+          {
+            "msku": "96109721963",
             "name": "",
             "img": "",
             "qty": 1,
             "orders": null,
-            "net": 312000,
-            "settledNet": 312000,
+            "net": 66160,
+            "settledNet": 66160,
             "cost": null,
-            "platformFee": -42120,
+            "platformFee": -8931.6,
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 42.85
-          },
-          {
-            "msku": "95841485579",
-            "name": "",
-            "img": "",
-            "qty": 1,
-            "orders": null,
-            "net": 62260,
-            "settledNet": 62260,
-            "cost": null,
-            "platformFee": -8405.1,
-            "profit": null,
-            "margin": null,
-            "settled": true,
-            "pct": 8.55
+            "pct": 5.17
           }
         ],
-        "generatedAt": "2026-10-06 14:45:28"
+        "generatedAt": "2026-10-07 00:31:03"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -775,9 +861,9 @@
         "cashOrders": 0,
         "cashUnits": 0,
         "cashStatus": "settled",
-        "cashRange": "2026-10-05 ~ 2026-10-05",
+        "cashRange": "2026-10-06 ~ 2026-10-06",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 14:45:29",
+        "cashGeneratedAt": "2026-10-07 00:31:04",
         "staticProductCost": null,
         "staticCoveragePct": null,
         "costSource": "report",
@@ -789,7 +875,7 @@
         "salesAmount": 35743,
         "net": 35743,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "skuDetail": [
           {
             "msku": "BEL-CFZ-E",
@@ -922,9 +1008,9 @@
         "cashOrders": 0,
         "cashUnits": 0,
         "cashStatus": "settled",
-        "cashRange": "2026-10-05 ~ 2026-10-05",
+        "cashRange": "2026-10-06 ~ 2026-10-06",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 14:45:29",
+        "cashGeneratedAt": "2026-10-07 00:31:04",
         "staticProductCost": null,
         "staticCoveragePct": null,
         "costSource": "report",
@@ -936,7 +1022,7 @@
         "salesAmount": 0,
         "net": 0,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "skuDetail": []
       },
       "独立站-国际": {
@@ -946,7 +1032,7 @@
         "salesAmount": 0,
         "net": 0,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "productCost": null,
         "commission": null,
         "platformFeeTotal": null,
@@ -958,23 +1044,23 @@
     }
   },
   "week": {
-    "range": "2026-09-29 ~ 2026-10-05",
+    "range": "2026-09-30 ~ 2026-10-06",
     "amazonJP": {
-      "skuCount": 63,
-      "qty": 229,
-      "refQty": 3,
-      "salesAmt": 3768715,
+      "skuCount": 59,
+      "qty": 246,
+      "refQty": 4,
+      "salesAmt": 3979560,
       "tax": 0,
-      "net": 3768715,
-      "cost": -1301879.82,
-      "commission": -439399,
-      "fbaDeliv": -26546,
-      "storage": -8018.4,
+      "net": 3979560,
+      "cost": -1304973.82,
+      "commission": -435666,
+      "fbaDeliv": -27125,
+      "storage": -2980.2,
       "ads": -24810,
       "other": 0,
-      "platExp": -498773.4,
-      "gp": 1389104.78,
-      "margin": 46.31,
+      "platExp": -490581.2,
+      "gp": 1406169.98,
+      "margin": 47.36,
       "skuDetail": [
         {
           "msku": "LDL-XYCQZ-E-FBA",
@@ -982,89 +1068,119 @@
           "qty": 7,
           "orders": 7,
           "net": 909993,
-          "cost": -214399.96,
-          "platformFee": -66925,
-          "profit": 299795.85,
-          "margin": 56.37,
-          "settledNet": 531815,
+          "cost": -321592.03,
+          "platformFee": -107080,
+          "profit": 503185.39,
+          "margin": 59.14,
+          "settledNet": 850904,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg",
-          "pct": 24.15
+          "pct": 22.87
         },
         {
           "msku": "QZ-P8BR-KGMU",
           "name": "春山祝融取暖器",
-          "qty": 62,
-          "orders": 62,
-          "net": 681938,
-          "cost": -237768.79,
-          "platformFee": -105651,
-          "profit": 277087.31,
-          "margin": 48.87,
-          "settledNet": 566939,
+          "qty": 71,
+          "orders": 71,
+          "net": 780929,
+          "cost": -226433.93,
+          "platformFee": -100620,
+          "profit": 263786.17,
+          "margin": 48.85,
+          "settledNet": 539942,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg",
-          "pct": 18.09
+          "pct": 19.62
         },
         {
           "msku": "NEW-ZRKSL-SNB",
           "name": "祝融卡式炉（收纳包套装）",
-          "qty": 18,
-          "orders": 18,
-          "net": 205020,
-          "cost": -76063.12,
-          "platformFee": -23460,
-          "profit": 104414.41,
-          "margin": 56.02,
-          "settledNet": 186400,
+          "qty": 19,
+          "orders": 19,
+          "net": 216410,
+          "cost": -83668.34,
+          "platformFee": -25806,
+          "profit": 114945.19,
+          "margin": 56.06,
+          "settledNet": 205040,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg",
           "pct": 5.44
         },
         {
-          "msku": "LDL-XYCQZ-V-FBA",
-          "name": "轩辕充气隧道帐篷【军绿色顶配】",
-          "qty": 1,
-          "orders": 1,
-          "net": 129999,
-          "cost": -107215.81,
-          "platformFee": -40155,
-          "profit": 99276.14,
-          "margin": 31.11,
-          "settledNet": 319089,
+          "msku": "LDL-XYCQZ-V-NEW",
+          "name": "轩辕充气隧道帐篷【军绿色】",
+          "qty": 2,
+          "orders": 2,
+          "net": 210000,
+          "cost": -35730.69,
+          "platformFee": -10811,
+          "profit": 47863.31,
+          "margin": 55.71,
+          "settledNet": 85910,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg",
-          "pct": 3.45
+          "img": "https://m.media-amazon.com/images/I/61P6uVub0xL._SL75_.jpg",
+          "pct": 5.28
         },
         {
           "msku": "LDL-CQ4P-E-FBA",
           "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
-          "qty": 2,
-          "orders": 2,
-          "net": 119998,
+          "qty": 3,
+          "orders": 3,
+          "net": 179997,
           "cost": -17961.66,
           "platformFee": -6177,
-          "profit": 28812.43,
-          "margin": 58.69,
+          "profit": 28846.4,
+          "margin": 58.76,
           "settledNet": 49091,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg",
-          "pct": 3.18
+          "pct": 4.52
         },
         {
           "msku": "SP-PL4P-G-JP",
           "name": "春山蓬莱4P庇护所2.0军绿色",
-          "qty": 4,
-          "orders": 4,
-          "net": 118396,
+          "qty": 5,
+          "orders": 5,
+          "net": 147995,
           "cost": -43030.01,
           "platformFee": -9144,
-          "profit": 22722.9,
-          "margin": 31.28,
+          "profit": 22737.5,
+          "margin": 31.3,
           "settledNet": 72651,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg",
-          "pct": 3.14
+          "pct": 3.72
+        },
+        {
+          "msku": "LDL-CQ4P-E-DP-FBA",
+          "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
+          "qty": 5,
+          "orders": 5,
+          "net": 129995,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": -68.64,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg",
+          "pct": 3.27
+        },
+        {
+          "msku": "SP-0.5ZML",
+          "name": "春山0.5单元IGT桌面炉",
+          "qty": 12,
+          "orders": 12,
+          "net": 113988,
+          "cost": -42774.71,
+          "platformFee": -9780,
+          "profit": 31678.34,
+          "margin": 40.76,
+          "settledNet": 77712,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
+          "pct": 2.86
         },
         {
           "msku": "LDL-CQZ-MV-FBA",
@@ -1074,42 +1190,12 @@
           "net": 109999,
           "cost": -58287.79,
           "platformFee": -11325,
-          "profit": 27273.48,
-          "margin": 30.3,
+          "profit": 27354.38,
+          "margin": 30.39,
           "settledNet": 89999,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/91Pd7ao4maL._SL75_.jpg",
-          "pct": 2.92
-        },
-        {
-          "msku": "LDL-XYCQZ-V-NEW",
-          "name": "轩辕充气隧道帐篷【军绿色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 105000,
-          "cost": -35730.69,
-          "platformFee": -10811,
-          "profit": 47863.31,
-          "margin": 55.71,
-          "settledNet": 85910,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61P6uVub0xL._SL75_.jpg",
-          "pct": 2.79
-        },
-        {
-          "msku": "SP-0.5ZML",
-          "name": "春山0.5单元IGT桌面炉",
-          "qty": 10,
-          "orders": 10,
-          "net": 94990,
-          "cost": -29943.24,
-          "platformFee": -6846,
-          "profit": 21823.81,
-          "margin": 40.12,
-          "settledNet": 54399,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
-          "pct": 2.52
+          "pct": 2.76
         },
         {
           "msku": "【顶配】全配置セットblack",
@@ -1124,37 +1210,22 @@
           "settledNet": 74290,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/612NV1lptZL._SL75_.jpg",
-          "pct": 2.41
+          "pct": 2.28
         },
         {
-          "msku": "CS-CQQZ-AG-FBA1",
-          "name": "伏羲充气球帐【军绿色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 89999,
-          "cost": -38419.87,
-          "platformFee": -9266,
-          "profit": 32918.78,
-          "margin": 44.71,
-          "settledNet": 73635,
+          "msku": "SP-PL4P-B-JP",
+          "name": "春山蓬莱4P庇护所2.0黑色",
+          "qty": 3,
+          "orders": 3,
+          "net": 88797,
+          "cost": -28686.67,
+          "platformFee": -6096,
+          "profit": 16804.84,
+          "margin": 34.7,
+          "settledNet": 48434,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/915C7+e6jiL._SL75_.jpg",
-          "pct": 2.39
-        },
-        {
-          "msku": "CS-MNGHBL-JP",
-          "name": "春山mini观火壁炉",
-          "qty": 17,
-          "orders": 17,
-          "net": 82960,
-          "cost": -27573.36,
-          "platformFee": -10150,
-          "profit": 22773.68,
-          "margin": 40.75,
-          "settledNet": 55888,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
-          "pct": 2.2
+          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
+          "pct": 2.23
         },
         {
           "msku": "CS-HYSL-JP",
@@ -1164,12 +1235,12 @@
           "net": 70734,
           "cost": -30427.37,
           "platformFee": -10782,
-          "profit": 22935.91,
-          "margin": 39.63,
+          "profit": 23041.84,
+          "margin": 39.82,
           "settledNet": 57870,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg",
-          "pct": 1.88
+          "pct": 1.78
         },
         {
           "msku": "LDL-PL4P-ME-FBA1",
@@ -1184,22 +1255,37 @@
           "settledNet": 57110,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51xZnkb-WsL._SL75_.jpg",
-          "pct": 1.85
+          "pct": 1.75
         },
         {
-          "msku": "SP-PL4P-B-JP",
-          "name": "春山蓬莱4P庇护所2.0黑色",
+          "msku": "CS-MNGHBL-JP",
+          "name": "春山mini观火壁炉",
+          "qty": 14,
+          "orders": 14,
+          "net": 68320,
+          "cost": -31511.1,
+          "platformFee": -11600,
+          "profit": 26159.94,
+          "margin": 40.96,
+          "settledNet": 63872,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
+          "pct": 1.72
+        },
+        {
+          "msku": "LDL-4P-NU",
+          "name": "蓬莱4P庇护所2.0【灰色】",
           "qty": 2,
           "orders": 2,
-          "net": 59198,
-          "cost": -28686.67,
-          "platformFee": -6096,
-          "profit": 16730.35,
-          "margin": 34.54,
-          "settledNet": 48434,
+          "net": 59398,
+          "cost": -14055.54,
+          "platformFee": -3058,
+          "profit": 9588.46,
+          "margin": 39.46,
+          "settledNet": 24299,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
-          "pct": 1.57
+          "img": "https://m.media-amazon.com/images/I/61+qG4KskvL._SL75_.jpg",
+          "pct": 1.49
         },
         {
           "msku": "BEL-CFZ-E+IGTB",
@@ -1207,14 +1293,14 @@
           "qty": 5,
           "orders": 5,
           "net": 59000,
-          "cost": -10560.22,
-          "platformFee": -3598,
-          "profit": 7059.78,
+          "cost": -21120.45,
+          "platformFee": -7196,
+          "profit": 14119.55,
           "margin": 36.56,
-          "settledNet": 19308,
+          "settledNet": 38616,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71G6djgr0FL._SL75_.jpg",
-          "pct": 1.57
+          "pct": 1.48
         },
         {
           "msku": "SL-LL2.0-MB",
@@ -1229,22 +1315,7 @@
           "settledNet": 46635,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/518grJWw5iL._SL75_.jpg",
-          "pct": 1.51
-        },
-        {
-          "msku": "LDL-CQ4P-E-DP-FBA",
-          "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
-          "qty": 2,
-          "orders": 2,
-          "net": 51998,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": -137.28,
-          "margin": 0,
-          "settledNet": 0,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg",
-          "pct": 1.38
+          "pct": 1.43
         },
         {
           "msku": "LDL-CQZTZ-E",
@@ -1259,7 +1330,7 @@
           "settledNet": 34036,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/512eqlAK92L._SL75_.jpg",
-          "pct": 1.1
+          "pct": 1.05
         },
         {
           "msku": "BEL-CFZ-E-ATZ",
@@ -1274,7 +1345,7 @@
           "settledNet": 24300,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg",
-          "pct": 1.05
+          "pct": 1
         },
         {
           "msku": "CS-SGZDZ-FBA",
@@ -1284,12 +1355,12 @@
           "net": 38997,
           "cost": -28251.9,
           "platformFee": -7928,
-          "profit": 5931.26,
-          "margin": 13.94,
+          "profit": 6000.71,
+          "margin": 14.11,
           "settledNet": 42540,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51qPT2JhMAL._SL75_.jpg",
-          "pct": 1.03
+          "pct": 0.98
         },
         {
           "msku": "LDL-TZTM-E-FBA",
@@ -1297,59 +1368,74 @@
           "qty": 2,
           "orders": 2,
           "net": 34780,
-          "cost": -15458.52,
-          "platformFee": -5370,
-          "profit": 26076.48,
+          "cost": -10304.92,
+          "platformFee": -3580,
+          "profit": 17385.08,
           "margin": 61.09,
-          "settledNet": 42684,
+          "settledNet": 28456,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41ipm5udqiL._SL75_.jpg",
-          "pct": 0.92
+          "pct": 0.87
         },
         {
-          "msku": "LDL-CQ4P-E-DP",
-          "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 29999,
-          "cost": -8983.98,
-          "platformFee": -3089,
-          "profit": 14899.02,
-          "margin": 60.7,
-          "settledNet": 24545,
+          "msku": "Q3-KTDP-51JY",
+          "name": "迷你柴火炉黑色",
+          "qty": 7,
+          "orders": 7,
+          "net": 27993,
+          "cost": -5584.15,
+          "platformFee": -3660,
+          "profit": 7923.01,
+          "margin": 40.37,
+          "settledNet": 19626,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg",
-          "pct": 0.8
+          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
+          "pct": 0.7
         },
         {
-          "msku": "LDL-4P-NU",
-          "name": "蓬莱4P庇护所2.0【灰色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 29699,
-          "cost": -14055.54,
-          "platformFee": -3058,
-          "profit": 9588.46,
-          "margin": 39.46,
-          "settledNet": 24299,
+          "msku": "BEL-FSYLY-Z-FBA",
+          "name": "扶桑碳纤维月亮椅【紫色】",
+          "qty": 4,
+          "orders": 4,
+          "net": 26396,
+          "cost": -10687.87,
+          "platformFee": -3018,
+          "profit": 4093.13,
+          "margin": 25.27,
+          "settledNet": 16197,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61+qG4KskvL._SL75_.jpg",
-          "pct": 0.79
+          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
+          "pct": 0.66
         },
         {
           "msku": "M183",
-          "name": "",
+          "name": "双人棉布蓬莱黑",
           "qty": 1,
           "orders": 1,
           "net": 23999,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 0.64
+          "cost": -8471.39,
+          "platformFee": -2471,
+          "profit": 10634.61,
+          "margin": 54.16,
+          "settledNet": 19635,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51vuruFtPFL._SL75_.jpg",
+          "pct": 0.6
+        },
+        {
+          "msku": "SL-TBZ-Y-FBA",
+          "name": "春山轻量化徒步桌",
+          "qty": 4,
+          "orders": 4,
+          "net": 22320,
+          "cost": -5598.08,
+          "platformFee": -2232,
+          "profit": 10965.92,
+          "margin": 60.04,
+          "settledNet": 18264,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
+          "pct": 0.56
         },
         {
           "msku": "CS-FXL-Y-FM",
@@ -1357,29 +1443,14 @@
           "qty": 4,
           "orders": 4,
           "net": 21596,
-          "cost": -4447.83,
-          "platformFee": -1646,
-          "profit": 3614.17,
+          "cost": -8895.65,
+          "platformFee": -3292,
+          "profit": 7228.35,
           "margin": 40.91,
-          "settledNet": 8834,
+          "settledNet": 17668,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61pEyu-JICL._SL75_.jpg",
-          "pct": 0.57
-        },
-        {
-          "msku": "Q3-KTDP-51JY",
-          "name": "迷你柴火炉黑色",
-          "qty": 5,
-          "orders": 5,
-          "net": 19995,
-          "cost": -2792.08,
-          "platformFee": -1830,
-          "profit": 3007.16,
-          "margin": 30.64,
-          "settledNet": 9813,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
-          "pct": 0.53
+          "pct": 0.54
         },
         {
           "msku": "BEL-FSYLY-E-FBA",
@@ -1393,23 +1464,23 @@
           "margin": 25.27,
           "settledNet": 16197,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg",
-          "pct": 0.53
+          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
+          "pct": 0.5
         },
         {
-          "msku": "BEL-FSYLY-Z-FBA",
-          "name": "扶桑碳纤维月亮椅【紫色】",
-          "qty": 3,
-          "orders": 3,
-          "net": 19797,
-          "cost": -10687.87,
-          "platformFee": -3018,
-          "profit": 4093.13,
-          "margin": 25.27,
-          "settledNet": 16197,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
-          "pct": 0.53
+          "msku": "SL-LL2.0-QE",
+          "name": "琉璃观火灯炉2.0【枪灰色+黑胡桃木】",
+          "qty": 1,
+          "orders": 1,
+          "net": 18999,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 0.48
         },
         {
           "msku": "SL-LL2.0-MB-FBA",
@@ -1419,42 +1490,12 @@
           "net": 18999,
           "cost": -4533.78,
           "platformFee": -2897,
-          "profit": 9022.46,
-          "margin": 58.04,
+          "profit": 9024.84,
+          "margin": 58.06,
           "settledNet": 15545,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/518grJWw5iL._SL75_.jpg",
-          "pct": 0.5
-        },
-        {
-          "msku": "SL-LL2.0-QE-FBA",
-          "name": "琉璃观火灯炉2.0【枪灰色+黑胡桃木】",
-          "qty": 1,
-          "orders": 1,
-          "net": 18999,
-          "cost": -9066.55,
-          "platformFee": -5794,
-          "profit": 18040.95,
-          "margin": 58.03,
-          "settledNet": 31090,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51nxhSw-h6L._SL75_.jpg",
-          "pct": 0.5
-        },
-        {
-          "msku": "LDL-CQZTM-E-M",
-          "name": "伏羲拓展天幕【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 17599,
-          "cost": -4201.81,
-          "platformFee": -1812,
-          "profit": 9809.19,
-          "margin": 68.12,
-          "settledNet": 14399,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51X+4N8pqKL._SL75_.jpg",
-          "pct": 0.47
+          "pct": 0.48
         },
         {
           "msku": "SA-M5Q6-B89T",
@@ -1464,27 +1505,12 @@
           "net": 16899,
           "cost": -6955.82,
           "platformFee": -1740,
-          "profit": 5498.92,
-          "margin": 39.77,
+          "profit": 5608.05,
+          "margin": 40.56,
           "settledNet": 13827,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51qlS3anVGL._SL75_.jpg",
-          "pct": 0.45
-        },
-        {
-          "msku": "SL-TBZ-Y-FBA",
-          "name": "春山轻量化徒步桌",
-          "qty": 3,
-          "orders": 3,
-          "net": 16740,
-          "cost": -5598.39,
-          "platformFee": -2232,
-          "profit": 10965.61,
-          "margin": 60.04,
-          "settledNet": 18264,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
-          "pct": 0.44
+          "pct": 0.42
         },
         {
           "msku": "BEL-SFZ-E-BTZ-FBA",
@@ -1499,7 +1525,7 @@
           "settledNet": 13581,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/615lgkx2zsL._SL75_.jpg",
-          "pct": 0.44
+          "pct": 0.42
         },
         {
           "msku": "CS-BT-B-JP",
@@ -1509,27 +1535,12 @@
           "net": 13998,
           "cost": -5075.87,
           "platformFee": -2134,
-          "profit": 2640.57,
-          "margin": 23.05,
+          "profit": 2730.88,
+          "margin": 23.84,
           "settledNet": 11454,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51sntQGnbXL._SL75_.jpg",
-          "pct": 0.37
-        },
-        {
-          "msku": "CS-BT-G",
-          "name": "灰色寒霜冰桶",
-          "qty": 2,
-          "orders": 2,
-          "net": 13998,
-          "cost": -7768.71,
-          "platformFee": -3201,
-          "profit": 6415.63,
-          "margin": 37.34,
-          "settledNet": 17181,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61+V0MDcBqL._SL75_.jpg",
-          "pct": 0.37
+          "pct": 0.35
         },
         {
           "msku": "CS-BT-Y-JP",
@@ -1539,64 +1550,19 @@
           "net": 13998,
           "cost": -4973.75,
           "platformFee": -2134,
-          "profit": 4430.47,
-          "margin": 38.68,
+          "profit": 4482.36,
+          "margin": 39.13,
           "settledNet": 11454,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/517B49J8eML._SL75_.jpg",
-          "pct": 0.37
-        },
-        {
-          "msku": "LDL-XYCQZ-HJDBE",
-          "name": "轩辕充气帐篷黑胶顶布【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 13500,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg",
-          "pct": 0.36
-        },
-        {
-          "msku": "LDL-PL4PQZ-LJJ-V-green",
-          "name": "昆仑+昆仑连接件【军绿色】",
-          "qty": 2,
-          "orders": 2,
-          "net": 13260,
-          "cost": -1756.94,
-          "platformFee": -683,
-          "profit": 3521.06,
-          "margin": 64.92,
-          "settledNet": 5424,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61ubbKwtH-L._SL75_.jpg",
           "pct": 0.35
         },
         {
-          "msku": "CS-HYSL-ZGT",
-          "name": "增高专用腿*4支",
-          "qty": 5,
-          "orders": 4,
-          "net": 12600,
-          "cost": -2135.25,
-          "platformFee": -768,
-          "profit": 1628.75,
-          "margin": 39.49,
-          "settledNet": 4124,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg",
-          "pct": 0.33
-        },
-        {
-          "msku": "BEL-GBY-E-FBA",
-          "name": "扶桑碳纤维高背月亮椅【黑色】",
+          "msku": "LDL-XYCQZ-TPU-V",
+          "name": "春山轩辕充气隧道帐篷TPU门【军绿色】",
           "qty": 1,
           "orders": 1,
-          "net": 12500,
+          "net": 13500,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -1604,7 +1570,52 @@
           "settledNet": null,
           "settled": false,
           "img": "",
+          "pct": 0.34
+        },
+        {
+          "msku": "LDL-XYCQZ-HJDBE",
+          "name": "轩辕充气帐篷黑胶顶布【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 13500,
+          "cost": -4073.23,
+          "platformFee": -1390,
+          "profit": 6674.77,
+          "margin": 60.43,
+          "settledNet": 11046,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg",
+          "pct": 0.34
+        },
+        {
+          "msku": "LDL-PL4PQZ-LJJ-V-green",
+          "name": "昆仑+昆仑连接件【军绿色】",
+          "qty": 2,
+          "orders": 2,
+          "net": 13260,
+          "cost": -3513.89,
+          "platformFee": -1366,
+          "profit": 7042.11,
+          "margin": 64.92,
+          "settledNet": 10848,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61ubbKwtH-L._SL75_.jpg",
           "pct": 0.33
+        },
+        {
+          "msku": "CS-HYSL-ZGT",
+          "name": "增高专用腿*4支",
+          "qty": 5,
+          "orders": 4,
+          "net": 12600,
+          "cost": -5338.13,
+          "platformFee": -1920,
+          "profit": 4071.87,
+          "margin": 39.49,
+          "settledNet": 10310,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg",
+          "pct": 0.32
         },
         {
           "msku": "BEL-GBY-E",
@@ -1619,7 +1630,22 @@
           "settledNet": 10228,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71xovh9aUfL._SL75_.jpg",
-          "pct": 0.33
+          "pct": 0.31
+        },
+        {
+          "msku": "BEL-GBY-E-FBA",
+          "name": "扶桑碳纤维高背月亮椅【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 12500,
+          "cost": -6046.02,
+          "platformFee": -1250,
+          "profit": 3470.98,
+          "margin": 33.94,
+          "settledNet": 10228,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71xovh9aUfL._SL75_.jpg",
+          "pct": 0.31
         },
         {
           "msku": "LDL-CQZTZ-NZ",
@@ -1634,7 +1660,7 @@
           "settledNet": 9654,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61ZCuu8LSFL._SL75_.jpg",
-          "pct": 0.31
+          "pct": 0.3
         },
         {
           "msku": "LDL-PL4P-DD-black",
@@ -1642,14 +1668,14 @@
           "qty": 2,
           "orders": 2,
           "net": 11630,
-          "cost": -1986.71,
-          "platformFee": -599,
-          "profit": 2642.29,
+          "cost": -3973.43,
+          "platformFee": -1198,
+          "profit": 5284.57,
           "margin": 55.55,
-          "settledNet": 4757,
+          "settledNet": 9514,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41V81vKwGpL._SL75_.jpg",
-          "pct": 0.31
+          "pct": 0.29
         },
         {
           "msku": "LDL-XYCQZ-ZPDD",
@@ -1664,7 +1690,37 @@
           "settledNet": 9204,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61GngX9tHbL._SL75_.jpg",
-          "pct": 0.3
+          "pct": 0.28
+        },
+        {
+          "msku": "CS-MNFXL1.5",
+          "name": "迷你焚香炉1.5",
+          "qty": 3,
+          "orders": 3,
+          "net": 11097,
+          "cost": -2374.31,
+          "platformFee": -1692,
+          "profit": 4648.87,
+          "margin": 51.19,
+          "settledNet": 9081,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg",
+          "pct": 0.28
+        },
+        {
+          "msku": "BH-ZRKSL-SNEW",
+          "name": "祝融卡式炉【银色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 10390,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": -882.47,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71uMsOAK8NL._SL75_.jpg",
+          "pct": 0.26
         },
         {
           "msku": "TC-LLMN-Y",
@@ -1679,7 +1735,7 @@
           "settledNet": 16036,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/6191OsTDp-L._SL75_.jpg",
-          "pct": 0.26
+          "pct": 0.25
         },
         {
           "msku": "YS-DBT-Y",
@@ -1694,7 +1750,7 @@
           "settledNet": 7772,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51kw3iTu4-L._SL75_.jpg",
-          "pct": 0.25
+          "pct": 0.24
         },
         {
           "msku": "CS-HYSLPJ-JP",
@@ -1709,7 +1765,22 @@
           "settledNet": 7758,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61FEkZng-cL._SL75_.jpg",
-          "pct": 0.25
+          "pct": 0.24
+        },
+        {
+          "msku": "BEL-XKZ-E",
+          "name": "星空桌【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 8800,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": -343.99,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51sXS29SY0L._SL75_.jpg",
+          "pct": 0.22
         },
         {
           "msku": "CS-CHL",
@@ -1717,59 +1788,14 @@
           "qty": 2,
           "orders": 2,
           "net": 7998,
-          "cost": -810.58,
-          "platformFee": -610,
-          "profit": 1733.22,
-          "margin": 52.99,
-          "settledNet": 3271,
+          "cost": -1621.17,
+          "platformFee": -1220,
+          "profit": 3498.23,
+          "margin": 53.47,
+          "settledNet": 6542,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg",
-          "pct": 0.21
-        },
-        {
-          "msku": "CS-BTT-2L",
-          "name": "新款战术冰桶套-1.9L",
-          "qty": 5,
-          "orders": 5,
-          "net": 7750,
-          "cost": -2592.59,
-          "platformFee": -1180,
-          "profit": 486.95,
-          "margin": 7.68,
-          "settledNet": 6340,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg",
-          "pct": 0.21
-        },
-        {
-          "msku": "CS-MNFXL1.5",
-          "name": "迷你焚香炉1.5",
-          "qty": 2,
-          "orders": 2,
-          "net": 7398,
-          "cost": -1582.87,
-          "platformFee": -1128,
-          "profit": 3095.49,
-          "margin": 51.13,
-          "settledNet": 6054,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg",
           "pct": 0.2
-        },
-        {
-          "msku": "BEL-AZ-E",
-          "name": "",
-          "qty": 1,
-          "orders": 1,
-          "net": 6800,
-          "cost": 0,
-          "platformFee": -1037,
-          "profit": 5077,
-          "margin": 91.25,
-          "settledNet": 5564,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/81Eh8nWSdnL._SL75_.jpg",
-          "pct": 0.18
         },
         {
           "msku": "SL-YLY-WS-FBA",
@@ -1779,12 +1805,42 @@
           "net": 6599,
           "cost": -2901.8,
           "platformFee": -1006,
-          "profit": 1508.44,
-          "margin": 27.94,
+          "profit": 1530.82,
+          "margin": 28.35,
           "settledNet": 5399,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61pRT0D8SxL._SL75_.jpg",
-          "pct": 0.18
+          "pct": 0.17
+        },
+        {
+          "msku": "CS-BTT-2L",
+          "name": "新款战术冰桶套-1.9L",
+          "qty": 4,
+          "orders": 4,
+          "net": 6200,
+          "cost": -2592.59,
+          "platformFee": -1180,
+          "profit": 520.18,
+          "margin": 8.2,
+          "settledNet": 6340,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg",
+          "pct": 0.16
+        },
+        {
+          "msku": "SL-YH-Y-FBAA",
+          "name": "春山便携战术油壶【银色】",
+          "qty": 2,
+          "orders": 2,
+          "net": 5960,
+          "cost": -799.56,
+          "platformFee": -454,
+          "profit": 635.47,
+          "margin": 26.07,
+          "settledNet": 2438,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61-AUMHmgAL._SL75_.jpg",
+          "pct": 0.15
         },
         {
           "msku": "CS-0.5MB",
@@ -1792,28 +1848,13 @@
           "qty": 2,
           "orders": 2,
           "net": 5540,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 0.15
-        },
-        {
-          "msku": "CS-MNGHBL-JP-FBA",
-          "name": "春山mini观火壁炉",
-          "qty": 1,
-          "orders": 1,
-          "net": 5389,
-          "cost": -1969.31,
-          "platformFee": -800,
-          "profit": 1430.77,
-          "margin": 32.45,
-          "settledNet": 4409,
+          "cost": -1624.65,
+          "platformFee": -844,
+          "profit": 2511.35,
+          "margin": 55.41,
+          "settledNet": 4532,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
+          "img": "https://m.media-amazon.com/images/I/61e47ely9LL._SL75_.jpg",
           "pct": 0.14
         },
         {
@@ -1829,7 +1870,7 @@
           "settledNet": 3026,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41VgcWwnFdL._SL75_.jpg",
-          "pct": 0.1
+          "pct": 0.09
         },
         {
           "msku": "CS-HYZ-PJ-CMB",
@@ -1859,21 +1900,6 @@
           "settledNet": 2446,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/515Kr8uERgL._SL75_.jpg",
-          "pct": 0.08
-        },
-        {
-          "msku": "SL-YH-Y-FBAA",
-          "name": "春山便携战术油壶【银色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 2980,
-          "cost": -799.74,
-          "platformFee": -454,
-          "profit": 210.29,
-          "margin": 8.63,
-          "settledNet": 2438,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61-AUMHmgAL._SL75_.jpg",
           "pct": 0.08
         },
         {
@@ -1923,17 +1949,17 @@
         }
       ],
       "settled": {
-        "qty": 214,
-        "net": 2999698,
-        "salesAmt": 3333005,
-        "tax": 333307,
-        "gp": 1389104.78,
-        "margin": 46.31,
+        "qty": 226,
+        "net": 2968982,
+        "salesAmt": 3298881,
+        "tax": 329899,
+        "gp": 1406169.98,
+        "margin": 47.36,
         "skuCount": 86,
-        "refQty": 3
+        "refQty": 4
       },
       "caliber": "order",
-      "orders": 226
+      "orders": 243
     },
     "amazonUS": {
       "skuCount": 0,
@@ -1973,7 +1999,7 @@
         "salesAmount": 801531,
         "promoDisc": -44179,
         "net": 801531,
-        "productCost": -272812.75,
+        "productCost": -271223.07,
         "commission": -48091.86,
         "delivery": 0,
         "otherPlatformFee": 0,
@@ -1985,13 +2011,13 @@
         "otherPromo": 0,
         "incomeRefund": 0,
         "platformFeeTotal": -48091.86,
-        "profit": 480626.39,
-        "margin": "59.96%",
+        "profit": 482216.07,
+        "margin": "60.16%",
         "orderCount": 20,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "feeEstimated": true,
-        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.92%净额，余按日亚当月综合成本率30.26%估算",
+        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.92%净额，余按日亚当月综合成本率29.47%估算",
         "costCoveragePct": 74.92,
         "skuDetail": [
           {
@@ -2467,7 +2493,7 @@
         "margin": null,
         "orderCount": 3,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "feeNote": "下单口径(T-1即时)，仅本币金额；成本/手续费待Shopify账单或领星SKU映射",
         "skuDetail": [
           {
@@ -2972,13 +2998,13 @@
       },
       "韩国-Coupang": {
         "currency": "KRW",
-        "qty": 39,
+        "qty": 42,
         "refundVol": 0,
-        "salesAmount": 6071350,
+        "salesAmount": 6292530,
         "promoDisc": 0,
-        "net": 6071350,
-        "productCost": -2032185.29,
-        "commission": -819632.25,
+        "net": 6292530,
+        "productCost": -2108395.71,
+        "commission": -849491.55,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -2988,19 +3014,15 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -819632.25,
-        "profit": 3219532.46,
-        "margin": "53.03%",
+        "platformFeeTotal": -849491.55,
+        "profit": 3334642.74,
+        "margin": "52.99%",
         "feeEstimated": true,
         "feeNote": "佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准",
-        "costCoveragePct": 89.74,
+        "costCoveragePct": 88.1,
         "unknownKeys": [
           {
-            "key": "96092498484",
-            "qty": 1
-          },
-          {
-            "key": "95841485579",
+            "key": "96109721963",
             "qty": 1
           },
           {
@@ -3008,7 +3030,15 @@
             "qty": 1
           },
           {
+            "key": "95841485579",
+            "qty": 1
+          },
+          {
             "key": "96052997205",
+            "qty": 1
+          },
+          {
+            "key": "96092498484",
             "qty": 1
           }
         ],
@@ -3017,61 +3047,76 @@
             "msku": "LDL-XYCQZ-V",
             "name": "轩辕充气隧道帐篷【军绿色】",
             "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260707/b7ffe1b6f59e45b3b406e39d94a8471d.jpg",
-            "qty": 3,
+            "qty": 2,
             "orders": null,
-            "net": 2451000,
-            "settledNet": 2451000,
-            "cost": -930654.92,
-            "platformFee": -330885,
-            "profit": 1189460.08,
+            "net": 1634000,
+            "settledNet": 1634000,
+            "cost": -620436.61,
+            "platformFee": -220590,
+            "profit": 792973.39,
             "margin": 48.53,
             "settled": true,
-            "pct": 40.37
+            "pct": 25.97
           },
           {
             "msku": "LDL-CQ4P-E",
             "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
             "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260227/5f567245ae164cf891bda438ab0907cb.jpg",
-            "qty": 2,
+            "qty": 3,
             "orders": null,
-            "net": 804000,
-            "settledNet": 804000,
-            "cost": -312121.55,
-            "platformFee": -108540,
-            "profit": 383338.45,
+            "net": 1206000,
+            "settledNet": 1206000,
+            "cost": -468182.32,
+            "platformFee": -162810,
+            "profit": 575007.68,
             "margin": 47.68,
             "settled": true,
-            "pct": 13.24
+            "pct": 19.17
           },
           {
             "msku": "LDL-CQ4PTZ-E",
             "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
             "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260305/13674698c20f44ceb688119b184e33d5.jpg",
-            "qty": 2,
+            "qty": 3,
             "orders": null,
-            "net": 392000,
-            "settledNet": 392000,
-            "cost": -168648.84,
-            "platformFee": -52920,
-            "profit": 170431.16,
+            "net": 588000,
+            "settledNet": 588000,
+            "cost": -252973.26,
+            "platformFee": -79380,
+            "profit": 255646.74,
             "margin": 43.48,
             "settled": true,
-            "pct": 6.46
+            "pct": 9.34
           },
           {
             "msku": "SL-ZML0.5-Y",
             "name": "春山0.5单元IGT桌面炉",
             "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20251212/c1bbd867646246dca4de39c0a92f94ae.jpg",
-            "qty": 4,
+            "qty": 5,
             "orders": null,
-            "net": 347200,
-            "settledNet": 347200,
-            "cost": -145868.69,
-            "platformFee": -46872,
-            "profit": 154459.31,
+            "net": 434000,
+            "settledNet": 434000,
+            "cost": -182335.86,
+            "platformFee": -58590,
+            "profit": 193074.14,
             "margin": 44.49,
             "settled": true,
-            "pct": 5.72
+            "pct": 6.9
+          },
+          {
+            "msku": "LDL-CQ4P-V",
+            "name": "蓬莱4P庇护所充气帐篷主帐【军绿色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260227/00f97aca3a6546b888fedb8779bc1560.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 402000,
+            "settledNet": 402000,
+            "cost": -155971.44,
+            "platformFee": -54270,
+            "profit": 191758.56,
+            "margin": 47.7,
+            "settled": true,
+            "pct": 6.39
           },
           {
             "msku": "LDL-CQ4PTZ-V",
@@ -3086,7 +3131,22 @@
             "profit": 86237.35,
             "margin": 44,
             "settled": true,
-            "pct": 3.23
+            "pct": 3.11
+          },
+          {
+            "msku": "TC-CHLX-Y",
+            "name": "MINI-柴火炉银色",
+            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20241213/f80d0ac942ac48bb8213cb388edaa49a.jpg",
+            "qty": 6,
+            "orders": null,
+            "net": 142200,
+            "settledNet": 142200,
+            "cost": -41463.35,
+            "platformFee": -19197,
+            "profit": 81539.65,
+            "margin": 57.34,
+            "settled": true,
+            "pct": 2.26
           },
           {
             "msku": "CS-2DPL-E",
@@ -3101,52 +3161,22 @@
             "profit": 78028.48,
             "margin": 44.92,
             "settled": true,
-            "pct": 2.86
+            "pct": 2.76
           },
           {
             "msku": "TC-CHLX-E",
             "name": "迷你柴火炉黑色",
             "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20241213/fa672a23fdbb4844b0c7affda625ca77.jpg",
-            "qty": 6,
-            "orders": null,
-            "net": 142200,
-            "settledNet": 142200,
-            "cost": -47607.18,
-            "platformFee": -19197,
-            "profit": 75395.82,
-            "margin": 53.02,
-            "settled": true,
-            "pct": 2.34
-          },
-          {
-            "msku": "BEL-FSYLY-Z",
-            "name": "扶桑碳纤维月亮椅【紫色】",
-            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260525/85cb4fb1ddf449c8afddbc78f733ecb8.jpg",
-            "qty": 2,
-            "orders": null,
-            "net": 155660,
-            "settledNet": 155660,
-            "cost": -62583.68,
-            "platformFee": -21014.1,
-            "profit": 72062.22,
-            "margin": 46.29,
-            "settled": true,
-            "pct": 2.56
-          },
-          {
-            "msku": "TC-CHLX-Y",
-            "name": "MINI-柴火炉银色",
-            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20241213/f80d0ac942ac48bb8213cb388edaa49a.jpg",
             "qty": 5,
             "orders": null,
             "net": 118500,
             "settledNet": 118500,
-            "cost": -34552.79,
+            "cost": -39672.65,
             "platformFee": -15997.5,
-            "profit": 67949.71,
-            "margin": 57.34,
+            "profit": 62829.85,
+            "margin": 53.02,
             "settled": true,
-            "pct": 1.95
+            "pct": 1.88
           },
           {
             "msku": "LDL-XYCQZ-HJDBV",
@@ -3161,7 +3191,7 @@
             "profit": 57077.86,
             "margin": 53.24,
             "settled": true,
-            "pct": 1.77
+            "pct": 1.7
           },
           {
             "msku": "M183",
@@ -3176,7 +3206,7 @@
             "profit": 55304.63,
             "margin": 37.46,
             "settled": true,
-            "pct": 2.43
+            "pct": 2.35
           },
           {
             "msku": "LDL-XYCQZ-ZPDD",
@@ -3191,7 +3221,7 @@
             "profit": 44234.23,
             "margin": 50.27,
             "settled": true,
-            "pct": 1.45
+            "pct": 1.4
           },
           {
             "msku": "SL-YH-Y",
@@ -3206,7 +3236,22 @@
             "profit": 39215.59,
             "margin": 50.67,
             "settled": true,
-            "pct": 1.27
+            "pct": 1.23
+          },
+          {
+            "msku": "LDL-PL4P-DD",
+            "name": "澡盆地垫【黑色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20251213/cd2e4f23a6444283832394427604d96c.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 40880,
+            "settledNet": 40880,
+            "cost": -17212.58,
+            "platformFee": -5518.8,
+            "profit": 18148.62,
+            "margin": 44.39,
+            "settled": true,
+            "pct": 0.65
           },
           {
             "msku": "CS-CHL",
@@ -3221,7 +3266,7 @@
             "profit": 10949.17,
             "margin": 52.95,
             "settled": true,
-            "pct": 0.34
+            "pct": 0.33
           },
           {
             "msku": "96052997205",
@@ -3236,7 +3281,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 6.23
+            "pct": 6.01
           },
           {
             "msku": "96092498484",
@@ -3251,7 +3296,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 5.14
+            "pct": 4.96
           },
           {
             "msku": "CS-2PL-WZ-E",
@@ -3266,7 +3311,22 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 1.61
+            "pct": 1.55
+          },
+          {
+            "msku": "96109721963",
+            "name": "",
+            "img": "",
+            "qty": 1,
+            "orders": null,
+            "net": 66160,
+            "settledNet": 66160,
+            "cost": null,
+            "platformFee": -8931.6,
+            "profit": null,
+            "margin": null,
+            "settled": true,
+            "pct": 1.05
           },
           {
             "msku": "95841485579",
@@ -3281,79 +3341,50 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 1.03
+            "pct": 0.99
           }
         ],
-        "generatedAt": "2026-10-06 14:45:28"
+        "generatedAt": "2026-10-07 00:31:03"
       },
       "泰国shopee": {
         "currency": "THB",
         "productCost": -59695.7,
-        "cashPlatformAmount": 94046,
-        "cashAdjustment": 1299,
-        "cashSettlement": 95345,
-        "cashOrders": 85,
-        "cashUnits": 107,
+        "cashPlatformAmount": 0,
+        "cashAdjustment": 0,
+        "cashSettlement": 0,
+        "cashOrders": 0,
+        "cashUnits": 0,
         "cashStatus": "settled",
-        "cashRange": "2026-09-29 ~ 2026-10-05",
+        "cashRange": "2026-09-30 ~ 2026-10-06",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 14:45:31",
-        "staticProductCost": -61445.79,
-        "staticCoveragePct": 90.65,
+        "cashGeneratedAt": "2026-10-07 00:31:06",
+        "staticProductCost": null,
+        "staticCoveragePct": null,
         "costSource": "report",
-        "unknownMskus": [
-          {
-            "msku": "BEL-SFZZJ-E",
-            "qty": 3
-          },
-          {
-            "msku": "BEL-TXWTMG-SND",
-            "qty": 2
-          },
-          {
-            "msku": "BEL-XKZ-ZWJ-E",
-            "qty": 1
-          },
-          {
-            "msku": "SL-ZML0.5-BL",
-            "qty": 1
-          },
-          {
-            "msku": "CS-2PL-WZ-E",
-            "qty": 1
-          },
-          {
-            "msku": "SL-ZSTMG-E",
-            "qty": 1
-          },
-          {
-            "msku": "BEL-FXQ-E*4",
-            "qty": 1
-          }
-        ],
-        "gpFromCash": 35649.3,
+        "unknownMskus": [],
+        "gpFromCash": -59695.7,
         "gpDiff": null,
-        "qty": 57,
-        "orderCount": 53,
-        "salesAmount": 252684,
-        "net": 252684,
+        "qty": 55,
+        "orderCount": 51,
+        "salesAmount": 239084,
+        "net": 239084,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "skuDetail": [
           {
             "msku": "BH-ZRKSL-Y",
             "name": "祝融卡式炉【银色】",
             "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260625/8af18596a4a54267bff2a3761996c0c7.jpg",
-            "qty": 6,
-            "orders": 6,
-            "net": 40800,
+            "qty": 4,
+            "orders": 4,
+            "net": 27200,
             "settledNet": null,
-            "cost": -4336.24,
+            "cost": -2890.82,
             "platformFee": null,
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 16.15
+            "pct": 11.38
           },
           {
             "msku": "SL-YLY-WS",
@@ -3368,7 +3399,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 9.97
+            "pct": 10.54
           },
           {
             "msku": "BEL-CFZ-E",
@@ -3383,7 +3414,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 8.74
+            "pct": 9.23
           },
           {
             "msku": "BEL-TXW-TMGE",
@@ -3398,7 +3429,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 8.43
+            "pct": 8.91
           },
           {
             "msku": "TC-LLGHDL-Y",
@@ -3413,7 +3444,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 6.69
+            "pct": 7.07
           },
           {
             "msku": "SL-ZML0.5-Y",
@@ -3428,7 +3459,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 5.78
+            "pct": 6.1
           },
           {
             "msku": "CS-HYZ-TZ-A",
@@ -3443,7 +3474,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 5.7
+            "pct": 6.02
           },
           {
             "msku": "CS-PL-1R-WZ-K",
@@ -3458,7 +3489,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 4.35
+            "pct": 4.6
           },
           {
             "msku": "CS-BT-HS-G",
@@ -3473,7 +3504,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.89
+            "pct": 3.05
           },
           {
             "msku": "BEL-FSYLY-E",
@@ -3488,7 +3519,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.53
+            "pct": 2.68
           },
           {
             "msku": "BEL-FSYLY-Z",
@@ -3503,7 +3534,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.53
+            "pct": 2.68
           },
           {
             "msku": "SL-BTJ-E",
@@ -3518,7 +3549,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.37
+            "pct": 2.51
           },
           {
             "msku": "LDL-WSPL-1R-V",
@@ -3533,7 +3564,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.35
+            "pct": 2.48
           },
           {
             "msku": "LDL-WSPL-1R-E",
@@ -3548,7 +3579,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.35
+            "pct": 2.48
           },
           {
             "msku": "BEL-SFZ-E-ATZ",
@@ -3563,7 +3594,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.26
+            "pct": 2.38
           },
           {
             "msku": "SL-YLY-H",
@@ -3578,7 +3609,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.22
+            "pct": 2.34
           },
           {
             "msku": "CS-PL-1R-WZ-E",
@@ -3593,7 +3624,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.18
+            "pct": 2.3
           },
           {
             "msku": "BEL-HYSL-E",
@@ -3608,7 +3639,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.09
+            "pct": 2.21
           },
           {
             "msku": "YS-DBT-G",
@@ -3623,7 +3654,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 1.74
+            "pct": 1.84
           },
           {
             "msku": "TC-MNBL-Y",
@@ -3638,7 +3669,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 1.68
+            "pct": 1.78
           },
           {
             "msku": "SL-YH-Y",
@@ -3653,7 +3684,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 1.58
+            "pct": 1.67
           },
           {
             "msku": "CS-BT-HS-H",
@@ -3668,7 +3699,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 1.44
+            "pct": 1.53
           },
           {
             "msku": "SL-XKP",
@@ -3683,7 +3714,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 1.42
+            "pct": 1.51
           },
           {
             "msku": "BEL-YLYJT-E",
@@ -3698,7 +3729,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.87
+            "pct": 0.92
           },
           {
             "msku": "TC-CHLX-E",
@@ -3713,7 +3744,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.71
+            "pct": 0.75
           },
           {
             "msku": "SL-DBTT-H",
@@ -3728,7 +3759,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.51
+            "pct": 0.54
           },
           {
             "msku": "SL-BTT-H",
@@ -3743,7 +3774,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.35
+            "pct": 0.37
           },
           {
             "msku": "BEL-SFZ-DJ",
@@ -3758,7 +3789,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.12
+            "pct": 0.13
           }
         ]
       },
@@ -3771,9 +3802,9 @@
         "cashOrders": 79,
         "cashUnits": 82,
         "cashStatus": "settled",
-        "cashRange": "2026-09-29 ~ 2026-10-05",
+        "cashRange": "2026-09-30 ~ 2026-10-06",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 14:45:31",
+        "cashGeneratedAt": "2026-10-07 00:31:06",
         "staticProductCost": -3072.72,
         "staticCoveragePct": 98.78,
         "costSource": "report",
@@ -3790,59 +3821,149 @@
         "salesAmount": 0,
         "net": 0,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "skuDetail": []
       }
     }
   },
   "month": {
-    "range": "2026-10-01 ~ 2026-10-05",
+    "range": "2026-10-01 ~ 2026-10-06",
     "amazonJP": {
-      "skuCount": 51,
-      "qty": 169,
-      "refQty": 2,
-      "salesAmt": 2759521,
+      "skuCount": 56,
+      "qty": 216,
+      "refQty": 3,
+      "salesAmt": 3639856,
       "tax": 0,
-      "net": 2759521,
-      "cost": -835032.91,
-      "commission": -281865,
-      "fbaDeliv": -19893,
+      "net": 3639856,
+      "cost": -1072640.17,
+      "commission": -370628,
+      "fbaDeliv": -22783,
       "storage": -618,
       "ads": -24810,
       "other": 0,
-      "platExp": -327186,
-      "gp": 912355.09,
-      "margin": 48.27,
+      "platExp": -418839,
+      "gp": 1304449.83,
+      "margin": 52.07,
       "skuDetail": [
         {
           "msku": "LDL-XYCQZ-E-FBA",
           "name": "轩辕充气隧道帐篷【黑色顶配】",
-          "qty": 6,
-          "orders": 6,
-          "net": 779994,
-          "cost": -142922.76,
-          "platformFee": -53540,
-          "profit": 269527.3,
-          "margin": 63.35,
-          "settledNet": 425452,
+          "qty": 7,
+          "orders": 7,
+          "net": 909993,
+          "cost": -250114.83,
+          "platformFee": -93695,
+          "profit": 472823.23,
+          "margin": 63.51,
+          "settledNet": 744541,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg",
-          "pct": 28.27
+          "pct": 25
         },
         {
           "msku": "QZ-P8BR-KGMU",
           "name": "春山祝融取暖器",
-          "qty": 44,
-          "orders": 44,
-          "net": 483956,
-          "cost": -158500.83,
-          "platformFee": -70434,
-          "profit": 183903.27,
-          "margin": 48.66,
-          "settledNet": 377960,
+          "qty": 62,
+          "orders": 62,
+          "net": 681938,
+          "cost": -207560.61,
+          "platformFee": -92235,
+          "profit": 241599.49,
+          "margin": 48.81,
+          "settledNet": 494947,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg",
-          "pct": 17.54
+          "pct": 18.74
+        },
+        {
+          "msku": "LDL-XYCQZ-V-NEW",
+          "name": "轩辕充气隧道帐篷【军绿色】",
+          "qty": 2,
+          "orders": 2,
+          "net": 210000,
+          "cost": -35730.69,
+          "platformFee": -10811,
+          "profit": 47863.31,
+          "margin": 55.71,
+          "settledNet": 85910,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61P6uVub0xL._SL75_.jpg",
+          "pct": 5.77
+        },
+        {
+          "msku": "LDL-CQ4P-E-FBA",
+          "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
+          "qty": 3,
+          "orders": 3,
+          "net": 179997,
+          "cost": -17961.66,
+          "platformFee": -6177,
+          "profit": 28880.37,
+          "margin": 58.83,
+          "settledNet": 49091,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg",
+          "pct": 4.95
+        },
+        {
+          "msku": "NEW-ZRKSL-SNB",
+          "name": "祝融卡式炉（收纳包套装）",
+          "qty": 13,
+          "orders": 13,
+          "net": 148070,
+          "cost": -34223.48,
+          "platformFee": -10557,
+          "profit": 46506.05,
+          "margin": 55.44,
+          "settledNet": 83880,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg",
+          "pct": 4.07
+        },
+        {
+          "msku": "LDL-CQ4P-E-DP-FBA",
+          "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
+          "qty": 5,
+          "orders": 5,
+          "net": 129995,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 3.57
+        },
+        {
+          "msku": "SP-PL4P-G-JP",
+          "name": "春山蓬莱4P庇护所2.0军绿色",
+          "qty": 4,
+          "orders": 4,
+          "net": 118396,
+          "cost": -43030.01,
+          "platformFee": -9144,
+          "profit": 22752.1,
+          "margin": 31.32,
+          "settledNet": 72651,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg",
+          "pct": 3.25
+        },
+        {
+          "msku": "SP-0.5ZML",
+          "name": "春山0.5单元IGT桌面炉",
+          "qty": 12,
+          "orders": 12,
+          "net": 113988,
+          "cost": -42774.71,
+          "platformFee": -9780,
+          "profit": 31678.34,
+          "margin": 40.76,
+          "settledNet": 77712,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
+          "pct": 3.13
         },
         {
           "msku": "LDL-CQZ-MV-FBA",
@@ -3857,37 +3978,7 @@
           "settledNet": 89999,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/91Pd7ao4maL._SL75_.jpg",
-          "pct": 3.99
-        },
-        {
-          "msku": "LDL-XYCQZ-V-NEW",
-          "name": "轩辕充气隧道帐篷【军绿色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 105000,
-          "cost": -35730.69,
-          "platformFee": -10811,
-          "profit": 47863.31,
-          "margin": 55.71,
-          "settledNet": 85910,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61P6uVub0xL._SL75_.jpg",
-          "pct": 3.81
-        },
-        {
-          "msku": "NEW-ZRKSL-SNB",
-          "name": "祝融卡式炉（收纳包套装）",
-          "qty": 9,
-          "orders": 9,
-          "net": 102510,
-          "cost": -26618.26,
-          "platformFee": -8211,
-          "profit": 35975.27,
-          "margin": 55.14,
-          "settledNet": 65240,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg",
-          "pct": 3.71
+          "pct": 3.02
         },
         {
           "msku": "【顶配】全配置セットblack",
@@ -3902,37 +3993,22 @@
           "settledNet": 74290,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/612NV1lptZL._SL75_.jpg",
-          "pct": 3.29
+          "pct": 2.49
         },
         {
-          "msku": "SP-PL4P-G-JP",
-          "name": "春山蓬莱4P庇护所2.0军绿色",
+          "msku": "SP-PL4P-B-JP",
+          "name": "春山蓬莱4P庇护所2.0黑色",
           "qty": 3,
           "orders": 3,
           "net": 88797,
-          "cost": -43030.01,
-          "platformFee": -9144,
-          "profit": 22752.1,
-          "margin": 31.32,
-          "settledNet": 72651,
+          "cost": -28686.67,
+          "platformFee": -6096,
+          "profit": 16879.33,
+          "margin": 34.85,
+          "settledNet": 48434,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg",
-          "pct": 3.22
-        },
-        {
-          "msku": "SP-0.5ZML",
-          "name": "春山0.5单元IGT桌面炉",
-          "qty": 9,
-          "orders": 9,
-          "net": 85491,
-          "cost": -25664.82,
-          "platformFee": -5868,
-          "profit": 18540.23,
-          "margin": 39.76,
-          "settledNet": 46628,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
-          "pct": 3.1
+          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
+          "pct": 2.44
         },
         {
           "msku": "LDL-PL4P-ME-FBA1",
@@ -3947,37 +4023,22 @@
           "settledNet": 57110,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51xZnkb-WsL._SL75_.jpg",
-          "pct": 2.53
+          "pct": 1.92
         },
         {
-          "msku": "LDL-CQ4P-E-FBA",
-          "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 59999,
-          "cost": -17961.66,
-          "platformFee": -6177,
-          "profit": 28880.37,
-          "margin": 58.83,
-          "settledNet": 49091,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg",
-          "pct": 2.17
-        },
-        {
-          "msku": "SP-PL4P-B-JP",
-          "name": "春山蓬莱4P庇护所2.0黑色",
+          "msku": "LDL-4P-NU",
+          "name": "蓬莱4P庇护所2.0【灰色】",
           "qty": 2,
           "orders": 2,
-          "net": 59198,
-          "cost": -28686.67,
-          "platformFee": -6096,
-          "profit": 16879.33,
-          "margin": 34.85,
-          "settledNet": 48434,
+          "net": 59398,
+          "cost": -14055.54,
+          "platformFee": -3058,
+          "profit": 9588.46,
+          "margin": 39.46,
+          "settledNet": 24299,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
-          "pct": 2.15
+          "img": "https://m.media-amazon.com/images/I/61+qG4KskvL._SL75_.jpg",
+          "pct": 1.63
         },
         {
           "msku": "BEL-CFZ-E+IGTB",
@@ -3985,29 +4046,29 @@
           "qty": 5,
           "orders": 5,
           "net": 59000,
-          "cost": -10560.22,
-          "platformFee": -3598,
-          "profit": 7059.78,
+          "cost": -21120.45,
+          "platformFee": -7196,
+          "profit": 14119.55,
           "margin": 36.56,
-          "settledNet": 19308,
+          "settledNet": 38616,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71G6djgr0FL._SL75_.jpg",
-          "pct": 2.14
+          "pct": 1.62
         },
         {
-          "msku": "LDL-CQ4P-E-DP-FBA",
-          "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
-          "qty": 2,
-          "orders": 2,
-          "net": 51998,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 1.88
+          "msku": "CS-MNGHBL-JP",
+          "name": "春山mini观火壁炉",
+          "qty": 10,
+          "orders": 10,
+          "net": 48800,
+          "cost": -21662.38,
+          "platformFee": -7975,
+          "profit": 17698.66,
+          "margin": 40.3,
+          "settledNet": 43912,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
+          "pct": 1.34
         },
         {
           "msku": "CS-HYSL-JP",
@@ -4022,22 +4083,7 @@
           "settledNet": 57870,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg",
-          "pct": 1.71
-        },
-        {
-          "msku": "CS-MNGHBL-JP",
-          "name": "春山mini观火壁炉",
-          "qty": 9,
-          "orders": 9,
-          "net": 43920,
-          "cost": -13785.15,
-          "platformFee": -5075,
-          "profit": 10927.89,
-          "margin": 39.11,
-          "settledNet": 27944,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
-          "pct": 1.59
+          "pct": 1.3
         },
         {
           "msku": "CS-SGZDZ-FBA",
@@ -4052,7 +4098,7 @@
           "settledNet": 31905,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51qPT2JhMAL._SL75_.jpg",
-          "pct": 1.41
+          "pct": 1.07
         },
         {
           "msku": "SL-LL2.0-MB",
@@ -4067,7 +4113,7 @@
           "settledNet": 46635,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/518grJWw5iL._SL75_.jpg",
-          "pct": 1.38
+          "pct": 1.04
         },
         {
           "msku": "LDL-TZTM-E-FBA",
@@ -4082,7 +4128,7 @@
           "settledNet": 28456,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41ipm5udqiL._SL75_.jpg",
-          "pct": 1.26
+          "pct": 0.96
         },
         {
           "msku": "BEL-CFZ-E-ATZ",
@@ -4097,37 +4143,52 @@
           "settledNet": 24300,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg",
-          "pct": 1.08
+          "pct": 0.82
         },
         {
-          "msku": "LDL-4P-NU",
-          "name": "蓬莱4P庇护所2.0【灰色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 29699,
-          "cost": -14055.54,
-          "platformFee": -3058,
-          "profit": 9588.46,
-          "margin": 39.46,
-          "settledNet": 24299,
+          "msku": "Q3-KTDP-51JY",
+          "name": "迷你柴火炉黑色",
+          "qty": 7,
+          "orders": 7,
+          "net": 27993,
+          "cost": -5584.15,
+          "platformFee": -3660,
+          "profit": 7935.93,
+          "margin": 40.44,
+          "settledNet": 19626,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61+qG4KskvL._SL75_.jpg",
-          "pct": 1.08
+          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
+          "pct": 0.77
+        },
+        {
+          "msku": "BEL-FSYLY-Z-FBA",
+          "name": "扶桑碳纤维月亮椅【紫色】",
+          "qty": 4,
+          "orders": 4,
+          "net": 26396,
+          "cost": -10687.87,
+          "platformFee": -3018,
+          "profit": 4093.13,
+          "margin": 25.27,
+          "settledNet": 16197,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
+          "pct": 0.73
         },
         {
           "msku": "M183",
-          "name": "",
+          "name": "双人棉布蓬莱黑",
           "qty": 1,
           "orders": 1,
           "net": 23999,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 0.87
+          "cost": -8471.39,
+          "platformFee": -2471,
+          "profit": 10634.61,
+          "margin": 54.16,
+          "settledNet": 19635,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51vuruFtPFL._SL75_.jpg",
+          "pct": 0.66
         },
         {
           "msku": "CS-FXL-Y-FM",
@@ -4135,14 +4196,14 @@
           "qty": 4,
           "orders": 4,
           "net": 21596,
-          "cost": -4447.83,
-          "platformFee": -1646,
-          "profit": 3614.17,
+          "cost": -8895.65,
+          "platformFee": -3292,
+          "profit": 7228.35,
           "margin": 40.91,
-          "settledNet": 8834,
+          "settledNet": 17668,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61pEyu-JICL._SL75_.jpg",
-          "pct": 0.78
+          "pct": 0.59
         },
         {
           "msku": "LDL-CQZTZ-E",
@@ -4157,22 +4218,7 @@
           "settledNet": 17018,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/512eqlAK92L._SL75_.jpg",
-          "pct": 0.75
-        },
-        {
-          "msku": "Q3-KTDP-51JY",
-          "name": "迷你柴火炉黑色",
-          "qty": 5,
-          "orders": 5,
-          "net": 19995,
-          "cost": -2792.08,
-          "platformFee": -1830,
-          "profit": 3033,
-          "margin": 30.91,
-          "settledNet": 9813,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
-          "pct": 0.72
+          "pct": 0.57
         },
         {
           "msku": "BEL-FSYLY-E-FBA",
@@ -4186,23 +4232,23 @@
           "margin": 25.27,
           "settledNet": 16197,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg",
-          "pct": 0.72
+          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
+          "pct": 0.54
         },
         {
-          "msku": "BEL-FSYLY-Z-FBA",
-          "name": "扶桑碳纤维月亮椅【紫色】",
-          "qty": 3,
-          "orders": 3,
-          "net": 19797,
-          "cost": -10687.87,
-          "platformFee": -3018,
-          "profit": 4093.13,
-          "margin": 25.27,
-          "settledNet": 16197,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
-          "pct": 0.72
+          "msku": "SL-LL2.0-QE",
+          "name": "琉璃观火灯炉2.0【枪灰色+黑胡桃木】",
+          "qty": 1,
+          "orders": 1,
+          "net": 18999,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 0.52
         },
         {
           "msku": "SA-M5Q6-B89T",
@@ -4217,7 +4263,22 @@
           "settledNet": 13827,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51qlS3anVGL._SL75_.jpg",
-          "pct": 0.61
+          "pct": 0.46
+        },
+        {
+          "msku": "SL-TBZ-Y-FBA",
+          "name": "春山轻量化徒步桌",
+          "qty": 3,
+          "orders": 3,
+          "net": 16740,
+          "cost": -5598.08,
+          "platformFee": -2232,
+          "profit": 10965.92,
+          "margin": 60.04,
+          "settledNet": 18264,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
+          "pct": 0.46
         },
         {
           "msku": "BEL-SFZ-E-BTZ-FBA",
@@ -4232,7 +4293,7 @@
           "settledNet": 13581,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/615lgkx2zsL._SL75_.jpg",
-          "pct": 0.6
+          "pct": 0.46
         },
         {
           "msku": "CS-BT-B-JP",
@@ -4247,59 +4308,14 @@
           "settledNet": 11454,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51sntQGnbXL._SL75_.jpg",
-          "pct": 0.51
+          "pct": 0.38
         },
         {
-          "msku": "LDL-XYCQZ-HJDBE",
-          "name": "轩辕充气帐篷黑胶顶布【黑色】",
+          "msku": "LDL-XYCQZ-TPU-V",
+          "name": "春山轩辕充气隧道帐篷TPU门【军绿色】",
           "qty": 1,
           "orders": 1,
           "net": 13500,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg",
-          "pct": 0.49
-        },
-        {
-          "msku": "LDL-PL4PQZ-LJJ-V-green",
-          "name": "昆仑+昆仑连接件【军绿色】",
-          "qty": 2,
-          "orders": 2,
-          "net": 13260,
-          "cost": -1756.94,
-          "platformFee": -683,
-          "profit": 3521.06,
-          "margin": 64.92,
-          "settledNet": 5424,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61ubbKwtH-L._SL75_.jpg",
-          "pct": 0.48
-        },
-        {
-          "msku": "CS-HYSL-ZGT",
-          "name": "增高专用腿*4支",
-          "qty": 5,
-          "orders": 4,
-          "net": 12600,
-          "cost": -2135.25,
-          "platformFee": -768,
-          "profit": 1628.75,
-          "margin": 39.49,
-          "settledNet": 4124,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg",
-          "pct": 0.46
-        },
-        {
-          "msku": "BEL-GBY-E-FBA",
-          "name": "扶桑碳纤维高背月亮椅【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 12500,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -4307,7 +4323,52 @@
           "settledNet": null,
           "settled": false,
           "img": "",
-          "pct": 0.45
+          "pct": 0.37
+        },
+        {
+          "msku": "LDL-XYCQZ-HJDBE",
+          "name": "轩辕充气帐篷黑胶顶布【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 13500,
+          "cost": -4073.23,
+          "platformFee": -1390,
+          "profit": 6674.77,
+          "margin": 60.43,
+          "settledNet": 11046,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg",
+          "pct": 0.37
+        },
+        {
+          "msku": "LDL-PL4PQZ-LJJ-V-green",
+          "name": "昆仑+昆仑连接件【军绿色】",
+          "qty": 2,
+          "orders": 2,
+          "net": 13260,
+          "cost": -3513.89,
+          "platformFee": -1366,
+          "profit": 7042.11,
+          "margin": 64.92,
+          "settledNet": 10848,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61ubbKwtH-L._SL75_.jpg",
+          "pct": 0.36
+        },
+        {
+          "msku": "CS-HYSL-ZGT",
+          "name": "增高专用腿*4支",
+          "qty": 5,
+          "orders": 4,
+          "net": 12600,
+          "cost": -5338.13,
+          "platformFee": -1920,
+          "profit": 4071.87,
+          "margin": 39.49,
+          "settledNet": 10310,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg",
+          "pct": 0.35
         },
         {
           "msku": "BEL-GBY-E",
@@ -4322,7 +4383,22 @@
           "settledNet": 10228,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71xovh9aUfL._SL75_.jpg",
-          "pct": 0.45
+          "pct": 0.34
+        },
+        {
+          "msku": "BEL-GBY-E-FBA",
+          "name": "扶桑碳纤维高背月亮椅【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 12500,
+          "cost": -6046.02,
+          "platformFee": -1250,
+          "profit": 3470.98,
+          "margin": 33.94,
+          "settledNet": 10228,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71xovh9aUfL._SL75_.jpg",
+          "pct": 0.34
         },
         {
           "msku": "LDL-PL4P-DD-black",
@@ -4330,14 +4406,14 @@
           "qty": 2,
           "orders": 2,
           "net": 11630,
-          "cost": -1986.71,
-          "platformFee": -599,
-          "profit": 2642.29,
+          "cost": -3973.43,
+          "platformFee": -1198,
+          "profit": 5284.57,
           "margin": 55.55,
-          "settledNet": 4757,
+          "settledNet": 9514,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41V81vKwGpL._SL75_.jpg",
-          "pct": 0.42
+          "pct": 0.32
         },
         {
           "msku": "LDL-XYCQZ-ZPDD",
@@ -4352,22 +4428,37 @@
           "settledNet": 9204,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61GngX9tHbL._SL75_.jpg",
-          "pct": 0.41
+          "pct": 0.31
         },
         {
-          "msku": "SL-TBZ-Y-FBA",
-          "name": "春山轻量化徒步桌",
-          "qty": 2,
-          "orders": 2,
-          "net": 11160,
-          "cost": -4198.56,
-          "platformFee": -1674,
-          "profit": 8224.44,
-          "margin": 60.04,
-          "settledNet": 13698,
+          "msku": "CS-MNFXL1.5",
+          "name": "迷你焚香炉1.5",
+          "qty": 3,
+          "orders": 3,
+          "net": 11097,
+          "cost": -2374.31,
+          "platformFee": -1692,
+          "profit": 4651.69,
+          "margin": 51.22,
+          "settledNet": 9081,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
-          "pct": 0.4
+          "img": "https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg",
+          "pct": 0.3
+        },
+        {
+          "msku": "BH-ZRKSL-SNEW",
+          "name": "祝融卡式炉【银色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 10390,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": -882.47,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71uMsOAK8NL._SL75_.jpg",
+          "pct": 0.29
         },
         {
           "msku": "TC-LLMN-Y",
@@ -4382,7 +4473,7 @@
           "settledNet": 8018,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/6191OsTDp-L._SL75_.jpg",
-          "pct": 0.36
+          "pct": 0.27
         },
         {
           "msku": "YS-DBT-Y",
@@ -4397,7 +4488,7 @@
           "settledNet": 7772,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51kw3iTu4-L._SL75_.jpg",
-          "pct": 0.34
+          "pct": 0.26
         },
         {
           "msku": "CS-HYSLPJ-JP",
@@ -4412,7 +4503,22 @@
           "settledNet": 7758,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61FEkZng-cL._SL75_.jpg",
-          "pct": 0.34
+          "pct": 0.26
+        },
+        {
+          "msku": "BEL-XKZ-E",
+          "name": "星空桌【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 8800,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": -343.99,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51sXS29SY0L._SL75_.jpg",
+          "pct": 0.24
         },
         {
           "msku": "CS-CHL",
@@ -4420,29 +4526,14 @@
           "qty": 2,
           "orders": 2,
           "net": 7998,
-          "cost": -810.58,
-          "platformFee": -610,
-          "profit": 1754.42,
+          "cost": -1621.17,
+          "platformFee": -1220,
+          "profit": 3508.83,
           "margin": 53.64,
-          "settledNet": 3271,
+          "settledNet": 6542,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg",
-          "pct": 0.29
-        },
-        {
-          "msku": "CS-MNFXL1.5",
-          "name": "迷你焚香炉1.5",
-          "qty": 2,
-          "orders": 2,
-          "net": 7398,
-          "cost": -1582.87,
-          "platformFee": -1128,
-          "profit": 3101.13,
-          "margin": 51.22,
-          "settledNet": 6054,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg",
-          "pct": 0.27
+          "pct": 0.22
         },
         {
           "msku": "CS-BT-Y-JP",
@@ -4457,7 +4548,7 @@
           "settledNet": 11454,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/517B49J8eML._SL75_.jpg",
-          "pct": 0.25
+          "pct": 0.19
         },
         {
           "msku": "CS-BTT-2L",
@@ -4472,7 +4563,22 @@
           "settledNet": 5072,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg",
-          "pct": 0.22
+          "pct": 0.17
+        },
+        {
+          "msku": "SL-YH-Y-FBAA",
+          "name": "春山便携战术油壶【银色】",
+          "qty": 2,
+          "orders": 2,
+          "net": 5960,
+          "cost": -799.56,
+          "platformFee": -454,
+          "profit": 635.47,
+          "margin": 26.07,
+          "settledNet": 2438,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61-AUMHmgAL._SL75_.jpg",
+          "pct": 0.16
         },
         {
           "msku": "CS-0.5MB",
@@ -4480,14 +4586,14 @@
           "qty": 2,
           "orders": 2,
           "net": 5540,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 0.2
+          "cost": -1624.65,
+          "platformFee": -844,
+          "profit": 2511.35,
+          "margin": 55.41,
+          "settledNet": 4532,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61e47ely9LL._SL75_.jpg",
+          "pct": 0.15
         },
         {
           "msku": "CS-SKL-JP",
@@ -4502,7 +4608,7 @@
           "settledNet": 3026,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41VgcWwnFdL._SL75_.jpg",
-          "pct": 0.13
+          "pct": 0.1
         },
         {
           "msku": "CS-HYZ-PJ-CMB",
@@ -4517,7 +4623,7 @@
           "settledNet": 2781,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41K+SOuwoDL._SL75_.jpg",
-          "pct": 0.12
+          "pct": 0.09
         },
         {
           "msku": "LDL-CQZ-MWS",
@@ -4532,7 +4638,7 @@
           "settledNet": 2446,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/515Kr8uERgL._SL75_.jpg",
-          "pct": 0.11
+          "pct": 0.08
         },
         {
           "msku": "LDL-QZTZ-WS",
@@ -4547,7 +4653,7 @@
           "settledNet": 2168,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51faAGM28WL._SL75_.jpg",
-          "pct": 0.1
+          "pct": 0.07
         },
         {
           "msku": "BEL-SFZ-DJ",
@@ -4562,7 +4668,7 @@
           "settledNet": 1635,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41iGcljRdaL._SL75_.jpg",
-          "pct": 0.07
+          "pct": 0.05
         },
         {
           "msku": "BH-QNQ-ZWJ",
@@ -4577,21 +4683,21 @@
           "settledNet": 980,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71VMKQfnnyL._SL75_.jpg",
-          "pct": 0.04
+          "pct": 0.03
         }
       ],
       "settled": {
-        "qty": 145,
-        "net": 1890227,
-        "salesAmt": 2100261,
-        "tax": 210034,
-        "gp": 912355.09,
-        "margin": 48.27,
-        "skuCount": 66,
-        "refQty": 2
+        "qty": 192,
+        "net": 2505060,
+        "salesAmt": 2783416,
+        "tax": 278356,
+        "gp": 1304449.83,
+        "margin": 52.07,
+        "skuCount": 70,
+        "refQty": 3
       },
       "caliber": "order",
-      "orders": 166
+      "orders": 213
     },
     "amazonUS": {
       "skuCount": 0,
@@ -5079,13 +5185,13 @@
       },
       "韩国-Coupang": {
         "currency": "KRW",
-        "qty": 27,
+        "qty": 36,
         "refundVol": 0,
-        "salesAmount": 3271240,
+        "salesAmount": 4552130,
         "promoDisc": 0,
-        "net": 3271240,
-        "productCost": -970390.3,
-        "commission": -441617.4,
+        "net": 4552130,
+        "productCost": -1450213.98,
+        "commission": -614537.55,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -5095,19 +5201,15 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -441617.4,
-        "profit": 1859232.3,
-        "margin": "56.84%",
+        "platformFeeTotal": -614537.55,
+        "profit": 2487378.47,
+        "margin": "54.64%",
         "feeEstimated": true,
         "feeNote": "佣金按13.5%估算(판매수수료)；下单口径含未付款、订单数缺失；KRW为含税标价未剥VAT；待Coupang OPEN API/结算单校准",
-        "costCoveragePct": 85.19,
+        "costCoveragePct": 86.11,
         "unknownKeys": [
           {
-            "key": "96092498484",
-            "qty": 1
-          },
-          {
-            "key": "95841485579",
+            "key": "96109721963",
             "qty": 1
           },
           {
@@ -5115,7 +5217,15 @@
             "qty": 1
           },
           {
+            "key": "95841485579",
+            "qty": 1
+          },
+          {
             "key": "96052997205",
+            "qty": 1
+          },
+          {
+            "key": "96092498484",
             "qty": 1
           }
         ],
@@ -5124,46 +5234,61 @@
             "msku": "LDL-CQ4P-E",
             "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
             "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260227/5f567245ae164cf891bda438ab0907cb.jpg",
-            "qty": 2,
+            "qty": 3,
             "orders": null,
-            "net": 804000,
-            "settledNet": 804000,
-            "cost": -312121.55,
-            "platformFee": -108540,
-            "profit": 383338.45,
+            "net": 1206000,
+            "settledNet": 1206000,
+            "cost": -468182.32,
+            "platformFee": -162810,
+            "profit": 575007.68,
             "margin": 47.68,
             "settled": true,
-            "pct": 24.58
+            "pct": 26.49
           },
           {
             "msku": "LDL-CQ4PTZ-E",
             "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
             "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260305/13674698c20f44ceb688119b184e33d5.jpg",
-            "qty": 2,
+            "qty": 3,
             "orders": null,
-            "net": 392000,
-            "settledNet": 392000,
-            "cost": -168648.84,
-            "platformFee": -52920,
-            "profit": 170431.16,
+            "net": 588000,
+            "settledNet": 588000,
+            "cost": -252973.26,
+            "platformFee": -79380,
+            "profit": 255646.74,
             "margin": 43.48,
             "settled": true,
-            "pct": 11.98
+            "pct": 12.92
           },
           {
             "msku": "SL-ZML0.5-Y",
             "name": "春山0.5单元IGT桌面炉",
             "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20251212/c1bbd867646246dca4de39c0a92f94ae.jpg",
-            "qty": 4,
+            "qty": 5,
             "orders": null,
-            "net": 347200,
-            "settledNet": 347200,
-            "cost": -145868.69,
-            "platformFee": -46872,
-            "profit": 154459.31,
+            "net": 434000,
+            "settledNet": 434000,
+            "cost": -182335.86,
+            "platformFee": -58590,
+            "profit": 193074.14,
             "margin": 44.49,
             "settled": true,
-            "pct": 10.61
+            "pct": 9.53
+          },
+          {
+            "msku": "LDL-CQ4P-V",
+            "name": "蓬莱4P庇护所充气帐篷主帐【军绿色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260227/00f97aca3a6546b888fedb8779bc1560.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 402000,
+            "settledNet": 402000,
+            "cost": -155971.44,
+            "platformFee": -54270,
+            "profit": 191758.56,
+            "margin": 47.7,
+            "settled": true,
+            "pct": 8.83
           },
           {
             "msku": "LDL-CQ4PTZ-V",
@@ -5178,7 +5303,22 @@
             "profit": 86237.35,
             "margin": 44,
             "settled": true,
-            "pct": 5.99
+            "pct": 4.31
+          },
+          {
+            "msku": "TC-CHLX-Y",
+            "name": "MINI-柴火炉银色",
+            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20241213/f80d0ac942ac48bb8213cb388edaa49a.jpg",
+            "qty": 6,
+            "orders": null,
+            "net": 142200,
+            "settledNet": 142200,
+            "cost": -41463.35,
+            "platformFee": -19197,
+            "profit": 81539.65,
+            "margin": 57.34,
+            "settled": true,
+            "pct": 3.12
           },
           {
             "msku": "CS-2DPL-E",
@@ -5193,22 +5333,7 @@
             "profit": 78028.48,
             "margin": 44.92,
             "settled": true,
-            "pct": 5.31
-          },
-          {
-            "msku": "TC-CHLX-Y",
-            "name": "MINI-柴火炉银色",
-            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20241213/f80d0ac942ac48bb8213cb388edaa49a.jpg",
-            "qty": 5,
-            "orders": null,
-            "net": 118500,
-            "settledNet": 118500,
-            "cost": -34552.79,
-            "platformFee": -15997.5,
-            "profit": 67949.71,
-            "margin": 57.34,
-            "settled": true,
-            "pct": 3.62
+            "pct": 3.82
           },
           {
             "msku": "LDL-XYCQZ-HJDBV",
@@ -5223,7 +5348,7 @@
             "profit": 57077.86,
             "margin": 53.24,
             "settled": true,
-            "pct": 3.28
+            "pct": 2.35
           },
           {
             "msku": "M183",
@@ -5238,7 +5363,7 @@
             "profit": 55304.63,
             "margin": 37.46,
             "settled": true,
-            "pct": 4.51
+            "pct": 3.24
           },
           {
             "msku": "TC-CHLX-E",
@@ -5253,7 +5378,52 @@
             "profit": 50263.88,
             "margin": 53.02,
             "settled": true,
-            "pct": 2.9
+            "pct": 2.08
+          },
+          {
+            "msku": "LDL-XYCQZ-ZPDD",
+            "name": "轩辕充气隧道帐篷澡盆地垫",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260710/0ad053d5b38b4706ac6aa2d055b98316.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 44000,
+            "settledNet": 44000,
+            "cost": -15942.89,
+            "platformFee": -5940,
+            "profit": 22117.11,
+            "margin": 50.27,
+            "settled": true,
+            "pct": 0.97
+          },
+          {
+            "msku": "SL-YH-Y",
+            "name": "春山便携战术油壶【银色】",
+            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20260407/2d084339cdf74d84b03eda67a3e21f0b.jpg",
+            "qty": 2,
+            "orders": null,
+            "net": 38700,
+            "settledNet": 38700,
+            "cost": -13867.7,
+            "platformFee": -5224.5,
+            "profit": 19607.8,
+            "margin": 50.67,
+            "settled": true,
+            "pct": 0.85
+          },
+          {
+            "msku": "LDL-PL4P-DD",
+            "name": "澡盆地垫【黑色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20251213/cd2e4f23a6444283832394427604d96c.jpg",
+            "qty": 1,
+            "orders": null,
+            "net": 40880,
+            "settledNet": 40880,
+            "cost": -17212.58,
+            "platformFee": -5518.8,
+            "profit": 18148.62,
+            "margin": 44.39,
+            "settled": true,
+            "pct": 0.9
           },
           {
             "msku": "CS-CHL",
@@ -5268,22 +5438,7 @@
             "profit": 10949.17,
             "margin": 52.95,
             "settled": true,
-            "pct": 0.63
-          },
-          {
-            "msku": "SL-YH-Y",
-            "name": "春山便携战术油壶【银色】",
-            "img": "https://image.distributetop.com/lingxing-erp/901502434842028032/20260407/2d084339cdf74d84b03eda67a3e21f0b.jpg",
-            "qty": 1,
-            "orders": null,
-            "net": 19350,
-            "settledNet": 19350,
-            "cost": -6933.85,
-            "platformFee": -2612.25,
-            "profit": 9803.9,
-            "margin": 50.67,
-            "settled": true,
-            "pct": 0.59
+            "pct": 0.45
           },
           {
             "msku": "96052997205",
@@ -5298,7 +5453,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 11.56
+            "pct": 8.31
           },
           {
             "msku": "96092498484",
@@ -5313,7 +5468,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 9.54
+            "pct": 6.85
           },
           {
             "msku": "CS-2PL-WZ-E",
@@ -5328,7 +5483,22 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 2.98
+            "pct": 2.14
+          },
+          {
+            "msku": "96109721963",
+            "name": "",
+            "img": "",
+            "qty": 1,
+            "orders": null,
+            "net": 66160,
+            "settledNet": 66160,
+            "cost": null,
+            "platformFee": -8931.6,
+            "profit": null,
+            "margin": null,
+            "settled": true,
+            "pct": 1.45
           },
           {
             "msku": "95841485579",
@@ -5343,10 +5513,10 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 1.9
+            "pct": 1.37
           }
         ],
-        "generatedAt": "2026-10-06 14:45:28"
+        "generatedAt": "2026-10-07 00:31:03"
       },
       "泰国shopee": {
         "currency": "THB",
@@ -5357,37 +5527,22 @@
         "cashOrders": 0,
         "cashUnits": 0,
         "cashStatus": "settled",
-        "cashRange": "2026-10-01 ~ 2026-10-05",
+        "cashRange": "2026-10-01 ~ 2026-10-06",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 14:45:32",
+        "cashGeneratedAt": "2026-10-07 00:31:07",
         "staticProductCost": null,
         "staticCoveragePct": null,
         "costSource": "report",
         "unknownMskus": [],
         "gpFromCash": 0,
         "gpDiff": null,
-        "qty": 50,
-        "orderCount": 46,
-        "salesAmount": 211790,
-        "net": 211790,
+        "qty": 48,
+        "orderCount": 44,
+        "salesAmount": 198190,
+        "net": 198190,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "skuDetail": [
-          {
-            "msku": "BH-ZRKSL-Y",
-            "name": "祝融卡式炉【银色】",
-            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260625/8af18596a4a54267bff2a3761996c0c7.jpg",
-            "qty": 4,
-            "orders": 4,
-            "net": 27200,
-            "settledNet": null,
-            "cost": -2890.82,
-            "platformFee": null,
-            "profit": null,
-            "margin": null,
-            "settled": false,
-            "pct": 12.84
-          },
           {
             "msku": "SL-YLY-WS",
             "name": "春山摇光月亮椅【网纱款】",
@@ -5401,7 +5556,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 11.9
+            "pct": 12.72
           },
           {
             "msku": "BEL-CFZ-E",
@@ -5416,7 +5571,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 10.42
+            "pct": 11.14
           },
           {
             "msku": "BEL-TXW-TMGE",
@@ -5431,7 +5586,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 10.05
+            "pct": 10.74
           },
           {
             "msku": "SL-ZML0.5-Y",
@@ -5446,7 +5601,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 6.89
+            "pct": 7.36
           },
           {
             "msku": "CS-HYZ-TZ-A",
@@ -5461,7 +5616,22 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 6.8
+            "pct": 7.27
+          },
+          {
+            "msku": "BH-ZRKSL-Y",
+            "name": "祝融卡式炉【银色】",
+            "img": "https://image.distributetop.com/erp-vue/901502434842028032/20260625/8af18596a4a54267bff2a3761996c0c7.jpg",
+            "qty": 2,
+            "orders": 2,
+            "net": 13600,
+            "settledNet": null,
+            "cost": -1445.41,
+            "platformFee": null,
+            "profit": null,
+            "margin": null,
+            "settled": false,
+            "pct": 6.86
           },
           {
             "msku": "CS-PL-1R-WZ-K",
@@ -5476,7 +5646,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 5.19
+            "pct": 5.55
           },
           {
             "msku": "CS-BT-HS-G",
@@ -5491,7 +5661,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 3.45
+            "pct": 3.68
           },
           {
             "msku": "BEL-FSYLY-E",
@@ -5506,7 +5676,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 3.02
+            "pct": 3.23
           },
           {
             "msku": "BEL-FSYLY-Z",
@@ -5521,7 +5691,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 3.02
+            "pct": 3.23
           },
           {
             "msku": "SL-BTJ-E",
@@ -5536,7 +5706,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.83
+            "pct": 3.03
           },
           {
             "msku": "LDL-WSPL-1R-V",
@@ -5551,7 +5721,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.8
+            "pct": 3
           },
           {
             "msku": "LDL-WSPL-1R-E",
@@ -5566,7 +5736,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.8
+            "pct": 3
           },
           {
             "msku": "BEL-SFZ-E-ATZ",
@@ -5581,7 +5751,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.69
+            "pct": 2.88
           },
           {
             "msku": "SL-YLY-H",
@@ -5596,7 +5766,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.64
+            "pct": 2.83
           },
           {
             "msku": "CS-PL-1R-WZ-E",
@@ -5611,7 +5781,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.6
+            "pct": 2.78
           },
           {
             "msku": "BEL-HYSL-E",
@@ -5626,7 +5796,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2.49
+            "pct": 2.66
           },
           {
             "msku": "TC-MNBL-Y",
@@ -5641,7 +5811,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 2
+            "pct": 2.14
           },
           {
             "msku": "CS-BT-HS-H",
@@ -5656,7 +5826,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 1.72
+            "pct": 1.84
           },
           {
             "msku": "SL-XKP",
@@ -5671,7 +5841,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 1.7
+            "pct": 1.82
           },
           {
             "msku": "SL-YH-Y",
@@ -5686,7 +5856,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.94
+            "pct": 1
           },
           {
             "msku": "SL-DBTT-H",
@@ -5701,7 +5871,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.61
+            "pct": 0.66
           },
           {
             "msku": "SL-BTT-H",
@@ -5716,7 +5886,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.42
+            "pct": 0.45
           },
           {
             "msku": "BEL-SFZ-DJ",
@@ -5731,7 +5901,7 @@
             "profit": null,
             "margin": null,
             "settled": false,
-            "pct": 0.14
+            "pct": 0.15
           }
         ]
       },
@@ -5744,9 +5914,9 @@
         "cashOrders": 0,
         "cashUnits": 0,
         "cashStatus": "settled",
-        "cashRange": "2026-10-01 ~ 2026-10-05",
+        "cashRange": "2026-10-01 ~ 2026-10-06",
         "cashReconcileDiff": 0,
-        "cashGeneratedAt": "2026-10-06 14:45:32",
+        "cashGeneratedAt": "2026-10-07 00:31:07",
         "staticProductCost": null,
         "staticCoveragePct": null,
         "costSource": "report",
@@ -5758,7 +5928,7 @@
         "salesAmount": 0,
         "net": 0,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "skuDetail": []
       },
       "独立站-日本": {
@@ -5768,14 +5938,14 @@
         "salesAmount": 788731,
         "net": 788731,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
-        "productCost": -268219.69,
+        "generatedAt": "2026-10-07 00:31:07",
+        "productCost": -266630.01,
         "commission": -47323.86,
         "platformFeeTotal": -47323.86,
-        "profit": 473187.45,
-        "margin": "59.99%",
+        "profit": 474777.13,
+        "margin": "60.2%",
         "feeEstimated": true,
-        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.51%净额，余按日亚当月综合成本率30.26%估算",
+        "feeNote": "独立站-日本下单口径（Shopify账单行级明细×日亚统一成本库）；手续费按6%估算(支付/订阅费未含)；单品成本覆盖74.51%净额，余按日亚当月综合成本率29.47%估算",
         "costCoveragePct": 74.51,
         "skuDetail": [
           {
@@ -6235,7 +6405,7 @@
         "salesAmount": 197,
         "net": 197,
         "caliber": "order",
-        "generatedAt": "2026-10-06 16:21:00",
+        "generatedAt": "2026-10-07 00:31:07",
         "productCost": null,
         "commission": null,
         "platformFeeTotal": null,
@@ -6278,60 +6448,60 @@
     }
   },
   "yesterday": {
-    "date": "2026-10-04",
+    "date": "2026-10-05",
     "amazonJP": {
-      "skuCount": 20,
-      "qty": 34,
-      "refQty": 0,
-      "salesAmt": 456331,
+      "skuCount": 17,
+      "qty": 28,
+      "refQty": 1,
+      "salesAmt": 597483,
       "tax": 0,
-      "net": 456331,
-      "cost": -184551.98,
-      "commission": -69297,
-      "fbaDeliv": -3252,
+      "net": 597483,
+      "cost": -127598.37,
+      "commission": -38583,
+      "fbaDeliv": -6008,
       "storage": 0,
       "ads": 0,
       "other": 0,
-      "platExp": -72549,
-      "gp": 208936.02,
-      "margin": 50.14,
+      "platExp": -44591,
+      "gp": 135483.63,
+      "margin": 48.31,
       "skuDetail": [
         {
           "msku": "LDL-XYCQZ-E-FBA",
           "name": "轩辕充气隧道帐篷【黑色顶配】",
+          "qty": 2,
+          "orders": 2,
+          "net": 259998,
+          "cost": -35730.69,
+          "platformFee": -13385,
+          "profit": 67765.31,
+          "margin": 63.71,
+          "settledNet": 106363,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg",
+          "pct": 43.52
+        },
+        {
+          "msku": "LDL-CQ4P-E-FBA",
+          "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
           "qty": 1,
           "orders": 1,
-          "net": 129999,
+          "net": 59999,
           "cost": 0,
           "platformFee": 0,
           "profit": 0,
           "margin": 0,
           "settledNet": 0,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg",
-          "pct": 28.49
+          "img": "https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg",
+          "pct": 10.04
         },
         {
-          "msku": "QZ-P8BR-KGMU",
-          "name": "春山祝融取暖器",
-          "qty": 6,
-          "orders": 6,
-          "net": 65994,
-          "cost": -71702.76,
-          "platformFee": -31863,
-          "profit": 84325.24,
-          "margin": 49.32,
-          "settledNet": 170981,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg",
-          "pct": 14.46
-        },
-        {
-          "msku": "LDL-TZTM-E-FBA",
-          "name": "拓展天幕【黑色】",
+          "msku": "LDL-CQ4P-E-DP-FBA",
+          "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
           "qty": 2,
           "orders": 2,
-          "net": 34780,
+          "net": 51998,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -6339,74 +6509,29 @@
           "settledNet": null,
           "settled": false,
           "img": "",
-          "pct": 7.62
+          "pct": 8.7
         },
         {
-          "msku": "SP-PL4P-B-JP",
-          "name": "春山蓬莱4P庇护所2.0黑色",
-          "qty": 1,
-          "orders": 1,
-          "net": 29599,
+          "msku": "QZ-P8BR-KGMU",
+          "name": "春山祝融取暖器",
+          "qty": 4,
+          "orders": 4,
+          "net": 43996,
           "cost": 0,
           "platformFee": 0,
           "profit": 0,
           "margin": 0,
           "settledNet": 0,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
-          "pct": 6.49
-        },
-        {
-          "msku": "SP-PL4P-G-JP",
-          "name": "春山蓬莱4P庇护所2.0军绿色",
-          "qty": 1,
-          "orders": 1,
-          "net": 29599,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg",
-          "pct": 6.49
-        },
-        {
-          "msku": "CS-SGZDZ-FBA",
-          "name": "春山韶光IGT超轻折叠桌",
-          "qty": 2,
-          "orders": 2,
-          "net": 25998,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": 0,
-          "margin": 0,
-          "settledNet": 0,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51qPT2JhMAL._SL75_.jpg",
-          "pct": 5.7
-        },
-        {
-          "msku": "BEL-CFZ-E+IGTB",
-          "name": "金乌碳纤维长方桌【黑色】A套餐+一单元IGT板",
-          "qty": 2,
-          "orders": 2,
-          "net": 23600,
-          "cost": -5280.11,
-          "platformFee": -1799,
-          "profit": 3529.89,
-          "margin": 36.56,
-          "settledNet": 9654,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71G6djgr0FL._SL75_.jpg",
-          "pct": 5.17
+          "img": "https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg",
+          "pct": 7.36
         },
         {
           "msku": "NEW-ZRKSL-SNB",
           "name": "祝融卡式炉（收纳包套装）",
-          "qty": 2,
-          "orders": 2,
-          "net": 22780,
+          "qty": 3,
+          "orders": 3,
+          "net": 34170,
           "cost": -3802.61,
           "platformFee": -1173,
           "profit": 5265.39,
@@ -6414,44 +6539,29 @@
           "settledNet": 9320,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg",
-          "pct": 4.99
+          "pct": 5.72
         },
         {
-          "msku": "CS-HYSL-JP",
-          "name": "春山IGT幻影桌SOLO",
+          "msku": "SP-PL4P-G-JP",
+          "name": "春山蓬莱4P庇护所2.0军绿色",
           "qty": 1,
           "orders": 1,
-          "net": 11789,
-          "cost": -10142.46,
-          "platformFee": -3594,
-          "profit": 14019.54,
-          "margin": 72.68,
-          "settledNet": 19290,
+          "net": 29599,
+          "cost": -14343.34,
+          "platformFee": -3048,
+          "profit": 8439.66,
+          "margin": 34.85,
+          "settledNet": 24217,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg",
-          "pct": 2.58
+          "img": "https://m.media-amazon.com/images/I/51cOFVD8pqL._SL75_.jpg",
+          "pct": 4.95
         },
         {
-          "msku": "LDL-PL4P-DD-black",
-          "name": "澡盆地垫【黑色】",
-          "qty": 2,
-          "orders": 2,
-          "net": 11630,
-          "cost": -1986.71,
-          "platformFee": -599,
-          "profit": 2642.29,
-          "margin": 55.55,
-          "settledNet": 4757,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/41V81vKwGpL._SL75_.jpg",
-          "pct": 2.55
-        },
-        {
-          "msku": "LDL-XYCQZ-ZPDD",
-          "name": "轩辕充气隧道帐篷澡盆地垫",
-          "qty": 2,
+          "msku": "M183",
+          "name": "",
+          "qty": 1,
           "orders": 1,
-          "net": 11250,
+          "net": 23999,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -6459,22 +6569,67 @@
           "settledNet": null,
           "settled": false,
           "img": "",
-          "pct": 2.47
+          "pct": 4.02
         },
         {
-          "msku": "CS-FXL-Y-FM",
-          "name": "迷你焚香炉2.0",
+          "msku": "SP-0.5ZML",
+          "name": "春山0.5单元IGT桌面炉",
           "qty": 2,
           "orders": 2,
-          "net": 10798,
-          "cost": -4447.83,
-          "platformFee": -1646,
-          "profit": 3614.17,
-          "margin": 40.91,
-          "settledNet": 8834,
+          "net": 18998,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": 0,
+          "margin": 0,
+          "settledNet": 0,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61pEyu-JICL._SL75_.jpg",
-          "pct": 2.37
+          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
+          "pct": 3.18
+        },
+        {
+          "msku": "LDL-XYCQZ-HJDBE",
+          "name": "轩辕充气帐篷黑胶顶布【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 13500,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": 0,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg",
+          "pct": 2.26
+        },
+        {
+          "msku": "BEL-GBY-E-FBA",
+          "name": "扶桑碳纤维高背月亮椅【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 12500,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 2.09
+        },
+        {
+          "msku": "BEL-CFZ-E-ATZ",
+          "name": "金乌碳纤维长方桌【A套装】",
+          "qty": 1,
+          "orders": 1,
+          "net": 9900,
+          "cost": -4507.24,
+          "platformFee": -1509,
+          "profit": 2884.76,
+          "margin": 35.61,
+          "settledNet": 8100,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg",
+          "pct": 1.66
         },
         {
           "msku": "CS-MNGHBL-JP",
@@ -6482,66 +6637,36 @@
           "qty": 2,
           "orders": 2,
           "net": 9760,
-          "cost": -5907.92,
-          "platformFee": -2175,
-          "profit": 5078.08,
-          "margin": 42.4,
-          "settledNet": 11976,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": 0,
+          "margin": 0,
+          "settledNet": 0,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
-          "pct": 2.14
+          "pct": 1.63
         },
         {
-          "msku": "SP-0.5ZML",
-          "name": "春山0.5单元IGT桌面炉",
-          "qty": 1,
-          "orders": 1,
-          "net": 9499,
-          "cost": -8554.94,
-          "platformFee": -1956,
-          "profit": 6569.06,
-          "margin": 42.27,
-          "settledNet": 15542,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
-          "pct": 2.08
-        },
-        {
-          "msku": "BEL-FSYLY-E-FBA",
-          "name": "扶桑碳纤维月亮椅【黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 6599,
-          "cost": -7125.25,
-          "platformFee": -2012,
-          "profit": 2728.75,
-          "margin": 25.27,
-          "settledNet": 10798,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg",
-          "pct": 1.45
-        },
-        {
-          "msku": "BEL-FSYLY-Z-FBA",
-          "name": "扶桑碳纤维月亮椅【紫色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 6599,
-          "cost": -7125.25,
-          "platformFee": -2012,
-          "profit": 2728.75,
-          "margin": 25.27,
-          "settledNet": 10798,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
-          "pct": 1.45
-        },
-        {
-          "msku": "CS-0.5MB",
-          "name": "0.5单元相思木板*2",
+          "msku": "Q3-KTDP-51JY",
+          "name": "迷你柴火炉黑色",
           "qty": 2,
           "orders": 2,
-          "net": 5540,
+          "net": 7998,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": 0,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
+          "pct": 1.34
+        },
+        {
+          "msku": "LDL-PL4PQZ-LJJ-V-green",
+          "name": "昆仑+昆仑连接件【军绿色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 6630,
           "cost": null,
           "platformFee": null,
           "profit": null,
@@ -6549,7 +6674,37 @@
           "settledNet": null,
           "settled": false,
           "img": "",
-          "pct": 1.21
+          "pct": 1.11
+        },
+        {
+          "msku": "CS-FXL-Y-FM",
+          "name": "迷你焚香炉2.0",
+          "qty": 1,
+          "orders": 1,
+          "net": 5399,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 0.9
+        },
+        {
+          "msku": "CS-HYSL-ZGT",
+          "name": "增高专用腿*4支",
+          "qty": 2,
+          "orders": 1,
+          "net": 5040,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 0.84
         },
         {
           "msku": "CS-CHL",
@@ -6557,58 +6712,28 @@
           "qty": 1,
           "orders": 1,
           "net": 3999,
-          "cost": -810.58,
-          "platformFee": -610,
-          "profit": 1754.42,
-          "margin": 53.64,
-          "settledNet": 3271,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": 0,
+          "margin": 0,
+          "settledNet": 0,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg",
-          "pct": 0.88
-        },
-        {
-          "msku": "Q3-KTDP-51JY",
-          "name": "迷你柴火炉黑色",
-          "qty": 1,
-          "orders": 1,
-          "net": 3999,
-          "cost": -1861.38,
-          "platformFee": -1220,
-          "profit": 3268.62,
-          "margin": 49.96,
-          "settledNet": 6542,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
-          "pct": 0.88
-        },
-        {
-          "msku": "CS-HYSL-ZGT",
-          "name": "增高专用腿*4支",
-          "qty": 1,
-          "orders": 1,
-          "net": 2520,
-          "cost": -1067.63,
-          "platformFee": -384,
-          "profit": 814.37,
-          "margin": 39.49,
-          "settledNet": 2062,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/616UHBJDQVL._SL75_.jpg",
-          "pct": 0.55
+          "pct": 0.67
         }
       ],
       "settled": {
-        "qty": 50,
-        "net": 416705,
-        "salesAmt": 463013,
-        "tax": 46308,
-        "gp": 208936.02,
-        "margin": 50.14,
-        "skuCount": 51,
-        "refQty": 0
+        "qty": 17,
+        "net": 280430,
+        "salesAmt": 311590,
+        "tax": 31160,
+        "gp": 135483.63,
+        "margin": 48.31,
+        "skuCount": 41,
+        "refQty": 1
       },
       "caliber": "order",
-      "orders": 33
+      "orders": 27
     },
     "amazonUS": {
       "skuCount": 0,
@@ -6726,38 +6851,53 @@
     }
   },
   "lastWeek": {
-    "range": "2026-09-22 ~ 2026-09-28",
+    "range": "2026-09-23 ~ 2026-09-29",
     "amazonJP": {
-      "skuCount": 60,
-      "qty": 223,
-      "refQty": 15,
-      "salesAmt": 3929195,
+      "skuCount": 62,
+      "qty": 225,
+      "refQty": 10,
+      "salesAmt": 3978523,
       "tax": 0,
-      "net": 3929195,
-      "cost": -1350641.95,
-      "commission": -457578,
-      "fbaDeliv": -30750,
-      "storage": -16535.4,
-      "ads": -100316,
+      "net": 3978523,
+      "cost": -1338504.41,
+      "commission": -472559,
+      "fbaDeliv": -29873,
+      "storage": -19211.4,
+      "ads": -50162,
       "other": -4900,
-      "platExp": -610079.4,
-      "gp": 1361406.65,
-      "margin": 44.31,
+      "platExp": -576705.4,
+      "gp": 1586987.19,
+      "margin": 49.27,
       "skuDetail": [
         {
           "msku": "QZ-P8BR-KGMU",
           "name": "春山祝融取暖器",
-          "qty": 57,
-          "orders": 57,
-          "net": 626943,
-          "cost": -188733.25,
-          "platformFee": -83850,
-          "profit": 211091.08,
-          "margin": 46.91,
-          "settledNet": 449956,
+          "qty": 63,
+          "orders": 63,
+          "net": 692937,
+          "cost": -237803.9,
+          "platformFee": -105651,
+          "profit": 273997.62,
+          "margin": 48.33,
+          "settledNet": 566943,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61I+QV39VeL._SL75_.jpg",
-          "pct": 15.96
+          "pct": 17.42
+        },
+        {
+          "msku": "LDL-XYCQZ-V-FBA",
+          "name": "轩辕充气隧道帐篷【军绿色顶配】",
+          "qty": 5,
+          "orders": 5,
+          "net": 649995,
+          "cost": -178693.01,
+          "platformFee": -66925,
+          "profit": 337263.14,
+          "margin": 63.42,
+          "settledNet": 531815,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg",
+          "pct": 16.34
         },
         {
           "msku": "LDL-XYCQZ-E-FBA",
@@ -6767,117 +6907,87 @@
           "net": 528997,
           "cost": -142954.41,
           "platformFee": -54466,
-          "profit": 274357.72,
-          "margin": 63.39,
+          "profit": 274878.41,
+          "margin": 63.51,
           "settledNet": 432817,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71VniaXZWxL._SL75_.jpg",
-          "pct": 13.46
-        },
-        {
-          "msku": "LDL-XYCQZ-V-FBA",
-          "name": "轩辕充气隧道帐篷【军绿色顶配】",
-          "qty": 4,
-          "orders": 4,
-          "net": 519996,
-          "cost": -71477.21,
-          "platformFee": -26770,
-          "profit": 133470.3,
-          "margin": 62.74,
-          "settledNet": 212726,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg",
-          "pct": 13.23
+          "pct": 13.3
         },
         {
           "msku": "LDL-CQ4P-E-FBA",
           "name": "蓬莱4P庇护所充气帐篷主帐【黑色】",
           "qty": 7,
           "orders": 7,
-          "net": 391993,
-          "cost": -143725.13,
-          "platformFee": -45816,
-          "profit": 202064.46,
-          "margin": 55.5,
-          "settledNet": 364088,
+          "net": 398993,
+          "cost": -125759.49,
+          "platformFee": -40359,
+          "profit": 181536.26,
+          "margin": 56.6,
+          "settledNet": 320725,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61Ii0b-fjsL._SL75_.jpg",
-          "pct": 9.98
+          "pct": 10.03
         },
         {
           "msku": "BEL-CFZ-E+IGTB",
           "name": "金乌碳纤维长方桌【黑色】A套餐+一单元IGT板",
-          "qty": 19,
-          "orders": 18,
-          "net": 224200,
-          "cost": -158438.43,
-          "platformFee": -53970,
-          "profit": 105345.63,
-          "margin": 36.37,
-          "settledNet": 289622,
+          "qty": 13,
+          "orders": 12,
+          "net": 153400,
+          "cost": -79219.22,
+          "platformFee": -26985,
+          "profit": 52414.84,
+          "margin": 36.2,
+          "settledNet": 144812,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71G6djgr0FL._SL75_.jpg",
-          "pct": 5.71
-        },
-        {
-          "msku": "SP-PL4P-B-JP",
-          "name": "春山蓬莱4P庇护所2.0黑色",
-          "qty": 5,
-          "orders": 5,
-          "net": 147995,
-          "cost": -86079.08,
-          "platformFee": -18288,
-          "profit": 47526.74,
-          "margin": 32.71,
-          "settledNet": 145302,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
-          "pct": 3.77
+          "pct": 3.86
         },
         {
           "msku": "SL-LL2.0-QE-FBA",
           "name": "琉璃观火灯炉2.0【枪灰色+黑胡桃木】",
-          "qty": 7,
-          "orders": 7,
-          "net": 132993,
+          "qty": 8,
+          "orders": 8,
+          "net": 151992,
           "cost": -31736.44,
           "platformFee": -20279,
-          "profit": 67172.77,
-          "margin": 61.73,
+          "profit": 66548.78,
+          "margin": 61.16,
           "settledNet": 108815,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51nxhSw-h6L._SL75_.jpg",
-          "pct": 3.38
-        },
-        {
-          "msku": "SP-0.5ZML",
-          "name": "春山0.5单元IGT桌面炉",
-          "qty": 14,
-          "orders": 14,
-          "net": 132986,
-          "cost": -59897.85,
-          "platformFee": -13692,
-          "profit": 42784.54,
-          "margin": 39.33,
-          "settledNet": 108796,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
-          "pct": 3.38
+          "img": "https://m.media-amazon.com/images/I/51r0KN9l-9L._SL75_.jpg",
+          "pct": 3.82
         },
         {
           "msku": "NEW-ZRKSL-SNB",
           "name": "祝融卡式炉（收纳包套装）",
-          "qty": 10,
-          "orders": 10,
-          "net": 113900,
-          "cost": -34231.06,
-          "platformFee": -10679,
-          "profit": 43481.22,
-          "margin": 51.24,
-          "settledNet": 84860,
+          "qty": 13,
+          "orders": 13,
+          "net": 148070,
+          "cost": -22820.71,
+          "platformFee": -7038,
+          "profit": 29810.69,
+          "margin": 53.31,
+          "settledNet": 55920,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/6166AXGmE7L._SL75_.jpg",
-          "pct": 2.9
+          "pct": 3.72
+        },
+        {
+          "msku": "SP-0.5ZML",
+          "name": "春山0.5单元IGT桌面炉",
+          "qty": 13,
+          "orders": 13,
+          "net": 123487,
+          "cost": -55619.43,
+          "platformFee": -12714,
+          "profit": 40778.35,
+          "margin": 40.36,
+          "settledNet": 101025,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/6159XNHqMJL._SL75_.jpg",
+          "pct": 3.1
         },
         {
           "msku": "LDL-CQ4P-V-FBA",
@@ -6885,29 +6995,14 @@
           "qty": 2,
           "orders": 2,
           "net": 112998,
-          "cost": -17965.64,
-          "platformFee": -5457,
-          "profit": 22935.87,
-          "margin": 52.89,
-          "settledNet": 43363,
+          "cost": -35931.28,
+          "platformFee": -11634,
+          "profit": 52738.22,
+          "margin": 57.04,
+          "settledNet": 92454,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51s8whyC4dL._SL75_.jpg",
-          "pct": 2.88
-        },
-        {
-          "msku": "LDL-CQZ-ME-FBA",
-          "name": "春山伏羲充气球帐棉布款黑色",
-          "qty": 1,
-          "orders": 1,
-          "net": 109999,
-          "cost": -58300.7,
-          "platformFee": -11325,
-          "profit": 22195.81,
-          "margin": 24.66,
-          "settledNet": 89999,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/81Y+1AKAt3L._SL75_.jpg",
-          "pct": 2.8
+          "pct": 2.84
         },
         {
           "msku": "LDL-XYCQZ-E-NEW",
@@ -6917,12 +7012,27 @@
           "net": 105000,
           "cost": -35738.6,
           "platformFee": -10811,
-          "profit": 46414.71,
-          "margin": 54.03,
+          "profit": 46935.4,
+          "margin": 54.63,
           "settledNet": 85910,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/31066n+uewL._SL75_.jpg",
-          "pct": 2.67
+          "pct": 2.64
+        },
+        {
+          "msku": "CS-CQQZ-AG-FBA1",
+          "name": "伏羲充气球帐【军绿色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 89999,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": -2127.62,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/915C7+e6jiL._SL75_.jpg",
+          "pct": 2.26
         },
         {
           "msku": "LDL-CQ4P-E-DP-FBA",
@@ -6930,14 +7040,14 @@
           "qty": 3,
           "orders": 3,
           "net": 77997,
-          "cost": -35935.93,
-          "platformFee": -11120,
-          "profit": 49560.56,
-          "margin": 56.09,
-          "settledNet": 88358,
+          "cost": -26951.94,
+          "platformFee": -8031,
+          "profit": 34661.56,
+          "margin": 54.32,
+          "settledNet": 63813,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51x3dTfSHwL._SL75_.jpg",
-          "pct": 1.99
+          "pct": 1.96
         },
         {
           "msku": "CS-SGZDZ-FBA",
@@ -6947,27 +7057,27 @@
           "net": 64995,
           "cost": -28256.59,
           "platformFee": -7928,
-          "profit": -1875.94,
-          "margin": -4.41,
+          "profit": 2958.25,
+          "margin": 6.95,
           "settledNet": 42540,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51qPT2JhMAL._SL75_.jpg",
-          "pct": 1.65
+          "pct": 1.63
         },
         {
-          "msku": "BEL-FSYLY-E-FBA",
-          "name": "扶桑碳纤维月亮椅【黑色】",
-          "qty": 8,
-          "orders": 7,
-          "net": 52192,
-          "cost": -32070.72,
-          "platformFee": -8962,
-          "profit": 17289.45,
-          "margin": 35.15,
-          "settledNet": 49191,
+          "msku": "CS-MNGHBL-JP",
+          "name": "春山mini观火壁炉",
+          "qty": 10,
+          "orders": 10,
+          "net": 48800,
+          "cost": -13788.21,
+          "platformFee": -5075,
+          "profit": 9851.79,
+          "margin": 35.26,
+          "settledNet": 27944,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg",
-          "pct": 1.33
+          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
+          "pct": 1.23
         },
         {
           "msku": "CS-HYSL-JP",
@@ -6982,7 +7092,22 @@
           "settledNet": 37688,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61l+Xh2RHWL._SL75_.jpg",
-          "pct": 1.17
+          "pct": 1.16
+        },
+        {
+          "msku": "BEL-FSYLY-E-FBA",
+          "name": "扶桑碳纤维月亮椅【黑色】",
+          "qty": 7,
+          "orders": 6,
+          "net": 45593,
+          "cost": -28507.31,
+          "platformFee": -7956,
+          "profit": 15925.86,
+          "margin": 36.37,
+          "settledNet": 43792,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
+          "pct": 1.15
         },
         {
           "msku": "SA-M5Q6-B89T",
@@ -6990,14 +7115,14 @@
           "qty": 3,
           "orders": 3,
           "net": 39897,
-          "cost": -41744.17,
-          "platformFee": -8214,
-          "profit": 11057.65,
-          "margin": 16.94,
-          "settledNet": 65286,
+          "cost": -34786.81,
+          "platformFee": -6845,
+          "profit": 13251.21,
+          "margin": 24.36,
+          "settledNet": 54405,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51qlS3anVGL._SL75_.jpg",
-          "pct": 1.02
+          "pct": 1
         },
         {
           "msku": "LDL-TZTM-E-FBA",
@@ -7005,14 +7130,29 @@
           "qty": 2,
           "orders": 2,
           "net": 34780,
-          "cost": -5153.6,
-          "platformFee": -1790,
-          "profit": 8691.4,
+          "cost": -10307.2,
+          "platformFee": -3580,
+          "profit": 17382.8,
           "margin": 61.09,
-          "settledNet": 14228,
+          "settledNet": 28456,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41ipm5udqiL._SL75_.jpg",
-          "pct": 0.89
+          "pct": 0.87
+        },
+        {
+          "msku": "LDL-CQ4P-E-DP",
+          "name": "蓬莱4P庇护所充气帐篷拓展前厅【黑色】",
+          "qty": 1,
+          "orders": 1,
+          "net": 29999,
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
+          "pct": 0.75
         },
         {
           "msku": "LDL-4P-NU",
@@ -7027,22 +7167,22 @@
           "settledNet": 24299,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61+qG4KskvL._SL75_.jpg",
-          "pct": 0.76
+          "pct": 0.75
         },
         {
-          "msku": "CS-MNGHBL-JP",
-          "name": "春山mini观火壁炉",
-          "qty": 6,
-          "orders": 6,
-          "net": 29280,
-          "cost": -9848.72,
-          "platformFee": -3625,
-          "profit": 6467.28,
-          "margin": 32.4,
-          "settledNet": 19960,
+          "msku": "SP-PL4P-B-JP",
+          "name": "春山蓬莱4P庇护所2.0黑色",
+          "qty": 1,
+          "orders": 1,
+          "net": 29599,
+          "cost": -86079.08,
+          "platformFee": -18288,
+          "profit": 48501.98,
+          "margin": 33.38,
+          "settledNet": 145302,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
-          "pct": 0.75
+          "img": "https://m.media-amazon.com/images/I/51+iv6XhllL._SL75_.jpg",
+          "pct": 0.74
         },
         {
           "msku": "LDL-XYCQZ-HJDBE",
@@ -7052,26 +7192,11 @@
           "net": 27000,
           "cost": -8148.26,
           "platformFee": -2780,
-          "profit": 12510.57,
-          "margin": 56.63,
+          "profit": 13031.26,
+          "margin": 58.99,
           "settledNet": 22092,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51QQHjD-PJL._SL75_.jpg",
-          "pct": 0.69
-        },
-        {
-          "msku": "CS-HYSL-ZWJ-FBA",
-          "name": "春山幻影SOLO桌+SOLO置物架灯架",
-          "qty": 2,
-          "orders": 2,
-          "net": 26798,
-          "cost": -12336.14,
-          "platformFee": -4086,
-          "profit": 5591.71,
-          "margin": 25.5,
-          "settledNet": 21926,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/710qxW+VvYL._SL75_.jpg",
           "pct": 0.68
         },
         {
@@ -7080,29 +7205,29 @@
           "qty": 1,
           "orders": 1,
           "net": 25999,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": -208.88,
-          "margin": 0,
-          "settledNet": 0,
+          "cost": -8983.98,
+          "platformFee": -2677,
+          "profit": 11505.14,
+          "margin": 54.09,
+          "settledNet": 21271,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51OWF5IMzxL._SL75_.jpg",
-          "pct": 0.66
+          "pct": 0.65
         },
         {
-          "msku": "BEL-CFZ-E-ATZ",
-          "name": "金乌碳纤维长方桌【A套装】",
-          "qty": 2,
-          "orders": 2,
-          "net": 19800,
-          "cost": -9016.48,
-          "platformFee": -3018,
-          "profit": 5767.52,
-          "margin": 35.6,
-          "settledNet": 16200,
+          "msku": "CS-BT-G",
+          "name": "灰色寒霜冰桶",
+          "qty": 3,
+          "orders": 3,
+          "net": 20997,
+          "cost": -5179.14,
+          "platformFee": -2134,
+          "profit": 3269.05,
+          "margin": 28.54,
+          "settledNet": 11454,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg",
-          "pct": 0.5
+          "img": "https://m.media-amazon.com/images/I/61+V0MDcBqL._SL75_.jpg",
+          "pct": 0.53
         },
         {
           "msku": "LDL-XYCQZTM-E",
@@ -7132,22 +7257,22 @@
           "settledNet": 14399,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51X+4N8pqKL._SL75_.jpg",
-          "pct": 0.45
+          "pct": 0.44
         },
         {
-          "msku": "Q3-KTDP-51JY",
-          "name": "迷你柴火炉黑色",
-          "qty": 4,
-          "orders": 4,
-          "net": 13996,
-          "cost": -3723.59,
-          "platformFee": -2132,
-          "profit": 3985.31,
-          "margin": 34.8,
-          "settledNet": 11452,
+          "msku": "SL-YH-Y-FBAA",
+          "name": "春山便携战术油壶【银色】",
+          "qty": 5,
+          "orders": 5,
+          "net": 14900,
+          "cost": -4798.42,
+          "platformFee": -2724,
+          "profit": 4759.47,
+          "margin": 32.54,
+          "settledNet": 14628,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
-          "pct": 0.36
+          "img": "https://m.media-amazon.com/images/I/61-AUMHmgAL._SL75_.jpg",
+          "pct": 0.37
         },
         {
           "msku": "LDL-XYCQZ-HJDBV",
@@ -7155,29 +7280,29 @@
           "qty": 1,
           "orders": 1,
           "net": 13500,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": -520.69,
-          "margin": 0,
-          "settledNet": 0,
+          "cost": -4074.13,
+          "platformFee": -1390,
+          "profit": 6673.87,
+          "margin": 60.42,
+          "settledNet": 11046,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51RRuNwqV9L._SL75_.jpg",
           "pct": 0.34
         },
         {
-          "msku": "BEL-GBY-E",
-          "name": "扶桑碳纤维高背月亮椅【黑色】",
+          "msku": "CS-HYSL-ZWJ-FBA",
+          "name": "春山幻影SOLO桌+SOLO置物架灯架",
           "qty": 1,
           "orders": 1,
-          "net": 12500,
-          "cost": -12094.71,
-          "platformFee": -3812,
-          "profit": 6571.29,
-          "margin": 32.12,
-          "settledNet": 20456,
+          "net": 13399,
+          "cost": -12336.14,
+          "platformFee": -4086,
+          "profit": 5591.71,
+          "margin": 25.5,
+          "settledNet": 21926,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71xovh9aUfL._SL75_.jpg",
-          "pct": 0.32
+          "img": "https://m.media-amazon.com/images/I/710qxW+VvYL._SL75_.jpg",
+          "pct": 0.34
         },
         {
           "msku": "BEL-GBY-Z-FBA",
@@ -7192,22 +7317,7 @@
           "settledNet": 10228,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/716WE5i32jL._SL75_.jpg",
-          "pct": 0.32
-        },
-        {
-          "msku": "SL-YH-Y-FBAA",
-          "name": "春山便携战术油壶【银色】",
-          "qty": 4,
-          "orders": 4,
-          "net": 11920,
-          "cost": -3998.68,
-          "platformFee": -2270,
-          "profit": 2468.16,
-          "margin": 20.25,
-          "settledNet": 12190,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61-AUMHmgAL._SL75_.jpg",
-          "pct": 0.3
+          "pct": 0.31
         },
         {
           "msku": "BEL-XKZ-E-DP",
@@ -7217,8 +7327,8 @@
           "net": 11800,
           "cost": -4691.63,
           "platformFee": -1799,
-          "profit": 3500.35,
-          "margin": 36.26,
+          "profit": 4118.37,
+          "margin": 42.66,
           "settledNet": 9654,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/517NLRvdWZL._SL75_.jpg",
@@ -7252,7 +7362,7 @@
           "settledNet": 9206,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61GngX9tHbL._SL75_.jpg",
-          "pct": 0.29
+          "pct": 0.28
         },
         {
           "msku": "SL-TBZ-Y-FBA",
@@ -7260,43 +7370,13 @@
           "qty": 2,
           "orders": 2,
           "net": 11160,
-          "cost": -1399.83,
-          "platformFee": -558,
-          "profit": 2741.17,
+          "cost": -2799.66,
+          "platformFee": -1116,
+          "profit": 5482.34,
           "margin": 60.03,
-          "settledNet": 4566,
+          "settledNet": 9132,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
-          "pct": 0.28
-        },
-        {
-          "msku": "SL-TBZ-Y",
-          "name": "春山轻量化徒步桌",
-          "qty": 2,
-          "orders": 2,
-          "net": 11160,
-          "cost": -5599.32,
-          "platformFee": -3111,
-          "profit": 11357.68,
-          "margin": 62.19,
-          "settledNet": 18264,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
-          "pct": 0.28
-        },
-        {
-          "msku": "CS-MNFXL1.5",
-          "name": "迷你焚香炉1.5",
-          "qty": 3,
-          "orders": 3,
-          "net": 11097,
-          "cost": -2374.84,
-          "platformFee": -1692,
-          "profit": -2611.26,
-          "margin": -28.76,
-          "settledNet": 9081,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg",
           "pct": 0.28
         },
         {
@@ -7305,14 +7385,14 @@
           "qty": 1,
           "orders": 1,
           "net": 10535,
-          "cost": null,
-          "platformFee": null,
-          "profit": null,
-          "margin": null,
-          "settledNet": null,
-          "settled": false,
-          "img": "",
-          "pct": 0.27
+          "cost": -3110.73,
+          "platformFee": -1085,
+          "profit": 5276.27,
+          "margin": 61.22,
+          "settledNet": 8619,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/812cpP8Lv7L._SL75_.jpg",
+          "pct": 0.26
         },
         {
           "msku": "CS-CHL",
@@ -7320,14 +7400,29 @@
           "qty": 3,
           "orders": 3,
           "net": 10497,
-          "cost": -3243.05,
-          "platformFee": -2132,
-          "profit": 2923.61,
-          "margin": 25.53,
-          "settledNet": 11452,
+          "cost": -2432.29,
+          "platformFee": -1599,
+          "profit": 2219.85,
+          "margin": 25.85,
+          "settledNet": 8589,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/615MyU8H8TL._SL75_.jpg",
-          "pct": 0.27
+          "pct": 0.26
+        },
+        {
+          "msku": "Q3-KTDP-51JY",
+          "name": "迷你柴火炉黑色",
+          "qty": 3,
+          "orders": 3,
+          "net": 10497,
+          "cost": -3723.59,
+          "platformFee": -2132,
+          "profit": 3985.31,
+          "margin": 34.8,
+          "settledNet": 11452,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51+g8PDBF+L._SL75_.jpg",
+          "pct": 0.26
         },
         {
           "msku": "BH-ZRKSL-SNEW",
@@ -7335,14 +7430,29 @@
           "qty": 1,
           "orders": 1,
           "net": 10390,
-          "cost": 0,
-          "platformFee": 0,
-          "profit": -1577,
-          "margin": 0,
-          "settledNet": 0,
+          "cost": -3282.52,
+          "platformFee": -1070,
+          "profit": 3411.48,
+          "margin": 40.14,
+          "settledNet": 8500,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71uMsOAK8NL._SL75_.jpg",
           "pct": 0.26
+        },
+        {
+          "msku": "BEL-CFZ-E-ATZ",
+          "name": "金乌碳纤维长方桌【A套装】",
+          "qty": 1,
+          "orders": 1,
+          "net": 9900,
+          "cost": -4508.24,
+          "platformFee": -1509,
+          "profit": 2883.76,
+          "margin": 35.6,
+          "settledNet": 8100,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/71FPBluOoNL._SL75_.jpg",
+          "pct": 0.25
         },
         {
           "msku": "TC-LLMN-Y",
@@ -7360,21 +7470,6 @@
           "pct": 0.25
         },
         {
-          "msku": "BEL-CFZ-E",
-          "name": "金乌碳纤维长方桌��黑色】",
-          "qty": 1,
-          "orders": 1,
-          "net": 9500,
-          "cost": -4201.81,
-          "platformFee": -1448,
-          "profit": 2807.96,
-          "margin": 36.13,
-          "settledNet": 7772,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61KN4BkZytL._SL75_.jpg",
-          "pct": 0.24
-        },
-        {
           "msku": "BEL-XKZ-E",
           "name": "星空桌【黑色】",
           "qty": 1,
@@ -7382,8 +7477,8 @@
           "net": 8800,
           "cost": -3287.16,
           "platformFee": -880,
-          "profit": 1230.82,
-          "margin": 17.09,
+          "profit": 1848.84,
+          "margin": 25.68,
           "settledNet": 7200,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/51sXS29SY0L._SL75_.jpg",
@@ -7405,19 +7500,19 @@
           "pct": 0.19
         },
         {
-          "msku": "CS-BT-G",
-          "name": "灰色寒霜冰桶",
+          "msku": "BEL-AZ-E",
+          "name": "",
           "qty": 1,
           "orders": 1,
-          "net": 6999,
+          "net": 6800,
           "cost": 0,
-          "platformFee": 0,
-          "profit": -1907.18,
-          "margin": 0,
-          "settledNet": 0,
+          "platformFee": -1037,
+          "profit": 5077,
+          "margin": 91.25,
+          "settledNet": 5564,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61+V0MDcBqL._SL75_.jpg",
-          "pct": 0.18
+          "img": "https://m.media-amazon.com/images/I/81Eh8nWSdnL._SL75_.jpg",
+          "pct": 0.17
         },
         {
           "msku": "SL-XWHT-Y-JP-FBA",
@@ -7450,21 +7545,6 @@
           "pct": 0.17
         },
         {
-          "msku": "SL-YLY-H-FBA",
-          "name": "春山摇光月亮椅",
-          "qty": 1,
-          "orders": 1,
-          "net": 6599,
-          "cost": -2646.44,
-          "platformFee": -1006,
-          "profit": 1647.63,
-          "margin": 30.52,
-          "settledNet": 5399,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/61SPwT17+JL._SL75_.jpg",
-          "pct": 0.17
-        },
-        {
           "msku": "BEL-FSYLY-Z1",
           "name": "扶桑碳纤维月亮椅【紫色】",
           "qty": 1,
@@ -7477,6 +7557,21 @@
           "settledNet": 5399,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
+          "pct": 0.17
+        },
+        {
+          "msku": "SL-YLY-H-FBA",
+          "name": "春山摇光月亮椅",
+          "qty": 1,
+          "orders": 1,
+          "net": 6599,
+          "cost": -2646.44,
+          "platformFee": -1006,
+          "profit": 1647.63,
+          "margin": 30.52,
+          "settledNet": 5399,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61SPwT17+JL._SL75_.jpg",
           "pct": 0.17
         },
         {
@@ -7495,6 +7590,36 @@
           "pct": 0.17
         },
         {
+          "msku": "SL-TBZ-Y",
+          "name": "春山轻量化徒步桌",
+          "qty": 1,
+          "orders": 1,
+          "net": 5580,
+          "cost": -1399.83,
+          "platformFee": -558,
+          "profit": 3059.17,
+          "margin": 67,
+          "settledNet": 4566,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/617QzAPH46L._SL75_.jpg",
+          "pct": 0.14
+        },
+        {
+          "msku": "CS-MNGHBL-JP-FBA",
+          "name": "春山mini观火壁炉",
+          "qty": 1,
+          "orders": 1,
+          "net": 5389,
+          "cost": 1969.74,
+          "platformFee": 0,
+          "profit": 656.52,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/61swEuWL59L._SL75_.jpg",
+          "pct": 0.14
+        },
+        {
           "msku": "BM-0ICY-DOP8",
           "name": "昆仑主帐TPU门",
           "qty": 1,
@@ -7507,7 +7632,7 @@
           "settledNet": 3730,
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/41Ij-zt9BrL._SL75_.jpg",
-          "pct": 0.12
+          "pct": 0.11
         },
         {
           "msku": "CS-HYZYS-FBM",
@@ -7523,6 +7648,21 @@
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/61SrEwJyauL._SL75_.jpg",
           "pct": 0.11
+        },
+        {
+          "msku": "CS-MNFXL1.5",
+          "name": "迷你焚香炉1.5",
+          "qty": 1,
+          "orders": 1,
+          "net": 3699,
+          "cost": -791.61,
+          "platformFee": -564,
+          "profit": -2229.35,
+          "margin": -73.65,
+          "settledNet": 3027,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/51rzLlDPWlL._SL75_.jpg",
+          "pct": 0.09
         },
         {
           "msku": "CS-HYZ-PJ-CMB",
@@ -7626,7 +7766,7 @@
           "margin": 62.9,
           "settledNet": 1634,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/41VG-2g0+ML._SL75_.jpg",
+          "img": "https://m.media-amazon.com/images/I/11vEpLIX68L._SL75_.jpg",
           "pct": 0.05
         },
         {
@@ -7643,20 +7783,35 @@
           "settled": true,
           "img": "https://m.media-amazon.com/images/I/71VMKQfnnyL._SL75_.jpg",
           "pct": 0.05
+        },
+        {
+          "msku": "CS-BTT-2L",
+          "name": "新款战术冰桶套-1.9L",
+          "qty": 1,
+          "orders": 1,
+          "net": 1550,
+          "cost": 0,
+          "platformFee": 0,
+          "profit": -232.61,
+          "margin": 0,
+          "settledNet": 0,
+          "settled": true,
+          "img": "https://m.media-amazon.com/images/I/517p7pT7-oL._SL75_.jpg",
+          "pct": 0.04
         }
       ],
       "settled": {
-        "qty": 229,
-        "net": 3072480,
-        "salesAmt": 3413217,
-        "tax": 340737,
-        "gp": 1361406.65,
-        "margin": 44.31,
-        "skuCount": 88,
-        "refQty": 15
+        "qty": 221,
+        "net": 3221095,
+        "salesAmt": 3578342,
+        "tax": 357247,
+        "gp": 1586987.19,
+        "margin": 49.27,
+        "skuCount": 87,
+        "refQty": 10
       },
       "caliber": "order",
-      "orders": 220
+      "orders": 222
     },
     "amazonUS": {
       "skuCount": 0,
@@ -7826,15 +7981,15 @@
       "salesAmt": 12530113,
       "tax": 0,
       "net": 12530113,
-      "cost": -4778506.64,
-      "commission": -1498162,
+      "cost": -4759480.1,
+      "commission": -1494084,
       "fbaDeliv": -159692,
       "storage": -90409,
       "ads": -218513,
       "other": -4900,
-      "platExp": -1971676,
-      "gp": 4132448.36,
-      "margin": 41.1,
+      "platExp": -1967598,
+      "gp": 4119948.9,
+      "margin": 41.11,
       "skuDetail": [
         {
           "msku": "QZ-P8BR-KGMU",
@@ -7998,7 +8153,7 @@
           "margin": 61.64,
           "settledNet": 264265,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/51nxhSw-h6L._SL75_.jpg",
+          "img": "https://m.media-amazon.com/images/I/51r0KN9l-9L._SL75_.jpg",
           "pct": 2.73
         },
         {
@@ -8148,7 +8303,7 @@
           "margin": 21.58,
           "settledNet": 135575,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/71TBDuraNoL._SL75_.jpg",
+          "img": "https://m.media-amazon.com/images/I/71m7Mi6UlPL._SL75_.jpg",
           "pct": 1.26
         },
         {
@@ -8547,13 +8702,13 @@
           "qty": 2,
           "orders": 2,
           "net": 39600,
-          "cost": -19026.54,
-          "platformFee": -4078,
-          "profit": 12499.46,
-          "margin": 38.58,
-          "settledNet": 32400,
-          "settled": true,
-          "img": "https://m.media-amazon.com/images/I/41JWLR648dL._SL75_.jpg",
+          "cost": null,
+          "platformFee": null,
+          "profit": null,
+          "margin": null,
+          "settledNet": null,
+          "settled": false,
+          "img": "",
           "pct": 0.32
         },
         {
@@ -9423,7 +9578,7 @@
           "margin": 62.9,
           "settledNet": 3268,
           "settled": true,
-          "img": "https://m.media-amazon.com/images/I/41VG-2g0+ML._SL75_.jpg",
+          "img": "https://m.media-amazon.com/images/I/11vEpLIX68L._SL75_.jpg",
           "pct": 0.03
         },
         {
@@ -9503,13 +9658,13 @@
         }
       ],
       "settled": {
-        "qty": 878,
-        "net": 10054160,
-        "salesAmt": 11170591,
-        "tax": 1116431,
-        "gp": 4132448.36,
-        "margin": 41.1,
-        "skuCount": 126,
+        "qty": 876,
+        "net": 10021760,
+        "salesAmt": 11134591,
+        "tax": 1112831,
+        "gp": 4119948.9,
+        "margin": 41.11,
+        "skuCount": 125,
         "refQty": 23
       },
       "caliber": "order",
