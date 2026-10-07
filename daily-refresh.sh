@@ -67,11 +67,28 @@ else
 fi
 
 # ---------- [2/3] 外盘拉数 ----------
-# 先同步 GitHub Actions 在海外跑好的乐天数据（乐天真直连被墙，由Actions每日08:10聚合提交）
-log "[2/3] git pull（同步Actions乐天数据）"
-git pull --ff-only origin main >>"$LOG_FILE" 2>&1 \
-  && log "  [OK] 仓库同步完成" \
-  || log "  [WARN] git pull失败（沿用本地数据继续，详见日志）"
+# 先同步 GitHub Actions 在海外跑好的乐天数据（乐天真直连被墙，Actions每日08:10启动、约08:34提交）
+# 2026-10-07 修复竞态：原cron 08:30 pull时Actions尚未提交，导致乐天永远慢一天；现等待其提交后再pull
+log "[2/3] git pull（同步Actions乐天数据，等待今日提交）"
+RAKUTEN_OK=0
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+  git fetch origin main >>"$LOG_FILE" 2>&1 || true
+  if git log origin/main --oneline --since="$(date +%Y-%m-%d) 00:00" 2>/dev/null | grep -q "乐天数据刷新"; then
+    RAKUTEN_OK=1
+    break
+  fi
+  log "  [wait] 今日乐天Actions提交未到，60s后重试($i/15)"
+  sleep 60
+done
+if [ "$RAKUTEN_OK" -eq 1 ]; then
+  git pull --ff-only origin main >>"$LOG_FILE" 2>&1 \
+    && log "  [OK] 仓库同步完成（含今日乐天数据）" \
+    || log "  [WARN] git pull失败（沿用本地数据继续，详见日志）"
+else
+  log "  [WARN] 等待15分钟未见今日乐天提交，按既有数据继续"
+  record_failure "乐天Actions提交超时（等待15分钟）" "今日'乐天数据刷新'commit未出现，乐天段沿用昨日"
+  git pull --ff-only origin main >>"$LOG_FILE" 2>&1 || true
+fi
 # 把仓库版（含Actions乐天数据）回灌为工作副本，再跑领星刷新（会保留乐天settlement）
 [ -f "$DEPLOY_DIR/operation_data.json" ] && cp "$DEPLOY_DIR/operation_data.json" "$DATA_FILE"
 
@@ -140,15 +157,15 @@ else
   record_failure "[2.8] pull-platform-orders" "$(echo "$outP" | tail -5 | tr '\n' ' ')"
 fi
 
-# ---------- [2.9] SKU健康总表（聚水潭实时库存+内外盘销量+断货判定，失败不阻断） ----------
-log "[2.9] SKU健康 build-sku-health + deploy-inventory --push"
-outH="$(node build-sku-health.js 2>&1 && node deploy-inventory.js --push 2>&1)"
+# ---------- [2.9] 库存看板（主构建→SKU健康→部署，失败不阻断） ----------
+log "[2.9] 库存看板 build-inventory + build-sku-health + deploy-inventory --push"
+outH="$(node build-inventory.js 2>&1 && node build-sku-health.js 2>&1 && node deploy-inventory.js --push 2>&1)"
 if [ $? -eq 0 ]; then
-  log "  [OK] SKU健康总表刷新完成：$(echo "$outH" | grep -E '状态分布' | head -1)"
+  log "  [OK] 库存看板刷新完成：主体meta=$(echo "$outH" | grep -oE 'meta.generatedAt[^,]*' | head -1)；$(echo "$outH" | grep -E '状态分布' | head -1)"
 else
   log "$outH" | tail -20 | sed 's/^/  /' >> "$LOG_FILE"
-  log "  [ERR] SKU健康失败（沿用旧数据，不阻断部署）"
-  record_failure "[2.9] SKU健康 build/deploy" "$(echo "$outH" | tail -5 | tr '\n' ' ')"
+  log "  [ERR] 库存看板失败（沿用旧数据，不阻断部署）"
+  record_failure "[2.9] 库存看板 build/deploy" "$(echo "$outH" | tail -5 | tr '\n' ' ')"
 fi
 
 # ---------- [3/3] 外盘部署（仅当数据文件5分钟内被刷新） ----------

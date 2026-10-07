@@ -35,8 +35,8 @@ if [ $RC -eq 0 ] && [ $SKIP_GIT -eq 0 ]; then
         git add inventory-reports/ 2>/dev/null
         if ! git diff --cached --quiet 2>/dev/null; then
             if git commit -m "库存播报 $TODAY" >>"$CRONLOG" 2>&1; then
-                # 先 rebase 拉远端（避免每日8:30看板任务与本任务交叉时冲突），再推送
-                git pull --rebase origin main >>"$CRONLOG" 2>&1
+                # 先 rebase 拉远端（--autostash 容忍工作区脏文件，避免每日8:30看板任务与本任务交叉时冲突），再推送
+                git pull --rebase --autostash origin main >>"$CRONLOG" 2>&1
                 if git push origin main >>"$CRONLOG" 2>&1; then
                     echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT] 报告已推送 GitHub ($TODAY)"
                 else

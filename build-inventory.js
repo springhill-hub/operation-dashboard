@@ -18,11 +18,14 @@
 const crypto = require('crypto');
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 const { callApi: jstCall } = require('../jst_api.js');
 
 const APP_ID = 'ak_M7HmqeOuHZaKM';
 const APP_SECRET = 'iDyoq2lp49+ksuSqmpMQiQ==';
-const OUT_PATH = 'f:/ai agent/inventory_data.json';
+// 本地/云端通用路径（与build-sku-health.js同规则）
+const ROOT = process.env.CS_ROOT || (process.platform === 'win32' ? 'f:/ai agent' : '/opt/chunshan');
+const OUT_PATH = path.join(ROOT, 'inventory_data.json');
 
 let _token = null, _tokenAt = 0;
 const SELLERS = [
@@ -112,7 +115,11 @@ function lastMonthStr() {
     console.log('  build-inventory | today=' + today + ' month=' + thisMonth);
     console.log('====================================================');
 
+    // 继承现有文件的skuHealth块（主体由本脚本重建，SKU健康由build-sku-health.js维护，防止覆盖丢失）
+    let prevSkuHealth = null;
+    try { prevSkuHealth = JSON.parse(fs.readFileSync(OUT_PATH, 'utf8')).skuHealth || null; } catch (e) {}
     const D = { meta: { generatedAt: today, source: '领星ERP REST API' }, fba: {}, overseas: {} };
+    if (prevSkuHealth) D.skuHealth = prevSkuHealth;
 
     // ===== 1. FBA新版汇总（本月）=====
     console.log('\n[FBA汇总] 月份=' + thisMonth);
@@ -561,7 +568,7 @@ function lastMonthStr() {
         // 防双算守卫：聚水潭已能拉到天猫/淘宝有效单时（奇门恢复），自动跳过本兜底
         {
             const monthTag = monthStartDate.slice(0, 7);
-            const tmallPath = `f:/ai agent/tmall_sales_${monthTag}.json`;
+            const tmallPath = path.join(ROOT, `tmall_sales_${monthTag}.json`);
             if (jstTmallQty > 0) {
                 console.log(`    天猫(生意参谋): 跳过兜底文件——聚水潭已含天猫/淘宝订单${jstTmallQty}件，奇门已恢复，避免双算；如确认仍需兜底请删除该判断`);
             } else if (fs.existsSync(tmallPath)) {
