@@ -157,7 +157,8 @@ function renderGroup(title, icon, items, cfg) {
 
 function sendViaLark(chatId, text) {
     // 消息经临时文件传入，规避长文本与 shell 转义问题；lark-cli 支持 --text @file
-    const tmp = path.join(DATA_DIR, `.msg-${Date.now()}.txt`);
+    // 注意：lark-cli 只允许读 当前目录 / /tmp / ~/files 下的文件，故临时文件必须放 /tmp
+    const tmp = path.join('/tmp', `chunshan-inv-msg-${Date.now()}.txt`);
     fs.writeFileSync(tmp, text);
     try {
         const r = spawnSync('lark-cli', [
