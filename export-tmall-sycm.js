@@ -57,30 +57,16 @@ async function loginState(page) {
   return hit;
 }
 
-// 点击"下载/导出"按钮（文本匹配，容错多版本DOM）
+// 点击"下载"按钮（右上角深蓝色按钮；用Playwright文本定位+可见性过滤）
 async function clickDownload(page) {
-  const handles = await page.evaluateHandle(() => {
-    const nodes = [...document.querySelectorAll('button,a,span,div')];
-    return nodes.filter(el => {
-      const txt = (el.innerText || '').trim();
-      if (!txt || txt.length > 8) return false;
-      if (!/^(下载|导出|下载数据|导出数据)$/.test(txt)) return false;
-      const r = el.getBoundingClientRect();
-      return r.width > 0 && r.height > 0;
-    }).map(el => {
-      // 取最近的可点击祖先
-      let p = el;
-      for (let i = 0; i < 3 && p; i++) {
-        if (/button|a/i.test(p.tagName) || p.getAttribute('role') === 'button') break;
-        p = p.parentElement;
-      }
-      (p || el).setAttribute('data-sycm-dl', '1');
-      return true;
-    });
-  });
-  await handles.dispose();
-  const btn = page.locator('[data-sycm-dl="1"]').first();
-  await btn.waitFor({ state: 'visible', timeout: 15000 });
+  // 优先：role=button 且文本恰为"下载"
+  let btn = page.getByRole('button', { name: '下载', exact: true }).first();
+  if (!(await btn.count())) {
+    // 次选：任意可见元素文本以"下载"开头（容错图标/空格）
+    btn = page.locator('button, a, [role="button"]').filter({ hasText: /^下载/ }).last();
+  }
+  await btn.waitFor({ state: 'visible', timeout: 20000 });
+  await btn.scrollIntoViewIfNeeded();
   await btn.click({ timeout: 15000 });
   log('已点击下载按钮');
 }
@@ -171,20 +157,30 @@ function validOfficeFile(p) {
       while (Date.now() - t0 < 360000) {
         await sleep(3000);
         const s = await loginState(page);
-        if (!s && /sycm\.taobao\.com\/cc\/item_rank/.test(page.url())) break;
+        // 登录特征消失即放行（登录后可能停在生意参谋首页，不要求回item_rank）
+        if (!s && /sycm\.taobao\.com/.test(page.url())) break;
       }
       state = await loginState(page);
       if (state) throw new Error('等待登录超时（6分钟），下次运行会继续复用登录态');
       log('登录成功');
-      // 登录后可能回首页，重新打开目标月
-      if (!/\/cc\/item_rank/.test(page.url())) await page.goto(url, { waitUntil: 'domcontentloaded' });
-      await sleep(4000);
+      // 登录后可能回首页，强制打开目标月页面
+      await page.goto(url, { waitUntil: 'domcontentloaded' });
+      await sleep(5000);
     }
 
-    // 2) 等数据表格加载
+    // 2) 等数据表格加载；出现"数据加载错误"时刷新重试（最多3次）
     log('等待报表数据加载…');
-    await page.waitForSelector('table tbody tr, .ant-table-tbody tr, [class*="Rank"] tr, [class*="rank"] tr',
-      { timeout: 60000 }).catch(() => log('[警告] 未识别到表格行，仍尝试点下载'));
+    for (let i = 1; i <= 3; i++) {
+      await page.waitForSelector('table tbody tr, .ant-table-tbody tr, [class*="Rank"] tr, [class*="rank"] tr',
+        { timeout: 45000 }).catch(() => {});
+      const loadErr = await page.evaluate(() => /数据加载错误/.test(document.body?.innerText || '')).catch(() => false);
+      if (!loadErr) break;
+      log(`数据加载错误（第${i}次），刷新重试…`);
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await sleep(6000);
+    }
+    const stillErr = await page.evaluate(() => /数据加载错误/.test(document.body?.innerText || '')).catch(() => true);
+    if (stillErr) throw new Error('报表数据持续加载失败（可能被风控或网络问题），请稍后人工重试');
     await sleep(2000);
 
     // 3) 点下载 → 处理弹窗 → 等下载完成

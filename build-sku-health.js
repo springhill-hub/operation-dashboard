@@ -537,7 +537,7 @@ function judge(stock, pipeline, s7, s30, degraded) {
   for (const o of R.values()) {
     o.in7 = r1(o.in7); o.in30 = r1(o.in30); o.out7 = r1(o.out7); o.out30 = r1(o.out30);
     const stockIn = o.jstAvail;
-    const stockOut = o.fba + o.ov;
+    const stockOut = o.fba + o.ov + o.cross; // 跨境备货仓也算海外现货
     const pipeOut = o.fba + o.ov + o.cross + o.inTransit;
     const gStock = stockIn + stockOut;
     const gPipe = stockIn + pipeOut;
