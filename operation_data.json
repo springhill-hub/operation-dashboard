@@ -313,16 +313,16 @@
       },
       "日本-乐天": {
         "currency": "JPY",
-        "qty": 6,
-        "orderCount": 6,
+        "qty": 3,
+        "orderCount": 3,
         "cancelOrders": 0,
         "cancelPending": 0,
         "cancelAmount": 0,
-        "salesAmount": 34284,
-        "tax": 3359,
-        "net": 30925,
-        "productCost": -13064.57,
-        "commission": -3247.13,
+        "salesAmount": 17908,
+        "tax": 2228,
+        "net": 15680,
+        "productCost": -7992.02,
+        "commission": -1646.4,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -332,107 +332,47 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -3247.13,
-        "profit": 14613.3,
-        "margin": 47.25,
+        "platformFeeTotal": -1646.4,
+        "profit": 6041.58,
+        "margin": 38.53,
         "feeEstimated": true,
         "feeNote": "佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含",
         "costCoveragePct": 100,
         "unknownKeys": [],
-        "cashSettlement": 44377,
-        "cashOrders": 8,
+        "cashSettlement": 37530,
+        "cashOrders": 7,
         "cashStatus": "proxy-注文確定口径，非真精算",
-        "cashGeneratedAt": "2026-10-07 00:34:40",
+        "cashGeneratedAt": "2026-10-10 00:34:40",
         "skuDetail": [
           {
-            "msku": "LDL-XYCQZ-HJDBV",
-            "name": "Springhill インフレータブルテント アクセサリー特集 自立式 エアーテント 撥水 2ドア4窓 保温効果 耐水圧PU2000mm 展開面積最大16平方メートル コンパクト収納 多人数用 CS-XYCQZ-ACC",
+            "msku": "LDL-CQ4P-NZ",
+            "name": "Springhill エアーテントアクセサリー 拡張前室 バスタブバスタブ型テントシートシート インナーテント 拡張テント本体 フレームキャンピングテント 収納袋付き キャンプ用  前幕付き UVカット 防風 防水 CS-CQ4P-ACC Springhill",
             "img": "",
             "qty": 1,
             "orders": 1,
-            "net": 11357,
-            "settledNet": 11357,
-            "cost": -4130.24,
-            "platformFee": -1192.48,
-            "profit": 6034.28,
-            "margin": 53.13,
+            "net": 10540,
+            "settledNet": 10540,
+            "cost": -3613.78,
+            "platformFee": -1106.7,
+            "profit": 5819.52,
+            "margin": 55.21,
             "settled": true,
-            "pct": 36.72
+            "pct": 67.22
           },
           {
-            "msku": "SL-TBZ-Y",
-            "name": "【超軽量145g】Springhill トレッキングテーブル FEATHER HIKING TABLE ステンレス製 五徳対応 折りたたみ コンパクト収納 ミニテーブル＆鍋受け2WAY 超軽量 ソロキャンプ ハイキング 超簡単 収納袋付き CS-TBZ",
+            "msku": "SL-FXL3.0-Y",
+            "name": "【ミニ薪ストーブ3.0】卓上 薪ストーブ 多機能 レトロ オールステンレス お香焚き 湯沸かし 暖房 ランタン風 アウトドア キャンプ 室内 耐熱ガラス 灰受け 収納袋付き コンパクト CS-FXL3.0",
             "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 5346,
-            "settledNet": 5346,
-            "cost": -1399.83,
-            "platformFee": -561.33,
-            "profit": 3384.84,
-            "margin": 63.32,
+            "qty": 2,
+            "orders": 2,
+            "net": 5140,
+            "settledNet": 5140,
+            "cost": -4378.24,
+            "platformFee": -539.7,
+            "profit": 222.06,
+            "margin": 4.32,
             "settled": true,
-            "pct": 17.29
-          },
-          {
-            "msku": "SL-ZML0.5-Y",
-            "name": "【Springhill】0.5ユニットIGT 卓上炉 薪ストーブ 焚き火台 2WAY 暖房 調理 観火 耐熱ガラス 折りたたみ 収納袋付き アウトドア キャンプ CS-ZML",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 8248,
-            "settledNet": 8248,
-            "cost": -4224.9,
-            "platformFee": -866.04,
-            "profit": 3157.06,
-            "margin": 38.28,
-            "settled": true,
-            "pct": 26.67
-          },
-          {
-            "msku": "LDL-PL4P-DD",
-            "name": "送料無料 springhill 蓬〓4P アクセサリー 庇護所 2.0 キャンプ テント 4人用 CS-PL-4P-ACC",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 4828,
-            "settledNet": 4828,
-            "cost": -1994.16,
-            "platformFee": -506.94,
-            "profit": 2326.9,
-            "margin": 48.2,
-            "settled": true,
-            "pct": 15.61
-          },
-          {
-            "msku": "SL-BTT-H",
-            "name": "Springhill  クールボックス アイスペール アイスジャグ 2L 真空断熱 保冷 保温 ステンレス 断熱材 軽量 大容量 水筒 氷入れ 広口 キャンプ アウトドア オシャレ 防災 野外活動 デイキャンプ 車中泊 バーベキュー 釣り シンプル CS-BT-HS 送料無料",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 1391,
-            "settledNet": 1391,
-            "cost": -512.12,
-            "platformFee": -146.06,
-            "profit": 732.82,
-            "margin": 52.68,
-            "settled": true,
-            "pct": 4.5
-          },
-          {
-            "msku": "SL-YH-Y",
-            "name": "Springhill【アルミ製 燃料ボトル 500ml 超軽量 密閉構造】灯油・アルコール・ガソリン対応 キャンプ アウトドア 車載用 BBQ 防災 収納袋付 送料無料",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": -245,
-            "settledNet": -245,
-            "cost": -803.32,
-            "platformFee": 25.72,
-            "profit": -1022.6,
-            "margin": 417.39,
-            "settled": true,
-            "pct": -0.79
+            "pct": 32.78
           }
         ]
       },
@@ -2265,16 +2205,16 @@
       },
       "日本-乐天": {
         "currency": "JPY",
-        "qty": 61,
-        "orderCount": 53,
+        "qty": 54,
+        "orderCount": 47,
         "cancelOrders": 1,
         "cancelPending": 0,
-        "cancelAmount": 3480,
-        "salesAmount": 1044822,
-        "tax": 98687,
-        "net": 946135,
-        "productCost": -408999.74,
-        "commission": -99344.18,
+        "cancelAmount": 12660,
+        "salesAmount": 743421,
+        "tax": 70056,
+        "net": 673365,
+        "productCost": -294274.32,
+        "commission": -70703.33,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -2284,13 +2224,17 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -99344.18,
-        "profit": 437791.08,
-        "margin": 46.27,
+        "platformFeeTotal": -70703.33,
+        "profit": 308387.35,
+        "margin": 45.8,
         "feeEstimated": true,
         "feeNote": "佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含",
-        "costCoveragePct": 95.08,
+        "costCoveragePct": 94.44,
         "unknownKeys": [
+          {
+            "key": "BEL-XKZ-ZWJ-E",
+            "qty": 1
+          },
           {
             "key": "LDL-QZTZDD",
             "qty": 1
@@ -2298,16 +2242,12 @@
           {
             "key": "LDL-MQZ-MTXQ-J",
             "qty": 1
-          },
-          {
-            "key": "LDL-QZTZNZ",
-            "qty": 1
           }
         ],
-        "cashSettlement": 946135,
-        "cashOrders": 52,
+        "cashSettlement": 713233,
+        "cashOrders": 46,
         "cashStatus": "proxy-注文確定口径，非真精算",
-        "cashGeneratedAt": "2026-10-07 00:34:40",
+        "cashGeneratedAt": "2026-10-10 00:34:40",
         "skuDetail": [
           {
             "msku": "LDL-XYCQZ-V",
@@ -2322,22 +2262,7 @@
             "profit": 83186.93,
             "margin": 48.01,
             "settled": true,
-            "pct": 18.31
-          },
-          {
-            "msku": "LDL-CQ4P-E2.0",
-            "name": "Springhill 【150秒充気 4-6人用 7平方メートル 軽量9.7kg 14平方メートルまで拡張可能 360度通風】エアテント メインテント 拡張前室 TPU天窓 簡単設営 エアポンプ付属 収納袋付 ファミリーキャンプ 夏キャンプ 防災 CS-CQ4P",
-            "img": "",
-            "qty": 3,
-            "orders": 3,
-            "net": 144151,
-            "settledNet": 144151,
-            "cost": -54241.17,
-            "platformFee": -15135.86,
-            "profit": 74773.97,
-            "margin": 51.87,
-            "settled": true,
-            "pct": 15.24
+            "pct": 25.73
           },
           {
             "msku": "LDL-XYCQZ-E",
@@ -2352,67 +2277,52 @@
             "profit": 74499.69,
             "margin": 45.54,
             "settled": true,
-            "pct": 17.29
-          },
-          {
-            "msku": "LDL-MGCQZ-E",
-            "name": "Springhill【ファミリーキャンプ エアーテント 4-6人用 150秒充気 フルセット】インフレータブルテント ドーム型 煙突ポート スノースカート TPUメッシュドア エアポンプ付 設営・収納ラクラク 防災対策 収納袋付 送料無料 CS-CQZ",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 89264,
-            "settledNet": 89264,
-            "cost": -37939.26,
-            "platformFee": -9372.72,
-            "profit": 41952.02,
-            "margin": 47,
-            "settled": true,
-            "pct": 9.43
+            "pct": 24.3
           },
           {
             "msku": "LDL-XYCQZ-NZ",
             "name": "Springhill インフレータブルテント アクセサリー特集 自立式 エアーテント 撥水 2ドア4窓 保温効果 耐水圧PU2000mm 展開面積最大16平方メートル コンパクト収納 多人数用 CS-XYCQZ-ACC",
             "img": "",
-            "qty": 4,
-            "orders": 4,
-            "net": 55676.31,
-            "settledNet": 55676.31,
-            "cost": -22387.04,
-            "platformFee": -5846.01,
-            "profit": 27443.26,
-            "margin": 49.29,
+            "qty": 3,
+            "orders": 3,
+            "net": 40785.31,
+            "settledNet": 40785.31,
+            "cost": -16790.28,
+            "platformFee": -4282.46,
+            "profit": 19712.57,
+            "margin": 48.33,
             "settled": true,
-            "pct": 5.88
-          },
-          {
-            "msku": "LDL-CQ4P-NZ",
-            "name": "Springhill エアーテントアクセサリー 拡張前室 バスタブバスタブ型テントシートシート インナーテント 拡張テント本体 フレームキャンピングテント 収納袋付き キャンプ用  前幕付き UVカット 防風 防水 CS-CQ4P-ACC Springhill",
-            "img": "",
-            "qty": 4,
-            "orders": 4,
-            "net": 42665.51,
-            "settledNet": 42665.51,
-            "cost": -14455.12,
-            "platformFee": -4479.88,
-            "profit": 23730.51,
-            "margin": 55.62,
-            "settled": true,
-            "pct": 4.51
+            "pct": 6.06
           },
           {
             "msku": "SL-FXL3.0-Y",
             "name": "【ミニ薪ストーブ3.0】卓上 薪ストーブ 多機能 レトロ オールステンレス お香焚き 湯沸かし 暖房 ランタン風 アウトドア キャンプ 室内 耐熱ガラス 灰受け 収納袋付き コンパクト CS-FXL3.0",
             "img": "",
-            "qty": 8,
-            "orders": 8,
-            "net": 38880,
-            "settledNet": 38880,
-            "cost": -17512.96,
-            "platformFee": -4082.4,
-            "profit": 17284.64,
-            "margin": 44.46,
+            "qty": 9,
+            "orders": 9,
+            "net": 42595,
+            "settledNet": 42595,
+            "cost": -19702.08,
+            "platformFee": -4472.47,
+            "profit": 18420.45,
+            "margin": 43.25,
             "settled": true,
-            "pct": 4.11
+            "pct": 6.33
+          },
+          {
+            "msku": "LDL-CQ4P-NZ",
+            "name": "Springhill エアーテントアクセサリー 拡張前室 バスタブバスタブ型テントシートシート インナーテント 拡張テント本体 フレームキャンピングテント 収納袋付き キャンプ用  前幕付き UVカット 防風 防水 CS-CQ4P-ACC Springhill",
+            "img": "",
+            "qty": 3,
+            "orders": 3,
+            "net": 30823.51,
+            "settledNet": 30823.51,
+            "cost": -10841.34,
+            "platformFee": -3236.47,
+            "profit": 16745.7,
+            "margin": 54.33,
+            "settled": true,
+            "pct": 4.58
           },
           {
             "msku": "LDL-CQ4PTZ-E",
@@ -2427,7 +2337,22 @@
             "profit": 15859.69,
             "margin": 55.38,
             "settled": true,
-            "pct": 3.03
+            "pct": 4.25
+          },
+          {
+            "msku": "SL-ZML0.5-Y",
+            "name": "【Springhill】0.5ユニットIGT 卓上炉 薪ストーブ 焚き火台 2WAY 暖房 調理 観火 耐熱ガラス 折りたたみ 収納袋付き アウトドア キャンプ CS-ZML",
+            "img": "",
+            "qty": 4,
+            "orders": 4,
+            "net": 32992,
+            "settledNet": 32992,
+            "cost": -16899.59,
+            "platformFee": -3464.16,
+            "profit": 12628.25,
+            "margin": 38.28,
+            "settled": true,
+            "pct": 4.9
           },
           {
             "msku": "LDL-XYCQZ-TPU-V",
@@ -2442,52 +2367,22 @@
             "profit": 11827.17,
             "margin": 49.82,
             "settled": true,
-            "pct": 2.51
-          },
-          {
-            "msku": "SL-ZML0.5-Y",
-            "name": "【Springhill】0.5ユニットIGT 卓上炉 薪ストーブ 焚き火台 2WAY 暖房 調理 観火 耐熱ガラス 折りたたみ 収納袋付き アウトドア キャンプ CS-ZML",
-            "img": "",
-            "qty": 3,
-            "orders": 3,
-            "net": 24744,
-            "settledNet": 24744,
-            "cost": -12674.69,
-            "platformFee": -2598.12,
-            "profit": 9471.19,
-            "margin": 38.28,
-            "settled": true,
-            "pct": 2.62
-          },
-          {
-            "msku": "CS-2DPL-E",
-            "name": "Springhill シェルターテント 2人用 ツインテント 軽量 自立式 前後入り口 天窓付き 耐水圧2000mm アウトドア ツーリング ハイキング キャンプ 登山 収納袋付き 防災対策 フェーズフリー CS-PL-2R",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 19667,
-            "settledNet": 19667,
-            "cost": -8367.27,
-            "platformFee": -2065.04,
-            "profit": 9234.69,
-            "margin": 46.96,
-            "settled": true,
-            "pct": 2.08
+            "pct": 3.53
           },
           {
             "msku": "LDL-XYCQZ-HJDBV",
             "name": "Springhill インフレータブルテント アクセサリー特集 自立式 エアーテント 撥水 2ドア4窓 保温効果 耐水圧PU2000mm 展開面積最大16平方メートル コンパクト収納 多人数用 CS-XYCQZ-ACC",
             "img": "",
-            "qty": 2,
-            "orders": 2,
-            "net": 17667,
-            "settledNet": 17667,
-            "cost": -8260.48,
-            "platformFee": -1855.04,
-            "profit": 7551.48,
-            "margin": 42.74,
+            "qty": 4,
+            "orders": 4,
+            "net": 30287,
+            "settledNet": 30287,
+            "cost": -16520.96,
+            "platformFee": -3180.14,
+            "profit": 10585.9,
+            "margin": 34.95,
             "settled": true,
-            "pct": 1.87
+            "pct": 4.5
           },
           {
             "msku": "LDL-XYCQZ-ZPDD",
@@ -2502,7 +2397,7 @@
             "profit": 7318.95,
             "margin": 50.94,
             "settled": true,
-            "pct": 1.52
+            "pct": 2.13
           },
           {
             "msku": "SL-TBZ-Y",
@@ -2510,14 +2405,29 @@
             "img": "",
             "qty": 2,
             "orders": 2,
-            "net": 10136,
-            "settledNet": 10136,
+            "net": 10692,
+            "settledNet": 10692,
             "cost": -2799.66,
-            "platformFee": -1064.28,
-            "profit": 6272.06,
-            "margin": 61.88,
+            "platformFee": -1122.66,
+            "profit": 6769.68,
+            "margin": 63.32,
             "settled": true,
-            "pct": 1.07
+            "pct": 1.59
+          },
+          {
+            "msku": "SL-YH-Y",
+            "name": "Springhill【アルミ製 燃料ボトル 500ml 超軽量 密閉構造】灯油・アルコール・ガソリン対応 キャンプ アウトドア 車載用 BBQ 防災 収納袋付 送料無料",
+            "img": "",
+            "qty": 6,
+            "orders": 6,
+            "net": 12302,
+            "settledNet": 12302,
+            "cost": -4819.92,
+            "platformFee": -1291.71,
+            "profit": 6190.37,
+            "margin": 50.32,
+            "settled": true,
+            "pct": 1.83
           },
           {
             "msku": "LDL-XYCQZTM-V",
@@ -2532,37 +2442,7 @@
             "profit": 5850.3,
             "margin": 34.08,
             "settled": true,
-            "pct": 1.81
-          },
-          {
-            "msku": "LDL-ZSSF-E",
-            "name": "Springhill 【7.7kg軽量 耐荷重300kg ツインエア室 3分充気】 エアーソファー 600Dリップストップ 防水撥水 丸洗いOK キャンプ 車中泊 防災 収納袋付 送料無料 CS-AS600",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 13081,
-            "settledNet": 13081,
-            "cost": -7396.15,
-            "platformFee": -1373.51,
-            "profit": 4311.34,
-            "margin": 32.96,
-            "settled": true,
-            "pct": 1.38
-          },
-          {
-            "msku": "TC-LLMN-Y",
-            "name": "Springhill ミニ薪ストーブ 観賞用 キャンプ アウトドア 小型 軽量 320g 収納コンパクト 430ステンレス 焚き火 アロマ 香炉 マルチ 収納袋付き ソロキャンプ ギフト",
-            "img": "",
-            "qty": 1,
-            "orders": 1,
-            "net": 8066,
-            "settledNet": 8066,
-            "cost": -2936.3,
-            "platformFee": -846.93,
-            "profit": 4282.77,
-            "margin": 53.1,
-            "settled": true,
-            "pct": 0.85
+            "pct": 2.55
           },
           {
             "msku": "TC-HYSL-E-ATZ",
@@ -2577,22 +2457,22 @@
             "profit": 3344.81,
             "margin": 29.2,
             "settled": true,
-            "pct": 1.21
+            "pct": 1.7
           },
           {
-            "msku": "LDL-CQ4P-DD",
-            "name": "Springhill エアーテントアクセサリー 拡張前室 バスタブバスタブ型テントシートシート インナーテント 拡張テント本体 フレームキャンピングテント 収納袋付き キャンプ用  前幕付き UVカット 防風 防水 CS-CQ4P-ACC Springhill",
+            "msku": "BEL-XKZ-E",
+            "name": "Springhill キャンプテーブル  STARRY TABLE 軽量1.90kg アルミ製 高さ39-60cm調節 折りたたみ 収納薄型3cm 黒 モダンインダストリアル アウトドア サイド拡張 収納袋付き 耐荷重 ソロキャンプ ファミリーキャンプ CS-XKZ",
             "img": "",
-            "qty": 2,
-            "orders": 2,
-            "net": 8082.65,
-            "settledNet": 8082.65,
-            "cost": -4031.32,
-            "platformFee": -848.68,
-            "profit": 3202.65,
-            "margin": 39.62,
+            "qty": 1,
+            "orders": 1,
+            "net": 6939,
+            "settledNet": 6939,
+            "cost": -3287.16,
+            "platformFee": -728.6,
+            "profit": 2923.24,
+            "margin": 42.13,
             "settled": true,
-            "pct": 0.85
+            "pct": 1.03
           },
           {
             "msku": "BEL-CFZ-E",
@@ -2607,7 +2487,7 @@
             "profit": 2801.17,
             "margin": 34.3,
             "settled": true,
-            "pct": 0.86
+            "pct": 1.21
           },
           {
             "msku": "TC-CHLX-Y",
@@ -2622,7 +2502,7 @@
             "profit": 2438.38,
             "margin": 67.38,
             "settled": true,
-            "pct": 0.38
+            "pct": 0.54
           },
           {
             "msku": "LDL-PL4P-DD",
@@ -2637,37 +2517,22 @@
             "profit": 2326.9,
             "margin": 48.2,
             "settled": true,
-            "pct": 0.51
+            "pct": 0.72
           },
           {
-            "msku": "SL-YH-Y",
-            "name": "Springhill【アルミ製 燃料ボトル 500ml 超軽量 密閉構造】灯油・アルコール・ガソリン対応 キャンプ アウトドア 車載用 BBQ 防災 収納袋付 送料無料",
-            "img": "",
-            "qty": 5,
-            "orders": 5,
-            "net": 6875,
-            "settledNet": 6875,
-            "cost": -4016.6,
-            "platformFee": -721.88,
-            "profit": 2136.52,
-            "margin": 31.08,
-            "settled": true,
-            "pct": 0.73
-          },
-          {
-            "msku": "CS-HYZ-PJ-0.5MBX2",
-            "name": "Springhill IGTテーブル 収納一体型 折りたたみ キャンプテーブル 専用アクセサリー オプション CS-HYZ",
+            "msku": "LDL-CQ4P-DD",
+            "name": "Springhill エアーテントアクセサリー 拡張前室 バスタブバスタブ型テントシートシート インナーテント 拡張テント本体 フレームキャンピングテント 収納袋付き キャンプ用  前幕付き UVカット 防風 防水 CS-CQ4P-ACC Springhill",
             "img": "",
             "qty": 1,
             "orders": 1,
-            "net": 2356.36,
-            "settledNet": 2356.36,
-            "cost": -818.01,
-            "platformFee": -247.42,
-            "profit": 1290.93,
-            "margin": 54.78,
+            "net": 3264.65,
+            "settledNet": 3264.65,
+            "cost": -2015.66,
+            "platformFee": -342.79,
+            "profit": 906.2,
+            "margin": 27.76,
             "settled": true,
-            "pct": 0.25
+            "pct": 0.48
           },
           {
             "msku": "SL-BTT-H",
@@ -2682,7 +2547,7 @@
             "profit": 732.82,
             "margin": 52.68,
             "settled": true,
-            "pct": 0.15
+            "pct": 0.21
           },
           {
             "msku": "CS-BT-HS-H",
@@ -2697,37 +2562,37 @@
             "profit": 565.22,
             "margin": 16.29,
             "settled": true,
-            "pct": 0.37
+            "pct": 0.52
           },
           {
             "msku": "BEL-CFZ-IGTB",
             "name": "Springhill カーボンファイバー長方形テーブル 超軽量888g IGT対応 60cm延長デスク アウトドア キャンプ ソロキャンプ 軽量コンパクト 収納袋付き ランタンハンガー対応 CS-CFZ",
             "img": "",
-            "qty": 3,
-            "orders": 3,
-            "net": 2749.36,
-            "settledNet": 2749.36,
-            "cost": -15849.06,
-            "platformFee": -288.68,
-            "profit": -13388.38,
-            "margin": -486.96,
+            "qty": 1,
+            "orders": 1,
+            "net": 883.73,
+            "settledNet": 883.73,
+            "cost": -5283.02,
+            "platformFee": -92.79,
+            "profit": -4492.08,
+            "margin": -508.31,
             "settled": true,
-            "pct": 0.29
+            "pct": 0.13
           },
           {
-            "msku": "LDL-QZTZNZ",
-            "name": "Springhill 拡張タープ エアードームテント用 4-6人用 家族キャンプ ドーム型 エアーテント 屋外 簡単設営 アクセサリー KLCQ-ACC Springhill",
+            "msku": "BEL-XKZ-ZWJ-E",
+            "name": "Springhill キャンプテーブル  STARRY TABLE 軽量1.90kg アルミ製 高さ39-60cm調節 折りたたみ 収納薄型3cm 黒 モダンインダストリアル アウトドア サイド拡張 収納袋付き 耐荷重 ソロキャンプ ファミリーキャンプ CS-XKZ",
             "img": "",
             "qty": 1,
             "orders": 1,
-            "net": 3164,
-            "settledNet": 3164,
+            "net": 2891,
+            "settledNet": 2891,
             "cost": null,
-            "platformFee": -332.22,
+            "platformFee": -303.56,
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 0.33
+            "pct": 0.43
           },
           {
             "msku": "LDL-MQZ-MTXQ-J",
@@ -2742,7 +2607,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 0.3
+            "pct": 0.42
           },
           {
             "msku": "LDL-QZTZDD",
@@ -2757,7 +2622,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 0.25
+            "pct": 0.35
           }
         ]
       },
@@ -4829,16 +4694,16 @@
     "settlement": {
       "日本-乐天": {
         "currency": "JPY",
-        "qty": 57,
-        "orderCount": 48,
-        "cancelOrders": 0,
+        "qty": 72,
+        "orderCount": 64,
+        "cancelOrders": 1,
         "cancelPending": 0,
-        "cancelAmount": 0,
-        "salesAmount": 1010941,
-        "tax": 95124,
-        "net": 915817,
-        "productCost": -396088.44,
-        "commission": -96160.79,
+        "cancelAmount": 12660,
+        "salesAmount": 1094397,
+        "tax": 103310,
+        "net": 991087,
+        "productCost": -430230.15,
+        "commission": -104064.14,
         "delivery": 0,
         "otherPlatformFee": 0,
         "serviceFee": 0,
@@ -4848,13 +4713,17 @@
         "affiliate": 0,
         "otherPromo": 0,
         "incomeRefund": 0,
-        "platformFeeTotal": -96160.79,
-        "profit": 423567.77,
-        "margin": 46.25,
+        "platformFeeTotal": -104064.14,
+        "profit": 456792.71,
+        "margin": 46.09,
         "feeEstimated": true,
         "feeNote": "佣金按10.5%估算，待月度精算書CSV校准；ポイント原資/R-Card/固定费未含",
-        "costCoveragePct": 94.74,
+        "costCoveragePct": 94.44,
         "unknownKeys": [
+          {
+            "key": "BEL-XKZ-ZWJ-E",
+            "qty": 1
+          },
           {
             "key": "LDL-QZTZDD",
             "qty": 1
@@ -4868,10 +4737,10 @@
             "qty": 1
           }
         ],
-        "cashSettlement": 923178,
-        "cashOrders": 50,
+        "cashSettlement": 985741,
+        "cashOrders": 62,
         "cashStatus": "proxy-注文確定口径，非真精算",
-        "cashGeneratedAt": "2026-10-07 00:34:40",
+        "cashGeneratedAt": "2026-10-10 00:34:40",
         "skuDetail": [
           {
             "msku": "LDL-XYCQZ-V",
@@ -4886,7 +4755,7 @@
             "profit": 83186.93,
             "margin": 48.01,
             "settled": true,
-            "pct": 18.92
+            "pct": 17.48
           },
           {
             "msku": "LDL-CQ4P-E2.0",
@@ -4901,7 +4770,7 @@
             "profit": 74773.97,
             "margin": 51.87,
             "settled": true,
-            "pct": 15.74
+            "pct": 14.54
           },
           {
             "msku": "LDL-XYCQZ-E",
@@ -4916,7 +4785,7 @@
             "profit": 74499.69,
             "margin": 45.54,
             "settled": true,
-            "pct": 17.86
+            "pct": 16.51
           },
           {
             "msku": "LDL-MGCQZ-E",
@@ -4931,22 +4800,37 @@
             "profit": 41952.02,
             "margin": 47,
             "settled": true,
-            "pct": 9.75
+            "pct": 9.01
           },
           {
             "msku": "LDL-CQ4P-NZ",
             "name": "Springhill エアーテントアクセサリー 拡張前室 バスタブバスタブ型テントシートシート インナーテント 拡張テント本体 フレームキャンピングテント 収納袋付き キャンプ用  前幕付き UVカット 防風 防水 CS-CQ4P-ACC Springhill",
             "img": "",
-            "qty": 4,
-            "orders": 4,
-            "net": 42665.51,
-            "settledNet": 42665.51,
-            "cost": -14455.12,
-            "platformFee": -4479.88,
-            "profit": 23730.51,
-            "margin": 55.62,
+            "qty": 5,
+            "orders": 5,
+            "net": 53205.51,
+            "settledNet": 53205.51,
+            "cost": -18068.9,
+            "platformFee": -5586.58,
+            "profit": 29550.03,
+            "margin": 55.54,
             "settled": true,
-            "pct": 4.66
+            "pct": 5.37
+          },
+          {
+            "msku": "SL-FXL3.0-Y",
+            "name": "【ミニ薪ストーブ3.0】卓上 薪ストーブ 多機能 レトロ オールステンレス お香焚き 湯沸かし 暖房 ランタン風 アウトドア キャンプ 室内 耐熱ガラス 灰受け 収納袋付き コンパクト CS-FXL3.0",
+            "img": "",
+            "qty": 11,
+            "orders": 11,
+            "net": 52568,
+            "settledNet": 52568,
+            "cost": -24080.32,
+            "platformFee": -5519.64,
+            "profit": 22968.04,
+            "margin": 43.69,
+            "settled": true,
+            "pct": 5.3
           },
           {
             "msku": "LDL-XYCQZ-NZ",
@@ -4961,7 +4845,7 @@
             "profit": 19712.57,
             "margin": 48.33,
             "settled": true,
-            "pct": 4.45
+            "pct": 4.12
           },
           {
             "msku": "LDL-CQ4PTZ-E",
@@ -4976,22 +4860,22 @@
             "profit": 15859.69,
             "margin": 55.38,
             "settled": true,
-            "pct": 3.13
+            "pct": 2.89
           },
           {
-            "msku": "SL-FXL3.0-Y",
-            "name": "【ミニ薪ストーブ3.0】卓上 薪ストーブ 多機能 レトロ オールステンレス お香焚き 湯沸かし 暖房 ランタン風 アウトドア キャンプ 室内 耐熱ガラス 灰受け 収納袋付き コンパクト CS-FXL3.0",
+            "msku": "SL-ZML0.5-Y",
+            "name": "【Springhill】0.5ユニットIGT 卓上炉 薪ストーブ 焚き火台 2WAY 暖房 調理 観火 耐熱ガラス 折りたたみ 収納袋付き アウトドア キャンプ CS-ZML",
             "img": "",
-            "qty": 6,
-            "orders": 6,
-            "net": 31519,
-            "settledNet": 31519,
-            "cost": -13134.72,
-            "platformFee": -3309.5,
-            "profit": 15074.78,
-            "margin": 47.83,
+            "qty": 4,
+            "orders": 4,
+            "net": 32992,
+            "settledNet": 32992,
+            "cost": -16899.59,
+            "platformFee": -3464.16,
+            "profit": 12628.25,
+            "margin": 38.28,
             "settled": true,
-            "pct": 3.44
+            "pct": 3.33
           },
           {
             "msku": "LDL-XYCQZ-TPU-V",
@@ -5006,22 +4890,37 @@
             "profit": 11827.17,
             "margin": 49.82,
             "settled": true,
-            "pct": 2.59
+            "pct": 2.4
           },
           {
-            "msku": "SL-ZML0.5-Y",
-            "name": "【Springhill】0.5ユニットIGT 卓上炉 薪ストーブ 焚き火台 2WAY 暖房 調理 観火 耐熱ガラス 折りたたみ 収納袋付き アウトドア キャンプ CS-ZML",
+            "msku": "LDL-XYCQZ-HJDBV",
+            "name": "Springhill インフレータブルテント アクセサリー特集 自立式 エアーテント 撥水 2ドア4窓 保温効果 耐水圧PU2000mm 展開面積最大16平方メートル コンパクト収納 多人数用 CS-XYCQZ-ACC",
+            "img": "",
+            "qty": 4,
+            "orders": 4,
+            "net": 30287,
+            "settledNet": 30287,
+            "cost": -16520.96,
+            "platformFee": -3180.14,
+            "profit": 10585.9,
+            "margin": 34.95,
+            "settled": true,
+            "pct": 3.06
+          },
+          {
+            "msku": "SL-TBZ-Y",
+            "name": "【超軽量145g】Springhill トレッキングテーブル FEATHER HIKING TABLE ステンレス製 五徳対応 折りたたみ コンパクト収納 ミニテーブル＆鍋受け2WAY 超軽量 ソロキャンプ ハイキング 超簡単 収納袋付き CS-TBZ",
             "img": "",
             "qty": 3,
             "orders": 3,
-            "net": 24744,
-            "settledNet": 24744,
-            "cost": -12674.69,
-            "platformFee": -2598.12,
-            "profit": 9471.19,
-            "margin": 38.28,
+            "net": 15482,
+            "settledNet": 15482,
+            "cost": -4199.49,
+            "platformFee": -1625.61,
+            "profit": 9656.9,
+            "margin": 62.38,
             "settled": true,
-            "pct": 2.7
+            "pct": 1.56
           },
           {
             "msku": "CS-2DPL-E",
@@ -5036,22 +4935,7 @@
             "profit": 9234.69,
             "margin": 46.96,
             "settled": true,
-            "pct": 2.15
-          },
-          {
-            "msku": "LDL-XYCQZ-HJDBV",
-            "name": "Springhill インフレータブルテント アクセサリー特集 自立式 エアーテント 撥水 2ドア4窓 保温効果 耐水圧PU2000mm 展開面積最大16平方メートル コンパクト収納 多人数用 CS-XYCQZ-ACC",
-            "img": "",
-            "qty": 2,
-            "orders": 2,
-            "net": 17667,
-            "settledNet": 17667,
-            "cost": -8260.48,
-            "platformFee": -1855.04,
-            "profit": 7551.48,
-            "margin": 42.74,
-            "settled": true,
-            "pct": 1.93
+            "pct": 1.98
           },
           {
             "msku": "LDL-XYCQZ-ZPDD",
@@ -5066,22 +4950,22 @@
             "profit": 7318.95,
             "margin": 50.94,
             "settled": true,
-            "pct": 1.57
+            "pct": 1.45
           },
           {
-            "msku": "SL-TBZ-Y",
-            "name": "【超軽量145g】Springhill トレッキングテーブル FEATHER HIKING TABLE ステンレス製 五徳対応 折りたたみ コンパクト収納 ミニテーブル＆鍋受け2WAY 超軽量 ソロキャンプ ハイキング 超簡単 収納袋付き CS-TBZ",
+            "msku": "SL-YH-Y",
+            "name": "Springhill【アルミ製 燃料ボトル 500ml 超軽量 密閉構造】灯油・アルコール・ガソリン対応 キャンプ アウトドア 車載用 BBQ 防災 収納袋付 送料無料",
             "img": "",
-            "qty": 2,
-            "orders": 2,
-            "net": 10136,
-            "settledNet": 10136,
-            "cost": -2799.66,
-            "platformFee": -1064.28,
-            "profit": 6272.06,
-            "margin": 61.88,
+            "qty": 8,
+            "orders": 8,
+            "net": 14512,
+            "settledNet": 14512,
+            "cost": -6426.56,
+            "platformFee": -1523.76,
+            "profit": 6561.68,
+            "margin": 45.22,
             "settled": true,
-            "pct": 1.11
+            "pct": 1.46
           },
           {
             "msku": "LDL-XYCQZTM-V",
@@ -5096,7 +4980,7 @@
             "profit": 5850.3,
             "margin": 34.08,
             "settled": true,
-            "pct": 1.87
+            "pct": 1.73
           },
           {
             "msku": "LDL-ZSSF-E",
@@ -5111,7 +4995,7 @@
             "profit": 4311.34,
             "margin": 32.96,
             "settled": true,
-            "pct": 1.43
+            "pct": 1.32
           },
           {
             "msku": "TC-HYSL-E-ATZ",
@@ -5126,7 +5010,7 @@
             "profit": 3344.81,
             "margin": 29.2,
             "settled": true,
-            "pct": 1.25
+            "pct": 1.16
           },
           {
             "msku": "LDL-CQ4P-DD",
@@ -5141,7 +5025,22 @@
             "profit": 3202.65,
             "margin": 39.62,
             "settled": true,
-            "pct": 0.88
+            "pct": 0.82
+          },
+          {
+            "msku": "BEL-XKZ-E",
+            "name": "Springhill キャンプテーブル  STARRY TABLE 軽量1.90kg アルミ製 高さ39-60cm調節 折りたたみ 収納薄型3cm 黒 モダンインダストリアル アウトドア サイド拡張 収納袋付き 耐荷重 ソロキャンプ ファミリーキャンプ CS-XKZ",
+            "img": "",
+            "qty": 1,
+            "orders": 1,
+            "net": 6939,
+            "settledNet": 6939,
+            "cost": -3287.16,
+            "platformFee": -728.6,
+            "profit": 2923.24,
+            "margin": 42.13,
+            "settled": true,
+            "pct": 0.7
           },
           {
             "msku": "BEL-CFZ-E",
@@ -5156,7 +5055,7 @@
             "profit": 2801.17,
             "margin": 34.3,
             "settled": true,
-            "pct": 0.89
+            "pct": 0.82
           },
           {
             "msku": "TC-CHLX-Y",
@@ -5171,7 +5070,7 @@
             "profit": 2438.38,
             "margin": 67.38,
             "settled": true,
-            "pct": 0.4
+            "pct": 0.37
           },
           {
             "msku": "LDL-PL4P-DD",
@@ -5186,22 +5085,7 @@
             "profit": 2326.9,
             "margin": 48.2,
             "settled": true,
-            "pct": 0.53
-          },
-          {
-            "msku": "SL-YH-Y",
-            "name": "Springhill【アルミ製 燃料ボトル 500ml 超軽量 密閉構造】灯油・アルコール・ガソリン対応 キャンプ アウトドア 車載用 BBQ 防災 収納袋付 送料無料",
-            "img": "",
-            "qty": 5,
-            "orders": 5,
-            "net": 6875,
-            "settledNet": 6875,
-            "cost": -4016.6,
-            "platformFee": -721.88,
-            "profit": 2136.52,
-            "margin": 31.08,
-            "settled": true,
-            "pct": 0.75
+            "pct": 0.49
           },
           {
             "msku": "CS-HYZ-PJ-0.5MBX2",
@@ -5216,7 +5100,7 @@
             "profit": 1290.93,
             "margin": 54.78,
             "settled": true,
-            "pct": 0.26
+            "pct": 0.24
           },
           {
             "msku": "SL-BTT-H",
@@ -5231,7 +5115,7 @@
             "profit": 732.82,
             "margin": 52.68,
             "settled": true,
-            "pct": 0.15
+            "pct": 0.14
           },
           {
             "msku": "CS-BT-HS-H",
@@ -5246,7 +5130,7 @@
             "profit": 565.22,
             "margin": 16.29,
             "settled": true,
-            "pct": 0.38
+            "pct": 0.35
           },
           {
             "msku": "BEL-CFZ-IGTB",
@@ -5261,7 +5145,7 @@
             "profit": -13388.38,
             "margin": -486.96,
             "settled": true,
-            "pct": 0.3
+            "pct": 0.28
           },
           {
             "msku": "LDL-QZTZNZ",
@@ -5276,7 +5160,22 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 0.35
+            "pct": 0.32
+          },
+          {
+            "msku": "BEL-XKZ-ZWJ-E",
+            "name": "Springhill キャンプテーブル  STARRY TABLE 軽量1.90kg アルミ製 高さ39-60cm調節 折りたたみ 収納薄型3cm 黒 モダンインダストリアル アウトドア サイド拡張 収納袋付き 耐荷重 ソロキャンプ ファミリーキャンプ CS-XKZ",
+            "img": "",
+            "qty": 1,
+            "orders": 1,
+            "net": 2891,
+            "settledNet": 2891,
+            "cost": null,
+            "platformFee": -303.56,
+            "profit": null,
+            "margin": null,
+            "settled": true,
+            "pct": 0.29
           },
           {
             "msku": "LDL-MQZ-MTXQ-J",
@@ -5291,7 +5190,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 0.31
+            "pct": 0.29
           },
           {
             "msku": "LDL-QZTZDD",
@@ -5306,7 +5205,7 @@
             "profit": null,
             "margin": null,
             "settled": true,
-            "pct": 0.26
+            "pct": 0.24
           }
         ]
       },
